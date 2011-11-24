@@ -1,0 +1,43 @@
+User-agent: *
+Disallow: /ckeditor
+Disallow: /ckfinder
+Disallow: /viewslideshow
+Allow: /ipoteka$
+Disallow: /ipoteka
+Disallow: /blog/wp-admin
+Disallow: /blog/wp-includes
+Disallow: /blog/wp-content/plugins
+Disallow: /blog/wp-content/cache
+Disallow: /blog/wp-content/themes
+Disallow: /blog/trackback
+Disallow: /blog/feed
+Disallow: /blog/comments
+Disallow: /blog/category/*/*
+Disallow: /blog/*/trackback
+Disallow: /blog/*/feed
+Disallow: /blog/*/comments
+Disallow: /blog/*?*
+Disallow: /blog/*?
+Allow: /blog/wp-content/uploads
+Sitemap: http://lum-tenerife.ru/sitemap.xml
+Host: lum-tenerife.ru
+
+# Google Image
+User-agent: Googlebot-Image
+Disallow:
+
+# Yandex Image
+User-agent: YandexImages
+Disallow:
+
+# Yandex Media
+User-agent: YandexMedia
+Disallow:
+
+# Google AdSense
+User-agent: Mediapartners-Google*
+Disallow:
+
+# digg mirror
+User-agent: duggmirror
+Disallow: /
