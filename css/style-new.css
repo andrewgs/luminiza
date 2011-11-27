@@ -147,10 +147,10 @@ a { color: #0477a2; text-decoration: underline; }
 #testimonials a { font-size: 14px; margin-top: 10px; display: block; }
 
 /* Retail Page */
-.sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; padding: 15px 10px 15px 15px; width: 100%; }
+.sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; padding: 15px 10px 15px 15px; width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); }
 	.sidebar h2 { color: #4B4444; font-size: 16px; margin: 0 0 10px; text-decoration: none; }
 	.sidebar select { width: 190px; }
-	.sidebar p { font-size: 13px; line-height: 18px; }
+	.sidebar p { font-size: 13px; line-height: 19px; }
 	.sidebar strong { display: inline-block; margin: 8px 0 0; }
 
 .main_content { padding: 15px 0 0 30px; }
@@ -164,98 +164,47 @@ a { color: #0477a2; text-decoration: underline; }
 .miniature { margin: 50px 0 20px; }
 	.miniature img { width: 210px; }
 	
-.main_content ul.pages {
-	background:none repeat scroll 0 0 #F8F6ED;
-	border-bottom:1px solid #E2DDCD;
-	border-top:1px solid #E2DDCD;
-	margin:-5px 0 0;
-	overflow:hidden;
-	padding:6px 2%;
-	width:96%;
-}
+.main_content ul.pages { background:none repeat scroll 0 0 #F8F6ED; border-bottom:1px solid #E2DDCD; border-top:1px solid #E2DDCD; margin:-5px 0 0; overflow:hidden; padding:6px 2%; width:96%; }
+.main_content ul.top_pages { margin:24px 0; }
+.main_content ul li, .main_content dl dd { display:list-item; font-size:12px; line-height:1.3em; list-style:disc outside none; margin-bottom:6px; margin-left:32px; padding-left:4px; }
+.main_content ul.pages li { color:#6D5935; display:inline; float:left; margin:0 6px 0 0; padding:0; }
+.main_content ul.pages li.title { font-weight:bold; padding-top:3px; }
+.main_content ul.pages li a { display:block; padding:3px 4px; text-decoration:underline; }
+.main_content ul.pages li a.active, ul.pages li a.active:hover { border:0 none; color:#6D5935; display:block; padding:3px 4px; text-decoration:none; }
 
-.main_content ul.top_pages {
-	margin:24px 0;
-}
-
-.main_content ul li, .main_content dl dd {
-	display:list-item;
-	font-size:12px;
-	line-height:1.3em;
-	list-style:disc outside none;
-	margin-bottom:6px;
-	margin-left:32px;
-	padding-left:4px;
-}
-
-.main_content ul.pages li {
-	color:#6D5935;
-	display:inline;
-	float:left;
-	margin:0 6px 0 0;
-	padding:0;
-}
-
-.main_content ul.pages li.title {
-	font-weight:bold;
-	padding-top:3px;
-}
-
-.main_content ul.pages li a {
-	display:block;
-	padding:3px 4px;
-	text-decoration:underline;
-}
-
-.main_content ul.pages li a.active, ul.pages li a.active:hover {
-	border:0 none;
-	color:#6D5935;
-	display:block;
-	padding:3px 4px;
-	text-decoration:none;
-}
-
-.missions_row {
-	overflow: hidden;
-	width:100%;	
-	margin-bottom:26px;
-}
-
-.missions_row img {
-	border: 12px solid #E8E3D8;
-	display: inline;
-	float: left;
-	/*
-	margin: 5px 0 0;
-	margin: 5px 28px 24px 0;
-	*/
-	margin: 0;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;	
-}
-
-.missions_right_panel {
-	display: inline;
-	float: right;
-	width: 65%;
-}
-
-.missions_right_panel p {
-	margin: 8px 0 0;
-}
-
-.missions_right_panel .car_preferences {
-    float: left;
-	font-size: 12px;
-	line-height: 18px;
-	margin: 10px 50px 0 0;
-}
-.missions_right_panel .notmargin {
-	margin-top: 0;
-}
+.missions_row { overflow: hidden; width:100%; margin-bottom:26px; }
+.missions_row img { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 0; }
+.missions_right_panel { display: inline; float: right; width: 65%; }
+	.missions_right_panel p { margin: 8px 0 0; }
+	.missions_right_panel .car_preferences { float: left; font-size: 12px; line-height: 18px; margin: 10px 50px 0 0; }
+	.missions_right_panel .notmargin { margin-top: 0; }
+	.missions_right_panel h2 { font-size: 15px; margin-bottom: 0; }
 
 .ml10 { display: inline-block; font-size: 13px; margin: 0 10px 0 0; }
 /* \Retail Page */
+
+/* General styles for all pages from old css files */
+.main_image, .row_image { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 5px 20px 15px 0; }
+.row_image { margin: 0 5px 5px 0; }
+
+.side_nav { margin: 0 0 16px; padding: 0; width: 100%; }
+.side_nav li { font-size: 12px; margin: 2px 0; }
+
+.cars_row { float: left; margin: 0 5px 5px 0; }
+	.cars_row img { border: 8px solid #e0e0e0; display: inline; }
+	.cars_row p { margin: 0.75em 0 0; font-size: 13px; font-weight: bold; text-align: center; }
+
+a.info_link { display: block; margin: 0.25em 0 0.25em 0; font-size: 13px; font-weight: normal; background: #72923f; color:#fff; cursor:pointer; padding: 4px 8px 5px; text-shadow:0 1px 1px #000; border-radius: 0 0 5px 5px; }
+a.info_link:hover { background: #895935; }
+
+.sidebar ul { margin-bottom: 10px; }
+.sidebar li { font: 13px/21px trebuchet ms, serif; }
+/* \General styles*/
+
+.admin-change {	border-radius: 3px; background: #fafafa; border:1px dashed #777; color:#34332D; float:left; font: 12px/18px trebuchet ms, serif; margin:0 11px 15px 0; padding:3px 8px; text-align:center; }
+.admin-change a { font: 12px trebuchet MS,serif; letter-spacing: 0.7px; text-decoration: none; text-shadow: none; }
+.admin-change a:hover { color: #295e76; text-decoration: underline; }
+
 
 footer { background: #4b4444; color: #afafaf; margin-top: 70px; }
 footer h3 { color: #E4B211; font-size: 21px; margin: 35px 0 20px; }
