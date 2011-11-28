@@ -52,7 +52,7 @@
 						
 						<?php if($admin): ?>
 							<div class="admin-change">
-								<?php $link = 'rent/insert/commercial'; ?>
+								<?php $link = 'commercial/insert/rent'; ?>
 								<?=anchor($link,'Добавить недвижимость',array('class'=>'insertlink')); ?>
 							</div>
 						<?php endif; ?>

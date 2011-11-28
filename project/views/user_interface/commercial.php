@@ -161,15 +161,15 @@
 								<div class="missions_right_panel">
 							<?php
 								if(!empty($apartment[$i]['apnt_newprice'])):
-									echo '<h2><a href="'.$baseurl.'commercial/retail/extended/'.$apartment[$i]['apnt_id'].'">'.$apartment[$i]['apnt_title'].' (<strike>'.$apartment[$i]['apnt_newprice'].'</strike> '.$apartment[$i]['apnt_price'].' &euro;)</a></h2>';
+									echo '<h2><a href="'.$baseurl.'retail/commercial/extended/'.$apartment[$i]['apnt_id'].'">'.$apartment[$i]['apnt_title'].' (<strike>'.$apartment[$i]['apnt_newprice'].'</strike> '.$apartment[$i]['apnt_price'].' &euro;)</a></h2>';
 								else:
-									echo '<h2><a href="'.'commercial/retail/'.$apartment[$i]['apnt_id'].'">'.$apartment[$i]['apnt_title'].' ('.$apartment[$i]['apnt_price'].' &euro;)</a></h2>';
+									echo '<h2><a href="'.'retail/commercial/extended/'.$apartment[$i]['apnt_id'].'">'.$apartment[$i]['apnt_title'].' ('.$apartment[$i]['apnt_price'].' &euro;)</a></h2>';
 								endif;
 									echo '<div class="car_preferences notmargin">'.$apartment[$i]['apnt_extended'].'</div>';
 							?>
 									<br class="clear"/>
 									<p>
-										<?=anchor('commercial/retail/extended/'.$apartment[$i]['apnt_id'],'Подробнее &rarr;',array('class'=>'retail_link'));?>
+										<?=anchor('retail/commercial/extended/'.$apartment[$i]['apnt_id'],'Подробнее &rarr;',array('class'=>'retail_link'));?>
 									</p>
 									<br class="clear"/>
 								</div>

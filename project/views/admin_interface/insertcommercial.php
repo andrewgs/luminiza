@@ -30,8 +30,7 @@
 					echo form_error('location').'<div class="clear"></div>';
 					echo form_error('region').'<div class="clear"></div>';
 					echo form_error('count').'<div class="clear"></div>';
-					echo form_open_multipart('insertcommercialvalue',array('id'=>'insertform'));
-						echo form_hidden('backpath',$this->uri->segment(1).'/'.$this->uri->segment(3).'/');
+					echo form_open_multipart($this->uri->uri_string(),array('id'=>'insertform'));
 						echo '<div>'.form_label('Навание: ','textlabel');
 						$attr = array(
 							'name' 		=> 'title',

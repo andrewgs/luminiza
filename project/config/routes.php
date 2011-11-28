@@ -13,7 +13,7 @@ $route['retail/apartment/:num'] 		= "users_interface/retail_extended";
 
 $route['commercial']					= "users_interface/commercial";
 $route['commercial/:num']				= "users_interface/commercial";
-$route['commercial/retail/extended/:num']		= "users_interface/commercial_extended";
+$route['retail/commercial/extended/:num'] = "users_interface/commercial_extended";
 
 $route['rent/retail'] 					= "users_interface/rent";
 $route['rent/retail/:num'] 				= "users_interface/rent";
@@ -139,7 +139,7 @@ $route['retail/insert/apartment'] = "admin_interface/insertunit";
 $route['commercial/insert/retail'] = "admin_interface/insertcommercial";
 
 $route['rent/insert/apartment'] = "admin_interface/insertunit";
-$route['rent/insert/commercial'] = "admin_interface/insertcommercial";
+$route['commercial/insert/rent'] = "admin_interface/insertcommercial";
 $route['rent/insert/auto'] = "admin_interface/insertunit";
 $route['tour/insert'] = "admin_interface/inserttour";
 $route['insertvalue'] = "admin_interface/insertunitvalue";

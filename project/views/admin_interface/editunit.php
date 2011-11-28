@@ -23,10 +23,9 @@
 						echo '</div>';
 						echo '<div class="clear"></div>';
 					}
-					echo form_open('updateunit',array('id'=>'editunitform'));
+					echo form_open($this->uri->uri_string(),array('id'=>'editunitform'));
 						echo form_hidden('id',$pagevalue['id']);
 						echo form_hidden('auto',$pagevalue['auto']);
-						echo form_hidden('backpath',$this->uri->segment(4).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3));
 						echo '<div>'.form_label('Навание: ','textlabel');
 						$attr = array(
 							'name' 		=> 'title',
