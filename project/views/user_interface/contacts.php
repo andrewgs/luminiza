@@ -81,7 +81,7 @@
 							<?=form_error('your_name').'<div class="clear"></div>'; ?>
 							<label for="your_name">Ваше имя <em class="bright">*</em></label>
 							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_name" id="your_name" value="" name="your_name">
+								<input type="text" size="45" maxlength="50" class="y_name inpval" id="your_name" value="" name="your_name">
 							</div>
 							<div class="clear"></div>
 							<label for="your_phone">Телефон</label>
@@ -92,16 +92,16 @@
 							<?=form_error('email').'<div class="clear"></div>'; ?>
 							<label for="email">E-Mail <em class="bright">*</em></label>
 							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_email" id="email" value="" name="email">
+								<input type="text" size="45" maxlength="50" class="y_email inpval" id="email" value="" name="email">
 							</div>
 							<div class="clear"></div>
 							<?=form_error('textmail').'<div class="clear"></div>'; ?>
 							<label for="msg">Сообщение <em class="bright">*</em></label>
 							<div class="dd">
-								<textarea class="y_msg" id="msg" rows="5" cols="40" name="textmail"></textarea>
+								<textarea class="y_msg inpval" id="msg" rows="5" cols="40" name="textmail"></textarea>
 							</div>
 							<div class="clear"></div>
-							<input type="submit" border="0" class="senden" value="Отправить" name="Submit">
+							<input type="submit" border="0" id="send" class="senden" value="Отправить" name="Submit">
 						<?php form_close(); ?>							
 						<p>&nbsp;</p>						
 					</div>
@@ -111,16 +111,21 @@
 		</div>
   </div>
   <?php $this->load->view('user_interface/footer');?>
-	</div>
+</div>
 <?php $this->load->view('user_interface/scripts');?>
-	<script type="text/javascript">
-		function initialize(){var latlng = new google.maps.LatLng(28.0867700, -16.7352700);
-		  var myOptions = {zoom: 17,center: latlng,mapTypeId: google.maps.MapTypeId.HYBRID};
-		  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		  var marker = new google.maps.Marker({position: latlng,map: map,title:"Luminiza Property Tur S.L."});
-		  setInterval(function() {if (marker.getAnimation() != null) {marker.setAnimation(null);}else{marker.setAnimation(google.maps.Animation.BOUNCE);}},10000);}
-		function loadGoogleMapsAPI() {var script = document.createElement("script");script.type = "text/javascript";script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&language=ru&callback=initialize";document.body.appendChild(script);}
-	</script>
 <?php $this->load->view('user_interface/yandex');?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#send").click(function(event){
+			var err = false;
+			$(".inpval").css('border-color','#00ff00');
+			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
+			if(err){
+				$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});
+				event.preventDefault();
+			}
+		});
+	});
+</script>
 </body>
 </html>

@@ -71,7 +71,7 @@
 							<?=form_error('your_name').'<div class="clear"></div>'; ?>
 							<label for="your_name">Ваше имя <em class="bright">*</em></label>
 							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_name" id="your_name" value="" name="your_name">
+								<input type="text" size="45" maxlength="50" class="y_name inpval" id="your_name" value="" name="your_name">
 							</div>
 							<div class="clear"></div>
 							<label for="your_phone">Телефон</label>
@@ -82,22 +82,22 @@
 							<?=form_error('email').'<div class="clear"></div>'; ?>
 							<label for="email">E-Mail <em class="bright">*</em></label>
 							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_email" id="email" value="" name="email">
+								<input type="text" size="45" maxlength="50" class="y_email inpval" id="email" value="" name="email">
 							</div>
 							<div class="clear"></div>
 							<?=form_error('your_arrival_date').'<div class="clear"></div>'; ?>
 							<label for="your_arrival_date">Дата прилета <em class="bright">*</em></label>
 							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_arrival_date" id="your_arrival_date" value="" name="your_arrival_date">
+								<input type="text" size="45" maxlength="50" class="y_arrival_date inpval" id="your_arrival_date" value="" name="your_arrival_date">
 							</div>							
 							<div class="clear"></div>
 							<?=form_error('textmail').'<div class="clear"></div>'; ?>						
 							<label for="msg">Сообщение <em class="bright">*</em></label>
 							<div class="dd">
-								<textarea class="y_msg" id="msg" rows="5" cols="40" name="textmail"></textarea>
+								<textarea class="y_msg inpval" id="msg" rows="5" cols="40" name="textmail"></textarea>
 							</div>
 							<div class="clear"></div>
-							<button type="submit" border="0" class="senden" value="" name="Submit">Заказать</button>					
+							<button type="submit" border="0" id="send" class="senden" value="" name="Submit">Заказать</button>
 					<?php	form_close(); ?>						
 						<p>&nbsp;</p>
 					</div>					
@@ -110,5 +110,18 @@
 	</div>
 <?php $this->load->view('user_interface/scripts');?>
 <?php $this->load->view('user_interface/yandex');?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#send").click(function(event){
+			var err = false;
+			$(".inpval").css('border-color','#00ff00');
+			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
+			if(err){
+				$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});
+				event.preventDefault();
+			}
+		});
+	});
+</script>
 </body>
 </html>
