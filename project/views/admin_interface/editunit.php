@@ -26,7 +26,7 @@
 					echo form_open('updateunit',array('id'=>'editunitform'));
 						echo form_hidden('id',$pagevalue['id']);
 						echo form_hidden('auto',$pagevalue['auto']);
-						echo form_hidden('backpath',$pagevalue['backpath']);
+						echo form_hidden('backpath',$this->uri->segment(4).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3));
 						echo '<div>'.form_label('Навание: ','textlabel');
 						$attr = array(
 							'name' 		=> 'title',
@@ -121,9 +121,16 @@
 							    'maxlength'	=> '10',
 							    'size' 		=> '5'
 							);
-							echo form_input($attr).'</div>';
-							echo '<hr>';
-							$value = array(FALSE,FALSE,FALSE);
+							echo form_input($attr).'</div>';?>
+							<hr>
+							<label class="label-input">Дополнительные пареметры:</label>
+							<div class="">
+				<input type="checkbox" name="sold" title="Продано" value="1" <?=($unitinfo['sold'])?'checked=""':"";?> />Продано<br/>
+				<input type="checkbox" name="recommended" title="Рекомендуемое предложение" value="1" <?=($unitinfo['recommended'])?'checked=""':"";?> />Рекомендуемое предложение<br/>
+				<input type="checkbox" name="special" title="Специальное предложение" value="1" <?=($unitinfo['special'])?'checked=""':"";?> />Специальное предложение<br/>
+							</div>
+							<hr>
+							<?php $value = array(FALSE,FALSE,FALSE);
 							$value[$unitinfo['flag']] = TRUE;
 							echo form_label('Раздел: ','textlabel');
 							$attr = array(

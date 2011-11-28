@@ -357,7 +357,7 @@ class Users_interface extends CI_Controller{
 		$sortby = $this->session->userdata('sortby');			
 		$apartment = $this->apartmentmodel->get_limit_commercial(4,$from,5,$sortby);
 		for($i = 0; $i < count($apartment); $i++):		
-			if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 650):									
+			if(mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 650):									
 				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,650,'UTF-8');	
 				$pos = mb_strrpos($apartment[$i]['apnt_extended'],'.',0,'UTF-8');
 				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,$pos,'UTF-8');
@@ -503,7 +503,7 @@ class Users_interface extends CI_Controller{
 			'images'		=> array(),
 			'text'			=> ''
 		);
-		$apart_id = $this->uri->segment(3);
+		$apart_id = $this->uri->segment(4);
 		$retail = array();$images = array();
 		$status = $this->session->userdata('status');
 		$this->session->set_userdata('calc',TRUE);

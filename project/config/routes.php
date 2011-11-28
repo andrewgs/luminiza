@@ -13,7 +13,7 @@ $route['retail/apartment/:num'] 		= "users_interface/retail_extended";
 
 $route['commercial']					= "users_interface/commercial";
 $route['commercial/:num']				= "users_interface/commercial";
-$route['commercial/retail/:num']		= "users_interface/commercial_extended";
+$route['commercial/retail/extended/:num']		= "users_interface/commercial_extended";
 
 $route['rent/retail'] 					= "users_interface/rent";
 $route['rent/retail/:num'] 				= "users_interface/rent";

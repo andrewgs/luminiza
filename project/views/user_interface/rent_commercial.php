@@ -65,9 +65,8 @@
 									src="'.$baseurl.'viewimage/'.$commercial[$i]['img_id'].'">';
 						?>
 							<div class="missions_right_panel">
-						<?='<h4>'.$commercial[$i]['apnt_title'].'</h4>
-									<div class="car_preferences">'.$commercial[$i]['apnt_extended'].'</div>'
-						?>
+							<?='<h2><a href="'.$baseurl.'rent/commercial/extended/'.$commercial[$i]['apnt_id'].'">'.$commercial[$i]['apnt_title'].'</a></h2>';
+								echo '<div class="car_preferences notmargin">'.$commercial[$i]['apnt_extended'].'</div>';?>
 								<br class="clear"/>
 								<p> <a <?='href="'.$baseurl.'rent/commercial/extended/'.$commercial[$i]['apnt_id'].'"'; ?> class="retail_link">Подробнее &rarr;</a> </p>
 							</div>

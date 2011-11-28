@@ -14,6 +14,9 @@ class Apartmentmodel extends CI_Model{
 	var $apnt_flag = 0;
 	var $apnt_properties = '';
 	var $apnt_date = '';
+	var $apnt_sold = 0;
+	var $apnt_recommended = 0;
+	var $apnt_special = 0;
 	
 	function __construct(){
     
@@ -62,7 +65,7 @@ class Apartmentmodel extends CI_Model{
 	
 	function get_limit_records($count,$from,$flag,$sortby){
 		//flag = [0]- продажа,[1] - аренда,[2] - продажа/аренда
-		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date');
+		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
 		$this->db->limit($count,$from);
 		if ($flag == 2)
 			$this->db->where('apnt_flag',0);
@@ -84,7 +87,7 @@ class Apartmentmodel extends CI_Model{
 	
 	function get_limit_commercial($count,$from,$flag,$sortby){
 		//flag = [3]- продажа,[4] - аренда,[5] - продажа/аренда
-		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice, apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date');
+		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice, apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
 		$this->db->limit($count,$from);
 		if ($flag == 5)
 			$this->db->where('apnt_flag',3);
@@ -143,7 +146,10 @@ class Apartmentmodel extends CI_Model{
 		$this->apnt_count = $data['count'];
 		$this->apnt_flag = $data['flag'];
 		$this->apnt_properties = $data['properties'];
-		
+		$this->apnt_sold = $data['sold'];
+		$this->apnt_recommended = $data['recommended'];
+		$this->apnt_special = $data['special'];
+
 		$pattern = "/(\d+)\/(\w+)\/(\d+)/i";
 		$replacement = "\$3-\$2-\$1";
 		$this->apnt_date = preg_replace($pattern, $replacement, $_POST['date']);
@@ -166,6 +172,9 @@ class Apartmentmodel extends CI_Model{
 		$this->apnt_count = $data['count'];
 		$this->apnt_flag = $data['flag'];
 		$this->apnt_properties = $data['properties'];
+		$this->apnt_sold = $data['sold'];
+		$this->apnt_recommended = $data['recommended'];
+		$this->apnt_special = $data['special'];
 		
 		$pattern = "/(\d+)\/(\w+)\/(\d+)/i";
 		$replacement = "\$3-\$2-\$1";

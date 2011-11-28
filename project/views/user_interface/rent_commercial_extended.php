@@ -16,6 +16,11 @@
 					<a class="crossing" href="<?=$baseurl.$searchback;?>">&larr; Вернуться к поиску</a>
 					<div class="clear"></div>
 				<?php endif; ?>
+					<ul>
+						<li><?=anchor('rent/retail','Жилая недвижимость');?></li>
+						<li><?=anchor('rent/commercial','Коммерческая недвижимость');?></li>
+						<li><?=anchor('rent/auto','Аренда автомобилей');?></li>
+					</ul>
 					<h3>Информация</h3>
 					<?=$text['sidebar']['sbt_extended'] ?>
 					<div class="miniature">

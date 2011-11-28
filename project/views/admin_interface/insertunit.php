@@ -33,10 +33,10 @@
 						echo form_error('count').'<div class="clear"></div>';
 					};	
 
-					echo form_open('insertvalue',array('id'=>'insertform'));
+					echo form_open_multipart('insertvalue',array('id'=>'insertform'));
 						echo form_hidden('auto',$pagevalue['auto']);
 						echo form_hidden('type',$pagevalue['unit']);
-						echo form_hidden('backpath',$pagevalue['backpath']);
+						echo form_hidden('backpath',$this->uri->segment(1).'/'.$this->uri->segment(3).'/');
 						echo '<div>'.form_label('Навание: ','textlabel');
 						$attr = array(
 							'name' 		=> 'title',
@@ -132,9 +132,20 @@
 								'maxlength'	=> '10',
 								'size' 		=> '5'
 							);
-							echo form_input($attr).'</div>';
-							echo '<hr>';
-							$status = array(FALSE,FALSE,FALSE);
+							echo form_input($attr).'</div>';?>
+							<hr>
+							<label class="label-input">Фото: </label>
+							<input class="textfield" type="file" name="userfile" accept="image/jpeg,png,gif" size="30"/> 
+							<div class="">Поддерживаемые форматы: JPG, GIF, PNG</div>
+							<hr>
+							<label class="label-input">Дополнительные пареметры:</label>
+							<div class="">
+				<input type="checkbox" name="sold" title="Продано" value="1" <?=set_checkbox('sold','1'); ?> />Продано<br/>
+				<input type="checkbox" name="recommended" title="Рекомендуемое предложение" value="1" <?=set_checkbox('recommended','1'); ?> />Рекомендуемое предложение<br/>
+				<input type="checkbox" name="special" title="Специальное предложение" value="1" <?=set_checkbox('special','1'); ?> />Специальное предложение<br/>
+							</div>
+							<hr>
+							<?php $status = array(FALSE,FALSE,FALSE);
 							if(empty($status[0])&&empty($status[1])&&empty($status[2]))
 								if($pagevalue['backpath'] == 'retail'):
 									$status[0] = TRUE;

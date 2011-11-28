@@ -184,7 +184,7 @@ class Admin_interface extends CI_Controller{
 	function uploadimage(){
 			
 		if(!isset($_POST['btsabmit']))
-			redirect('page404');
+			show_404();
 		
 		if(!$_POST['imagetitle']){
 				
@@ -194,7 +194,6 @@ class Admin_interface extends CI_Controller{
 			redirect($_POST['fulluri']);
 		}
 		if ($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0){
-			
 			if(empty($_POST['imageheight']) or empty($_POST['imagewight'])):
 				$wigimg = 200;
 				$higimg = 170;
@@ -228,9 +227,6 @@ class Admin_interface extends CI_Controller{
 			$_POST['images'] 	= $img['images']['image'];
 			$_POST['type'] 		= $_POST['imgtype'];
 			$_POST['file'] 		= $_FILES['userfile']['name'];
-			/*header('Content-Type: image/jpeg' );
-			echo $_POST['bigimages'];
-			exit();*/
 	      	$this->imagesmodel->insert_record($_POST);
 			$this->session->set_flashdata('operation_error',' ');
 			$this->session->set_flashdata('operation_message','Имя загруженого файла - '.$_POST['file']);
@@ -372,7 +368,7 @@ class Admin_interface extends CI_Controller{
 									$pagevalue['id'] = 19; //продажи текст
 								endif;
 								break;
-			default : 		redirect('page404');
+			default : 		show_404();
 							break;
 		}
 		
@@ -395,7 +391,7 @@ class Admin_interface extends CI_Controller{
 				$msg = $this->setmessage('','','Редактирование текста',1);
 			endif;
 		}
-		if(!count($text)) redirect('page404');
+		if(!count($text)) show_404();
 		$this->load->view('admin_interface/edittext',array('pagevalue'=>$pagevalue,'text'=>$text,'msg'=>$msg));
 	}			//функция выводит редактируемый текст;
 	
@@ -411,14 +407,13 @@ class Admin_interface extends CI_Controller{
 			endif;
 			redirect($_POST['backpath']);
 		else:
-			redirect('page404');
+			show_404();
 		endif;
 	}		//функция обновляет текст;
 
 	function updateunit(){
 	
 		if(isset($_POST['btsabmit'])):
-		
 			if(!$_POST['auto']):				
 				if($_POST['flag'] == 0)	$_POST['pricerent'] = '';
 				if(!empty($_POST['newprice'])):
@@ -431,13 +426,16 @@ class Admin_interface extends CI_Controller{
 					$_POST['newprice'] = '';
 				endif;
 				$_POST['properties'] = '';
+				if(!isset($_POST['sold'])) $_POST['sold'] = 0;
+				if(!isset($_POST['recommended'])) $_POST['recommended'] = 0;
+				if(!isset($_POST['special'])) $_POST['special'] = 0;
 				$this->apartmentmodel->update_record($_POST);
 			else:
 				$this->rentautomodel->update_record($_POST);
 			endif;
 			redirect($_POST['backpath']);
 		else:
-			redirect('page404');
+			show_404();
 		endif;
 	}		//функция вобновляет информацию об объекте;
 	
@@ -482,6 +480,9 @@ class Admin_interface extends CI_Controller{
 								$unitinfo['pricerent'] 	= $query['apnt_price_rent'];
 								$unitinfo['properties'] = $query['apnt_properties'];
 								$unitinfo['date'] 		= $this->operation_date_slash($query['apnt_date']);
+								$unitinfo['sold'] 		= $query['apnt_sold'];
+								$unitinfo['recommended']= $query['apnt_recommended'];
+								$unitinfo['special'] 	= $query['apnt_special'];
 								break;
 			case 'rent': 		if($name_object == 'auto'){
 									$query = $this->rentautomodel->get_record($id_object);
@@ -494,6 +495,9 @@ class Admin_interface extends CI_Controller{
 									$unitinfo['region'] 	= null;
 									$unitinfo['flag'] 		= null;
 									$unitinfo['count'] 		= null;
+									$unitinfo['sold'] 		= null;
+									$unitinfo['recommended']= null;
+									$unitinfo['special'] 	= null;
 									$unitinfo['pricerent'] 	= $query['rnta_price'];
 									$unitinfo['properties'] = $query['rnta_properties'];
 								}elseif($name_object == 'apartment'){
@@ -516,13 +520,16 @@ class Admin_interface extends CI_Controller{
 									$unitinfo['pricerent'] 	= $query['apnt_price_rent'];
 									$unitinfo['properties'] = $query['apnt_properties'];
 									$unitinfo['date'] 		= $this->operation_date_slash($query['apnt_date']);
+									$unitinfo['sold'] 		= $query['apnt_sold'];
+									$unitinfo['recommended']= $query['apnt_recommended'];
+									$unitinfo['special'] 	= $query['apnt_special'];
 								}else
-									redirect('page404');
+									show_404();
 								break;
-			default : 			redirect('page404');
+			default : 			show_404();
 								break;
 		}
-		if(!count($unitinfo)) redirect('page404');
+		if(!count($unitinfo)) show_404();
 		$msg = $this->setmessage('','','Редактирование информации "'.$unitinfo['title'].'" ',1);
 		$this->load->view('admin_interface/editunit',array('pagevalue'=>$pagevalue,'unitinfo'=>$unitinfo,'msg'=>$msg));
 	}			//функция выводит информацию об объекте для редактирования;
@@ -603,38 +610,50 @@ class Admin_interface extends CI_Controller{
 				$this->form_validation->set_rules('region','"Район"','required|trim');
 				$this->form_validation->set_rules('count','"Количество комнат"','required|numeric|trim');
 				$this->form_validation->set_rules('flag','"Тип"','required|trim');
+				$this->form_validation->set_rules('sold',' ','');
+				$this->form_validation->set_rules('recommended',' ','');
+				$this->form_validation->set_rules('special',' ','');
 			endif;
 			$this->form_validation->set_rules('pricerent','"Цена за аренду"','');
 			$this->form_validation->set_rules('properties','"Свойства"','');
-			
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
-			
 			if (!$this->form_validation->run()):
 				$this->insertunit($_POST['backpath'],$_POST['type']);
 				return FALSE;
 			endif;
-			
 			switch($_POST['type']){
-			
 				case 'apartment' 	:	$_POST['properties'] = '';
 										if(!empty($_POST['newprice'])):
 											$price = $_POST['price'];
 											$_POST['price'] = $_POST['newprice'];
 											$_POST['newprice'] = $price;
 										endif;
-										$this->apartmentmodel->insert_record($_POST);
+										if(!isset($_POST['sold'])) $_POST['sold'] = 0;
+										if(!isset($_POST['recommended'])) $_POST['recommended'] = 0;
+										if(!isset($_POST['special'])) $_POST['special'] = 0;
+										$ret_id = $this->apartmentmodel->insert_record($_POST);
+										if($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0):
+											$img['bigimages'] 	= $this->resize_slide_img($_FILES,752,336,FALSE);
+											$img['images'] 		= $this->resize_img($_FILES,200,170,FALSE);
+											$_POST['bigimages'] = $img['bigimages']['image'];
+											$_POST['images'] 	= $img['images']['image'];
+											$_POST['imagetitle']= $_POST['title'];
+											$_POST['file'] 		= $_FILES['userfile']['name'];
+											$_POST['object']	= $ret_id;
+									      	$this->imagesmodel->insert_record($_POST);
+										endif;
 									 	break;
-				case 'auto' 		:	$this->rentautomodel->insert_record($_POST);
+				case 'auto' 		:	$ret_id = $this->rentautomodel->insert_record($_POST);
 									 	break;
 				
 				default				: 	show_404();
 										break;	
 			}
-			redirect($_POST['backpath']);
+			redirect($_POST['backpath'].$ret_id);
 		else:
 			show_404();
 		endif;
-	}			//функция вставляет новый объект;
+	}
 	
 	function inserttourvalue(){
 		
@@ -713,7 +732,7 @@ class Admin_interface extends CI_Controller{
 				);
 				
 		$tourinfo = $this->tourlistmodel->get_record($tour_id);
-		if(!count($tourinfo)) redirect('page404');
+		if(!count($tourinfo)) show_404();
 		
 		$msg = $this->setmessage('','','Редактирование информации "'.$tourinfo['tour_title'].'" ',1);
 		$this->load->view('admin_interface/edittour',array('pagevalue'=>$pagevalue,'tourinfo'=>$tourinfo,'msg'=>$msg));
@@ -726,7 +745,7 @@ class Admin_interface extends CI_Controller{
 			$this->tourlistmodel->update_record($_POST);
 			redirect($_POST['backpath']);
 		}else
-			redirect('page404');
+			show_404();
 	}					//функция обновляет информацию об экскурсии;
 
 	function photomanipulation(){
@@ -1047,7 +1066,6 @@ class Admin_interface extends CI_Controller{
 	function insertcommercialvalue(){
 		
 		if(isset($_POST['btsabmit'])):
-			
 			$this->form_validation->set_rules('title','"Навание"','required|trim');
 			$this->form_validation->set_rules('extended','"Раcширенная информация"','required|trim');
 			$this->form_validation->set_rules('price','"Цена без скидки"','required|numeric|trim');
@@ -1059,19 +1077,35 @@ class Admin_interface extends CI_Controller{
 			$this->form_validation->set_rules('flag','"Тип"','required|trim');
 			$this->form_validation->set_rules('pricerent','"Цена за аренду"','');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			$this->form_validation->set_rules('sold',' ','');
+			$this->form_validation->set_rules('recommended',' ','');
+			$this->form_validation->set_rules('special',' ','');
 			if (!$this->form_validation->run()):
 				$this->insertcommercial();
 				return FALSE;
 			endif;
-			
 			$_POST['properties'] = '';
 			if(!empty($_POST['newprice'])):
 				$price = $_POST['price'];
 				$_POST['price'] = $_POST['newprice'];
 				$_POST['newprice'] = $price;
 			endif;
-			$this->apartmentmodel->insert_record($_POST);
-			redirect($_POST['backpath']);
+			if(!isset($_POST['sold'])) $_POST['sold'] = 0;
+			if(!isset($_POST['recommended'])) $_POST['recommended'] = 0;
+			if(!isset($_POST['special'])) $_POST['special'] = 0;
+			$ret_id = $this->apartmentmodel->insert_record($_POST);
+			if ($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0):
+				$img['bigimages'] 	= $this->resize_slide_img($_FILES,752,336,FALSE);
+				$img['images'] 		= $this->resize_img($_FILES,200,170,FALSE);
+				$_POST['bigimages'] = $img['bigimages']['image'];
+				$_POST['images'] 	= $img['images']['image'];
+				$_POST['imagetitle']= $_POST['title'];
+				$_POST['file'] 		= $_FILES['userfile']['name'];
+				$_POST['type']		= 'commercial';
+				$_POST['object']	= $ret_id;
+		      	$this->imagesmodel->insert_record($_POST);
+			endif;
+			redirect($_POST['backpath'].'extended/'.$ret_id);
 		else:
 			show_404();
 		endif;
@@ -1115,6 +1149,9 @@ class Admin_interface extends CI_Controller{
 								$unitinfo['pricerent'] 	= $query['apnt_price_rent'];
 								$unitinfo['properties'] = $query['apnt_properties'];
 								$unitinfo['date'] 		= $this->operation_date_slash($query['apnt_date']);
+								$unitinfo['sold'] 		= $query['apnt_sold'];
+								$unitinfo['recommended']= $query['apnt_recommended'];
+								$unitinfo['special'] 	= $query['apnt_special'];
 								break;
 			case 'rent': 		$query = $this->apartmentmodel->get_record($id_object);
 								$pagevalue['auto'] = FALSE;
@@ -1134,11 +1171,14 @@ class Admin_interface extends CI_Controller{
 								$unitinfo['pricerent'] 	= $query['apnt_price_rent'];
 								$unitinfo['properties'] = $query['apnt_properties'];
 								$unitinfo['date'] 		= $this->operation_date_slash($query['apnt_date']);
+								$unitinfo['sold'] 		= $query['apnt_sold'];
+								$unitinfo['recommended']= $query['apnt_recommended'];
+								$unitinfo['special'] 	= $query['apnt_special'];
 								break;
-			default : 			redirect('page404');
+			default : 			show_404();
 								break;
 		}
-		if(!count($unitinfo)) redirect('page404');
+		if(!count($unitinfo)) show_404();
 		$msg = $this->setmessage('','','Редактирование информации "'.$unitinfo['title'].'" ',1);
 		$this->load->view('admin_interface/editcommercial',array('pagevalue'=>$pagevalue,'unitinfo'=>$unitinfo,'msg'=>$msg));
 	}
@@ -1157,10 +1197,13 @@ class Admin_interface extends CI_Controller{
 				$_POST['newprice'] = '';
 			endif;
 			$_POST['properties'] = '';
+			if(!isset($_POST['sold'])) $_POST['sold'] = 0;
+			if(!isset($_POST['recommended'])) $_POST['recommended'] = 0;
+			if(!isset($_POST['special'])) $_POST['special'] = 0;
 			$this->apartmentmodel->update_record($_POST);
 			redirect($_POST['backpath']);
 		else:
-			redirect('page404');
+			show_404();
 		endif;
 	}
 

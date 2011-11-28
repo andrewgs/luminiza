@@ -41,6 +41,7 @@ class Rentautomodel extends CI_Model{
 		$this->rnta_price = $data['pricerent'];
 		
 		$this->db->insert('rentauto', $this);
+		return $this->db->insert_id();
 	}
 	
 	function update_record($data){
