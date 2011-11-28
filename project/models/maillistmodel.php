@@ -8,9 +8,9 @@ class Maillistmodel extends CI_Model{
 	var $ml_date_mail = '';
 	
 	function __construct(){
-        
+    
 		parent::__construct();
-    }
+  }
 	
 	function get_records(){
 		$this->db->order_by('ml_id desc');
@@ -34,7 +34,7 @@ class Maillistmodel extends CI_Model{
 	
 	function insert_record($data){
 	 
-		$this->ml_name =  $data['name'];
+		$this->ml_name = $data['name'];
 		$this->ml_extended = $data['extended'];
 		$this->ml_email = $data['email'];
 		$this->ml_date_mail = $data['date'];
@@ -45,7 +45,7 @@ class Maillistmodel extends CI_Model{
 	function update_record($data){
 		
 		$this->ml_id = $data['id'];
-		$this->ml_name =  $data['name'];
+		$this->ml_name = $data['name'];
 		$this->ml_extended = $data['extended'];
 		$this->ml_email = $data['email'];
 		$this->ml_date_mail = $data['date'];

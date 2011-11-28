@@ -1,12 +1,12 @@
 <!doctype html>
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if IE 7 ]>  <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>  <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <?php $this->load->view('user_interface/head');?>
 <body>
 	<div id="container">
-  	<?php $this->load->view('user_interface/header');?>
+ 	<?php $this->load->view('user_interface/header');?>
 	<?php $this->load->view('user_interface/navigation');?>
 		<div id="content_box">
 			<div class="content container_12">
@@ -74,11 +74,11 @@
 												<?php
 													for($i = 1;$i <= count($selectvalue['count']); $i++){
 														$attr = array(
-												              'name'   => 'rooms_'.($i-1),
-												              'class'  => 'rooms',
-												              'value'  => $selectvalue['count'][$i-1]['apnt_count'],
-												              'checked'=> FALSE,
-	           												);
+												       'name'  => 'rooms_'.($i-1),
+												       'class' => 'rooms',
+												       'value' => $selectvalue['count'][$i-1]['apnt_count'],
+												       'checked'=> FALSE,
+	      												);
 														if($i % 2 == 0){
 															echo '<td>';
 															echo form_checkbox($attr).
@@ -154,24 +154,19 @@
 					<?php endif; ?>
 					<?php for($i=0;$i<count($apartment);$i++): ?>		
 							<div class="missions_row">
-							<?php
-								if(isset($apartment[$i]['img_id']))
-									echo '<img alt="'.$apartment[$i]['img_title'].'"
-										title="'.$apartment[$i]['img_title'].'"
-										src="'.$baseurl.'viewimage/'.$apartment[$i]['img_id'].'">';
-							?>
+							<?php if(isset($apartment[$i]['img_id'])):?>
+								<img alt="<?=$apartment[$i]['img_title'];?>" title="<?=$apartment[$i]['img_title'];?>" src="<?=$baseurl;?>viewimage/<?=$apartment[$i]['img_id'];?>">
+							<?php endif;?>
 								<div class="missions_right_panel">
-							<?php
-								if(!empty($apartment[$i]['apnt_newprice'])):
-									echo '<h2><a href="'.'retail/apartment/'.$apartment[$i]['apnt_id'].'">'.$apartment[$i]['apnt_title'].' (<strike>'.$apartment[$i]['apnt_newprice'].'</strike> '.$apartment[$i]['apnt_price'].' &euro;)</a></h2>';
-								else:
-									echo '<h2><a href="'.'retail/apartment/'.$apartment[$i]['apnt_id'].'">'.$apartment[$i]['apnt_title'].' ('.$apartment[$i]['apnt_price'].' &euro;)</a></h2>';
-								endif;
-									echo '<div class="car_preferences notmargin">'.$apartment[$i]['apnt_extended'].'</div>';
-							?>
+							<?php if(!empty($apartment[$i]['apnt_newprice'])):?>
+									<h2><a href="<?=$baseurl;?>retail/apartment/<?=$apartment[$i]['apnt_id'];?>"><?=$apartment[$i]['apnt_title'];?> (<strike><?=$apartment[$i]['apnt_newprice'];?></strike> <?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
+							<?php else:?>
+									<h2><a href="<?=$baseurl;?>retail/apartment/<?=$apartment[$i]['apnt_id'];?>"><?=$apartment[$i]['apnt_title'];?> (<?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
+							<?php endif;?>
+									<div class="car_preferences notmargin"><?=$apartment[$i]['apnt_extended'];?></div>
 									<br class="clear"/>
 									<p>
-									<?= anchor('retail/apartment/'.$apartment[$i]['apnt_id'],'Подробнее &rarr;',array('class'=>'retail_link'));?>
+									<?=anchor('retail/apartment/'.$apartment[$i]['apnt_id'],'Подробнее &rarr;',array('class'=>'retail_link'));?>
 									</p>
 									<br class="clear"/>
 								</div>
@@ -179,15 +174,15 @@
 							<?php if($admin): ?>
 								<div class="admin-change">
 									<?php $link = 'edit/apartment/'.$apartment[$i]['apnt_id'].'/retail'; ?>
-									<?php echo anchor($link,'Редактировать',array('class'=>'editlink')); ?>
+									<?=anchor($link,'Редактировать',array('class'=>'editlink')); ?>
 								</div>
 								<div class="admin-change">
 									<?php $link = 'retail/photo/manage/list/'.$apartment[$i]['apnt_id']; ?>
-									<?php echo anchor($link,'Доб./Удал. рисунки',array('class'=>'imagelink')); ?>
+									<?=anchor($link,'Доб./Удал. рисунки',array('class'=>'imagelink')); ?>
 								</div>
 								<div class="admin-change">
 									<?php $link = 'retail/apartment/delete/'.$apartment[$i]['apnt_id']; ?>
-									<?php echo anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
+									<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
 								</div>
 							<?php endif; ?>
 					<?php endfor; ?>
@@ -202,13 +197,13 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-	    </div>
-    <?php $this->load->view('user_interface/footer');?>
+	  </div>
+  <?php $this->load->view('user_interface/footer');?>
 	</div>
 <?php $this->load->view('user_interface/scripts');?>
 	<script type="text/javascript"> 
 		$(document).ready(function(){
-			$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:'  '}});
+			$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 			$('a.action-sort').click(function(){$("#sort-price")[0].submit();});
 		});
 	</script>	

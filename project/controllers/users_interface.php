@@ -29,11 +29,11 @@ class Users_interface extends CI_Controller{
 					'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
 					'author' => 'RealityGroup',
 					'title' => 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
-					'baseurl' => base_url(),
-					'admin' => $this->admin['status'],
-					'text' => '',
-					'slideshow' => array(),
-					'apartment' => array()
+					'baseurl' 		=> base_url(),
+					'admin' 		=> $this->admin['status'],
+					'text' 			=> '',
+					'slideshow' 	=> array(),
+					'apartment' 	=> array()
 			);
 		$this->session->set_userdata('backpage','');
 		$this->session->unset_userdata('query');
@@ -1203,7 +1203,7 @@ class Users_interface extends CI_Controller{
 	
 	function mailsending(){
 		
-		if(!isset($_POST['Submit'])) redirect('error404');
+		if(!isset($_POST['Submit'])) show_404();
 		$object = $_POST['object'];
 		
 		$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');

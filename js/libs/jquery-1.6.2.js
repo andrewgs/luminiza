@@ -966,7 +966,7 @@ jQuery.extend({
 			// flag to know if the deferred has been cancelled
 			cancelled,
 			// the deferred itself
-			deferred  = {
+			deferred = {
 
 				// done( f1, f2, ...)
 				done: function() {
@@ -1171,7 +1171,7 @@ jQuery.support = (function() {
 
 	// Preliminary tests
 	div.setAttribute("className", "t");
-	div.innerHTML = "   <link/><table></table><a href='/a' style='top:1px;float:left;opacity:.55;'>a</a><input type='checkbox'/>";
+	div.innerHTML = "  <link/><table></table><a href='/a' style='top:1px;float:left;opacity:.55;'>a</a><input type='checkbox'/>";
 
 	all = div.getElementsByTagName( "*" );
 	a = div.getElementsByTagName( "a" )[ 0 ];
@@ -1630,7 +1630,7 @@ jQuery.fn.extend({
 				data = jQuery.data( this[0] );
 
 				if ( this[0].nodeType === 1 ) {
-			    var attr = this[0].attributes, name;
+			  var attr = this[0].attributes, name;
 					for ( var i = 0, l = attr.length; i < l; i++ ) {
 						name = attr[i].name;
 
@@ -3020,7 +3020,7 @@ jQuery.event = {
 				body = eventDocument.body;
 
 			event.pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
-			event.pageY = event.clientY + (doc && doc.scrollTop  || body && body.scrollTop  || 0) - (doc && doc.clientTop  || body && body.clientTop  || 0);
+			event.pageY = event.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
 		}
 
 		// Add which for key events
@@ -3577,7 +3577,7 @@ jQuery.each(["live", "die"], function( i, name ) {
 			match = rnamespaces.exec( type );
 			namespaces = "";
 
-			if ( match )  {
+			if ( match ) {
 				namespaces = match[0];
 				type = type.replace( rnamespaces, "" );
 			}
@@ -3731,9 +3731,9 @@ jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblcl
 
 /*!
  * Sizzle CSS Selector Engine
- *  Copyright 2011, The Dojo Foundation
- *  Released under the MIT, BSD, and GPL Licenses.
- *  More information: http://sizzlejs.com/
+ * Copyright 2011, The Dojo Foundation
+ * Released under the MIT, BSD, and GPL Licenses.
+ * More information: http://sizzlejs.com/
  */
 (function(){
 
@@ -3748,7 +3748,7 @@ var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[
 // Here we check if the JavaScript engine is using some sort of
 // optimization where it does not always call our comparision
 // function. If that is the case, discard the hasDuplicate value.
-//   Thus far that includes Google Chrome.
+//  Thus far that includes Google Chrome.
 [0, 0].sort(function() {
 	baseHasDuplicate = false;
 	return 0;
@@ -5924,14 +5924,14 @@ function cloneFixAttributes( src, dest ) {
 jQuery.buildFragment = function( args, nodes, scripts ) {
 	var fragment, cacheable, cacheresults, doc;
 
-  // nodes may contain either an explicit document object,
-  // a jQuery collection or context object.
-  // If nodes[0] contains a valid object to assign to doc
-  if ( nodes && nodes[0] ) {
-    doc = nodes[0].ownerDocument || nodes[0];
-  }
+ // nodes may contain either an explicit document object,
+ // a jQuery collection or context object.
+ // If nodes[0] contains a valid object to assign to doc
+ if ( nodes && nodes[0] ) {
+  doc = nodes[0].ownerDocument || nodes[0];
+ }
 
-  // Ensure that an attr object doesn't incorrectly stand in as a document object
+ // Ensure that an attr object doesn't incorrectly stand in as a document object
 	// Chrome and Firefox seem to allow this to occur and will throw exception
 	// Fixes #8950
 	if ( !doc.createDocumentFragment ) {
@@ -6643,8 +6643,8 @@ var r20 = /%20/g,
 	/* Prefilters
 	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
 	 * 2) These are called:
-	 *    - BEFORE asking for a transport
-	 *    - AFTER param serialization (s.data is a string if s.processData is true)
+	 *  - BEFORE asking for a transport
+	 *  - AFTER param serialization (s.data is a string if s.processData is true)
 	 * 3) key is the dataType
 	 * 4) the catchall symbol "*" can be used
 	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
@@ -7747,7 +7747,7 @@ jQuery.ajaxTransport( "script", function(s) {
 						}
 					}
 				};
-				// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+				// Use insertBefore instead of appendChild to circumvent an IE6 bug.
 				// This arises when a base node is used (#2709 and #4378).
 				head.insertBefore( script, head.firstChild );
 			},
@@ -8636,11 +8636,11 @@ if ( "getBoundingClientRect" in document.documentElement ) {
 
 		var body = doc.body,
 			win = getWindow(doc),
-			clientTop  = docElem.clientTop  || body.clientTop  || 0,
+			clientTop = docElem.clientTop || body.clientTop || 0,
 			clientLeft = docElem.clientLeft || body.clientLeft || 0,
-			scrollTop  = win.pageYOffset || jQuery.support.boxModel && docElem.scrollTop  || body.scrollTop,
+			scrollTop = win.pageYOffset || jQuery.support.boxModel && docElem.scrollTop || body.scrollTop,
 			scrollLeft = win.pageXOffset || jQuery.support.boxModel && docElem.scrollLeft || body.scrollLeft,
-			top  = box.top  + scrollTop  - clientTop,
+			top = box.top + scrollTop - clientTop,
 			left = box.left + scrollLeft - clientLeft;
 
 		return { top: top, left: left };
@@ -8683,15 +8683,15 @@ if ( "getBoundingClientRect" in document.documentElement ) {
 			}
 
 			computedStyle = defaultView ? defaultView.getComputedStyle(elem, null) : elem.currentStyle;
-			top  -= elem.scrollTop;
+			top -= elem.scrollTop;
 			left -= elem.scrollLeft;
 
 			if ( elem === offsetParent ) {
-				top  += elem.offsetTop;
+				top += elem.offsetTop;
 				left += elem.offsetLeft;
 
 				if ( jQuery.offset.doesNotAddBorder && !(jQuery.offset.doesAddBorderForTableAndCells && rtable.test(elem.nodeName)) ) {
-					top  += parseFloat( computedStyle.borderTopWidth  ) || 0;
+					top += parseFloat( computedStyle.borderTopWidth ) || 0;
 					left += parseFloat( computedStyle.borderLeftWidth ) || 0;
 				}
 
@@ -8700,7 +8700,7 @@ if ( "getBoundingClientRect" in document.documentElement ) {
 			}
 
 			if ( jQuery.offset.subtractsBorderForOverflowNotVisible && computedStyle.overflow !== "visible" ) {
-				top  += parseFloat( computedStyle.borderTopWidth  ) || 0;
+				top += parseFloat( computedStyle.borderTopWidth ) || 0;
 				left += parseFloat( computedStyle.borderLeftWidth ) || 0;
 			}
 
@@ -8708,12 +8708,12 @@ if ( "getBoundingClientRect" in document.documentElement ) {
 		}
 
 		if ( prevComputedStyle.position === "relative" || prevComputedStyle.position === "static" ) {
-			top  += body.offsetTop;
+			top += body.offsetTop;
 			left += body.offsetLeft;
 		}
 
 		if ( jQuery.offset.supportsFixedPosition && prevComputedStyle.position === "fixed" ) {
-			top  += Math.max( docElem.scrollTop, body.scrollTop );
+			top += Math.max( docElem.scrollTop, body.scrollTop );
 			left += Math.max( docElem.scrollLeft, body.scrollLeft );
 		}
 
@@ -8762,7 +8762,7 @@ jQuery.offset = {
 		jQuery.offset.initialize();
 
 		if ( jQuery.offset.doesNotIncludeMarginInBodyOffset ) {
-			top  += parseFloat( jQuery.css(body, "marginTop") ) || 0;
+			top += parseFloat( jQuery.css(body, "marginTop") ) || 0;
 			left += parseFloat( jQuery.css(body, "marginLeft") ) || 0;
 		}
 
@@ -8826,22 +8826,22 @@ jQuery.fn.extend({
 		offsetParent = this.offsetParent(),
 
 		// Get correct offsets
-		offset       = this.offset(),
+		offset    = this.offset(),
 		parentOffset = rroot.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset();
 
 		// Subtract element margins
 		// note: when an element has margin: auto the offsetLeft and marginLeft
 		// are the same in Safari causing offset.left to incorrectly be 0
-		offset.top  -= parseFloat( jQuery.css(elem, "marginTop") ) || 0;
+		offset.top -= parseFloat( jQuery.css(elem, "marginTop") ) || 0;
 		offset.left -= parseFloat( jQuery.css(elem, "marginLeft") ) || 0;
 
 		// Add offsetParent borders
-		parentOffset.top  += parseFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
+		parentOffset.top += parseFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
 		parentOffset.left += parseFloat( jQuery.css(offsetParent[0], "borderLeftWidth") ) || 0;
 
 		// Subtract the two offsets
 		return {
-			top:  offset.top  - parentOffset.top,
+			top: offset.top - parentOffset.top,
 			left: offset.left - parentOffset.left
 		};
 	},

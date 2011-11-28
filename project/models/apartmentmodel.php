@@ -16,9 +16,9 @@ class Apartmentmodel extends CI_Model{
 	var $apnt_date = '';
 	
 	function __construct(){
-        
+    
 		parent::__construct();
-    }
+  }
 	
 	function get_records(){
 		$this->db->order_by('apnt_id desc');
@@ -149,6 +149,7 @@ class Apartmentmodel extends CI_Model{
 		$this->apnt_date = preg_replace($pattern, $replacement, $_POST['date']);
 		
 		$this->db->insert('apartment', $this);
+		return $this->db->insert_id();
 	}
 	
 	function update_record($data){
@@ -195,13 +196,13 @@ class Apartmentmodel extends CI_Model{
 		
 		$i = 0;
 		$result = array();
-	    while($line = mysql_fetch_array($query,MYSQL_ASSOC)):
-	        foreach ($line as $key => $col_value)
+	  while($line = mysql_fetch_array($query,MYSQL_ASSOC)):
+	    foreach ($line as $key => $col_value)
 				$result[$i][$key] = $col_value;
 				$i++;
 		endwhile;
 		
-	    mysql_free_result($query);
+	  mysql_free_result($query);
 		if(!empty($result)) return $result;
 		return NULL;		
 	}
@@ -212,13 +213,13 @@ class Apartmentmodel extends CI_Model{
 		
 		$i = 0;
 		$result = array();
-	    while($line = mysql_fetch_array($query,MYSQL_ASSOC)):
-	        foreach ($line as $key => $col_value)
+	  while($line = mysql_fetch_array($query,MYSQL_ASSOC)):
+	    foreach ($line as $key => $col_value)
 				$result[$i][$key] = $col_value;
 				$i++;
 		endwhile;
 		
-	    mysql_free_result($query);
+	  mysql_free_result($query);
 		if(!empty($result)) return $result;
 		return NULL;		
 	}

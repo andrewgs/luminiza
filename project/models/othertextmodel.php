@@ -6,9 +6,9 @@ class Othertextmodel extends CI_Model{
 	var $txt_extended = '';
 	
 	function __construct(){
-        
+    
 		parent::__construct();
-    }
+  }
 	
 	function get_records(){
 		$this->db->order_by('txt_id asc');

@@ -10,9 +10,9 @@ class Authentication extends CI_Model{
 	var $usr_pass_crypt = '';
 	
 	function __construct(){
-        
+    
 		parent::__construct();
-    }
+  }
 	
 	function get_users_info($login){
 		$this->db->where('usr_login',$login);

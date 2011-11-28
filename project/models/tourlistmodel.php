@@ -6,9 +6,9 @@ class Tourlistmodel extends CI_Model{
 	var $tour_extended = '';
 	
 	function __construct(){
-        
+    
 		parent::__construct();
-    }
+  }
 	
 	function get_records(){
 		$this->db->order_by('tour_id asc');
@@ -33,8 +33,8 @@ class Tourlistmodel extends CI_Model{
 	
 	function insert_record($data){
 	 
-		$this->tour_title =  $data['title'];
-		$this->tour_extended =  $data['extended'];
+		$this->tour_title = $data['title'];
+		$this->tour_extended = $data['extended'];
 		
 		$this->db->insert('tourlist', $this);
 	}
@@ -42,8 +42,8 @@ class Tourlistmodel extends CI_Model{
 	function update_record($data){
 		
 		$this->tour_id = $data['id'];
-		$this->tour_title =  $data['title'];
-		$this->tour_extended =  $data['extended'];
+		$this->tour_title = $data['title'];
+		$this->tour_extended = $data['extended'];
 		
 		$this->db->where('tour_id', $this->tour_id);
 		$this->db->update('tourlist', $this);

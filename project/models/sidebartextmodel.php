@@ -12,14 +12,15 @@ class Sidebartextmodel extends CI_Model{
 	function get_records(){
 		$this->db->order_by('sbt_id desc');
 		$query = $this->db->get('sidebartext');
-		return $query->result_array();
+		$data = $query->result_array();
+		if(count($data)) return $data;
+		return FALSE;
 	}	
 	
 	function get_record($id){
 	
 		$this->db->where('sbt_id',$id);
 		$query = $this->db->get('sidebartext',1);
-		
 		$data = $query->result_array();
 		if(isset($data[0])) return $data[0];
 		return NULL;

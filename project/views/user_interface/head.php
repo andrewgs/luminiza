@@ -11,5 +11,6 @@
 	<link rel="stylesheet" href="<?=$baseurl;?>css/style-new.css?v=2">
 	<link rel="stylesheet" href="<?=$baseurl;?>css/960.css"> 
 	<link rel="stylesheet" href="<?=$baseurl;?>css/pirobox.css">
+	<link rel="stylesheet" href="<?=$baseurl;?>css/jquery.jgrowl.css" type="text/css" media="screen"/>
 	<script src="<?=$baseurl;?>js/libs/modernizr-2.0.6.min.js"></script>
 </head>

@@ -1,4 +1,5 @@
 <?php
+
 class Admin_interface extends CI_Controller{
 
 	var $message = array('error'=>'','saccessfull'=>'','message'=>'','status'=>0);
@@ -6,6 +7,7 @@ class Admin_interface extends CI_Controller{
 	function __construct(){
 	
 		parent::__construct();
+		
 		$this->load->model('apartmentmodel');
 		$this->load->model('authentication');
 		$this->load->model('maillistmodel');
@@ -14,6 +16,9 @@ class Admin_interface extends CI_Controller{
 		$this->load->model('imagesmodel');
 		$this->load->model('sidebartextmodel');
 		$this->load->model('tourlistmodel');		
+		
+//		$this->load->library('upload');
+		$this->load->library('image_lib');
 		
 		if ($this->session->userdata('logon') == '0ddd2cf5b8929fcbd721f2365099c6e3') return;
 		if ($this->uri->segment(1)==='login') return;
@@ -47,51 +52,51 @@ class Admin_interface extends CI_Controller{
 		$pagevalue = array(
 				'description'	=>	'',
 				'author' 		=> 	'',
-				'keywords' 		=> '',
 				'title'			=> 	"Аутентификация пользователя",
 				'backpage' 		=> $backpage,
 				'admin' 		=> FALSE,
-				'baseurl' 		=> 	base_url(),
-				'login'			=> '',
-				'msg'			=> ''
+				'baseurl' 		=> 	base_url()
 			);
 		$this->setmessage('','','',0);
+		
 		if (isset($_POST['password']) and isset($_POST['login'])){
+			
 			if (empty($_POST['password']) or empty($_POST['login'])){
+				
 				$msg = $this->setmessage('Поля "Логин" и "Пароль" не могут быть пустымы!','','Ошибка авторизации!',1);
-				$pagevalue['login'] = '';
-				$pagevalue['msg'] = $msg;
-				$this->load->view('admin_interface/login',$pagevalue);
+				$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
 				return FALSE;
 			}
 			$userinfo = $this->authentication->get_users_info($_POST['login']);
+			
 			if(empty($userinfo)){
+					
 				$text = 'Пользователь '.$_POST['login'].' не зарегистрирован в системе!';
 				$msg = $this->setmessage($text,'','Ошибка авторизации!',1);
-				$this->load->view('login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
+				
+				$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
 				return FALSE;
 			}else{
+				
 				if ($userinfo['usr_password'] === md5($_POST['password'])){
-					$session_data = array('logon' => '0ddd2cf5b8929fcbd721f2365099c6e3','login' => $userinfo['usr_login']);
+					$session_data = array(
+											'logon' => '0ddd2cf5b8929fcbd721f2365099c6e3',
+											'login' => $userinfo['usr_login']
+										);
                    	$this->session->set_userdata($session_data);
                    	redirect($backpage);	
 				}else{
 					$msg = $this->setmessage('Введен не верный пароль.','','Ошибка авторизации!',1);
-					$pagevalue['login'] = $_POST['login'];
-					$pagevalue['msg'] = $msg;
-					$this->load->view('admin_interface/login',$pagevalue);
-					return FALSE;
+					$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>$_POST['login'],'msg'=>$msg));					return FALSE;
 				}
 			}
-			$pagevalue['login'] = '';
-			$pagevalue['msg'] = $this->message;
-			$this->load->view('admin_interface/login',$pagevalue);
+
+			$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$this->message));
 			return;
 		}
 		$msg = $this->setmessage('','','Введите логин и пароль для авторизации',1);
-		$pagevalue['login'] = '';
-		$pagevalue['msg'] = $msg;
-		$this->load->view('admin_interface/login',$pagevalue);
+		
+		$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
 	}				//функция авторизации;
 
 	function logoff(){
@@ -104,16 +109,16 @@ class Admin_interface extends CI_Controller{
 	
 	function oldpass_check($pass){
 			
-		$login = $this->session->userdata('login');
-		$userinfo = $this->authentication->get_users_info($login);
-		
-		if(md5($pass) == $userinfo['usr_password']):
-			return TRUE;
-		else:
-			$this->form_validation->set_message('oldpass_check','Введен не верный пароль!');
-			return FALSE;
-		endif;
-	}	//функция проверяет старый пароль перед изменением;
+			$login = $this->session->userdata('login');
+			$userinfo = $this->authentication->get_users_info($login);
+			
+			if(md5($pass) == $userinfo['usr_password']):
+				return TRUE;
+			else:
+				$this->form_validation->set_message('oldpass_check','Введен не верный пароль!');
+				return FALSE;
+			endif;
+		}	//функция проверяет старый пароль перед изменением;
 	
 	function profile(){
 		
@@ -146,7 +151,7 @@ class Admin_interface extends CI_Controller{
 				$login = $this->session->userdata('login');
 				$userinfo = $this->authentication->get_users_info($login);
 			
-        		$this->load->view('profile',array('pagevalue'=>$pagevalue,'userinfo'=>$userinfo,'msg'=>$msg));
+        		$this->load->view('admin_interface/profile',array('pagevalue'=>$pagevalue,'userinfo'=>$userinfo,'msg'=>$msg));
 				return FALSE;
 			}else{
 				$_POST['pass_crypt'] = $this->encrypt->encode($_POST['newpass']);
@@ -163,7 +168,7 @@ class Admin_interface extends CI_Controller{
 		if(isset($flashmsg) and !empty($flashmsg))
 			$msg = $this->setmessage('','',$flashmsg,1);
 		
-        $this->load->view('profile',array('pagevalue'=>$pagevalue,'userinfo'=>$userinfo,'msg'=>$msg));
+        $this->load->view('admin_interface/profile',array('pagevalue'=>$pagevalue,'userinfo'=>$userinfo,'msg'=>$msg));
 	}				//функция производит смену пароля администратора;
 	
 	function setmessage($error,$saccessfull,$message,$status){
@@ -259,7 +264,7 @@ class Admin_interface extends CI_Controller{
 			$this->imagesmodel->image_delete($img_id);
 			redirect($backpath);
 		else:
-			redirect('error404');
+			show_404();
 		endif;
 	}		//функция удаляет рисунок с указанного объекта;
 
@@ -391,7 +396,7 @@ class Admin_interface extends CI_Controller{
 			endif;
 		}
 		if(!count($text)) redirect('page404');
-		$this->load->view('edittext',array('pagevalue'=>$pagevalue,'text'=>$text,'msg'=>$msg));
+		$this->load->view('admin_interface/edittext',array('pagevalue'=>$pagevalue,'text'=>$text,'msg'=>$msg));
 	}			//функция выводит редактируемый текст;
 	
 	function updatetext(){
@@ -519,7 +524,7 @@ class Admin_interface extends CI_Controller{
 		}
 		if(!count($unitinfo)) redirect('page404');
 		$msg = $this->setmessage('','','Редактирование информации "'.$unitinfo['title'].'" ',1);
-		$this->load->view('editunit',array('pagevalue'=>$pagevalue,'unitinfo'=>$unitinfo,'msg'=>$msg));
+		$this->load->view('admin_interface/editunit',array('pagevalue'=>$pagevalue,'unitinfo'=>$unitinfo,'msg'=>$msg));
 	}			//функция выводит информацию об объекте для редактирования;
 	
 	function insertunit($firstparam = '',$secondparam = ''){
@@ -558,7 +563,7 @@ class Admin_interface extends CI_Controller{
 		endif;
 		
 		$msg = $this->setmessage('','','Добавление информации - "'.$name_unit[$unit].'" ',1);
-		$this->load->view('insertunit',array('pagevalue'=>$pagevalue,'msg'=>$msg));
+		$this->load->view('admin_interface/insertunit',array('pagevalue'=>$pagevalue,'msg'=>$msg));
 	}	//выводит форму для вставки новой экскурсии;
 	
 	function inserttour($param = ''){
@@ -577,7 +582,7 @@ class Admin_interface extends CI_Controller{
 					'admin' 		=> TRUE
 				);
 		$msg = $this->setmessage('','','Добавление информации - "Экскурсии"',1);
-		$this->load->view('inserttour',array('pagevalue'=>$pagevalue,'msg'=>$msg));
+		$this->load->view('admin_interface/inserttour',array('pagevalue'=>$pagevalue,'msg'=>$msg));
 	}		//функция выводит форму для вставки новой экскурсии;
 	
 	function insertunitvalue(){
@@ -622,12 +627,12 @@ class Admin_interface extends CI_Controller{
 				case 'auto' 		:	$this->rentautomodel->insert_record($_POST);
 									 	break;
 				
-				default				: 	redirect('error404');
+				default				: 	show_404();
 										break;	
 			}
 			redirect($_POST['backpath']);
 		else:
-			redirect('error404');
+			show_404();
 		endif;
 	}			//функция вставляет новый объект;
 	
@@ -647,7 +652,7 @@ class Admin_interface extends CI_Controller{
 			$this->tourlistmodel->insert_record($_POST);
 			redirect($_POST['backpath']);
 		else:
-			redirect('error404');
+			show_404();
 		endif;
 	}			//функция вставляет новую экскурсию;
 
@@ -678,7 +683,7 @@ class Admin_interface extends CI_Controller{
 										$this->tourlistmodel->delete_record($id);
 									 	break;
 				
-				default				: 	redirect('error404');
+				default				: 	show_404();
 										break;	
 			}
 			redirect($backpath);
@@ -711,7 +716,7 @@ class Admin_interface extends CI_Controller{
 		if(!count($tourinfo)) redirect('page404');
 		
 		$msg = $this->setmessage('','','Редактирование информации "'.$tourinfo['tour_title'].'" ',1);
-		$this->load->view('edittour',array('pagevalue'=>$pagevalue,'tourinfo'=>$tourinfo,'msg'=>$msg));
+		$this->load->view('admin_interface/edittour',array('pagevalue'=>$pagevalue,'tourinfo'=>$tourinfo,'msg'=>$msg));
 	}					//функция выводит форму для редактировния экскурсии;
 
 	function updatetour(){
@@ -816,7 +821,7 @@ class Admin_interface extends CI_Controller{
 			$msg = $this->setmessage($flasherr,$flashsaf,$flashmsg,1);
 		}
 		
-		$this->load->view('imagesmanipulation',array('pagevalue'=>$pagevalue,'image'=>$image,'images'=>$images,'msg'=>$msg));
+		$this->load->view('admin_interface/imagesmanipulation',array('pagevalue'=>$pagevalue,'image'=>$image,'images'=>$images,'msg'=>$msg));
 	}			//функция выводит форму для замены фотографии;
 	
 	function imagesaving(){
@@ -887,7 +892,7 @@ class Admin_interface extends CI_Controller{
 				redirect($_POST['fulluri']);
 			}
 		}else
-			redirect('error404');
+			show_404();
 	}					//функция производит замену фотографии;
 	
 	function resize_img($image,$wgt,$hgt,$ratio){
@@ -1036,7 +1041,7 @@ class Admin_interface extends CI_Controller{
 				);
 				
 		$msg = $this->setmessage('','','Добавление информации - "Коммерческая недвижимость" ',1);
-		$this->load->view('insertcommercial',array('pagevalue'=>$pagevalue,'msg'=>$msg));
+		$this->load->view('admin_interface/insertcommercial',array('pagevalue'=>$pagevalue,'msg'=>$msg));
 	}
 	
 	function insertcommercialvalue(){
@@ -1068,7 +1073,7 @@ class Admin_interface extends CI_Controller{
 			$this->apartmentmodel->insert_record($_POST);
 			redirect($_POST['backpath']);
 		else:
-			redirect('error404');
+			show_404();
 		endif;
 	}
 	
@@ -1135,7 +1140,7 @@ class Admin_interface extends CI_Controller{
 		}
 		if(!count($unitinfo)) redirect('page404');
 		$msg = $this->setmessage('','','Редактирование информации "'.$unitinfo['title'].'" ',1);
-		$this->load->view('editcommercial',array('pagevalue'=>$pagevalue,'unitinfo'=>$unitinfo,'msg'=>$msg));
+		$this->load->view('admin_interface/editcommercial',array('pagevalue'=>$pagevalue,'unitinfo'=>$unitinfo,'msg'=>$msg));
 	}
 	
 	function updatecommercial(){

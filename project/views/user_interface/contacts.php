@@ -1,14 +1,14 @@
 <!doctype html>
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if IE 7 ]>  <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>  <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <?php $this->load->view('user_interface/head');?>
 <body>
 	<div id="container">
-  	<?php $this->load->view('user_interface/header');?>
+ 	<?php $this->load->view('user_interface/header');?>
 	<?php $this->load->view('user_interface/navigation');?>
-    <div id="content_box">
+  <div id="content_box">
 		<div class="content container_12">
 			<div class="grid_3">
 				<div class="sidebar">
@@ -109,16 +109,16 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-    </div>
-    <?php $this->load->view('user_interface/footer');?>
+  </div>
+  <?php $this->load->view('user_interface/footer');?>
 	</div>
 <?php $this->load->view('user_interface/scripts');?>
 	<script type="text/javascript">
 		function initialize(){var latlng = new google.maps.LatLng(28.0867700, -16.7352700);
-		    var myOptions = {zoom: 17,center: latlng,mapTypeId: google.maps.MapTypeId.HYBRID};
-		    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-		    var marker = new google.maps.Marker({position: latlng,map: map,title:"Luminiza Property Tur S.L."});
-		    setInterval(function() {if (marker.getAnimation() != null) {marker.setAnimation(null);}else{marker.setAnimation(google.maps.Animation.BOUNCE);}},10000);}
+		  var myOptions = {zoom: 17,center: latlng,mapTypeId: google.maps.MapTypeId.HYBRID};
+		  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		  var marker = new google.maps.Marker({position: latlng,map: map,title:"Luminiza Property Tur S.L."});
+		  setInterval(function() {if (marker.getAnimation() != null) {marker.setAnimation(null);}else{marker.setAnimation(google.maps.Animation.BOUNCE);}},10000);}
 		function loadGoogleMapsAPI() {var script = document.createElement("script");script.type = "text/javascript";script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&language=ru&callback=initialize";document.body.appendChild(script);}
 	</script>
 <?php $this->load->view('user_interface/yandex');?>

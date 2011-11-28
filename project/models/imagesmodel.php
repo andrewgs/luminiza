@@ -10,9 +10,9 @@ class Imagesmodel extends CI_Model{
 	var $img_big_image = '';
 	
 	function __construct(){
-        
+    
 		parent::__construct();
-    }
+  }
 	
 	function get_data($type,$object){
 	
