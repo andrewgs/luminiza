@@ -8,6 +8,8 @@
 	</div>
 	<?php if($admin):?>
 		<div style="position:absolute; top:75px;left:90%;">
+			<span><?=anchor('feedback','Отзывы');?></span>
+			<br/>
 			<span><?=anchor('profile','Сменить пароль');?></span>
 			<br/>
 			<span><?=anchor('logoff','Завершить сеанс');?></span>

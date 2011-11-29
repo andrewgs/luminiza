@@ -69,6 +69,9 @@
 						if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					} ?>
+				<?php if($this->uri->segment(1) == 'retail'):?>
+					<?php $this->load->view('forms/formsendapart');?>
+				<?php endif;?>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -79,5 +82,30 @@
 <?php $this->load->view('user_interface/scripts');?>
 <?php $this->load->view('user_interface/yandex');?>
 <?php $this->load->view('user_interface/pirobox');?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		<?php if($msg):?>
+			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
+		<?php endif;?>
+		$("#send").click(function(event){
+			var err = false;
+			var email = $("#email").val();
+			$(".inpval").css('border-color','#00ff00');
+			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
+			if(err){
+				$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});
+				event.preventDefault();
+			}else if(!isValidEmailAddress(email)){
+				$("#email").css('border-color','#ff0000');
+				$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});
+				event.preventDefault();
+			}
+		});
+		function isValidEmailAddress(emailAddress){
+			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+			return pattern.test(emailAddress);
+		};
+	});
+</script>
 </body>
 </html>

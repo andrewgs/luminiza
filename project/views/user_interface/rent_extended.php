@@ -74,13 +74,10 @@
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать <?=($rent['object'] == 'auto')? 'понравившийся Вам автомобиль.': 'понравившиеся апартаменты';?><br><br> 
 						</p>
-					<?php
-						$attr = array('id' => 'frmTransfer','name' => 'frmTransfer');
-						echo form_open('mailsend',$attr);
-							if ($rent['object'] == 'apartment'){
-								$data = array('object'=>'apartment','id'=>$rent['id']);
-								echo form_hidden($data);
-							}
+					<?=form_open('mailsend',array('id' => 'frmTransfer','name' => 'frmTransfer'));
+							if($rent['object'] == 'apartment'):
+								echo form_hidden(array('object'=>'apartment','id'=>$rent['id']));
+							endif;
 							echo form_hidden('id',$id);
 							echo form_hidden('type',$type);
 							echo form_hidden('backuri',$this->uri->uri_string());
@@ -104,23 +101,29 @@
 								<input type="text" size="45" maxlength="50" class="y_lastname inpval" id="your_lastname" value="" name="your_lastname">
 							</div>
 							<div class="clear"></div>
-							<?=form_error('your_bdate').'<div class="clear"></div>'; ?>
-							<label for="your_bdate">Дата рождения <em class="bright">*</em></label>
+							<?=form_error('max_budget').'<div class="clear"></div>'; ?>
+							<label for="max_budget">Максимальный бюджет <em class="bright">*</em></label>
 							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_bdate inpval" id="your_bdate" value="" name="your_bdate">
+							<input type="text" size="45" maxlength="50" class="max_budget inpval" id="max_budget" value="" name="max_budget">
 							</div>
 							<div class="clear"></div>
-						<?php if ($rent['object'] == 'auto'):
+							<?=form_error('number_people').'<div class="clear"></div>'; ?>
+							<label for="number_people">Количество людей <em class="bright">*</em></label>
+							<div class="dd">
+							<input type="text" size="45" maxlength="50" class="number_people inpval" id="number_people" value="" name="number_people">
+							</div>
+							<div class="clear"></div>
+							<?=form_error('number_children').'<div class="clear"></div>'; ?>
+							<label for="number_children">Количество детей <em class="bright">*</em></label>
+							<div class="dd">
+							<input type="text" size="45" maxlength="50" class="number_children inpval" id="number_children" value="" name="number_children">
+							</div>
+							<div class="clear"></div>
+						<?php if($rent['object'] == 'auto'):
 								$data = array('object'=>'auto','id'=>$rent['id']);
 								echo form_hidden($data).
 								form_error('your_permit').'<div class="clear"></div><label for="your_permit">Номер водительских прав <em class="bright">*</em></label><div class="dd"><input type="text" size="45" maxlength="50" class="y_permit inpval" id="your_permit" value="" name="your_permit"></div><div class="clear"></div>'.form_error('your_pdate').'<div class="clear"></div><label for="your_pdate">Дата получения <em class="bright">*</em></label><div class="dd"><input type="text" size="45" maxlength="50" class="y_pdate inpval" id="your_pdate" value="" name="your_pdate"></div><div class="clear"></div>'.form_error('your_country').'<div class="clear"></div><label for="your_country">Страна получения <em class="bright">*</em></label><div class="dd"><input type="text" size="45" maxlength="50" class="y_country inpval" id="your_country" value="" name="your_country"></div><div class="clear"></div>';
 							endif; ?>
-						<?=form_error('your_address').'<div class="clear"></div>'; ?>
-							<label for="your_address">Домашний адрес <em class="bright">*</em></label>
-							<div class="dd">
-								<textarea class="y_address inpval" id="your_address" rows="2" cols="40" name="your_address"></textarea>
-							</div>
-							<div class="clear"></div>
 						<?php if ($rent['object'] == 'auto'):
 								echo form_error('your_car').'<div class="clear"></div><label for="your_car">Модель автомобиля <em class="bright">*</em></label><div class="dd"><input type="text" size="45" maxlength="50" class="y_car inpval" id="your_car" value="" name="your_car"></div><div class="clear"></div>';
 							endif; ?>
@@ -155,15 +158,27 @@
 <?php $this->load->view('user_interface/pirobox');?>
 <script type="text/javascript">
 	$(document).ready(function(){
+		<?php if($msg):?>
+			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
+		<?php endif;?>
 		$("#send").click(function(event){
 			var err = false;
+			var email = $("#email").val();
 			$(".inpval").css('border-color','#00ff00');
 			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
 			if(err){
 				$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});
 				event.preventDefault();
+			}else if(!isValidEmailAddress(email)){
+				$("#email").css('border-color','#ff0000');
+				$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});
+				event.preventDefault();
 			}
 		});
+		function isValidEmailAddress(emailAddress){
+			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+			return pattern.test(emailAddress);
+		};
 	});
 </script>
 </body>

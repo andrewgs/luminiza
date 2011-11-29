@@ -17,6 +17,7 @@ class Users_interface extends CI_Controller{
 		$this->load->model('imagesmodel');
 		$this->load->model('sidebartextmodel');
 		$this->load->model('tourlistmodel');		
+		$this->load->model('feedbackmodel');		
 		
 		if($this->session->userdata('logon') == '0ddd2cf5b8929fcbd721f2365099c6e3')
 			$this->admin['status'] = TRUE;
@@ -297,16 +298,16 @@ class Users_interface extends CI_Controller{
 		$pagevalue = array(
 			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
 			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Бизнес на Тенерифе | Коммерческая недвижимость | Ипотека в Испании | Luminiza Property Tur S.L.',
-			'baseurl' => base_url(),
-			'admin' => $this->admin['status'],
-			'formsort' => $this->uri->uri_string(),
-			'softvalue' => $this->session->userdata('sortby'),
-			'selectvalue' => array(),
-			'apartment' => array(),
-			'text' => array(),
-			'countrecord' => array()
+			'author' 		=> 'RealityGroup',
+			'title' 		=> 'Бизнес на Тенерифе | Коммерческая недвижимость | Ипотека в Испании | Luminiza Property Tur S.L.',
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'formsort' 		=> $this->uri->uri_string(),
+			'softvalue' 	=> $this->session->userdata('sortby'),
+			'selectvalue' 	=> array(),
+			'apartment' 	=> array(),
+			'text' 			=> array(),
+			'countrecord' 	=> array(),
 		);
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpage','commercial');
@@ -446,8 +447,10 @@ class Users_interface extends CI_Controller{
 			'admin' 		=> $this->admin['status'],
 			'retail'		=> array(),
 			'images'		=> array(),
-			'text'			=> ''
+			'text'			=> '',
+			'msg'			=> $this->session->userdata('msg')
 		);
+		$this->session->unset_userdata('msg');
 		$apart_id = $this->uri->segment(3);
 		$retail = array();	$images = array();
 		$status = $this->session->userdata('status');
@@ -461,6 +464,57 @@ class Users_interface extends CI_Controller{
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
 		$retail['extended'] = $apartament['apnt_extended'];
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
+			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
+			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
+			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$this->retail_extended();
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$_POST['submit'] = NULL;
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$_POST['msg'] 	 = 'Обект - "Недвижимость"'. "\n";
+				$_POST['msg'] 	.= 'Название - '.$retail['title']."\n";
+				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$retail['id']."\n";
+				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
+				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
+				$this->email->clear(TRUE);
+				$config['smtp_host'] = 'localhost';
+				$config['charset'] = 'utf-8';
+				$config['wordwrap'] = TRUE;
+				$this->email->initialize($config);
+				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->to('info@lum-tenerife.com');
+				$this->email->bcc('');
+				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+				$textmail = strip_tags($_POST['msg']);
+				$this->email->message($textmail);	
+				if(!$this->email->send()):
+					$this->session->set_userdata('msg','Сообщение не отправлено');
+					redirect($this->uri->uri_string());
+					return FALSE;
+				endif;
+				$this->session->set_userdata('msg','Сообщение отправлено');
+				$_POST['extended'] = $_POST['msg'];
+				$_POST['date'] = date("Y-m-d");
+				$this->maillistmodel->insert_record($_POST);
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
+		
 		if(is_numeric($apartament['apnt_price'])):
 			$retail['price'] = number_format($apartament['apnt_price'],0,' ','.');
 		endif;
@@ -501,8 +555,10 @@ class Users_interface extends CI_Controller{
 			'admin' 		=> $this->admin['status'],
 			'retail'		=> array(),
 			'images'		=> array(),
-			'text'			=> ''
+			'text'			=> '',
+			'msg'			=> $this->session->userdata('msg')
 		);
+		$this->session->unset_userdata('msg');
 		$apart_id = $this->uri->segment(4);
 		$retail = array();$images = array();
 		$status = $this->session->userdata('status');
@@ -516,6 +572,58 @@ class Users_interface extends CI_Controller{
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
 		$retail['extended'] = $apartament['apnt_extended'];
+		
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
+			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
+			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
+			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$this->commercial_extended();
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$_POST['submit'] = NULL;
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$_POST['msg'] 	 = 'Обект - "Недвижимость"'. "\n";
+				$_POST['msg'] 	.= 'Название - '.$retail['title']."\n";
+				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$retail['id']."\n";
+				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
+				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
+				$this->email->clear(TRUE);
+				$config['smtp_host'] = 'localhost';
+				$config['charset'] = 'utf-8';
+				$config['wordwrap'] = TRUE;
+				$this->email->initialize($config);
+				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->to('info@lum-tenerife.com');
+				$this->email->bcc('');
+				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+				$textmail = strip_tags($_POST['msg']);
+				$this->email->message($textmail);	
+				if(!$this->email->send()):
+					$this->session->set_userdata('msg','Сообщение не отправлено');
+					redirect($this->uri->uri_string());
+					return FALSE;
+				endif;
+				$this->session->set_userdata('msg','Сообщение отправлено');
+				$_POST['extended'] = $_POST['msg'];
+				$_POST['date'] = date("Y-m-d");
+				$this->maillistmodel->insert_record($_POST);
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
+		
 		if(is_numeric($apartament['apnt_price'])):
 			$retail['price'] = number_format($apartament['apnt_price'],0,' ','.');
 		endif;
@@ -720,7 +828,6 @@ class Users_interface extends CI_Controller{
 		if(!empty($firstparam) and !empty($secondparam)):
 			$rent_type = $secondparam;
 			$rent_id = $firstparam;
-			$msg = $this->setmessage('','','',0);
 		endif;
 		
 		$pagevalue = array(
@@ -735,9 +842,9 @@ class Users_interface extends CI_Controller{
 			'rent'			=> array(),
 			'images'		=> array(),
 			'text'			=> array(),
-			'msg'			=> ''
+			'msg'			=> $this->session->userdata('msg')
 		);
-		
+		$this->session->unset_userdata('msg');
 		if ($rent_type == 'auto'):
 			$pagevalue['title'] = 'Аренда автомобилей на Тенерифе | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Аренда автомобилей от семейных минивэнов до престижных моделей представительского класса или стильных спорткаров. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.';  
@@ -786,17 +893,9 @@ class Users_interface extends CI_Controller{
 						$rent['object'] = 'apartment';
 						}; break;
 		}
-		$flasherr = $this->session->flashdata('operation_error');
-		$flashmsg = $this->session->flashdata('operation_message');
-		$flashsaf = $this->session->flashdata('operation_saccessfull');
-		if($flasherr && $flashmsg && $flashsaf):
-			$msg = $this->setmessage($flasherr,$flashsaf,$flashmsg,1);
-		endif;
-		
 		$pagevalue['rent'] = $rent;
 		$pagevalue['images'] = $images;
 		$pagevalue['text'] = $text;
-		$pagevalue['msg'] = $msg;
 		$this->load->view('user_interface/rent_extended',$pagevalue);
 	} //функция выводит полную информацию объекта аренды;
 
@@ -818,11 +917,10 @@ class Users_interface extends CI_Controller{
 			'rent' 			=> array(),
 			'images' 		=> array(),
 			'text' 			=> array(),
-			'msg'			=> $msg
+			'msg'			=> $this->session->userdata('msg')
 		);
-		
-		$rent = array();
-		$images = array();
+		$this->session->unset_userdata('msg');
+		$rent = array();$images = array();
 		$status = $this->session->userdata('status');
 		$text = array();
 		if(!empty($status)):
@@ -836,6 +934,58 @@ class Users_interface extends CI_Controller{
 		$rent['extended'] = $apartament['apnt_extended'];
 		$rent['properties'] = $apartament['apnt_properties'];
 		$rent['price'] = $apartament['apnt_price_rent'];
+		
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
+			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
+			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
+			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$this->rent_commercial_extended();
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$_POST['submit'] = NULL;
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$_POST['msg'] 	 = 'Обект - "Недвижимость"'. "\n";
+				$_POST['msg'] 	.= 'Название - '.$rent['title']."\n";
+				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$rent['id']."\n";
+				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
+				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
+				$this->email->clear(TRUE);
+				$config['smtp_host'] = 'localhost';
+				$config['charset'] = 'utf-8';
+				$config['wordwrap'] = TRUE;
+				$this->email->initialize($config);
+				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->to('info@lum-tenerife.com');
+				$this->email->bcc('');
+				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+				$textmail = strip_tags($_POST['msg']);
+				$this->email->message($textmail);	
+				if(!$this->email->send()):
+					$this->session->set_userdata('msg','Сообщение не отправлено');
+					redirect($this->uri->uri_string());
+					return FALSE;
+				endif;
+				$this->session->set_userdata('msg','Сообщение отправлено');
+				$_POST['extended'] = $_POST['msg'];
+				$_POST['date'] = date("Y-m-d");
+				$this->maillistmodel->insert_record($_POST);
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
+		
 		$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],$image['img_id']);
@@ -843,16 +993,9 @@ class Users_interface extends CI_Controller{
 		$rent['img_title'] = $image['img_title'];
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$rent['type'] = 'commercial';
-		$flasherr = $this->session->flashdata('operation_error');
-		$flashmsg = $this->session->flashdata('operation_message');
-		$flashsaf = $this->session->flashdata('operation_saccessfull');
-		if($flasherr && $flashmsg && $flashsaf):
-			$msg = $this->setmessage($flasherr,$flashsaf,$flashmsg,1);
-		endif;
 		$pagevalue['rent'] = $rent;
 		$pagevalue['images'] = $images;
 		$pagevalue['text'] = $text;
-		$pagevalue['msg'] = $msg;
 		$this->load->view('user_interface/rent_commercial_extended',$pagevalue);
 	} //функция выводит полную информацию rоммерческой недвижимости аренда;
 	
@@ -949,12 +1092,12 @@ class Users_interface extends CI_Controller{
 			'admin' => $this->admin['status'],
 			'tour' 	=> array(),
 			'text' 	=> array(),
-			'images'=> $msg
+			'images'=> array(),
+			'msg'			=> $this->session->userdata('msg')
 		);
+		$this->session->unset_userdata('msg');
 		$tour_id = $this->uri->segment(3);
-		$tour = array();
-		$text = array();
-		$images = array();
+		$tour = array();$text = array();$images = array();
 		$text['sidebar'] = $this->sidebartextmodel->get_record(6);
 		$tour = $this->tourlistmodel->get_record($tour_id);
 		$image = $this->imagesmodel->get_type_ones_image('tour',$tour_id);
@@ -966,6 +1109,57 @@ class Users_interface extends CI_Controller{
 		$pagevalue['text'] = $text;
 		$pagevalue['tour'] = $tour;
 		$pagevalue['images'] = $images;
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
+			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
+			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
+			$this->form_validation->set_rules('date','"Дата экскурсии"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
+			$this->form_validation->set_rules('note','"Примечания"','required|trim');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$this->tour_extended();
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$_POST['submit'] = NULL;
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$_POST['msg'] 	 = 'Обект - "Экскурсия"'. "\n";
+				$_POST['msg'] 	.= 'Название - '.$pagevalue['tour']['tour_title']."\n";
+				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$pagevalue['tour']['tour_id']."\n";
+				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
+				$_POST['msg'] 	.= 'Дата экскурсии - '.$_POST['date']."\n";
+				$_POST['msg'] 	.= 'Примечания:\n'.$_POST['note']."\n";
+				$this->email->clear(TRUE);
+				$config['smtp_host'] = 'localhost';
+				$config['charset'] = 'utf-8';
+				$config['wordwrap'] = TRUE;
+				$this->email->initialize($config);
+				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->to('info@lum-tenerife.com');
+				$this->email->bcc('');
+				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+				$textmail = strip_tags($_POST['msg']);
+				$this->email->message($textmail);	
+				if(!$this->email->send()):
+					$this->session->set_userdata('msg','Сообщение не отправлено');
+					redirect($this->uri->uri_string());
+					return FALSE;
+				endif;
+				$this->session->set_userdata('msg','Сообщение отправлено');
+				$_POST['extended'] = $_POST['msg'];
+				$_POST['date'] = date("Y-m-d");
+				$this->maillistmodel->insert_record($_POST);
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
+		
 		$this->load->view('user_interface/tour_extended',$pagevalue);
 	} //функция выводит подробную информацию об экскурсии;	
 	
@@ -978,12 +1172,13 @@ class Users_interface extends CI_Controller{
 			'keywords' => 'тенерифе, индивидуальные экскурсии, трансфер, Северный Аэропорт Тенерифе, Южный Аэропорт Тенерифе, лоро парк, недвижимость на тенерифе, лас америкас, luminiza',
 			'author' => 'RealityGroup',
 			'title' => 'Индивидуальный трансфер Тенерифе | Северный и Южный Аэропорт Тенерифе | Транспортные услуги | Luminiza Property Tur S.L.',
-			'baseurl' => base_url(),
-			'admin' => $this->admin['status'],
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
 			'transfer' 	=> array(),
 			'text' 		=> array(),
-			'msg'		=> $msg
+			'msg'		=> $this->session->userdata('msg')
 		);
+		$this->session->unset_userdata('msg');
 		$this->session->set_userdata('backpage','transfers');
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
@@ -995,15 +1190,8 @@ class Users_interface extends CI_Controller{
 		$text['head'] = $this->othertextmodel->get_record(5);
 		$transfer = $this->imagesmodel->get_type_data('transfers');
 		
-		$flasherr = $this->session->flashdata('operation_error');
-		$flashmsg = $this->session->flashdata('operation_message');
-		$flashsaf = $this->session->flashdata('operation_saccessfull');
-		if($flasherr && $flashmsg && $flashsaf):
-			$msg = $this->setmessage($flasherr,$flashsaf,$flashmsg,1);
-		endif;
 		$pagevalue['text'] = $text;
 		$pagevalue['transfer'] = $transfer;
-		$pagevalue['msg'] = $msg;
 		$this->load->view('user_interface/transfers',$pagevalue);
 	}		//функция выводит информацию на страницу трансферов;
 
@@ -1217,8 +1405,9 @@ class Users_interface extends CI_Controller{
 			
 		if($object == 'apartment' or $object == 'auto'):
 			$this->form_validation->set_rules('your_lastname','"Ваша фамилия"','required|trim');
-			$this->form_validation->set_rules('your_bdate','"Дата рождения"','required|trim');
-			$this->form_validation->set_rules('your_address','"Домашний адрес"','required|trim');			
+			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
 			$this->form_validation->set_rules('your_rdate','"Дата начала аренды"','required|trim');
 			$this->form_validation->set_rules('your_bcdate','"Дата возвращения"','required');
 		endif;
@@ -1232,8 +1421,7 @@ class Users_interface extends CI_Controller{
 		
 		$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 		
-		if($this->form_validation->run() == FALSE):
-			
+		if(!$this->form_validation->run()):
 			if($object == 'apartment' or $object == 'auto'):
 				$this->rent_extended($_POST['id'],$_POST['type']);
 			elseif($object == 'transfers'):
@@ -1264,7 +1452,9 @@ class Users_interface extends CI_Controller{
 			
 			if($object == 'apartment' or $object == 'auto'):
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['your_name'].' '.$_POST['your_lastname']."\n";
-				$_POST['msg'] 	.= 'Дата рождения - '.$_POST['your_bdate']."\n";
+				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
 			endif;
 			
 			if($object == 'transfers' or $object == 'service' or $object == 'contacts'):
@@ -1288,9 +1478,6 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Страна получения - '.$_POST['your_country']."\n";
 			endif;
 			
-			if($object == 'apartment' or $object == 'auto')
-				$_POST['msg'] 	.= 'Домашний адрес - '.$_POST['your_address']."\n";
-			
 			if($_POST['object'] == 'auto')
 				$_POST['msg'] 	.= 'Модель автомобиля - '.$_POST['your_car']."\n";
 				
@@ -1305,9 +1492,7 @@ class Users_interface extends CI_Controller{
 			$config['smtp_host'] = 'localhost';
 			$config['charset'] = 'utf-8';
 			$config['wordwrap'] = TRUE;
-
 			$this->email->initialize($config);
-			
 			if($object == 'apartment' or $object == 'auto'):
 				$this->email->from($_POST['email'], $_POST['your_name'].' '.$_POST['your_lastname']);
 			else:
@@ -1328,6 +1513,7 @@ class Users_interface extends CI_Controller{
 				$this->session->set_flashdata('operation_error',$this->email->print_debugger());
 				$this->session->set_flashdata('operation_message','');
 				$this->session->set_flashdata('operation_saccessfull','Сообщение не отправлено');
+				$this->session->set_userdata('msg','Сообщение не отправлено');
 				redirect($_POST['backuri']);
 				return FALSE;
 			endif;
@@ -1335,6 +1521,7 @@ class Users_interface extends CI_Controller{
 			$this->session->set_flashdata('operation_error',' ');
 			$this->session->set_flashdata('operation_message','Ваше сообщение отправлено!');
 			$this->session->set_flashdata('operation_saccessfull','Сообщение отправлено');
+			$this->session->set_userdata('msg','Сообщение отправлено');
 			
 			$_POST['name'] = $_POST['your_name'];
 			$_POST['extended'] = $_POST['msg'];
@@ -1357,8 +1544,9 @@ class Users_interface extends CI_Controller{
 			'admin' => $this->admin['status'],
 			'image' 	=> array(),
 			'text' 		=> array(),
-			'msg'		=> $msg
+			'msg'		=> $this->session->userdata('msg')
 		);
+		$this->session->unset_userdata('msg');
 		$this->session->set_userdata('backpage','contacts');
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
@@ -1369,15 +1557,8 @@ class Users_interface extends CI_Controller{
 		$text['head'] = $this->othertextmodel->get_record(7);		
 		$image = $this->imagesmodel->get_type_ones_image('contacts',0);
 		
-		$flasherr = $this->session->flashdata('operation_error');
-		$flashmsg = $this->session->flashdata('operation_message');
-		$flashsaf = $this->session->flashdata('operation_saccessfull');
-		if($flasherr && $flashmsg && $flashsaf):
-			$msg = $this->setmessage($flasherr,$flashsaf,$flashmsg,1);
-		endif;
 		$pagevalue['text'] = $text;
 		$pagevalue['image'] = $image;
-		$pagevalue['msg'] = $msg;
 		$this->load->view('user_interface/contacts',$pagevalue);
 	} //функция выводит контактную информацию компании;
 	

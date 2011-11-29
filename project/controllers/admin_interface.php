@@ -16,8 +16,8 @@ class Admin_interface extends CI_Controller{
 		$this->load->model('imagesmodel');
 		$this->load->model('sidebartextmodel');
 		$this->load->model('tourlistmodel');		
+		$this->load->model('feedbackmodel');		
 		
-//		$this->load->library('upload');
 		$this->load->library('image_lib');
 		
 		if ($this->session->userdata('logon') == '0ddd2cf5b8929fcbd721f2365099c6e3') return;
@@ -45,7 +45,53 @@ class Admin_interface extends CI_Controller{
 
 		$this->load->view('admin_interface/adminpanel',array('pagevalue'=>$pagevalue,'msg'=>$msg));
 	}				//функция показывает панель администрирования;
-
+	
+	function feedback(){
+	
+		$backpage = $this->session->userdata('backpage');
+		$pagevalue = array(
+				'description'	=> '',
+				'author' 		=> '',
+				'title'			=> "Отзывы клиентов",
+				'backpage' 		=> $backpage,
+				'admin' 		=> FALSE,
+				'baseurl' 		=> base_url(),
+				'feedback'		=> $this->feedbackmodel->read_records(),
+				'msg'			=> $this->session->userdata('msg')
+		);
+		$this->session->unset_userdata('msg');
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('region','"Город"','required|trim');
+			$this->form_validation->set_rules('fio','"Имя и фамилия"','required|trim');
+			$this->form_validation->set_rules('note','"Отзыв"','required|trim');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$this->feedback();
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$_POST['submit'] = NULL;
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$this->session->set_userdata('msg','Отзыв добавлен');
+				$this->feedbackmodel->insert_record($_POST);
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
+		$this->load->view('admin_interface/feedback',array('pagevalue'=>$pagevalue));
+	}
+	
+	function delete_feedback(){
+		$statusval = array('status'=>FALSE,'message'=>'Ошибка при закрытии');
+		$id = trim($this->input->post('id'));
+		if(!$id) show_404();
+		$success = $this->feedbackmodel->delete_record($id);
+		if($success):
+			$statusval['status'] = TRUE;
+			$statusval['message'] = "Отзыв удален";
+		endif;
+		echo json_encode($statusval);
+	}
+	
 	function login(){
 		
 		$backpage = $this->session->userdata('backpage');
@@ -58,46 +104,37 @@ class Admin_interface extends CI_Controller{
 				'baseurl' 		=> 	base_url()
 			);
 		$this->setmessage('','','',0);
-		
 		if (isset($_POST['password']) and isset($_POST['login'])){
-			
 			if (empty($_POST['password']) or empty($_POST['login'])){
-				
 				$msg = $this->setmessage('Поля "Логин" и "Пароль" не могут быть пустымы!','','Ошибка авторизации!',1);
 				$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
 				return FALSE;
 			}
 			$userinfo = $this->authentication->get_users_info($_POST['login']);
-			
 			if(empty($userinfo)){
-					
 				$text = 'Пользователь '.$_POST['login'].' не зарегистрирован в системе!';
 				$msg = $this->setmessage($text,'','Ошибка авторизации!',1);
 				
 				$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
 				return FALSE;
 			}else{
-				
 				if ($userinfo['usr_password'] === md5($_POST['password'])){
-					$session_data = array(
-											'logon' => '0ddd2cf5b8929fcbd721f2365099c6e3',
-											'login' => $userinfo['usr_login']
-										);
+					$session_data = array('logon' => '0ddd2cf5b8929fcbd721f2365099c6e3','login'=>$userinfo['usr_login']);
                    	$this->session->set_userdata($session_data);
                    	redirect($backpage);	
 				}else{
 					$msg = $this->setmessage('Введен не верный пароль.','','Ошибка авторизации!',1);
-					$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>$_POST['login'],'msg'=>$msg));					return FALSE;
+					$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>$_POST['login'],'msg'=>$msg));
+					return FALSE;
 				}
 			}
-
 			$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$this->message));
 			return;
 		}
 		$msg = $this->setmessage('','','Введите логин и пароль для авторизации',1);
 		
 		$this->load->view('admin_interface/login',array('pagevalue'=>$pagevalue,'login'=>'','msg'=>$msg));
-	}				//функция авторизации;
+	}
 
 	function logoff(){
 	

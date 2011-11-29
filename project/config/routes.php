@@ -48,6 +48,9 @@ $route['login'] = "admin_interface/login";
 $route[':any/login'] = "admin_interface/login";
 $route['logoff'] = "admin_interface/logoff";
 
+$route['feedback'] = "admin_interface/feedback";
+$route['feedback/delete-record'] = "admin_interface/delete_feedback";
+
 $route['about/photo/change/:num'] = "admin_interface/photomanipulation";
 $route['contacts/photo/change/:num'] = "admin_interface/photomanipulation";
 $route['transfers/photo/change/:num'] = "admin_interface/photomanipulation";
