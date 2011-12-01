@@ -36,16 +36,12 @@
 						if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					endfor; ?>
-				<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать экскурсию<br><br> 
-						</p>
 				<?php if($this->uri->segment(1) == 'tour'):?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
 						<?php $this->load->view('forms/formsendtour');?>
 					</div>
 				<?php endif;?>
-					</div>
 				</div>
 			</div>
 			<div class="clear"></div>
