@@ -73,22 +73,16 @@
 						</div>
 						<?php if($admin):?>
 							<div class="admin-change">
-							<?php 
-								$link = 'edit/commercial/'.$commercial[$i]['apnt_id'].'/rent';
-								echo anchor($link,'Редактировать',array('class'=>'editlink'));
-							?>
+							<?php $link = 'edit/commercial/'.$commercial[$i]['apnt_id'].'/rent';
+								echo anchor($link,'Редактировать',array('class'=>'editlink'));?>
 							</div>
 							<div class="admin-change">
-							<?php 
-								$link = 'rent/photo/manage/commercial/'.$commercial[$i]['apnt_id'];
-								echo anchor($link,'Доб./Удал. рисунки',array('class'=>'editlink'));
-							?>
+							<?php $link = 'rent/photo/manage/commercial/'.$commercial[$i]['apnt_id'];
+								echo anchor($link,'Доб./Удал. рисунки',array('class'=>'editlink'));?>
 							</div>
 							<div class="admin-change">
-							<?php 
-								$link = 'rent/commercial/delete/'.$commercial[$i]['apnt_id'];
-								echo anchor($link,'Удалить недвижимость',array('class'=>'dellink'));
-							?>
+							<?php $link = 'rent/commercial/delete/'.$commercial[$i]['apnt_id'];
+								echo anchor($link,'Удалить недвижимость',array('class'=>'dellink'));?>
 							</div>
 					<?php endif; ?>
 				<?php endfor; ?>

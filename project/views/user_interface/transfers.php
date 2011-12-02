@@ -51,65 +51,12 @@
 							echo '<div class="clear"></div>';
 						endif;?>
 					<br class="clear"/>
+				<?php if($this->uri->segment(1) == 'transfers'):?>
 					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку:
-					<?=safe_mailto('info@lum-tenerife.com','info@lum-tenerife.com'); ?>
-							<br><br>							
-						</p>
-					<?php	
-						$attr = array(
-									'id' => 'frmTransfer',
-									'name' => 'frmTransfer',
-									);
-						echo form_open('mailsend',$attr);
-							echo form_hidden('object','transfers');
-							echo form_hidden('type','transfers');
-							echo form_hidden('backuri','transfers');
-							echo form_hidden('title','Трансферы');
-							echo form_hidden('id','Отсутствует');
-					?>
-							<?=form_error('your_name').'<div class="clear"></div>'; ?>
-							<label for="your_name">Ваше имя <em class="bright">*</em></label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_name inpval" id="your_name" value="" name="your_name">
-							</div>
-							<div class="clear"></div>
-							<label for="your_phone">Телефон</label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_phone" id="your_phone" value="" name="your_phone">
-							</div>							
-							<div class="clear"></div>
-							<?=form_error('email').'<div class="clear"></div>'; ?>
-							<label for="email">E-Mail <em class="bright">*</em></label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_email inpval" id="email" value="" name="email">
-							</div>
-							<div class="clear"></div>
-							<?=form_error('your_arrival_date').'<div class="clear"></div>'; ?>
-							<label for="your_arrival_date">Дата прилета <em class="bright">*</em></label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_arrival_date inpval" id="your_arrival_date" value="" name="your_arrival_date">
-							</div>							
-							<div class="clear"></div>
-							<?=form_error('textmail').'<div class="clear"></div>'; ?>
-							<label for="msg">Сообщение <em class="bright">*</em></label>
-							<div class="dd">
-								<textarea class="y_msg inpval" id="msg" rows="5" cols="40" name="textmail"></textarea>
-							</div>
-							<div class="clear"></div>
-							<label for="subject">Откуда Вы о нас узнали?</label>
-							<div class="ddr">
-								<input type="radio" value="0" name="your-subject" class="radio"/>Интернет <br/>
-								<input type="radio" value="1" name="your-subject" class="radio"/>От друзей <br/>
-								<input type="radio" value="2" name="your-subject" class="radio"/>Реклама <br/>
-								<input type="radio" value="3" name="your-subject" class="radio"/>Другое 
-								<input type="text" value="" id="your-subject_txt" name="your-subject_txt"/>
-							</div>
-							<div class="clear"></div>
-							<button type="submit" border="0" id="send" class="senden" value="" name="Submit">Отправить</button>
-					<?php form_close(); ?>			
-						<p>&nbsp;</p>			
-					</div>					
+						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку:	<?=safe_mailto('info@lum-tenerife.com','info@lum-tenerife.com'); ?><br><br></p>
+						<?php $this->load->view('forms/formsendtransfers');?>
+					</div>
+				<?php endif;?>
 				</div>
 			</div>
 			<div class="clear"></div>

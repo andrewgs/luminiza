@@ -30,28 +30,43 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-						<div class="missions_row">
-						<?php
-							if(isset($rent['img_id'])){
-								echo '<img alt="'.$rent['img_title'].'" title="'.$rent['img_title'].'" 
-								src="'.$baseurl.'viewimage/'.$rent['img_id'].'">';
-							}
-							?>
-							<div class="missions_right_panel">
-								<h1><?= $rent['title']; ?></h1>
-							<?php if(isset($rent['extended']) and !empty($rent['extended'])): ?>
-								<div> <?= $rent['extended'];?> </div>
-							<?php endif; ?>
-							<?php if(isset($rent['properties']) and !empty($rent['properties'])): ?>
-								<div class="car_preferences">
-									<?= $rent['properties']; ?>
-								</div>
-							<? endif; ?>
-								<div class="car_preferences">
-									<?= $rent['price']; ?>
-								</div>
+					<div class="missions_row">
+					<?php
+						if(isset($rent['img_id'])){
+							echo '<img alt="'.$rent['img_title'].'" title="'.$rent['img_title'].'" 
+							src="'.$baseurl.'viewimage/'.$rent['img_id'].'">';
+						}
+						?>
+						<div class="missions_right_panel">
+							<h1><?= $rent['title']; ?></h1>
+						<?php if(isset($rent['extended']) and !empty($rent['extended'])): ?>
+							<div> <?= $rent['extended'];?> </div>
+						<?php endif; ?>
+						<?php if(isset($rent['properties']) and !empty($rent['properties'])): ?>
+							<div class="car_preferences">
+								<?= $rent['properties']; ?>
+							</div>
+						<? endif; ?>
+							<div class="car_preferences">
+								<?=$rent['price']; ?>
 							</div>
 						</div>
+					</div>
+				<?php if($admin):?>
+					<?php if($this->uri->segment(2) == 'apartment'):?>
+						<?php $link1 = 'edit/apartment/'.$rent['id'].'/rent';?>
+						<?php $link2 = 'rent/photo/manage/apartment/'.$rent['id'];?>
+						<?php $link3 = 'rent/apartment/delete/'.$rent['id']; ?>
+					<?php else:?>
+						<?php $link1 = 'edit/auto/'.$rent['id'].'/rent';?>
+						<?php $link2 = 'rent/photo/manage/auto/'.$rent['id'];?>
+						<?php $link3 = 'rent/auto/delete/'.$rent['id']; ?>
+					<?php endif; ?>
+					<div class="admin-change"><?=anchor($link1,'Ред.',array('class'=>'editlink'));?></div>
+					<div class="admin-change"><?=anchor($link2,'Изм. фото',array('class'=>'editlink'));?></div>
+					<div class="admin-change"><?=anchor($link3,'Удалить',array('class'=>'dellink'));?></div>
+				<?php endif; ?>
+					<div class="clear"></div>
 					<?php for($i = 0;$i < count($images); $i++){							
 						if(isset($images[$i]['img_id'])):
 						
@@ -175,6 +190,7 @@
 				event.preventDefault();
 			}
 		});
+		$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);

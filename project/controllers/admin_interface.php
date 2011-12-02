@@ -489,7 +489,7 @@ class Admin_interface extends CI_Controller{
 					'author' 		=> '',
 					'title'			=> 'Редактирование информации',
 					'baseurl' 		=> base_url(),
-					'backpath' 		=> '',
+					'backpath'		=> $this->session->userdata('backpath'),
 					'unit' 			=> $name_object,
 					'id' 			=> $id_object,
 					'auto'			=> FALSE,
@@ -521,7 +521,6 @@ class Admin_interface extends CI_Controller{
 		switch($type){
 			case 'retail': 		$query = $this->apartmentmodel->get_record($id_object);
 								$pagevalue['auto'] = FALSE;
-								$pagevalue['backpath'] = $type;
 								$unitinfo['title'] 		= $query['apnt_title'];
 								$unitinfo['extended'] 	= $query['apnt_extended'];
 								$unitinfo['price1'] 	= $query['apnt_price'];
@@ -545,7 +544,6 @@ class Admin_interface extends CI_Controller{
 			case 'rent': 		if($name_object == 'auto'){
 									$query = $this->rentautomodel->get_record($id_object);
 									$pagevalue['auto'] 		= TRUE;
-									$pagevalue['backpath'] 	= $type.'/'.$name_object;
 									$unitinfo['title'] 		= $query['rnta_title'];
 									$unitinfo['extended'] 	= $query['rnta_extended'];
 									$unitinfo['object'] 	= null;
@@ -561,7 +559,6 @@ class Admin_interface extends CI_Controller{
 								}elseif($name_object == 'apartment'){
 									$query = $this->apartmentmodel->get_record($id_object);
 									$pagevalue['auto'] = FALSE;
-									$pagevalue['backpath'] 	= $type.'/retail';
 									$unitinfo['title'] 		= $query['apnt_title'];
 									$unitinfo['extended'] 	= $query['apnt_extended'];
 									$unitinfo['price1'] 	= $query['apnt_price'];
@@ -779,6 +776,7 @@ class Admin_interface extends CI_Controller{
 	}			//функция вставляет новую экскурсию;
 
 	function deleteunit(){
+	
 		if($this->uri->total_segments() == 4):
 			$backpath = $this->uri->segment(1);
 			$id = $this->uri->segment(4);
@@ -829,7 +827,7 @@ class Admin_interface extends CI_Controller{
 					'author' 		=> '',
 					'title'			=> 'Редактирование информации',
 					'baseurl' 		=> base_url(),
-					'backpath' 		=> 'tour',
+					'backpath'		=> $this->session->userdata('backpath'),
 					'id' 			=> $tour_id,
 					'admin' 		=> TRUE
 				);
@@ -865,7 +863,7 @@ class Admin_interface extends CI_Controller{
 					'author' 		=> '',
 					'title' 		=> "Работа с Фотографиями",
 					'baseurl' 		=> base_url(),
-					'backpath' 		=> $page,
+					'backpath'		=> $this->session->userdata('backpath'),
 					'imgtype'		=> $page,
 					'page'			=> $page,
 					'type' 			=> $type_manipulation,
@@ -891,12 +889,6 @@ class Admin_interface extends CI_Controller{
 			if($page == 'rent'):
 				$page = $this->uri->segment(4);
 				$pagevalue['imgtype'] = $page;
-				if($page == 'auto')
-					$pagevalue['backpath'] .= '/auto'; 
-				elseif($page == 'apartment')
-					$pagevalue['backpath'] .= '/retail';
-				else
-					$pagevalue['backpath'] .= '/commercial';
 			endif;
 			$images = $this->imagesmodel->get_data($page,$obj_id);
 			$msg = $this->setmessage('','','Добавление/Удаление фотографий',1);
@@ -910,12 +902,12 @@ class Admin_interface extends CI_Controller{
 			$img_id = $this->uri->segment(4);
 			$image = $this->imagesmodel->get_image($img_id);
 			$msg = $this->setmessage('','','Замена фото "'.$image['img_title'].'"',1);
-			$pagevalue['backpath'] = $page.'/photo/manage/list/'.$obj_id;
+//			$pagevalue['backpath'] = $page.'/photo/manage/list/'.$obj_id;
 			if($page == 'retail'):
 				$page = 'apartment'; $pagevalue['imgtype'] = $page;
 			endif;
 			if($page == 'rent'):
-				$pagevalue['backpath'] = $page.'/photo/manage/';
+//				$pagevalue['backpath'] = $page.'/photo/manage/';
 				$page = $this->uri->segment(4);
 				$pagevalue['imgtype'] = $page;					
 				$pagevalue['backpath'] .= $page.'/'.$obj_id;
@@ -927,7 +919,7 @@ class Admin_interface extends CI_Controller{
 			$type_img = $this->uri->segment(4);
 			$image = $this->imagesmodel->get_image($img_id);
 			$msg = $this->setmessage('','','Замена фото "'.$image['img_title'].'"',1);
-			$pagevalue['backpath'] = $page.'/photo/manage/'.$type_img.'/'.$obj_id;
+//			$pagevalue['backpath'] = $page.'/photo/manage/'.$type_img.'/'.$obj_id;
 			$pagevalue['imgtype'] = $type_img;					
 		}else{
 			$images = $this->imagesmodel->get_type_data($page);
@@ -1257,8 +1249,8 @@ class Admin_interface extends CI_Controller{
 		endif;
 	}
 	
-	function editrentcommercial(){
-		
+	function editcommercial(){
+	
 		$id_object = $this->uri->segment(3);
 		$type = $this->uri->segment(4);
 		$unitinfo = array();
@@ -1269,7 +1261,7 @@ class Admin_interface extends CI_Controller{
 					'author' 		=> '',
 					'title'			=> 'Редактирование информации',
 					'baseurl' 		=> base_url(),
-					'backpath' 		=> $this->session->userdata('backpage'),
+					'backpath' 		=> $this->session->userdata('backpath'),
 					'unit' 			=> 'commercial',
 					'id' 			=> $id_object,
 					'auto'			=> FALSE,

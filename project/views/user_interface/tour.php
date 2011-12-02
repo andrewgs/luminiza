@@ -62,16 +62,10 @@
 								<?=anchor('edit/tour/'.$tour[$i]['tour_id'],'Редактировать',array('class'=>'editlink')); ?>
 							</div>
 							<div class="admin-change">
-							<?php 
-								$link = 'tour/photo/manage/list/'.$tour[$i]['tour_id'];
-								echo anchor($link,'Доб./Удал. рисунки',array('class'=>'editlink'));
-							?>
+								<?=anchor('tour/photo/manage/list/'.$tour[$i]['tour_id'],'Доб./Удал. рисунки',array('class'=>'editlink'));?>
 							</div>
 							<div class="admin-change">
-							<?php 
-								$link = 'tour/delete/'.$tour[$i]['tour_id'];
-								echo anchor($link,'Удалить экскурсию',array('class'=>'dellink'));
-							?>
+								<?=anchor('tour/delete/'.$tour[$i]['tour_id'],'Удалить экскурсию',array('class'=>'dellink'));?>
 							</div>
 							<div class="clear"></div>
 						<?php endif;?>

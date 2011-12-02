@@ -123,12 +123,12 @@ $route['updatecommercial'] = "admin_interface/updatecommercial";
 $route['updatetour'] = "admin_interface/updatetour";
 $route['edit/apartment/:num/retail'] = "admin_interface/editunit";
 $route['edit/apartment/:num/rent'] = "admin_interface/editunit";
-$route['edit/commercial/:num/rent'] = "admin_interface/editrentcommercial";
+
 $route['edit/auto/:num/rent'] = "admin_interface/editunit";
 $route['edit/tour/:num'] = "admin_interface/edittour";
 
-$route['edit/commercial/:num/rent'] = "admin_interface/editrentcommercial";
-$route['edit/commercial/:num/retail'] = "admin_interface/editrentcommercial";
+$route['edit/commercial/:num/rent'] = "admin_interface/editcommercial";
+$route['edit/commercial/:num/retail'] = "admin_interface/editcommercial";
 
 $route['retail/apartment/delete/:num'] = "admin_interface/deleteunit";
 $route['retail/commercial/delete/:num'] = "admin_interface/deletecommercial";

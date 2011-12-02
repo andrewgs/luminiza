@@ -59,6 +59,21 @@
 							</div>
 						</div>
 					</div>
+					<?php if($admin): ?>
+						<div class="admin-change">
+							<?php $link = 'edit/commercial/'.$retail['id'].'/retail'; ?>
+							<?=anchor($link,'Редактировать',array('class'=>'editlink')); ?>
+						</div>
+						<div class="admin-change">
+							<?php $link = 'commercial/photo/manage/list/'.$retail['id']; ?>
+							<?=anchor($link,'Доб./Удал. рисунки',array('class'=>'imagelink')); ?>
+						</div>
+						<div class="admin-change">
+							<?php $link = 'retail/commercial/delete/'.$retail['id']; ?>
+							<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
+						</div>
+					<?php endif; ?>
+					<div class="clear"></div>
 					<?php for($i = 0;$i < count($images); $i++){							
 						if(isset($images[$i]['img_id'])):			
 							$text = '<img class="row_image" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
@@ -101,6 +116,7 @@
 				event.preventDefault();
 			}
 		});
+		$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);

@@ -25,7 +25,7 @@
 					<?php if(isset($tour['img_id'])):						
 						echo '<img class="main_image" alt="'.$tour['img_title'].'"title="'.$tour['img_title'].'" src="'.$baseurl.'viewimage/'.$tour['img_id'].'">';
 					endif; ?>
-					<?= $tour['tour_extended'];?>
+					<?=$tour['tour_extended'];?>
 					<?php for($i=0;$i<count($images);$i++):							
 						if(isset($images[$i]['img_id'])):			
 							$text = '<img class="row_image" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
@@ -36,6 +36,20 @@
 						if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					endfor; ?>
+				<div class="clear"></div>
+				<?php if($admin): ?>
+					<div class="admin-change">
+						<?=anchor('edit/tour/'.$tour['tour_id'],'Редактировать',array('class'=>'editlink')); ?>
+					</div>
+					<div class="admin-change">
+					<?=anchor('tour/photo/manage/list/'.$tour['tour_id'],'Доб./Удал. рисунки',array('class'=>'editlink'));?>
+					</div>
+					<div class="admin-change">
+					<?=anchor('tour/delete/'.$tour['tour_id'],'Удалить экскурсию',array('class'=>'dellink'));?>
+					</div>
+					<div class="clear"></div>
+				<?php endif;?>
+				<div class="clear"></div>
 				<?php if($this->uri->segment(1) == 'tour'):?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
@@ -71,6 +85,7 @@
 				event.preventDefault();
 			}
 		});
+		$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);

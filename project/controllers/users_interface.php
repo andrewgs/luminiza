@@ -167,7 +167,7 @@ class Users_interface extends CI_Controller{
 			'sidebar' => array(),
 			'images' => array()
 		);
-		$this->session->set_userdata('backpage','about');
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
@@ -210,7 +210,7 @@ class Users_interface extends CI_Controller{
 			
 		);
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
-		$this->session->set_userdata('backpage','retail');
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
@@ -234,7 +234,7 @@ class Users_interface extends CI_Controller{
 		
 		$cfgpag['base_url'] = base_url().'/retail';
         $cfgpag['total_rows'] = $cntrec;
-        $cfgpag['per_page'] =  4;
+        $cfgpag['per_page'] =  10;
         $cfgpag['num_links'] = 4;
         $cfgpag['uri_segment'] = 2;
 		$cfgpag['first_link'] = FALSE;
@@ -256,10 +256,10 @@ class Users_interface extends CI_Controller{
 		
 		$from = intval($this->uri->segment(2));	
 		$sortby = $this->session->userdata('sortby');
-		$apartment = $this->apartmentmodel->get_limit_records(4,$from,2,$sortby);
+		$apartment = $this->apartmentmodel->get_limit_records(10,$from,2,$sortby);
 		for($i = 0; $i < count($apartment); $i++):		
-			if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 650):									
-				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,650,'UTF-8');	
+			if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):									
+				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,325,'UTF-8');	
 				$pos = mb_strrpos($apartment[$i]['apnt_extended'],'.',0,'UTF-8');
 				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,$pos,'UTF-8');
 				$apartment[$i]['apnt_extended'] .= '. ...';
@@ -290,150 +290,6 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/retail',$pagevalue);
 	} //функция выводит информацию на страницу продаж;
 	
-	function commercial(){
-		
-		if(isset($_POST['sortlink'])):
-			$this->session->set_userdata('sortby',$_POST['sortvalue']);
-		endif;
-		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' 		=> 'RealityGroup',
-			'title' 		=> 'Бизнес на Тенерифе | Коммерческая недвижимость | Ипотека в Испании | Luminiza Property Tur S.L.',
-			'baseurl' 		=> base_url(),
-			'admin' 		=> $this->admin['status'],
-			'formsort' 		=> $this->uri->uri_string(),
-			'softvalue' 	=> $this->session->userdata('sortby'),
-			'selectvalue' 	=> array(),
-			'apartment' 	=> array(),
-			'text' 			=> array(),
-			'countrecord' 	=> array(),
-		);
-		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
-		$this->session->set_userdata('backpage','commercial');
-		$this->session->unset_userdata('query');
-		$this->session->unset_userdata('status');
-		$this->session->unset_userdata('calc');
-		$this->session->unset_userdata('searchback');
-		$selectvalue = array();$apartment = array();$text = array();$countrecord = array();
-		
-		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
-		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
-		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
-		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-		
-		$countrecord['object'] 		= count($selectvalue['object']);
-		$countrecord['location'] 	= count($selectvalue['location']);
-		$countrecord['region'] 		= count($selectvalue['region']);
-		$countrecord['count'] 		= count($selectvalue['count']);
-		
-		$text['sidebar'] = $this->sidebartextmodel->get_record(10);
-		$text['head'] = $this->othertextmodel->get_record(19);
-		
-		$cntrec = $this->apartmentmodel->count_commercial_flag(5);
-
-		$cfgpag['base_url'] = base_url().'/commercial';
-        $cfgpag['total_rows'] = $cntrec;
-        $cfgpag['per_page'] =  4;
-        $cfgpag['num_links'] = 4;
-        $cfgpag['uri_segment'] = 2;
-		$cfgpag['first_link'] = FALSE;
-		$cfgpag['first_tag_open'] = '<li>';
-		$cfgpag['first_tag_close'] = '</li>';
-		$cfgpag['last_link'] = FALSE;
-		$cfgpag['last_tag_open'] = '<li>';
-		$cfgpag['last_tag_close'] = '</li>';
-		$cfgpag['next_link'] = 'Далее &raquo;';
-		$cfgpag['next_tag_open'] = '<li>';
-		$cfgpag['next_tag_close'] = '</li>';
-		$cfgpag['prev_link'] = '&laquo; Назад';
-		$cfgpag['prev_tag_open'] = '<li>';
-		$cfgpag['prev_tag_close'] = '</li>';
-		$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
-		$cfgpag['cur_tag_close'] = '</a></li>';
-		$cfgpag['num_tag_open'] = '<li>';
-		$cfgpag['num_tag_close'] = '</li>';			
-		
-		$from = intval($this->uri->segment(2));
-		$sortby = $this->session->userdata('sortby');			
-		$apartment = $this->apartmentmodel->get_limit_commercial(4,$from,5,$sortby);
-		for($i = 0; $i < count($apartment); $i++):		
-			if(mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 650):									
-				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,650,'UTF-8');	
-				$pos = mb_strrpos($apartment[$i]['apnt_extended'],'.',0,'UTF-8');
-				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,$pos,'UTF-8');
-				$apartment[$i]['apnt_extended'] .= '. ...';
-			endif;
-			if(is_numeric($apartment[$i]['apnt_price'])):
-				$apartment[$i]['apnt_price'] = number_format($apartment[$i]['apnt_price'],0,' ','.');
-			endif;
-			if(is_numeric($apartment[$i]['apnt_newprice'])):
-				$apartment[$i]['apnt_newprice'] = number_format($apartment[$i]['apnt_newprice'],0,' ','.');
-			endif;
-		endfor;
-
-		if(isset($from) and ! empty($from)) $this->session->set_userdata('backpage','commercial/'.$from);
-		for($i = 0; $i < count($apartment); $i++):
-			$image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
-			$apartment[$i]['img_id'] = $image[$i]['img_id'];
-			$apartment[$i]['img_title'] = $image[$i]['img_title'];
-			if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
-		endfor;
-		
-		$this->pagination->initialize($cfgpag);
-		$text['pager'] = $this->pagination->create_links();
-		$pagevalue['selectvalue'] = $selectvalue;
-		$pagevalue['text'] = $text;
-		$pagevalue['apartment'] = $apartment;
-		$pagevalue['countrecord'] = $countrecord;
-
-		$this->load->view('user_interface/commercial',$pagevalue);
-	} //функция выводит информацию о коммерческой недвижимости;
-	
-	function ipoteka(){
-		
-		$price = $this->uri->segment(2);
-		$pagevalue = array(
-			'description' =>'Воспользуйтесь нашим калькулятором для расчета ипотеки. Юридическое сопровождение сделок, оформление ипотеки. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Перечень документов для оформления ипотеки в Испании | Ипотечный калькулятор | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Luminiza Property Tur S.L.',
-			'price' 		=> '',
-			'retailback'	=> '',
-			'retailstatus'	=> FALSE,
-			'baseurl' 		=> base_url(),
-			'admin' 		=> $this->admin['status'],
-			'text'			=>'',
-			'price'			=> ''
-		);
-		if(isset($price) and !empty($price)):
-			$pagevalue['price'] = $price;
-			$status = $this->session->userdata('calc');
-			if(!empty($status)):
-				$pagevalue['retailstatus'] = TRUE;
-				$pagevalue['retailback'] = $this->session->userdata('backpage');
-			else:
-				$this->session->unset_userdata('query');
-				$this->session->unset_userdata('status');
-				$this->session->unset_userdata('searchback');
-			endif;
-		endif;
-		if(!isset($status)):
-			$this->session->unset_userdata('query');
-			$this->session->unset_userdata('status');
-			$this->session->unset_userdata('searchback');
-		endif;
-		$text = array();
-		$text['title'] 	= $this->othertextmodel->get_record(11);
-		$text['fiz'] 	= $this->othertextmodel->get_record(12);
-		$text['ur'] 	= $this->othertextmodel->get_record(13);
-		
-		$this->session->set_userdata('backpage','ipoteka');
-		$pagevalue['text'] = $text;
-		$pagevalue['price'] = $price;
-		$this->load->view('user_interface/ipoteka',$pagevalue);
-	}		//функция выводит информацию на страницу ипотеки;
-	
 	function retail_extended(){
 		
 		$pagevalue = array(
@@ -454,6 +310,7 @@ class Users_interface extends CI_Controller{
 		$apart_id = $this->uri->segment(3);
 		$retail = array();	$images = array();
 		$status = $this->session->userdata('status');
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('calc',TRUE);
 		if(!empty($status)):
 			$pagevalue['searchstatus'] = TRUE;
@@ -467,7 +324,7 @@ class Users_interface extends CI_Controller{
 		if($this->input->post('submit')):
 			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
-			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
 			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
@@ -485,7 +342,8 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Название - '.$retail['title']."\n";
 				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$retail['id']."\n";
 				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
+				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
 				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
@@ -496,7 +354,7 @@ class Users_interface extends CI_Controller{
 				$config['charset'] = 'utf-8';
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
-				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->from($_POST['email'],$_POST['name']);
 				$this->email->to('info@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
@@ -542,6 +400,106 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/retail_extended',$pagevalue);
 	} //функция выводит полную информацию объекта продажи;
 	
+	function commercial(){
+		
+		if(isset($_POST['sortlink'])):
+			$this->session->set_userdata('sortby',$_POST['sortvalue']);
+		endif;
+		$pagevalue = array(
+			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' 		=> 'RealityGroup',
+			'title' 		=> 'Бизнес на Тенерифе | Коммерческая недвижимость | Ипотека в Испании | Luminiza Property Tur S.L.',
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'formsort' 		=> $this->uri->uri_string(),
+			'softvalue' 	=> $this->session->userdata('sortby'),
+			'selectvalue' 	=> array(),
+			'apartment' 	=> array(),
+			'text' 			=> array(),
+			'countrecord' 	=> array(),
+		);
+		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		$selectvalue = array();$apartment = array();$text = array();$countrecord = array();
+		
+		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
+		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
+		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
+		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
+		
+		$countrecord['object'] 		= count($selectvalue['object']);
+		$countrecord['location'] 	= count($selectvalue['location']);
+		$countrecord['region'] 		= count($selectvalue['region']);
+		$countrecord['count'] 		= count($selectvalue['count']);
+		
+		$text['sidebar'] = $this->sidebartextmodel->get_record(10);
+		$text['head'] = $this->othertextmodel->get_record(19);
+		
+		$cntrec = $this->apartmentmodel->count_commercial_flag(5);
+
+		$cfgpag['base_url'] = base_url().'/commercial';
+        $cfgpag['total_rows'] = $cntrec;
+        $cfgpag['per_page'] =  10;
+        $cfgpag['num_links'] = 4;
+        $cfgpag['uri_segment'] = 2;
+		$cfgpag['first_link'] = FALSE;
+		$cfgpag['first_tag_open'] = '<li>';
+		$cfgpag['first_tag_close'] = '</li>';
+		$cfgpag['last_link'] = FALSE;
+		$cfgpag['last_tag_open'] = '<li>';
+		$cfgpag['last_tag_close'] = '</li>';
+		$cfgpag['next_link'] = 'Далее &raquo;';
+		$cfgpag['next_tag_open'] = '<li>';
+		$cfgpag['next_tag_close'] = '</li>';
+		$cfgpag['prev_link'] = '&laquo; Назад';
+		$cfgpag['prev_tag_open'] = '<li>';
+		$cfgpag['prev_tag_close'] = '</li>';
+		$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
+		$cfgpag['cur_tag_close'] = '</a></li>';
+		$cfgpag['num_tag_open'] = '<li>';
+		$cfgpag['num_tag_close'] = '</li>';			
+		
+		$from = intval($this->uri->segment(2));
+		$sortby = $this->session->userdata('sortby');			
+		$apartment = $this->apartmentmodel->get_limit_commercial(10,$from,5,$sortby);
+		for($i = 0; $i < count($apartment); $i++):		
+			if(mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):									
+				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,325,'UTF-8');	
+				$pos = mb_strrpos($apartment[$i]['apnt_extended'],'.',0,'UTF-8');
+				$apartment[$i]['apnt_extended'] = mb_substr($apartment[$i]['apnt_extended'],0,$pos,'UTF-8');
+				$apartment[$i]['apnt_extended'] .= '. ...';
+			endif;
+			if(is_numeric($apartment[$i]['apnt_price'])):
+				$apartment[$i]['apnt_price'] = number_format($apartment[$i]['apnt_price'],0,' ','.');
+			endif;
+			if(is_numeric($apartment[$i]['apnt_newprice'])):
+				$apartment[$i]['apnt_newprice'] = number_format($apartment[$i]['apnt_newprice'],0,' ','.');
+			endif;
+		endfor;
+
+		if(isset($from) and ! empty($from)) $this->session->set_userdata('backpage','commercial/'.$from);
+		for($i = 0; $i < count($apartment); $i++):
+			$image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
+			$apartment[$i]['img_id'] = $image[$i]['img_id'];
+			$apartment[$i]['img_title'] = $image[$i]['img_title'];
+			if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
+		endfor;
+		
+		$this->pagination->initialize($cfgpag);
+		$text['pager'] = $this->pagination->create_links();
+		$pagevalue['selectvalue'] = $selectvalue;
+		$pagevalue['text'] = $text;
+		$pagevalue['apartment'] = $apartment;
+		$pagevalue['countrecord'] = $countrecord;
+
+		$this->load->view('user_interface/commercial',$pagevalue);
+	} //функция выводит информацию о коммерческой недвижимости;
+	
 	function commercial_extended(){
 		
 		$pagevalue = array(
@@ -567,7 +525,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-		$this->session->set_userdata('backpage','commercial/retail/'.$apart_id);		
+		$this->session->set_userdata('backpath',$this->uri->uri_string());		
 		$apartament = $this->apartmentmodel->get_record($apart_id);
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
@@ -576,7 +534,7 @@ class Users_interface extends CI_Controller{
 		if($this->input->post('submit')):
 			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
-			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
 			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
@@ -594,7 +552,8 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Название - '.$retail['title']."\n";
 				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$retail['id']."\n";
 				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
+				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
 				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
@@ -605,7 +564,7 @@ class Users_interface extends CI_Controller{
 				$config['charset'] = 'utf-8';
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
-				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->from($_POST['email'],$_POST['name']);
 				$this->email->to('info@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
@@ -671,7 +630,6 @@ class Users_interface extends CI_Controller{
 			$pagevalue['description'] = 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.'; 
 		endif;
 		
-		$this->session->set_userdata('backpage','rent/'.$pagevalue['page']);
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
@@ -693,7 +651,7 @@ class Users_interface extends CI_Controller{
 		$cntrec = $this->apartmentmodel->count_records_flag(1);
 		$cfgpag['base_url'] = base_url().'/rent/retail';
         $cfgpag['total_rows'] = $cntrec;
-        $cfgpag['per_page'] =  4;
+        $cfgpag['per_page'] =  10;
         $cfgpag['num_links'] = 4;
         $cfgpag['uri_segment'] = 3;
 		$cfgpag['first_link'] = FALSE;
@@ -714,18 +672,17 @@ class Users_interface extends CI_Controller{
 		$cfgpag['num_tag_close'] = '</li>';			
 		
 		$from = intval($this->uri->segment(3));	
-		$rentlist['apartment'] = $this->apartmentmodel->get_limit_records(4,$from,1,0);
+		$rentlist['apartment'] = $this->apartmentmodel->get_limit_records(10,$from,1,0);
 		
 		for($i = 0; $i < count($rentlist['apartment']); $i++):		
-			if (mb_strlen($rentlist['apartment'][$i]['apnt_extended'],'UTF-8') > 650):
+			if (mb_strlen($rentlist['apartment'][$i]['apnt_extended'],'UTF-8') > 325):
 				$tmp = $rentlist['apartment'][$i]['apnt_extended'];			
-				$tmp = mb_substr($tmp,0,650,'UTF-8');	
+				$tmp = mb_substr($tmp,0,325,'UTF-8');	
 				$pos = mb_strrpos($tmp,'.',0,'UTF-8');
 				$tmp = mb_substr($tmp,0,$pos,'UTF-8');
 				$rentlist['apartment'][$i]['apnt_extended'] = $tmp.'. ...';
 			endif;
 		endfor;		
-		if(isset($from) and ! empty($from)) $this->session->set_userdata('backpage','rent/retail/'.$from);
 		for($i = 0; $i < count($rentlist['apartment']); $i++):
 			$image[$i]=$this->imagesmodel->get_type_ones_image('apartment',$rentlist['apartment'][$i]['apnt_id']);
 			$rentlist['apartment'][$i]['img_id'] = $image[$i]['img_id'];
@@ -739,85 +696,9 @@ class Users_interface extends CI_Controller{
 		$pagevalue['rentlist'] = $rentlist;
 		$pagevalue['pageslinks'] = $pageslinks;
 		$pagevalue['text'] = $text;
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->load->view('user_interface/rent',$pagevalue);
 	} //функция выводит информацию на страницу аренды;
-	
-	function rent_commercial(){
-		
-		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' 		=> 'RealityGroup',
-			'title' 		=> 'Бизнес на Тенерифе | Аренда коммерческой недвижимости | Сопровождение сделки | Luminiza Property Tur S.L.',
-			'baseurl' 		=> base_url(),
-			'admin' 		=> $this->admin['status'],
-			'text'			=> array(),
-			'commercial'	=> array(),
-			'pageslinks'	=> array(),
-			
-		);
-		$this->session->set_userdata('backpage','rent/commercial');
-		$this->session->unset_userdata('query');
-		$this->session->unset_userdata('status');
-		$this->session->unset_userdata('calc');
-		$this->session->unset_userdata('searchback');
-		$text = array(); $commercial = array();
-		$text[1]['sidebar'] = $this->sidebartextmodel->get_record(11);	// раздел апартаменты;
-		$text[1]['head'] = $this->othertextmodel->get_record(20);
-
-		$cntrec = $this->apartmentmodel->count_commercial_flag(4);
-
-		$cfgpag['base_url'] = base_url().'/rent/commercial';
-        $cfgpag['total_rows'] = $cntrec;
-        $cfgpag['per_page'] =  4;
-        $cfgpag['num_links'] = 4;
-        $cfgpag['uri_segment'] = 3;
-		$cfgpag['first_link'] = FALSE;
-		$cfgpag['first_tag_open'] = '<li>';
-		$cfgpag['first_tag_close'] = '</li>';
-		$cfgpag['last_link'] = FALSE;
-		$cfgpag['last_tag_open'] = '<li>';
-		$cfgpag['last_tag_close'] = '</li>';
-		$cfgpag['next_link'] = 'Далее &raquo;';
-		$cfgpag['next_tag_open'] = '<li>';
-		$cfgpag['next_tag_close'] = '</li>';
-		$cfgpag['prev_link'] = '&laquo; Назад';
-		$cfgpag['prev_tag_open'] = '<li>';
-		$cfgpag['prev_tag_close'] = '</li>';
-		$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
-		$cfgpag['cur_tag_close'] = '</a></li>';
-		$cfgpag['num_tag_open'] = '<li>';
-		$cfgpag['num_tag_close'] = '</li>';			
-		
-		$from = intval($this->uri->segment(3));			
-		$commercial = $this->apartmentmodel->get_limit_commercial(4,$from,4,0);
-		
-		for($i = 0; $i < count($commercial); $i++):		
-			if (mb_strlen($commercial[$i]['apnt_extended'],'UTF-8') > 650):
-				$tmp = $commercial[$i]['apnt_extended'];			
-				$tmp = mb_substr($tmp,0,650,'UTF-8');	
-				$pos = mb_strrpos($tmp,'.',0,'UTF-8');
-				$tmp = mb_substr($tmp,0,$pos,'UTF-8');
-				$commercial[$i]['apnt_extended'] = $tmp.'. ...';
-			endif;
-		endfor;		
-		
-		if(isset($from) and ! empty($from)) $this->session->set_userdata('backpage','rent/commercial/'.$from);
-		for($i = 0; $i < count($commercial); $i++):
-			$image[$i]=$this->imagesmodel->get_type_ones_image('commercial',$commercial[$i]['apnt_id']);
-			$commercial[$i]['img_id'] = $image[$i]['img_id'];
-			$commercial[$i]['img_title'] = $image[$i]['img_title'];
-			if(empty($commercial[$i]['img_title']))
-				$commercial[$i]['img_title'] = $commercial[$i]['apnt_title'];
-		endfor;		
-		$this->pagination->initialize($cfgpag);
-		$pageslinks = $this->pagination->create_links();
-		
-		$pagevalue['commercial'] = $commercial;
-		$pagevalue['pageslinks'] = $pageslinks;
-		$pagevalue['text'] = $text;
-		$this->load->view('user_interface/rent_commercial',$pagevalue);
-	} //функция выводит информацию об аренде коммерческой недвижимости;
 	
 	function rent_extended($firstparam = '',$secondparam = ''){
 		
@@ -860,7 +741,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 			
 		endif;
-		$this->session->set_userdata('backpage','rent/'.$rent_type.'/'.$rent_id);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		switch($rent_type){
 			case 'auto':{
 						$auto = $this->rentautomodel->get_record($rent_id);
@@ -899,6 +780,83 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/rent_extended',$pagevalue);
 	} //функция выводит полную информацию объекта аренды;
 
+	function rent_commercial(){
+		
+		$pagevalue = array(
+			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' 		=> 'RealityGroup',
+			'title' 		=> 'Бизнес на Тенерифе | Аренда коммерческой недвижимости | Сопровождение сделки | Luminiza Property Tur S.L.',
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'text'			=> array(),
+			'commercial'	=> array(),
+			'pageslinks'	=> array(),
+			
+		);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		$text = array(); $commercial = array();
+		$text[1]['sidebar'] = $this->sidebartextmodel->get_record(11);	// раздел апартаменты;
+		$text[1]['head'] = $this->othertextmodel->get_record(20);
+
+		$cntrec = $this->apartmentmodel->count_commercial_flag(4);
+
+		$cfgpag['base_url'] = base_url().'/rent/commercial';
+        $cfgpag['total_rows'] = $cntrec;
+        $cfgpag['per_page'] =  10;
+        $cfgpag['num_links'] = 4;
+        $cfgpag['uri_segment'] = 3;
+		$cfgpag['first_link'] = FALSE;
+		$cfgpag['first_tag_open'] = '<li>';
+		$cfgpag['first_tag_close'] = '</li>';
+		$cfgpag['last_link'] = FALSE;
+		$cfgpag['last_tag_open'] = '<li>';
+		$cfgpag['last_tag_close'] = '</li>';
+		$cfgpag['next_link'] = 'Далее &raquo;';
+		$cfgpag['next_tag_open'] = '<li>';
+		$cfgpag['next_tag_close'] = '</li>';
+		$cfgpag['prev_link'] = '&laquo; Назад';
+		$cfgpag['prev_tag_open'] = '<li>';
+		$cfgpag['prev_tag_close'] = '</li>';
+		$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
+		$cfgpag['cur_tag_close'] = '</a></li>';
+		$cfgpag['num_tag_open'] = '<li>';
+		$cfgpag['num_tag_close'] = '</li>';			
+		
+		$from = intval($this->uri->segment(3));			
+		$commercial = $this->apartmentmodel->get_limit_commercial(10,$from,4,0);
+		
+		for($i = 0; $i < count($commercial); $i++):		
+			if (mb_strlen($commercial[$i]['apnt_extended'],'UTF-8') > 325):
+				$tmp = $commercial[$i]['apnt_extended'];			
+				$tmp = mb_substr($tmp,0,325,'UTF-8');	
+				$pos = mb_strrpos($tmp,'.',0,'UTF-8');
+				$tmp = mb_substr($tmp,0,$pos,'UTF-8');
+				$commercial[$i]['apnt_extended'] = $tmp.'. ...';
+			endif;
+		endfor;		
+		
+		if(isset($from) and ! empty($from)) $this->session->set_userdata('backpage','rent/commercial/'.$from);
+		for($i = 0; $i < count($commercial); $i++):
+			$image[$i]=$this->imagesmodel->get_type_ones_image('commercial',$commercial[$i]['apnt_id']);
+			$commercial[$i]['img_id'] = $image[$i]['img_id'];
+			$commercial[$i]['img_title'] = $image[$i]['img_title'];
+			if(empty($commercial[$i]['img_title']))
+				$commercial[$i]['img_title'] = $commercial[$i]['apnt_title'];
+		endfor;		
+		$this->pagination->initialize($cfgpag);
+		$pageslinks = $this->pagination->create_links();
+		
+		$pagevalue['commercial'] = $commercial;
+		$pagevalue['pageslinks'] = $pageslinks;
+		$pagevalue['text'] = $text;
+		$this->load->view('user_interface/rent_commercial',$pagevalue);
+	} //функция выводит информацию об аренде коммерческой недвижимости;
+	
 	function rent_commercial_extended(){
 		
 		$msg = $this->setmessage('','','',0);
@@ -927,7 +885,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-		$this->session->set_userdata('backpage','rent/commercial/extended/'.$rent_id);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$apartament = $this->apartmentmodel->get_record($rent_id);
 		$rent['id'] = $apartament['apnt_id'];
 		$rent['title'] = $apartament['apnt_title'];
@@ -938,7 +896,7 @@ class Users_interface extends CI_Controller{
 		if($this->input->post('submit')):
 			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
-			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
+			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
 			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
@@ -956,7 +914,8 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Название - '.$rent['title']."\n";
 				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$rent['id']."\n";
 				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
+				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
 				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
@@ -967,7 +926,7 @@ class Users_interface extends CI_Controller{
 				$config['charset'] = 'utf-8';
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
-				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->from($_POST['email'],$_POST['name']);
 				$this->email->to('info@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
@@ -999,6 +958,50 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/rent_commercial_extended',$pagevalue);
 	} //функция выводит полную информацию rоммерческой недвижимости аренда;
 	
+	function ipoteka(){
+		
+		$price = $this->uri->segment(2);
+		$pagevalue = array(
+			'description' =>'Воспользуйтесь нашим калькулятором для расчета ипотеки. Юридическое сопровождение сделок, оформление ипотеки. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' => 'RealityGroup',
+			'title' => 'Перечень документов для оформления ипотеки в Испании | Ипотечный калькулятор | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Luminiza Property Tur S.L.',
+			'price' 		=> '',
+			'retailback'	=> '',
+			'retailstatus'	=> FALSE,
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'text'			=>'',
+			'price'			=> ''
+		);
+		if(isset($price) and !empty($price)):
+			$pagevalue['price'] = $price;
+			$status = $this->session->userdata('calc');
+			if(!empty($status)):
+				$pagevalue['retailstatus'] = TRUE;
+				$pagevalue['retailback'] = $this->session->userdata('backpage');
+			else:
+				$this->session->unset_userdata('query');
+				$this->session->unset_userdata('status');
+				$this->session->unset_userdata('searchback');
+			endif;
+		endif;
+		if(!isset($status)):
+			$this->session->unset_userdata('query');
+			$this->session->unset_userdata('status');
+			$this->session->unset_userdata('searchback');
+		endif;
+		$text = array();
+		$text['title'] 	= $this->othertextmodel->get_record(11);
+		$text['fiz'] 	= $this->othertextmodel->get_record(12);
+		$text['ur'] 	= $this->othertextmodel->get_record(13);
+		
+		$this->session->set_userdata('backpage','ipoteka');
+		$pagevalue['text'] = $text;
+		$pagevalue['price'] = $price;
+		$this->load->view('user_interface/ipoteka',$pagevalue);
+	}		//функция выводит информацию на страницу ипотеки;
+	
 	function tour(){
 		
 		$pagevalue = array(
@@ -1011,7 +1014,7 @@ class Users_interface extends CI_Controller{
 			'tour' => array(),
 			'text' => array()
 		);
-		$this->session->set_userdata('backpage','tour');
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
@@ -1083,18 +1086,18 @@ class Users_interface extends CI_Controller{
 	function tour_extended(){
 		
 		$pagevalue = array(
-			'description' =>'Организация индивидуальных экскурсий и туров на Тенерифе, Гран Канария, Ла Гомера. Обзорные экскурсии, вулкан Тейде, Лоро Парк. Недвижимость на Тенерифе. Индивидуальные трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, гран канария, индивидуальные экскурсии, лоро парк, вулкан тейде, ла гомера, недвижимость на тенерифе, лас америкас, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Индивидуальные экскурсии | Luminiza Property Tur S.L.',
-			'baseurl' => base_url(),
-			'backpath' => $this->session->userdata('backpage'),
-			'admin' => $this->admin['status'],
-			'tour' 	=> array(),
-			'text' 	=> array(),
-			'images'=> array(),
-			'msg'			=> $this->session->userdata('msg')
-		);
+				'description' 	=>'Организация индивидуальных экскурсий и туров на Тенерифе, Гран Канария, Ла Гомера. Обзорные экскурсии, вулкан Тейде, Лоро Парк. Недвижимость на Тенерифе. Индивидуальные трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+				'keywords' 		=> 'тенерифе, гран канария, индивидуальные экскурсии, лоро парк, вулкан тейде, ла гомера, недвижимость на тенерифе, лас америкас, luminiza',
+				'author' 		=> 'RealityGroup',
+				'title' 		=> 'Индивидуальные экскурсии | Luminiza Property Tur S.L.',
+				'baseurl' 		=> base_url(),
+				'admin' 		=> $this->admin['status'],
+				'tour' 			=> array(),
+				'text' 			=> array(),
+				'images'		=> array(),
+				'msg'			=> $this->session->userdata('msg')
+			);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('msg');
 		$tour_id = $this->uri->segment(3);
 		$tour = array();$text = array();$images = array();
@@ -1112,7 +1115,6 @@ class Users_interface extends CI_Controller{
 		if($this->input->post('submit')):
 			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
-			$this->form_validation->set_rules('lastname','"Ваша фамилия"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата экскурсии"','required|trim');
 			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
@@ -1130,7 +1132,7 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Название - '.$pagevalue['tour']['tour_title']."\n";
 				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$pagevalue['tour']['tour_id']."\n";
 				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name'].' '.$_POST['lastname']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
@@ -1141,7 +1143,7 @@ class Users_interface extends CI_Controller{
 				$config['charset'] = 'utf-8';
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
-				$this->email->from($_POST['email'],$_POST['name'].' '.$_POST['lastname']);
+				$this->email->from($_POST['email'],$_POST['name']);
 				$this->email->to('info@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
@@ -1189,6 +1191,64 @@ class Users_interface extends CI_Controller{
 		$text['sidebar'] = $this->sidebartextmodel->get_record(7);
 		$text['head'] = $this->othertextmodel->get_record(5);
 		$transfer = $this->imagesmodel->get_type_data('transfers');
+		
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
+			$this->form_validation->set_rules('name','"Ваше имя и фамилия"','required|trim');
+			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
+			$this->form_validation->set_rules('date','"Дата прилета"','required|trim');
+			$this->form_validation->set_rules('textmail','"Сообщение"','required|trim');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$this->tour_extended();
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$_POST['submit'] = NULL;
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$_POST['msg'] 	 = 'Обект - "Трансферы"'. "\n";
+				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
+				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
+				$_POST['msg'] 	.= 'Дата прилета - '.$_POST['date']."\n";
+				$_POST['msg'] 	.= 'Сообщение - '.$_POST['textmail']."\n";
+				$_POST['msg'] 	.= 'Дата экскурсии - '.$_POST['date']."\n";
+				if(isset($_POST['subject'])):
+					$sub = array('Интернет','От друзей','Реклама');
+					if($_POST['subject'] < 3):
+						$_POST['msg'] 	.= 'О нас узнал через - '.$sub[$_POST['subject']];
+					elseif(!empty($_POST['subject_txt'])):
+						$_POST['msg'] 	.= 'О нас узнал через - '.$_POST['subject_txt'];
+					else:
+						$_POST['msg'] 	.= 'Пользователь не уточнил откуда узнал о нас.';
+					endif;
+				else:
+					$_POST['msg'] 	.= 'Пользователь не уточнил откуда узнал о нас.';
+				endif;
+				$this->email->clear(TRUE);
+				$config['smtp_host'] = 'localhost';
+				$config['charset'] = 'utf-8';
+				$config['wordwrap'] = TRUE;
+				$this->email->initialize($config);
+				$this->email->from($_POST['email'],$_POST['name']);
+				$this->email->to('info@lum-tenerife.com');
+				$this->email->bcc('');
+				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+				$textmail = strip_tags($_POST['msg']);
+				$this->email->message($textmail);	
+				if(!$this->email->send()):
+					$this->session->set_userdata('msg','Сообщение не отправлено');
+					redirect($this->uri->uri_string());
+					return FALSE;
+				endif;
+				$this->session->set_userdata('msg','Сообщение отправлено');
+				$_POST['extended'] = $_POST['msg'];
+				$_POST['date'] = date("Y-m-d");
+				$this->maillistmodel->insert_record($_POST);
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
+		
 		
 		$pagevalue['text'] = $text;
 		$pagevalue['transfer'] = $transfer;

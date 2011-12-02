@@ -6,15 +6,15 @@
 		</div>
 		<div class="clear"></div>
 	<?=form_error('name').'<div class="clear"></div>'; ?>
-		<label for="name">Ваше имя <em class="bright">*</em></label>
+		<label for="name">Ваше имя и фамилия <em class="bright">*</em></label>
 		<div class="dd">
 			<input type="text" size="45" maxlength="50" class="name inpval" id="name" value="" name="name">
 		</div>
 		<div class="clear"></div>
-		<?=form_error('lastname').'<div class="clear"></div>'; ?>
-		<label for="lastname">Ваша фамилия <em class="bright">*</em></label>
+		<?=form_error('phone').'<div class="clear"></div>'; ?>
+		<label for="phone">Контактный номер телефона <em class="bright">*</em></label>
 		<div class="dd">
-			<input type="text" size="45" maxlength="50" class="lastname inpval" id="lastname" value="" name="lastname">
+			<input type="text" size="45" maxlength="50" class="phone inpval" id="phone" value="" name="phone">
 		</div>
 		<div class="clear"></div>
 		<?=form_error('max_budget').'<div class="clear"></div>'; ?>

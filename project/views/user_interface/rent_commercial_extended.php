@@ -65,8 +65,21 @@
 								echo $msg['message'].'<br/>'.$msg['error'];
 							echo '</div>';
 							echo '<div class="clear"></div>';
-						}
-					?>
+						}?>
+					<?php if($admin):?>
+						<div class="admin-change">
+						<?php $link = 'edit/commercial/'.$rent['id'].'/rent';
+							echo anchor($link,'Редактировать',array('class'=>'editlink'));?>
+						</div>
+						<div class="admin-change">
+						<?php $link = 'rent/photo/manage/commercial/'.$rent['id'];
+							echo anchor($link,'Доб./Удал. рисунки',array('class'=>'editlink'));?>
+						</div>
+						<div class="admin-change">
+						<?php $link = 'rent/commercial/delete/'.$rent['id'];
+							echo anchor($link,'Удалить недвижимость',array('class'=>'dellink'));?>
+						</div>
+					<?php endif; ?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и произвести заказ<br><br> 
 						</p>
@@ -103,6 +116,7 @@
 				event.preventDefault();
 			}
 		});
+		$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);
