@@ -127,7 +127,7 @@ nav { height: 55px; border: 1px solid #ae8911;  border-style: solid none; backgr
 #mailchimp-form .button { background: #e5e0dd; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #4b4444; display: inline-block; font-size: 12px; padding: 3px 6px; }
 
 #main {	padding: 25px 0; }
-h1 { color: #4b4444; font-size: 27px; line-height: 32px; margin-bottom: 20px; }
+h1 { color: #4b4444; font-size: 22px; line-height: 27px; margin-bottom: 10px; }
 h2 { color: #383333; font-size: 18px; line-height: 21px; text-decoration: underline; margin: 0 0 12px; }
 a { color: #0477a2; text-decoration: underline; }
 .featured-link { display: block; margin: 8px 0 0; }
@@ -147,9 +147,9 @@ a { color: #0477a2; text-decoration: underline; }
 #testimonials a { font-size: 14px; margin-top: 10px; display: block; }
 
 /* Retail Page */
-.sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; padding: 15px 10px 15px 15px; width: 100%; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); }
+.sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; padding: 15px 10px 15px 15px; width: 100%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); }
 	.sidebar h2 { color: #4B4444; font-size: 16px; margin: 0 0 10px; text-decoration: none; }
-	.sidebar select { width: 190px; }
+	.sidebar select { width: 190px; padding: 2px; }
 	.sidebar p { font-size: 13px; line-height: 19px; }
 	.sidebar strong { display: inline-block; margin: 8px 0 0; }
 
@@ -178,10 +178,14 @@ a { color: #0477a2; text-decoration: underline; }
 	.missions_right_panel p { margin: 8px 0 0; }
 	.missions_right_panel .car_preferences { float: left; font-size: 12px; line-height: 18px; margin: 10px 50px 0 0; }
 	.missions_right_panel .notmargin { margin-top: 0; }
+	.missions_right_panel h1 { font-size: 14px; margin: 0; line-height: 18px; }
+	.sell-date { font-size: 12px; }
+	.lnk-mortage { display: none; }
 	.missions_right_panel h2 { font-size: 15px; margin-bottom: 0; }
+	h1 strike, h2 strike { color: #d13a31; }
 
 .ml10 { display: inline-block; font-size: 13px; margin: 0 10px 0 0; }
-/* \Retail Page */
+/* Retail Page */
 
 /* General styles for all pages from old css files */
 .main_image, .row_image { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 5px 20px 15px 0; }
@@ -189,6 +193,7 @@ a { color: #0477a2; text-decoration: underline; }
 
 .side_nav { margin: 0 0 16px; padding: 0; width: 100%; }
 .side_nav li { font-size: 12px; margin: 2px 0; }
+li { font-size: 13px; }
 
 .cars_row { float: left; margin: 0 5px 5px 0; }
 	.cars_row img { border: 8px solid #e0e0e0; display: inline; }
@@ -199,11 +204,34 @@ a.info_link:hover { background: #895935; }
 
 .sidebar ul { margin-bottom: 10px; }
 .sidebar li { font: 13px/21px trebuchet ms, serif; }
-/* \General styles*/
+/* General styles*/
+
+/* Forms */
+.formmailer { background: url('../images/form_overlay.jpg') repeat scroll 0 0 transparent; border: 1px solid #dad7d0; margin: 15px 0 0; padding: 20px 20px 7px; width: 500px; font: 1.2em/1.5em "Helvetica", Calibri, Arial, sans-serif; color: #34332d; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	.formmailer p { font-size: 12px; margin: 0; }
+.dd input { border: solid 1px #dad7d0; color: #453E34; font: 15px/23px Cambria, Georgia,"Times New Roman",Times,serif; padding: 5px; width: 270px; -moz-border-radius: 5px; -webkit-border-radius : 5px; }
+.ddr input { border: solid 1px #dad7d0; color: #453E34; font: 15px/23px Cambria, Georgia,"Times New Roman",Times,serif; padding: 5px; margin: 3px 10px 3px 0; line-height: 25px; -moz-border-radius: 5px; -webkit-border-radius : 5px; }
+.ddr input[type=text] { margin-left: 10px }
+	.formmailer small, .formmailer label { margin: 0 0 0.4em; letter-spacing: 0; color: #6D5935; font: bold 13px "trebuchet MS",serif; }
+	.formmailer .dd_name, 
+	.formmailer .dd_mail,
+	.formmailer .dd_url,
+	.formmailer .dd_msg,
+	.formmailer .dd { margin: 3px 0 10px; width: 500px; }
+.dd textarea { border: solid 1px #dad7d0; color: #453E34; font: 15px/23px Cambria, Georgia,"Times New Roman",Times,serif; height: 200px; padding: 5px; width: 490px; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.senden { border: 0 none; background: #72923f; color: #fff; cursor: pointer; padding: 8px; margin: 1em 0 0.75em; font: bold 12px arial, sans-serif; letter-spacing: 0.5px; text-shadow: 0 1px 1px #000000; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
+.senden:hover { background: #B42720 }
+.bright { color: #BB0909; font-weight: normal; font-size: 14px; }
+/* Forms */
 
 .admin-change {	border-radius: 3px; background: #fafafa; border:1px dashed #777; color:#34332D; float:left; font: 12px/18px trebuchet ms, serif; margin:0 11px 15px 0; padding:3px 8px; text-align:center; }
 .admin-change a { font: 12px trebuchet MS,serif; letter-spacing: 0.7px; text-decoration: none; text-shadow: none; }
 .admin-change a:hover { color: #295e76; text-decoration: underline; }
+.admin-panel { background: #e0e0e0; border-bottom: 1px dashed #777; color: #34332D; font: bold 12px/17px "trebuchet ms", serif; height: 20px; padding: 7px 0 5px; border-radius: 0 0 3px 3px; }
+.admin-panel a { font-weight: normal; margin-left: 10px; text-decoration: none; color: #0477A2 !important; }
+.admin-panel a:hover { text-decoration: underline; }
+
+
 
 
 footer { background: #4b4444; color: #afafaf; margin-top: 70px; }

@@ -12,7 +12,7 @@
 		<div class="content container_12">
 			<div class="grid_3">
 				<div class="sidebar">
-					<h1>Контактная информация</h1>
+					<h2>Контактная информация</h2>
 					<?=$text['sidebar']['sbt_extended'];?>
 				<?php if($admin):	?>
 					<div class="admin-change">
@@ -26,7 +26,7 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<h3><?=$text['head']['txt_title']; ?></h3>					
+					<h1><?=$text['head']['txt_title']; ?></h1>
 					<?php if($admin):?>
 						<br class="clear"/>
 						<div class="admin-change">
