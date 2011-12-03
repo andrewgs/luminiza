@@ -90,7 +90,7 @@ body {
 
 header { background: #4b4444; height: 70px; border-bottom: 1px solid #383333; }
 #logo { background: url("../img/sprites.png") no-repeat 0 0 transparent; display: block; height: 62px; text-indent: -9999px; width: 393px; }
-.top-phone { color: #eee; font-size: 23px; margin: 14px 0 0; text-align: right;}
+.top-phone { color: #eee; font-size: 23px; margin-top: 15px; text-align: right;}
 .top-phone span { display: block; font-size: 10px; }
 .top-phone.last { background: url("../img/sprites.png") no-repeat -393px 1px; }
 .side-phone { font-size: 21px; color: #3b3333; margin: 0 0 5px; }
@@ -122,7 +122,7 @@ nav { height: 55px; border: 1px solid #ae8911;  border-style: solid none; backgr
 	#property-rent:hover { background-position: -251px -154px; }
 
 #subscription { background: url("../img/bgs/subscription.png") repeat scroll 0 0 transparent; height: 46px; width: 100%; }
-#mailchimp-form { margin-top: 12px; }
+#mailchimp-form { margin-top: 8px; }
 #mailchimp-form .input { background: #eee; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #A6A6A6; display: inline-block; font-size: 12px; margin: 0 5px 0 20px; padding: 4px 6px; }
 #mailchimp-form .button { background: #e5e0dd; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #4b4444; display: inline-block; font-size: 12px; padding: 3px 6px; }
 
@@ -172,13 +172,14 @@ a { color: #0477a2; text-decoration: underline; }
 .main_content ul.pages li a { display:block; padding:3px 4px; text-decoration:underline; }
 .main_content ul.pages li a.active, ul.pages li a.active:hover { border:0 none; color:#6D5935; display:block; padding:3px 4px; text-decoration:none; }
 
-.missions_row { overflow: hidden; width:100%; margin-bottom:26px; }
+.missions_row { overflow: hidden; width:100%; margin-bottom: 15px; }
 .missions_row img { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 0; }
 .missions_right_panel { display: inline; float: right; width: 65%; }
+.missions_right_panel.extended { display: block; float: none; width: auto; }
 	.missions_right_panel p { margin: 8px 0 0; }
 	.missions_right_panel .car_preferences { float: left; font-size: 12px; line-height: 18px; margin: 10px 50px 0 0; }
 	.missions_right_panel .notmargin { margin-top: 0; }
-	.missions_right_panel h1 { font-size: 14px; margin: 0; line-height: 18px; }
+	.missions_right_panel h1 { font-size: 16px; margin: 0; line-height: 19px; }
 	.sell-date { font-size: 12px; }
 	.lnk-mortage { display: none; }
 	.missions_right_panel h2 { font-size: 15px; margin-bottom: 0; }
@@ -190,6 +191,8 @@ a { color: #0477a2; text-decoration: underline; }
 /* General styles for all pages from old css files */
 .main_image, .row_image { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 5px 20px 15px 0; }
 .row_image { margin: 0 5px 5px 0; }
+.thumb { width: 30px; border: 2px solid #e0e0e0; border-radius: 2px; }
+.retail-preview { float: left; width: 520px; margin: 2px 7px 0 0; }
 
 .side_nav { margin: 0 0 16px; padding: 0; width: 100%; }
 .side_nav li { font-size: 12px; margin: 2px 0; }
@@ -222,6 +225,12 @@ a.info_link:hover { background: #895935; }
 .senden { border: 0 none; background: #72923f; color: #fff; cursor: pointer; padding: 8px; margin: 1em 0 0.75em; font: bold 12px arial, sans-serif; letter-spacing: 0.5px; text-shadow: 0 1px 1px #000000; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 .senden:hover { background: #B42720 }
 .bright { color: #BB0909; font-weight: normal; font-size: 14px; }
+.textfield { border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 3px; box-shadow: 0 0 1px rgba(0, 0, 0, 0.2); display: inline-block; font: 13px trebuchet MS,sans-serif; letter-spacing: 0.25px; margin: 2px 0 5px; padding: 5px; min-width: 300px; }
+label { color: #6D5935; font: bold 13px "trebuchet MS",serif; letter-spacing: 0; margin: 4px 0 8px; }
+label.inline { display: inline-block; margin: 0 7px 0 0; text-align: right; width: 145px; }
+#editunitform label { min-width: 65px; display: inline-block; }
+input[type=checkbox], input[type=radio] { display: inline-block; margin: 0 5px 3px; }
+.message { color: #383333; font: bold 13px/21px trebuchet MS,sans-serif; margin: 0 0 15px; }
 /* Forms */
 
 .admin-change {	border-radius: 3px; background: #fafafa; border:1px dashed #777; color:#34332D; float:left; font: 12px/18px trebuchet ms, serif; margin:0 11px 15px 0; padding:3px 8px; text-align:center; }
@@ -231,9 +240,6 @@ a.info_link:hover { background: #895935; }
 .admin-panel a { font-weight: normal; margin-left: 10px; text-decoration: none; color: #0477A2 !important; }
 .admin-panel a:hover { text-decoration: underline; }
 
-
-
-
 footer { background: #4b4444; color: #afafaf; margin-top: 70px; }
 footer h3 { color: #E4B211; font-size: 21px; margin: 35px 0 20px; }
 footer .bright { color: #e5e5e5; margin: 30px 0 40px; }
@@ -241,17 +247,8 @@ footer .email { color: #E4B211; text-decoration: none; }
 footer address { margin: 25px 0 15px; }
 footer .logo { display: block; text-indent: -9999px; margin-top: 30px; background: url("../img/sprites.png") 0 -185px; height: 32px; width: 341px; }
 
-
 #footer-top { border-bottom: 1px solid #2f2b2b;}
 #footer-bottom { border-top: 1px solid #706666;}
-
-
-
-
-
-
-
-
 
 
 
@@ -294,4 +291,3 @@ footer .logo { display: block; text-indent: -9999px; margin-top: 30px; backgroun
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
 }
-
