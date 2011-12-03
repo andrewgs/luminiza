@@ -31,11 +31,7 @@
 			<div class="grid_9 alpha">
 				<div class="main_content">
 					<div class="missions_row">
-					<?php if(isset($retail['img_id'])):
-							echo '<img alt="'.$retail['img_title'].'"title="'.$retail['img_title'].'" 
-								src="'.$baseurl.'viewimage/'.$retail['img_id'].'">';
-						endif; ?>
-						<div class="missions_right_panel">
+						<div class="missions_right_panel extended">
 						<?php if(!empty($retail['newprice'])):
 								echo '<h1>'.$retail['title'].' (<strike>'.$retail['newprice'].'</strike> '.$retail['price'].' &euro;)</h1>';
 							else:
@@ -73,14 +69,19 @@
 						</div>
 					<?php endif; ?>
 					<div class="clear"></div>
+					<?php 
+						if(isset($retail['img_id'])):
+							echo '<img class="retail-preview" alt="'.$retail['img_title'].'"title="'.$retail['img_title'].'" src="'.$baseurl.'viewslideshow/'.$retail['img_id'].'">';
+						endif; 
+					?>
 					<?php for($i = 0;$i < count($images); $i++){							
 						if(isset($images[$i]['img_id'])):			
-							$text = '<img class="row_image" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
+							$text = '<img class="row_image thumb" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
 							$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
 							$attr = array('class'=>'pirobox_retail','title'=>$images[$i]['img_title']);
 							echo anchor($link,$text,$attr);	
 						endif;
-						if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
+						//if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					} ?>
 				<?php if($this->uri->segment(1) == 'retail'):?>
