@@ -15,6 +15,9 @@
 				<?php if($searchstatus): ?>
 					<a class="crossing" href="<?=$baseurl.$searchback;?>">&larr; Вернуться к поиску</a>
 					<div class="clear"></div>
+				<?php else:?>
+					<a class="crossing" href="<?=$baseurl.$backpath;?>">&larr; Вернуться к списку</a>
+					<div class="clear"></div>
 				<?php endif; ?>
 					<ul>
 						<li><?=anchor('retail','Жилая недвижимость');?></li>

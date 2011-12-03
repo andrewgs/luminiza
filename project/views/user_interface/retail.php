@@ -17,96 +17,7 @@
 							<li><?=anchor('commercial','Коммерческая недвижимость');?></li>
 							<li><?=anchor('ipoteka','Ипотечный калькулятор');?></li>
 						</ul>
-						<h3>Поиск недвижимости</h3>
-						<p>
-							<table width="100%" border="0" class="retail-filter-table">
-							<?php
-								$attr = array('name'=>'frmsearch','id'=>'frmsearch');
-								if(isset($selectvalue) and !empty($selectvalue))
-									echo form_open('search',$attr);
-									echo form_hidden('cntrec',$countrecord);
-							?>
-								<tbody>
-									<tr><td>Объект</td></tr>
-									<tr>
-										<td>
-										<?php
-											$options = array();
-											for($i = 0;$i < $countrecord['object'];$i++)
-												$options[$i] = $selectvalue['object'][$i]['apnt_object'];
-											$options[$countrecord['object']] = 'Любой объект';
-											$attr = 'id="object" class="w215"';
-											echo form_dropdown('object',$options,$countrecord['object'],$attr);
-										?>
-										</td>
-									</tr>
-									<tr><td>Местонахождение</td></tr>
-									<tr>
-										<td>
-										<?php
-											$options = array();
-											for($i = 0;$i < $countrecord['location'];$i++)
-												$options[$i] = $selectvalue['location'][$i]['apnt_location'];
-											$options[$countrecord['location']] = 'Любое местонахождение';
-											$attr = 'id="location" class="w215"';
-											echo form_dropdown('location',$options,$countrecord['location'],$attr);
-										?>
-										</td>
-									</tr>
-									<tr><td>Район</td></tr>
-									<tr>
-										<td>
-											<?php
-											$options = array();
-											for($i = 0;$i < $countrecord['region'];$i++)
-												$options[$i] = $selectvalue['region'][$i]['apnt_region'];
-											$options[$countrecord['region']] = 'Любой район';
-											$attr = 'id="region" class="w215"';
-											echo form_dropdown('region',$options,$countrecord['region'],$attr);
-										?>
-										</td>
-									</tr>
-									<tr><td>Количество комнат</td></tr>
-									<tr>
-										<td>
-											<table class="tbl">
-												<tbody>
-												<?php
-													for($i = 1;$i <= count($selectvalue['count']); $i++){
-														$attr = array(
-												       'name'  => 'rooms_'.($i-1),
-												       'class' => 'rooms',
-												       'value' => $selectvalue['count'][$i-1]['apnt_count'],
-												       'checked'=> FALSE,
-	      												);
-														if($i % 2 == 0){
-															echo '<td>';
-															echo form_checkbox($attr).
-																	$selectvalue['count'][$i-1]['apnt_count'];
-															echo '</td></tr>';
-														}else{
-															echo '<tr><td>';
-															echo form_checkbox($attr).
-																	$selectvalue['count'][$i-1]['apnt_count'];
-															echo '</td>';
-														}
-														if($i == count($selectvalue['count'])) echo '</tr>';
-													}
-												?>
-												</tbody>
-											</table>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<button type="submit" border="0" class="senden" value="" name="btsearch">Найти</button>
-										</td>
-									</tr>
-								</tbody>
-							<?=form_close();?>
-							</table>
-						</p>
-						<p>&nbsp;</p>
+						<?php $this->load->view('forms/formsearch');?>
 						<h3>Информация</h3>
 						<?=$text['sidebar']['sbt_extended'];?>
 						<?php if($admin):?>
@@ -205,6 +116,15 @@
 		$(document).ready(function(){
 			$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 			$('a.action-sort').click(function(){$("#sort-price")[0].submit();});
+			$("#btsname").click(function(event){
+				var strsearch = $("#sname").val();
+				$("#sname").css('border-color','#00ff00');
+				if(strsearch == ''){
+					event.preventDefault();
+					$("#sname").css('border-color','#ff0000');
+					$.jGrowl("Поле не може быть пустым",{header:'Форма поиска'});
+				}
+			});
 		});
 	</script>	
 <?php $this->load->view('user_interface/yandex');?>

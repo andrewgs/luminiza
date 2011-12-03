@@ -1,4 +1,4 @@
-<?=form_open($this->uri->uri_string(),array('id'=>'frmRent'));?>
+<?=form_open($this->uri->uri_string(),array('id' => 'frmTransfer','name' => 'frmTransfer'));?>
 	<?=form_error('email').'<div class="clear"></div>'; ?>
 	<label for="email">E-Mail <em class="bright">*</em></label>
 	<div class="dd">
@@ -17,6 +17,12 @@
 		<input type="text" size="45" maxlength="50" class="phone inpval" id="phone" value="" name="phone">
 	</div>
 	<div class="clear"></div>
+	<?=form_error('max_budget').'<div class="clear"></div>'; ?>
+	<label for="max_budget">Максимальный бюджет <em class="bright">*</em></label>
+	<div class="dd">
+	<input type="text" size="45" maxlength="50" class="max_budget inpval" id="max_budget" value="" name="max_budget">
+	</div>
+	<div class="clear"></div>
 	<?=form_error('number_people').'<div class="clear"></div>'; ?>
 	<label for="number_people">Количество людей <em class="bright">*</em></label>
 	<div class="dd">
@@ -29,17 +35,17 @@
 	<input type="text" size="45" maxlength="50" class="number_children inpval" id="number_children" value="" name="number_children">
 	</div>
 	<div class="clear"></div>
-	<?=form_error('date').'<div class="clear"></div>'; ?>
-	<label for="rdate">Дата экскурсии <em class="bright">*</em></label>
+	<?=form_error('rdate').'<div class="clear"></div>'; ?>
+	<label for="rdate">Дата начала аренды <em class="bright">*</em></label>
 	<div class="dd">
-		<input type="text" size="45" maxlength="50" class="date inpval" id="date" value="" name="date">
+		<input type="text" size="45" maxlength="50" class="rdate inpval" id="rdate" value="" name="rdate">
 	</div>
 	<div class="clear"></div>
-	<?=form_error('note').'<div class="clear"></div>'; ?>
-	<label for="rdate">Примечания <em class="bright">*</em></label>
+	<?=form_error('bcdate').'<div class="clear"></div>'; ?>
+	<label for="bcdate">Дата возвращения <em class="bright">*</em></label>
 	<div class="dd">
-		<textarea class="note inpval" id="note" name="note"></textarea>
+		<input type="text" size="45" maxlength="50" class="bcdate inpval" id="bcdate" value="" name="bcdate">
 	</div>
 	<div class="clear"></div>
-	<button type="submit" border="0" id="send" class="senden" value="send" name="submit">Отправить запрос</button>
-<?=form_close(); ?>
+	<button type="submit" border="0" id="send" class="senden" value="send" name="sapartment">Отправить запрос</button>
+<?=form_close();?>

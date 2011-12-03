@@ -63,48 +63,12 @@
 					</form>
 					</div>
 					<!--End mc_embed_signup-->
-					
+					<?php if($this->uri->segment(1) == 'contacts'):?>
 					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку:
-						<?=safe_mailto('info@lum-tenerife.com','info@lum-tenerife.com');?>
-							<br/><br/>
-						</p>
-						<?php	
-							$attr = array('id' => 'frmTransfer','name' => 'frmTransfer');
-							echo form_open('mailsend',$attr);
-							echo form_hidden('object','contacts');
-							echo form_hidden('type','contacts');
-							echo form_hidden('backuri','contacts');
-							echo form_hidden('title','Контакты');
-							echo form_hidden('id','Отсутствует');
-						?>
-							<?=form_error('your_name').'<div class="clear"></div>'; ?>
-							<label for="your_name">Ваше имя <em class="bright">*</em></label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_name inpval" id="your_name" value="" name="your_name">
-							</div>
-							<div class="clear"></div>
-							<label for="your_phone">Телефон</label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_phone" id="your_phone" value="" name="your_phone">
-							</div>							
-							<div class="clear"></div>
-							<?=form_error('email').'<div class="clear"></div>'; ?>
-							<label for="email">E-Mail <em class="bright">*</em></label>
-							<div class="dd">
-								<input type="text" size="45" maxlength="50" class="y_email inpval" id="email" value="" name="email">
-							</div>
-							<div class="clear"></div>
-							<?=form_error('textmail').'<div class="clear"></div>'; ?>
-							<label for="msg">Сообщение <em class="bright">*</em></label>
-							<div class="dd">
-								<textarea class="y_msg inpval" id="msg" rows="5" cols="40" name="textmail"></textarea>
-							</div>
-							<div class="clear"></div>
-							<input type="submit" border="0" id="send" class="senden" value="Отправить" name="Submit">
-						<?php form_close(); ?>							
-						<p>&nbsp;</p>						
+						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку: <?=safe_mailto('service@lum-tenerife.com','service@lum-tenerife.com'); ?><br><br></p>
+						<?php $this->load->view('forms/formsendcontact');?>
 					</div>
+				<?php endif;?>
 				</div>
 			</div>
 			<div class="clear"></div>
