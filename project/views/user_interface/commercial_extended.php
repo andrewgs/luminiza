@@ -77,7 +77,7 @@
 						</div>
 					<?php endif; ?>
 					<div class="clear"></div>
-					<?php for($i = 0;$i < count($images); $i++){							
+					<?php for($i=0;$i<count($images); $i++){							
 						if(isset($images[$i]['img_id'])):			
 							$text = '<img class="row_image" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
 							$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
@@ -87,6 +87,9 @@
 						if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					} ?>
+				<div>
+	<?=anchor('retail/commercial/extended/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+				</div>
 				<?php if($this->uri->segment(1) == 'retail'):?>
 					<?php $this->load->view('forms/formsendapart');?>
 				<?php endif;?>

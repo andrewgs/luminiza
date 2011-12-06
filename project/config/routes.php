@@ -40,6 +40,15 @@ $route['ipoteka'] 						= "users_interface/ipoteka";
 $route['ipoteka/([0-9]+)\.([0-9]+)'] 	= "users_interface/ipoteka";
 $route['ipoteka/:num'] 					= "users_interface/ipoteka";
 
+/*==================================================  PRINT  ======================================================*/
+
+$route['retail/apartment/:num/print-view'] 		= "users_interface/retail_print";
+$route['retail/commercial/extended/:num/print-view'] 		= "users_interface/retail_commercial_print";
+$route['rent/apartment/:num/print-view'] 		= "users_interface/rent_print";
+$route['rent/commercial/extended/:num/print-view'] 		= "users_interface/rent_commercial_print";
+
+/*================================================== END PRINT ======================================================*/
+
 		/************************************	ADMIN INTRERFACE	***********************************************/
 
 $route['admin'] = "admin_interface/login";

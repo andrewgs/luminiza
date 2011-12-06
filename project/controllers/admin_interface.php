@@ -973,13 +973,15 @@ class Admin_interface extends CI_Controller{
 				if($_POST['imgtype'] == 'apartment' || $_POST['imgtype'] == 'commercial'):
 					$image = $this->imagesmodel->get_type_ones_image($_POST['imgtype'],$_POST['object']);
 					if($_POST['id'] === $image['img_id'])
-						$bigimage = $this->resize_slide_img($_FILES,752,336,FALSE);
+//						$bigimage = $this->resize_slide_img($_FILES,752,336,FALSE);
+						$bigimage = $this->resize_img($_FILES,640,480,FALSE);
 					else
 						$bigimage = $this->resize_img($_FILES,640,480,FALSE);
 				elseif($_POST['imgtype'] == 'about'):
 					$image = $this->imagesmodel->get_type_ones_image($_POST['imgtype'],$_POST['object']);
 					if($_POST['id'] != $image['img_id']):
-						$bigimage = $this->resize_slide_img($_FILES,752,336,FALSE);
+//						$bigimage = $this->resize_slide_img($_FILES,752,336,FALSE);
+						$bigimage = $this->resize_img($_FILES,640,480,FALSE);
 					else:
 						$bigimage = $this->resize_img($_FILES,640,480,FALSE);
 					endif;
