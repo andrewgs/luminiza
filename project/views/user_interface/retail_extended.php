@@ -87,6 +87,9 @@
 						//if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					} ?>
+				<div>
+			<?=anchor('retail/apartment/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+				</div>
 				<?php if($this->uri->segment(1) == 'retail'):?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>

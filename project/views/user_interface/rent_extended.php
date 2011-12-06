@@ -34,27 +34,20 @@
 			<div class="grid_9 alpha">
 				<div class="main_content">
 					<div class="missions_row">
-<<<<<<< HEAD
-					<?php
-						if(isset($rent['img_id'])){
+					<?php if(isset($rent['img_id'])):
 							echo '<img alt="'.$rent['img_title'].'" title="'.$rent['img_title'].'" 
 							src="'.$baseurl.'viewimage/'.$rent['img_id'].'">';
-						}?>
+						endif;?>
 						<div class="missions_right_panel">
-=======
-						<div class="missions_right_panel extended">
->>>>>>> 8f309109985d91130eab13a23ba750c2824bcad9
-							<h1><?= $rent['title']; ?></h1>
-						<?php if(isset($rent['extended']) and !empty($rent['extended'])): ?>
-							<div> <?= $rent['extended'];?> </div>
-						<?php endif; ?>
-						<?php if(isset($rent['properties']) and !empty($rent['properties'])): ?>
-							<div class="car_preferences">
-								<?= $rent['properties']; ?>
-							</div>
-						<? endif; ?>
-							<div class="car_preferences">
-								<?=$rent['price']; ?>
+							<div class="missions_right_panel extended">
+								<h1><?=$rent['title']; ?></h1>
+							<?php if(isset($rent['extended']) and !empty($rent['extended'])): ?>
+								<div><?=$rent['extended'];?></div>
+							<?php endif; ?>
+							<?php if(isset($rent['properties']) and !empty($rent['properties'])): ?>
+								<div class="car_preferences"><?= $rent['properties'];?></div>
+							<?php endif; ?>
+								<div class="car_preferences"><?=$rent['price'];?></div>
 							</div>
 						</div>
 					</div>
@@ -73,33 +66,23 @@
 					<div class="admin-change"><?=anchor($link3,'Удалить',array('class'=>'dellink'));?></div>
 				<?php endif; ?>
 					<div class="clear"></div>
-<<<<<<< HEAD
-					<?php for($i = 0;$i < count($images); $i++):							
-=======
-					<?php
-						if(isset($rent['img_id'])){
-							echo '<img class="retail-preview" alt="'.$rent['img_title'].'" title="'.$rent['img_title'].'" src="'.$baseurl.'viewslideshow/'.$rent['img_id'].'">';
-						}
-					?>
-					<?php for($i = 0;$i < count($images); $i++){							
->>>>>>> 8f309109985d91130eab13a23ba750c2824bcad9
+				<?php if($this->uri->segment(2) == 'apartment'):?>
+					<?php if(isset($rent['img_id'])):
+						echo '<img class="retail-preview" alt="'.$rent['img_title'].'" title="'.$rent['img_title'].'" src="'.$baseurl.'viewslideshow/'.$rent['img_id'].'">';
+					endif;?>
+				<?php endif;?>
+					<?php for($i=0;$i<count($images); $i++):							
 						if(isset($images[$i]['img_id'])):
-						
 							$text = '<img class="row_image thumb" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
-							$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
-							$attr = array('class'=>'pirobox_rent','title'=>$images[$i]['img_title']);
-							echo anchor($link,$text,$attr);
+							echo anchor($baseurl.'viewslideshow/'.$images[$i]['img_id'],$text,array('class'=>'pirobox_rent','title'=>$images[$i]['img_title']));
 						endif;
-						
-						//if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
 					endfor;?>
-					<?php if($msg['status'] == 1):
-							echo '<div class="message">';
-								echo $msg['message'].'<br/>'.$msg['error'];
-							echo '</div>';
-							echo '<div class="clear"></div>';
-					endif;?>
+				<?php if($this->uri->segment(2) == 'apartment'):?>
+					<div>
+				<?=anchor('rent/apartment/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+					</div>
+				<?php endif;?>
 					<div id="kontakt" class="formmailer">
 				<?php if($this->uri->segment(2) == 'apartment'):?>
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
@@ -113,7 +96,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-  </div>
+	</div>
 	<?php $this->load->view('user_interface/footer'); ?>
 	</div>
 <?php $this->load->view('user_interface/scripts');?>

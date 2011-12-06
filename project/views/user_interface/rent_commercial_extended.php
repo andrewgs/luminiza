@@ -83,13 +83,15 @@
 							echo anchor($link,'Удалить недвижимость',array('class'=>'dellink'));?>
 						</div>
 					<?php endif; ?>
-					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами и произвести заказ<br><br> 
-						</p>
+				<div>
+	<?=anchor('rent/commercial/extended/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+				</div>
 				<?php if($this->uri->segment(1) == 'rent'):?>
+					<div id="kontakt" class="formmailer">
+						<p>Используйте данную контакную форму, чтобы связаться с нами и произвести заказ<br><br></p>
 					<?php $this->load->view('forms/formsendapart');?>
-				<?php endif;?>
-					</div>							
+					</div>
+				<?php endif;?>					
 				</div>
 			</div>
 			<div class="clear"></div>

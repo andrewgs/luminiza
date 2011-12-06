@@ -317,13 +317,12 @@ class Users_interface extends CI_Controller{
 		$apart_id = $this->uri->segment(3);
 		$retail = array();	$images = array();
 		$status = $this->session->userdata('status');
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
+//		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('calc',TRUE);
 		if(!empty($status)):
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-		$this->session->set_userdata('backpage','retail/apartment/'.$apart_id);		
 		$apartament = $this->apartmentmodel->get_record($apart_id);
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
@@ -535,7 +534,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-		$this->session->set_userdata('backpath',$this->uri->uri_string());		
+//		$this->session->set_userdata('backpath',$this->uri->uri_string());		
 		$apartament = $this->apartmentmodel->get_record($apart_id);
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
@@ -747,7 +746,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 			
 		endif;
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
+//		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		switch($rent_type):
 			case 'auto':{
 						$auto = $this->rentautomodel->get_record($rent_id);
@@ -1012,7 +1011,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
+//		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$apartament = $this->apartmentmodel->get_record($rent_id);
 		$rent['id'] = $apartament['apnt_id'];
 		$rent['title'] = $apartament['apnt_title'];
@@ -1187,7 +1186,7 @@ class Users_interface extends CI_Controller{
 				'images'		=> array(),
 				'msg'			=> $this->session->userdata('msg')
 			);
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
+//		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('msg');
 		$tour_id = $this->uri->segment(3);
 		$tour = array();$text = array();$images = array();
@@ -1792,5 +1791,153 @@ class Users_interface extends CI_Controller{
 		$pagevalue['image'] = $image;
 		$this->load->view('user_interface/contacts',$pagevalue);
 	} //функция выводит контактную информацию компании;
+						   
+	/*==================================================  PRINT  ======================================================*/
+
+	function retail_print(){
+		
+		$pagevalue = array(
+			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' => 'RealityGroup',
+			'title' => 'Недвижимость на Тенерифе | Ипотека | Сопровождение сделки | Luminiza Property Tur S.L.',
+			'baseurl' 		=> base_url(),
+			'retail'		=> array(),
+			'images'		=> array(),
+		);
+		$apart_id = $this->uri->segment(3);
+		$retail = array();	$images = array();
+		$apartament = $this->apartmentmodel->get_record($apart_id);
+		$retail['id'] = $apartament['apnt_id'];
+		$retail['title'] = $apartament['apnt_title'];
+		$retail['extended'] = $apartament['apnt_extended'];
+		
+		if(is_numeric($apartament['apnt_price'])):
+			$retail['price'] = number_format($apartament['apnt_price'],0,' ','.');
+		endif;
+		if(is_numeric($apartament['apnt_newprice'])):
+			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
+		endif;
+		$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
+		if(isset($image) and !empty($image))
+			$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],$image['img_id']);
+		$retail['img_id'] = $image['img_id'];
+		$retail['img_title'] = $image['img_title'];
+		$retail['object'] = 'apartment';
+		$retail['date'] = $this->operation_date($apartament['apnt_date']);
+		
+		$retail['properties'] = array(
+							'object' 	=> '<strong>Объект:</strong>&nbsp;&nbsp;'.$apartament['apnt_object'],
+							'location' 	=> '<strong>Местонахождение:</strong>&nbsp;&nbsp;'.$apartament['apnt_location'],
+							'region' 	=> '<strong>Район:</strong>&nbsp;&nbsp;'.$apartament['apnt_region'],
+							'rooms' 	=> '<strong>Количество комнат:</strong>&nbsp;&nbsp;'.$apartament['apnt_count'],
+							);
+		$pagevalue['retail'] = $retail;
+		$pagevalue['images'] = $images;
+		$this->load->view('user_interface/retail_print_view',$pagevalue);
+	}
+	
+	function retail_commercial_print(){
+	
+		$pagevalue = array(
+			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' => 'RealityGroup',
+			'title' => 'Недвижимость на Тенерифе | Ипотека | Сопровождение сделки | Luminiza Property Tur S.L.',
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'retail'		=> array(),
+			'images'		=> array(),
+		);
+		$apart_id = $this->uri->segment(4);
+		$retail = array();$images = array();
+		$apartament = $this->apartmentmodel->get_record($apart_id);
+		$retail['id'] = $apartament['apnt_id'];
+		$retail['title'] = $apartament['apnt_title'];
+		$retail['extended'] = $apartament['apnt_extended'];
+		if(is_numeric($apartament['apnt_price'])):
+			$retail['price'] = number_format($apartament['apnt_price'],0,' ','.');
+		endif;
+		if(is_numeric($apartament['apnt_newprice'])):
+			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
+		endif;
+		$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
+		if(isset($image) and !empty($image))
+			$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],$image['img_id']);
+		$retail['img_id'] = $image['img_id'];
+		$retail['img_title'] = $image['img_title'];
+		$retail['type'] = 'commercial';
+		$retail['date'] = $this->operation_date($apartament['apnt_date']);
+		
+		$retail['properties'] = array(
+							'object' 	=> '<strong>Объект:</strong>&nbsp;&nbsp;'.$apartament['apnt_object'],
+							'location' 	=> '<strong>Местонахождение:</strong>&nbsp;&nbsp;'.$apartament['apnt_location'],
+							'region' 	=> '<strong>Район:</strong>&nbsp;&nbsp;'.$apartament['apnt_region'],
+							'rooms' 	=> '<strong>Количество комнат:</strong>&nbsp;&nbsp;'.$apartament['apnt_count'],
+							);
+		$pagevalue['retail'] = $retail;
+		$pagevalue['images'] = $images;
+		$this->load->view('user_interface/retail_print_view',$pagevalue);
+	}
+	
+	function rent_print(){
+	
+		$pagevalue = array(
+			'title'			=> 'Аренда апартаментов и вилл | Недвижимость на Тенерифе | Luminiza Property Tur S.L.',
+			'description' 	=> 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' 		=> 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' 		=> 'RealityGroup',
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'rent'			=> array(),
+			'images'		=> array(),
+		);
+		$rent = array(); $images = array();
+		$apartament = $this->apartmentmodel->get_record($this->uri->segment(3));
+		$rent['id'] = $apartament['apnt_id'];
+		$rent['title'] = $apartament['apnt_title'];
+		$rent['extended'] = $apartament['apnt_extended'];
+		$rent['properties'] = $apartament['apnt_properties'];
+		$rent['price'] = $apartament['apnt_price_rent'];
+		$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
+		if(isset($image) and !empty($image))
+			$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],$image['img_id']);
+		$rent['img_id'] = $image['img_id'];
+		$rent['img_title'] = $image['img_title'];
+		$pagevalue['rent'] = $rent;
+		$pagevalue['images'] = $images;
+		$this->load->view('user_interface/rent_print_view',$pagevalue);
+	}
+	
+	function rent_commercial_print(){
+		
+		$pagevalue = array(
+			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' => 'RealityGroup',
+			'title' => 'Аренда бизнеса | Коммерческая недвижимость на Тенерифе | Luminiza Property Tur S.L.',
+			'baseurl' 		=> base_url(),
+			'admin' 		=> $this->admin['status'],
+			'rent' 			=> array(),
+			'images' 		=> array(),
+		);
+		$rent = array();$images = array();
+		$apartament = $this->apartmentmodel->get_record($this->uri->segment(4));
+		$rent['id'] = $apartament['apnt_id'];
+		$rent['title'] = $apartament['apnt_title'];
+		$rent['extended'] = $apartament['apnt_extended'];
+		$rent['properties'] = $apartament['apnt_properties'];
+		$rent['price'] = $apartament['apnt_price_rent'];
+		$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
+		if(isset($image) and !empty($image))
+			$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],$image['img_id']);
+		$rent['img_id'] = $image['img_id'];
+		$rent['img_title'] = $image['img_title'];
+		$pagevalue['rent'] = $rent;
+		$pagevalue['images'] = $images;
+		$this->load->view('user_interface/rent_print_view',$pagevalue);
+	}
+
+/*================================================== END PRINT ======================================================*/
 }
 ?>

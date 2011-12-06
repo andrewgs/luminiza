@@ -1,5 +1,6 @@
 <h3>Поиск недвижимости</h3>
 <p>
+	<hr size="2"/>
 	<table width="100%" border="0" class="retail-filter-table">
 	<?php
 		if(isset($selectvalue) and !empty($selectvalue))
@@ -70,14 +71,16 @@
 		</tbody>
 	</table>
 	<?=form_close();?>
+	<hr size="2"/>
 	<table width="100%" border="0" class="retail-filter-table">
 	<?=form_open('name-search',array('name'=>'frmLikeSearch','id'=>'frmLikeSearch'));?>
 		<tbody>
-		<tr><td>Поиск по названию:</td></tr>
+		<tr><td>Номер по каталогу:</td></tr>
 		<tr><td><input type="text" size="25"class="sname" id="sname" value="<?=$sname;?>" name="sname"></td></tr>
-		<tr><td><button type="submit" border="0" class="senden" value="sname" id="btsname" name="btsname">Найти по названию</button></td></tr>
+		<tr><td><button type="submit" border="0" class="senden" value="sname" id="btsname" name="btsname">Поиск</button></td></tr>
 		</tbody>
 	<?=form_close();?>
 	</table>
+	<hr size="2"/>
 </p>
 <p>&nbsp;</p>
