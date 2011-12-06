@@ -104,7 +104,9 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-					
+				<div>
+			<?=anchor('retail/apartment/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+				</div>
 					<? if($this->uri->segment(1) == 'retail'):?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>

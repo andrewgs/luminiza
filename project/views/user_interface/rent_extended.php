@@ -71,7 +71,9 @@
 						<div id="photo-thumbs"> </div>
 						<div class="clear"></div>
 					</div>
-					
+					<div>
+			<?=anchor('rent/apartment/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+					</div>
 					<div id="kontakt" class="formmailer">
 						<? if($this->uri->segment(2) == 'apartment'):?>
 							<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
