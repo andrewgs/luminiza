@@ -45,9 +45,9 @@
 							'maxlength'	=> '100',
 							'size' 		=> '75'
 						);
-						echo form_input($attr);
+						echo form_input($attr).'</div>';
 						if(!$pagevalue['auto']){
-							echo form_label(' Дата: ','textlabel');
+							echo '<div>'.form_label(' Дата: ','textlabel');
 							$attr = array(
 								'name' 		=> 'date',
 								'id'   		=> 'unitdate',
@@ -60,7 +60,6 @@
 							if(empty($attr['value'])) $attr['value'] = date('d/m/Y');
 							echo form_input($attr).'</div>';
 						}else
-							echo '</div>';
 						echo '<div>'.form_label('Раcширенная информация: ','textlabel').'</div>';
 						$attr =array(
 								'name' 	=> 'extended',
@@ -72,7 +71,7 @@
 						echo '<div>'.form_textarea($attr).'</div>';
 						if(!$pagevalue['auto']){
 							echo '<hr>';
-							echo '<div>'.form_label('Цена без скидки (&euro;): ','textlabel');
+							echo '<div>'.form_label('Цена без скидки (&euro;): ','textlabel', array('class'=>'inline'));
 							$attr = array(
 								'name' 		=> 'price',
 								'id'   		=> 'textprice',
@@ -81,8 +80,8 @@
 								'maxlength'	=> '40',
 								'size' 		=> '10'
 							);
-							echo form_input($attr);
-							echo form_label('Новая цена (&euro;): ','textlabel');
+							echo form_input($attr).'</div>';
+							echo '<div>'.form_label('Новая цена (&euro;): ','textlabel', array('class'=>'inline'));
 							$attr = array(
 								'name' 		=> 'newprice',
 								'id'   		=> 'textprice',
@@ -91,8 +90,8 @@
 								'maxlength'	=> '40',
 								'size' 		=> '10'
 							);
-							echo form_input($attr);
-							echo form_label(' Объект: ','textlabel');
+							echo form_input($attr).'</div>';
+							echo '<div>'.form_label(' Объект: ','textlabel', array('class'=>'inline'));
 							$attr = array(
 								'name' 		=> 'object',
 								'id'   		=> 'textobject',
@@ -101,8 +100,8 @@
 								'maxlength'	=> '100',
 								'size' 		=> '45'
 							);
-							echo form_input($attr);
-							echo form_label(' Местонахождение: ','textlabel');
+							echo form_input($attr).'</div>';
+							echo '<div>'.form_label(' Местонахождение: ','textlabel', array('class'=>'inline'));
 							$attr = array(
 								'name' 		=> 'location',
 								'id'   		=> 'textlocation',
@@ -111,8 +110,8 @@
 								'maxlength'	=> '100',
 								'size' 		=> '45'
 							);
-							echo form_input($attr);
-							echo form_label(' Район: ','textlabel');
+							echo form_input($attr).'</div>';
+							echo '<div>'.form_label(' Район: ','textlabel', array('class'=>'inline'));
 							$attr = array(
 								'name' 		=> 'region',
 								'id'   		=> 'textregion',
@@ -121,8 +120,8 @@
 								'maxlength'	=> '100',
 								'size' 		=> '45'
 							);
-							echo form_input($attr);
-							echo form_label(' Количество комнат: ','textlabel');
+							echo form_input($attr).'</div>';
+							echo '<div>'.form_label(' Количество комнат: ','textlabel', array('class'=>'inline'));
 							$attr = array(
 								'name' 		=> 'count',
 								'id'   		=> 'textcount',
@@ -137,11 +136,11 @@
 							<input class="textfield" type="file" name="userfile" accept="image/jpeg,png,gif" size="30"/> 
 							<div class="">Поддерживаемые форматы: JPG, GIF, PNG</div>
 							<hr>
-							<label class="label-input">Дополнительные пареметры:</label>
-							<div class="">
-				<input type="checkbox" name="sold" title="Продано" value="1" <?=set_checkbox('sold','1'); ?> />Продано<br/>
-				<input type="checkbox" name="recommended" title="Рекомендуемое предложение" value="1" <?=set_checkbox('recommended','1'); ?> />Рекомендуемое предложение<br/>
-				<input type="checkbox" name="special" title="Специальное предложение" value="1" <?=set_checkbox('special','1'); ?> />Специальное предложение<br/>
+							<div><label class="label-input">Дополнительные пареметры:</label></div>
+							<div>
+								<input type="checkbox" name="sold" title="Продано" value="1" <?=set_checkbox('sold','1'); ?> />Продано
+								<input type="checkbox" name="recommended" title="Рекомендуемое предложение" value="1" <?=set_checkbox('recommended','1'); ?> />Рекомендуемое предложение
+								<input type="checkbox" name="special" title="Специальное предложение" value="1" <?=set_checkbox('special','1'); ?> />Специальное предложение
 							</div>
 							<hr>
 							<?php $status = array(FALSE,FALSE,FALSE);
@@ -151,28 +150,28 @@
 								else:
 									$status[1] = TRUE;
 								endif;
-							echo form_label('Раздел: ','textlabel');
+							echo '<div>'.form_label('Раздел для размещения: ','textlabel').'</div>';
 							$attr = array(
 								'name'        => 'flag',
 								'id'          => 'radio1',
 								'value'       => '0',
 								'checked'	  => set_radio('flag','0',$status[0])
 							);
-							echo form_radio($attr).' "Продажа" ';
+							echo form_radio($attr).' Продажа ';
 							$attr = array(
 								'name'        => 'flag',
 								'id'          => 'radio2',
 								'value'       => '1',
 								'checked'	  => set_radio('flag','1',$status[1])
 							);
-							echo form_radio($attr).' "Аренда" ';
+							echo form_radio($attr).' Аренда ';
 							$attr = array(
 								'name'        => 'flag',
 								'id'          => 'radio3',
 								'value'       => '2',
 								'checked'	  => set_radio('flag','2',$status[2])
 							);
-							echo form_radio($attr).' "Продажа и аренда" ';
+							echo form_radio($attr).' Продажа и аренда ';
 						}
 						echo '<hr>';
 						echo '<div id="rentinput">';
