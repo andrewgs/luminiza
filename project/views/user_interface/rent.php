@@ -189,6 +189,8 @@
 		$(document).ready(function(){
 			$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 			$('a.action-sort').click(function(){$("#sort-price")[0].submit();});
+			$('div.missions_row:first').css('border-top', 'none').css('padding-top', 0);
+			$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);			
 		});
 	</script>	
 <?php $this->load->view('user_interface/yandex');?>

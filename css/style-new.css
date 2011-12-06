@@ -101,6 +101,16 @@ nav { height: 55px; border: 1px solid #ae8911;  border-style: solid none; backgr
 .main-nav.left li { float: left; }
 .main-nav.right li { float: right; }
 .main-nav li a { background: url("../img/sprites.png") no-repeat; display: inline-block; height: 27px; margin: 11px 20px 0 0; text-indent: -9999px; }
+/*
+background: none repeat scroll 0 0 transparent;
+color: #333333;
+font: 15px/21px trebuchet MS,sans-serif;
+padding: 4px 0 0;
+text-decoration: none;
+text-indent: 0;
+text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+width: 86px; 
+*/
 .main-nav li a:hover { border-bottom: 1px solid #716037; }
 	#ref-about { background-position: -110px -89px; width: 72px; }
 	#ref-sell { background-position: 0 -64px; width: 54px; }
@@ -174,7 +184,7 @@ a { color: #0477a2; text-decoration: underline; }
 .main_content ul.pages li a { display:block; padding:3px 4px; text-decoration:underline; }
 .main_content ul.pages li a.active, ul.pages li a.active:hover { border:0 none; color:#6D5935; display:block; padding:3px 4px; text-decoration:none; }
 
-.missions_row { overflow: hidden; width:100%; margin-bottom: 18px; }
+.missions_row { border-bottom: 1px solid #E0E0E0; border-top: 1px solid #fff; overflow: hidden; padding: 15px 0; width: 100%; }
 .missions_row img { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 0; }
 .missions_right_panel { display: inline; float: right; width: 65%; }
 .missions_right_panel.extended { display: block; float: none; width: auto; }
@@ -185,9 +195,12 @@ a { color: #0477a2; text-decoration: underline; }
 	.sell-date { font-size: 12px; }
 	.lnk-mortage { display: none; }
 	.missions_right_panel h2 { font-size: 15px; margin-bottom: 0; }
-	h1 strike, h2 strike { color: #d13a31; }
+	h1 strike, h2 strike { color: #d13a31; font-weight: normal; }
 
 .ml10 { display: inline-block; font-size: 13px; margin: 0 10px 0 0; }
+#photo-slider { border: 0 solid #999; border-radius: 2px; box-shadow: 0 0 3px #333; float: left; margin: 2px 7px 0 0; }
+#photo-slider img { display: none; }
+.photo-wrapper { margin: 15px 0 20px; }
 /* Retail Page */
 
 /* General styles for all pages from old css files */
