@@ -332,10 +332,6 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
-			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
-			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -351,10 +347,6 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
-				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
-				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 				$this->email->clear(TRUE);
 				$config['smtp_host'] = 'localhost';
 				$config['charset'] = 'utf-8';
@@ -545,10 +537,6 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
-			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
-			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -564,10 +552,6 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
-				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
-				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 				$this->email->clear(TRUE);
 				$config['smtp_host'] = 'localhost';
 				$config['charset'] = 'utf-8';

@@ -91,7 +91,10 @@
 	<?=anchor('retail/commercial/extended/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
 				</div>
 				<?php if($this->uri->segment(1) == 'retail'):?>
+				<div id="kontakt" class="formmailer">
+					<p>Используйте данную контакную форму, чтобы связаться с нами и произвести заказ<br><br></p>
 					<?php $this->load->view('forms/formsendapart');?>
+				</div>
 				<?php endif;?>
 				</div>
 			</div>

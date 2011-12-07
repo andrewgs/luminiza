@@ -23,29 +23,5 @@
 		<input type="text" size="45" maxlength="50" class="max_budget inpval" id="max_budget" value="" name="max_budget">
 		</div>
 		<div class="clear"></div>
-		<?=form_error('number_people').'<div class="clear"></div>'; ?>
-		<label for="number_people">Количество людей <em class="bright">*</em></label>
-		<div class="dd">
-		<input type="text" size="45" maxlength="50" class="number_people inpval" id="number_people" value="" name="number_people">
-		</div>
-		<div class="clear"></div>
-		<?=form_error('number_children').'<div class="clear"></div>'; ?>
-		<label for="number_children">Количество детей <em class="bright">*</em></label>
-		<div class="dd">
-		<input type="text" size="45" maxlength="50" class="number_children inpval" id="number_children" value="" name="number_children">
-		</div>
-		<div class="clear"></div>
-		<?=form_error('rdate').'<div class="clear"></div>'; ?>
-		<label for="rdate">Дата начала аренды <em class="bright">*</em></label>
-		<div class="dd">
-			<input type="text" size="45" maxlength="50" class="rdate inpval" id="rdate" value="" name="rdate">
-		</div>
-		<div class="clear"></div>
-		<?=form_error('bcdate').'<div class="clear"></div>'; ?>
-		<label for="bcdate">Дата возвращения <em class="bright">*</em></label>
-		<div class="dd">
-			<input type="text" size="45" maxlength="50" class="bcdate inpval" id="bcdate" value="" name="bcdate">
-		</div>
-		<div class="clear"></div>
 		<button type="submit" border="0" id="send" class="senden" value="send" name="submit">Отправить запрос</button>
 <?=form_close(); ?>

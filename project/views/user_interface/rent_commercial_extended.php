@@ -89,7 +89,7 @@
 				<?php if($this->uri->segment(1) == 'rent'):?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и произвести заказ<br><br></p>
-					<?php $this->load->view('forms/formsendapart');?>
+					<?php $this->load->view('forms/formsendrentapart');?>
 					</div>
 				<?php endif;?>					
 				</div>
