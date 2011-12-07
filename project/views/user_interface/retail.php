@@ -3,11 +3,11 @@
 <!--[if IE 7 ]>  <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>  <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<? $this->load->view('user_interface/head');?>
+<?php $this->load->view('user_interface/head');?>
 <body>
 	<div id="container">
- 	<? $this->load->view('user_interface/header');?>
-	<? $this->load->view('user_interface/navigation');?>
+ 	<?php $this->load->view('user_interface/header');?>
+	<?php $this->load->view('user_interface/navigation');?>
 		<div id="content_box">
 			<div class="content container_12">
 				<div class="grid_3">
@@ -17,14 +17,14 @@
 							<li><?=anchor('commercial','Коммерческая недвижимость');?></li>
 							<li><?=anchor('ipoteka','Ипотечный калькулятор');?></li>
 						</ul>
-						<? $this->load->view('forms/formsearch');?>
+						<?php $this->load->view('forms/formsearch');?>
 						<h3>Информация</h3>
 						<?=$text['sidebar']['sbt_extended'];?>
-						<? if($admin):?>
+						<?php if($admin):?>
 							<div class="admin-change">
 								<?=anchor('edit/retail/sidebar','Редактировать',array('class'=>'editlink'));?>
 							</div>
-						<? endif; ?>
+						<?php endif; ?>
 						<div class="miniature mt100">
 						<img title="Picasso Miniature" alt="Picasso Miniature" src="<?=$baseurl?>images/retail_miniature.png"/>
 						</div>
@@ -33,15 +33,15 @@
 				<div class="grid_9 alpha">
 					<div class="main_content">
 						<h1><?=$text['head']['txt_title'];?></h1>
-					<? if($this->uri->total_segments()==1):?>
+					<?php if($this->uri->total_segments()==1):?>
 						<?=$text['head']['txt_extended'];?>
-					<? endif;?>
-						<? if($admin): ?>
+					<?php endif;?>
+						<?php if($admin): ?>
 							<div class="admin-change">
 								<?=anchor('edit/retail','Редактировать',array('class'=>'editlink'));?>
 							</div>
-						<? endif;?>
-						<? if(isset($text['pager']) and !empty($text['pager'])):
+						<?php endif;?>
+						<?php if(isset($text['pager']) and !empty($text['pager'])):
 							echo '<ul class="pages top_pages">';
 								echo '<li class="title">Страницы:</li>';
 								echo $text['pager'];
@@ -57,23 +57,23 @@
 								echo form_close();
 							echo '</ul>';
 						endif; ?>
-					<? if($admin): ?>
+					<?php if($admin): ?>
 						<div class="admin-change">
-							<? $link = 'retail/insert/apartment'; ?>
+							<?php $link = 'retail/insert/apartment'; ?>
 							<?=anchor($link,'Добавить апартаменты',array('class'=>'insertlink')); ?>
 						</div>
-					<? endif; ?>
-					<? for($i=0;$i<count($apartment);$i++): ?>		
+					<?php endif; ?>
+					<?php for($i=0;$i<count($apartment);$i++): ?>		
 							<div class="missions_row">
-							<? if(isset($apartment[$i]['img_id'])):?>
+							<?php if(isset($apartment[$i]['img_id'])):?>
 								<img alt="<?=$apartment[$i]['img_title'];?>" title="<?=$apartment[$i]['img_title'];?>" src="<?=$baseurl;?>viewimage/<?=$apartment[$i]['img_id'];?>">
-							<? endif;?>
+							<?php endif;?>
 								<div class="missions_right_panel">
-							<? if(!empty($apartment[$i]['apnt_newprice'])):?>
+							<?php if(!empty($apartment[$i]['apnt_newprice'])):?>
 									<h2><a href="<?=$baseurl;?>retail/apartment/<?=$apartment[$i]['apnt_id'];?>"><?=$apartment[$i]['apnt_title'];?> (<strike><?=$apartment[$i]['apnt_newprice'];?></strike> <?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
-							<? else:?>
+							<?php else:?>
 									<h2><a href="<?=$baseurl;?>retail/apartment/<?=$apartment[$i]['apnt_id'];?>"><?=$apartment[$i]['apnt_title'];?> (<?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
-							<? endif;?>
+							<?php endif;?>
 									<div class="car_preferences notmargin"><?=$apartment[$i]['apnt_extended'];?></div>
 									<br class="clear"/>
 									<p>
@@ -82,36 +82,36 @@
 									<br class="clear"/>
 								</div>
 							</div>
-							<? if($admin): ?>
+							<?php if($admin): ?>
 								<div class="admin-change">
-									<? $link = 'edit/apartment/'.$apartment[$i]['apnt_id'].'/retail'; ?>
+									<?php $link = 'edit/apartment/'.$apartment[$i]['apnt_id'].'/retail'; ?>
 									<?=anchor($link,'Редактировать',array('class'=>'editlink')); ?>
 								</div>
 								<div class="admin-change">
-									<? $link = 'retail/photo/manage/list/'.$apartment[$i]['apnt_id']; ?>
+									<?php $link = 'retail/photo/manage/list/'.$apartment[$i]['apnt_id']; ?>
 									<?=anchor($link,'Доб./Удал. рисунки',array('class'=>'imagelink')); ?>
 								</div>
 								<div class="admin-change">
-									<? $link = 'retail/apartment/delete/'.$apartment[$i]['apnt_id']; ?>
+									<?php $link = 'retail/apartment/delete/'.$apartment[$i]['apnt_id']; ?>
 									<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
 								</div>
-							<? endif; ?>
-					<? endfor; ?>
+							<?php endif; ?>
+					<?php endfor; ?>
 						<div class="clear"></div>
-					<? if(isset($text['pager']) and !empty($text['pager'])):?>
+					<?php if(isset($text['pager']) and !empty($text['pager'])):?>
 							<ul class="pages top_pages">
 								<li class="title">Страницы:</li>
 								<?=$text['pager'];?>
 							</ul>
-					<? endif; ?>
+					<?php endif; ?>
 					</div>
 				</div>
 				<div class="clear"></div>
 			</div>
 	  </div>
-  <? $this->load->view('user_interface/footer');?>
+  <?php $this->load->view('user_interface/footer');?>
 	</div>
-<? $this->load->view('user_interface/scripts');?>
+<?php $this->load->view('user_interface/scripts');?>
 	<script type="text/javascript"> 
 		$(document).ready(function(){
 			$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
@@ -130,6 +130,6 @@
 			$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);
 		});
 	</script>	
-<? $this->load->view('user_interface/yandex');?>
+<?php $this->load->view('user_interface/yandex');?>
 </body>
 </html>

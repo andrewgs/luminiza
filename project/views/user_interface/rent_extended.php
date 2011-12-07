@@ -3,22 +3,22 @@
 <!--[if IE 7 ]>  <html class="no-js ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]>  <html class="no-js ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<? $this->load->view('user_interface/head');?>
+<?php $this->load->view('user_interface/head');?>
 <body>
 	<div id="container">
- 	<? $this->load->view('user_interface/header');?>
-	<? $this->load->view('user_interface/navigation');?>
+ 	<?php $this->load->view('user_interface/header');?>
+	<?php $this->load->view('user_interface/navigation');?>
   <div id="content_box">
 		<div class="content container_12">
 			<div class="grid_3">
 				<div class="sidebar">
-				<? if($searchstatus): ?>
+				<?php if($searchstatus): ?>
 					<a class="crossing" href="<?=$baseurl.$searchback;?>">&larr; Вернуться к поиску</a>
 					<div class="clear"></div>
-				<? else:?>
+				<?php else:?>
 					<a class="crossing" href="<?=$baseurl.$backpath;?>">&larr; Вернуться к списку</a>
 					<div class="clear"></div>
-				<? endif; ?>
+				<?php endif; ?>
 					<ul>
 						<li><?=anchor('rent/retail','Жилая недвижимость');?></li>
 						<li><?=anchor('rent/commercial','Коммерческая недвижимость');?></li>
@@ -36,69 +36,70 @@
 					<div class="missions_row">
 						<div class="missions_right_panel extended">
 							<h1><?=$rent['title']; ?></h1>
-						<? if(isset($rent['extended']) and !empty($rent['extended'])): ?>
+						<?php if(isset($rent['extended']) and !empty($rent['extended'])): ?>
 							<div><?=$rent['extended'];?></div>
-						<? endif; ?>
-						<? if(isset($rent['properties']) and !empty($rent['properties'])): ?>
+						<?php endif; ?>
+						<?php if(isset($rent['properties']) and !empty($rent['properties'])): ?>
 							<div class="car_preferences"><?= $rent['properties'];?></div>
-						<? endif; ?>
+						<?php endif; ?>
 							<div><?=$rent['price'];?></div>
 						</div>
 					</div>
 				
-					<? if($admin): ?>
-					<? if($this->uri->segment(2) == 'apartment'):?>
-						<? $link1 = 'edit/apartment/'.$rent['id'].'/rent';?>
-						<? $link2 = 'rent/photo/manage/apartment/'.$rent['id'];?>
-						<? $link3 = 'rent/apartment/delete/'.$rent['id']; ?>
-					<? else:?>
-						<? $link1 = 'edit/auto/'.$rent['id'].'/rent';?>
-						<? $link2 = 'rent/photo/manage/auto/'.$rent['id'];?>
-						<? $link3 = 'rent/auto/delete/'.$rent['id']; ?>
-					<? endif; ?>
+				<?php if($admin): ?>
+					<?php if($this->uri->segment(2) == 'apartment'):?>
+						<?php $link1 = 'edit/apartment/'.$rent['id'].'/rent';?>
+						<?php $link2 = 'rent/photo/manage/apartment/'.$rent['id'];?>
+						<?php $link3 = 'rent/apartment/delete/'.$rent['id']; ?>
+					<?php else:?>
+						<?php $link1 = 'edit/auto/'.$rent['id'].'/rent';?>
+						<?php $link2 = 'rent/photo/manage/auto/'.$rent['id'];?>
+						<?php $link3 = 'rent/auto/delete/'.$rent['id']; ?>
+					<?php endif; ?>
 					<div class="admin-change"><?=anchor($link1,'Ред.',array('class'=>'editlink'));?></div>
 					<div class="admin-change"><?=anchor($link2,'Изм. фото',array('class'=>'editlink'));?></div>
 					<div class="admin-change"><?=anchor($link3,'Удалить',array('class'=>'dellink'));?></div>
-					<? endif; ?>
+				<?php endif; ?>
 					<div class="clear"></div>
-								
 					<div class="photo-wrapper">
 						<div id="photo-slider">
-							<? for($i = 0; $i < count($images); $i++) : ?>
+							<?php for($i = 0; $i < count($images); $i++) : ?>
 								<img alt="<?= $images[$i]['img_title'] ?>" width="520px" height="390px" title="<?= $images[$i]['img_title'] ?>" src="<?= $baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
-							<? endfor; ?>
+							<?php endfor; ?>
 						</div>
 						<div id="photo-thumbs"> </div>
 						<div class="clear"></div>
 					</div>
+				<?php if($this->uri->segment(2) == 'apartment'):?>
 					<div>
 			<?=anchor('rent/apartment/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
 					</div>
+				<?php endif; ?>
 					<div id="kontakt" class="formmailer">
-						<? if($this->uri->segment(2) == 'apartment'):?>
+						<?php if($this->uri->segment(2) == 'apartment'):?>
 							<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
-							<? $this->load->view('forms/formsendrentapart');?>
-						<? elseif($this->uri->segment(2) == 'auto'):?>
+							<?php $this->load->view('forms/formsendrentapart');?>
+						<?php elseif($this->uri->segment(2) == 'auto'):?>
 							<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившийся Вам автомобиль<br><br></p>
-							<? $this->load->view('forms/formsendrentauto');?>
-						<? endif;?>
+							<?php $this->load->view('forms/formsendrentauto');?>
+						<?php endif;?>
 					</div>
 				</div>
 			</div>
 			<div class="clear"></div>
 		</div>
 	</div>
-	<? $this->load->view('user_interface/footer'); ?>
+	<?php $this->load->view('user_interface/footer'); ?>
 	</div>
-<? $this->load->view('user_interface/scripts');?>
-<? $this->load->view('user_interface/yandex');?>
-<? $this->load->view('user_interface/pirobox');?>
+<?php $this->load->view('user_interface/scripts');?>
+<?php $this->load->view('user_interface/yandex');?>
+<?php $this->load->view('user_interface/pirobox');?>
 <?php $this->load->view('user_interface/cycle');?>
 <script type="text/javascript">
 	$(document).ready(function(){
-		<? if($msg):?>
+		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
-		<? endif;?>
+		<?php endif;?>
 		$("#send").click(function(event){
 			var err = false;
 			var email = $("#email").val();

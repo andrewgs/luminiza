@@ -70,7 +70,7 @@
 						<?php $link = 'retail/apartment/delete/'.$retail['id']; ?>
 						<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
 					</div>
-					<? endif; ?>
+					<?php endif; ?>
 					<div class="clear"></div>
 					<?
 					/*
@@ -81,9 +81,9 @@
 					?>
 					<div class="photo-wrapper">
 						<div id="photo-slider">
-							<? for($i = 0; $i < count($images); $i++) : ?>
+							<?php for($i = 0; $i < count($images); $i++) : ?>
 								<img alt="<?= $images[$i]['img_title'] ?>" width="520px" height="390px" title="<?= $images[$i]['img_title'] ?>" src="<?= $baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
-							<? endfor; ?>
+							<?php endfor; ?>
 						</div>
 						<div id="photo-thumbs">
 						<?
@@ -107,12 +107,12 @@
 				<div>
 			<?=anchor('retail/apartment/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
 				</div>
-					<? if($this->uri->segment(1) == 'retail'):?>
+					<?php if($this->uri->segment(1) == 'retail'):?>
 					<div id="kontakt" class="formmailer">
 						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
 						<?php $this->load->view('forms/formsendapart');?>
 					</div>
-					<? endif;?>
+					<?php endif;?>
 				</div>
 			</div>
 			<div class="clear"></div>
