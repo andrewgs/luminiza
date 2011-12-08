@@ -31,126 +31,13 @@ class Users_interface extends CI_Controller{
 					'author' => 'RealityGroup',
 					'title' => 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
 					'baseurl' 		=> base_url(),
-					'admin' 		=> $this->admin['status'],
-					'text' 			=> '',
-					'slideshow' 	=> array(),
-					'apartment' 	=> array()
+					'admin' 		=> $this->admin['status']
 			);
 		$this->session->set_userdata('backpage','');
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
-		$slideshow = array();$text = array();$apartment = array();$islands = array();$islandstext = array();
-		$text = $this->othertextmodel->get_record(8);
-		$apart = $this->apartmentmodel->get_records_flag(2);
-		if(isset($apart) and !empty($apart)):
-			(count($apart) >= 4) ? $cnt = 4 : $cnt = count($apart);
-			$keys = array_rand($apart,$cnt);
-			if(count($keys) > 1):
-				for($i = 0; $i < $cnt; $i++):
-					$apart1[$i] = $apart[$keys[$i]];
-				endfor;
-			else:
-				$apart1[0] = $apart[0];
-			endif;
-			if(count($apart1) > 0):
-				for($i = 0; $i < count($apart1); $i++):
-					$image = $this->imagesmodel->get_type_ones_image('apartment',$apart1[$i]['apnt_id']);
-					$slideshow[$i]['link'] = 'retail/apartment/'.$apart1[$i]['apnt_id'];
-					$slideshow[$i]['title'] = strip_tags($apart1[$i]['apnt_title'],'<sup>');
-					$slideshow[$i]['extended'] = strip_tags($apart1[$i]['apnt_extended'],'<sup>');
-					if (mb_strlen($slideshow[$i]['extended'],'UTF-8') > 250):
-						$tmp = $slideshow[$i]['extended'];			
-						$tmp = mb_substr($tmp,0,250,'UTF-8');	
-						$pos = mb_strrpos($tmp,'.',0,'UTF-8');
-						$tmp = mb_substr($tmp,0,$pos,'UTF-8');
-						$slideshow[$i]['extended'] = $tmp.'. ...';
-					endif;
-					$slideshow[$i]['image'] = $image['img_id'];
-					$slideshow[$i]['img_title'] = $image['img_title'];
-					if(empty($slideshow[$i]['img_title'])) $slideshow[$i]['img_title'] = $slideshow[$i]['title'];
-				endfor;
-			endif;
-		endif;
-		$commercial = $this->apartmentmodel->get_comercial_flag(5);
-		if(isset($commercial) and !empty($commercial)):
-			(count($commercial) >= 4) ? $cnt = 4 : $cnt = count($commercial);
-			$keys = array_rand($commercial,$cnt);
-			if(count($keys) > 1):
-				for($i = 0; $i < $cnt; $i++):
-					$commercial1[$i] = $commercial[$keys[$i]];
-				endfor;
-			else:
-				$commercial1[0] = $commercial[0];
-			endif;
-			if(count($commercial1) > 0):
-				$count = count($slideshow);
-				for($i = $count,$y = 0; $i < $count+count($commercial1); $i++,$y++):
-					$image = $this->imagesmodel->get_type_ones_image('commercial',$commercial1[$y]['apnt_id']);
-					$slideshow[$i]['link'] = 'retail/apartment/'.$commercial1[$y]['apnt_id'];
-					$slideshow[$i]['title'] = strip_tags($commercial1[$y]['apnt_title'],'<sup>');
-					$slideshow[$i]['extended'] = strip_tags($commercial1[$y]['apnt_extended'],'<sup>');
-					if (mb_strlen($slideshow[$i]['extended'],'UTF-8') > 250):
-						$tmp = $slideshow[$i]['extended'];			
-						$tmp = mb_substr($tmp,0,250,'UTF-8');	
-						$pos = mb_strrpos($tmp,'.',0,'UTF-8');
-						$tmp = mb_substr($tmp,0,$pos,'UTF-8');
-						$slideshow[$i]['extended'] = $tmp.'. ...';
-					endif;
-					$slideshow[$i]['image'] = $image['img_id'];
-					$slideshow[$i]['img_title'] = $image['img_title'];
-					if(empty($slideshow[$i]['img_title'])) $slideshow[$i]['img_title'] = $slideshow[$i]['title'];
-				endfor;
-			endif;
-		endif;
-		$island = $this->imagesmodel->get_type_ones_image('about',0);
-		if(isset($island) and !empty($island))
-			$islands = $this->imagesmodel->get_images_without('about',0,$island['img_id']);
-		if(isset($islands) and !empty($islands)):
-			(count($islands) >= 4) ? $cnt = 4 : $cnt = count($islands);
-			$islandstext = $this->othertextmodel->limit_records($cnt,13);
-			shuffle($islandstext);
-			$count = count($slideshow);
-			for($i = $count,$y = 0; $i < $count+$cnt; $i++,$y++):
-				$slideshow[$i]['link'] = 'about';
-				$slideshow[$i]['title'] = '';
-				$slideshow[$i]['extended'] = $islandstext[$y]['txt_extended'];
-				$slideshow[$i]['image'] = $islands[$y]['img_id'];
-				$slideshow[$i]['img_title'] = $islands[$y]['img_title'];
-			endfor;
-			shuffle($slideshow);
-		endif;
-		$apart = $this->apartmentmodel->get_records_flag(1);
-		if(isset($apart) and !empty($apart)){
-			(count($apart) >= 3) ? $cnt = 3 : $cnt = count($apart);
-			$keys = array_rand($apart,$cnt);
-			if(count($keys) > 1) 
-				for($i = 0; $i < $cnt; $i++)
-					$apart2[$i] = $apart[$keys[$i]];
-			else
-				$apart2[0] = $apart[0];
-			if(count($apart2) > 0)
-				for($i = 0; $i < count($apart2); $i++){
-					$image = $this->imagesmodel->get_type_ones_image('apartment',$apart2[$i]['apnt_id']);
-					$apartment[$i]['id'] = $apart2[$i]['apnt_id'];
-					$apartment[$i]['img_id'] = $image['img_id'];
-					$apart2[$i]['apnt_title'] = $apart2[$i]['apnt_title'];
-					$apart2[$i]['apnt_extended'] = strip_tags($apart2[$i]['apnt_extended'],'<sup>');
-					if (mb_strlen($apart2[$i]['apnt_extended'],'UTF-8') > 250):	
-						$apart2[$i]['apnt_extended'] = mb_substr($apart2[$i]['apnt_extended'],0,250,'UTF-8');	
-						$pos = mb_strrpos($apart2[$i]['apnt_extended'],' ',0,'UTF-8');
-						$apart2[$i]['apnt_extended'] = mb_substr($apart2[$i]['apnt_extended'],0,$pos,'UTF-8');
-						$apart2[$i]['apnt_extended'] .= ' ...';
-					endif;
-					$apartment[$i]['title'] = $apart2[$i]['apnt_title'];
-					$apartment[$i]['extended'] = $apart2[$i]['apnt_extended'];
-					if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['title'];
-				}
-		}
-		$pagevalue['text'] = $text;
-		$pagevalue['slideshow'] = $slideshow;
-		$pagevalue['apartment'] = $apartment;
 		$this->load->view('user_interface/index',$pagevalue);
 	}			//функция выводит информацию на главную страницу;
 	
@@ -380,11 +267,12 @@ class Users_interface extends CI_Controller{
 		if(is_numeric($apartament['apnt_newprice'])):
 			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
 		endif;
-		$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],$image['img_id']);
 		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];
+		$retail['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],0);
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$retail['object'] = 'apartment';
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
@@ -596,11 +484,12 @@ class Users_interface extends CI_Controller{
 		if(is_numeric($apartament['apnt_newprice'])):
 			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
 		endif;
-		$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],$image['img_id']);
 		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];
+		$retail['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],0);
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$retail['type'] = 'commercial';
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
@@ -753,11 +642,12 @@ class Users_interface extends CI_Controller{
 						$rent['extended'] = $auto['rnta_extended'];
 						$rent['properties'] = $auto['rnta_properties'];
 						$rent['price'] = $auto['rnta_price'];
-						$image = $this->imagesmodel->get_type_ones_image('auto',$rent['id']);
+						/*$image = $this->imagesmodel->get_type_ones_image('auto',$rent['id']);
 						if(isset($image) and !empty($image))
 							$images = $this->imagesmodel->get_images_without('auto',$rent['id'],$image['img_id']);
 						$rent['img_id'] = $image['img_id'];
-						$rent['img_title'] = $image['img_title'];
+						$rent['img_title'] = $image['img_title'];*/
+						$images = $this->imagesmodel->get_images_without('auto',$rent['id'],0);
 						$text['sidebar'] = $this->sidebartextmodel->get_record(4);						
 						$rent['object'] = 'auto';
 						}; break;
@@ -768,11 +658,12 @@ class Users_interface extends CI_Controller{
 						$rent['extended'] = $apartament['apnt_extended'];
 						$rent['properties'] = $apartament['apnt_properties'];
 						$rent['price'] = $apartament['apnt_price_rent'];
-						$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
+						/*$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
 						if(isset($image) and !empty($image))
 							$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],$image['img_id']);
 						$rent['img_id'] = $image['img_id'];
-						$rent['img_title'] = $image['img_title'];
+						$rent['img_title'] = $image['img_title'];*/
+						$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],0);
 						$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 						$rent['object'] = 'apartment';
 						}; break;
@@ -1069,11 +960,12 @@ class Users_interface extends CI_Controller{
 			endif;
 		endif;
 		
-		$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],$image['img_id']);
 		$rent['img_id'] = $image['img_id'];
-		$rent['img_title'] = $image['img_title'];
+		$rent['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],0);
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$rent['type'] = 'commercial';
 		$pagevalue['rent'] = $rent;
@@ -1755,7 +1647,6 @@ class Users_interface extends CI_Controller{
 		if($this->input->post('btsprice') || !empty($status)):
 			$param = array(); $selectvalue = array(); $apartment = array(); $text = array();$countrecord = array();
 			if($this->input->post('btsprice')):
-				print_r($_POST);exit;
 				$this->session->set_userdata('shlowprice',$_POST['lowprice']);
 				$this->session->set_userdata('shtopprice',$_POST['topprice']);
 				$_POST['btsprice'] = NULL;
@@ -1801,7 +1692,7 @@ class Users_interface extends CI_Controller{
 				$pagevalue['selectvalue'] = $selectvalue;
 				$pagevalue['apartment'] = $apartment;
 				$pagevalue['countrecord'] = $countrecord;
-				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
+				$pagevalue['msg'] = 'Не найдено ни одного апартамента';
 				$this->load->view('user_interface/result',$pagevalue);
 				return FALSE;
 			endif;
@@ -1976,11 +1867,12 @@ class Users_interface extends CI_Controller{
 		if(is_numeric($apartament['apnt_newprice'])):
 			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
 		endif;
-		$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],$image['img_id']);
 		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];
+		$retail['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],0);
 		$retail['object'] = 'apartment';
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
 		
@@ -2019,11 +1911,12 @@ class Users_interface extends CI_Controller{
 		if(is_numeric($apartament['apnt_newprice'])):
 			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
 		endif;
-		$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],$image['img_id']);
 		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];
+		$retail['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],0);
 		$retail['type'] = 'commercial';
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
 		
@@ -2057,11 +1950,12 @@ class Users_interface extends CI_Controller{
 		$rent['extended'] = $apartament['apnt_extended'];
 		$rent['properties'] = $apartament['apnt_properties'];
 		$rent['price'] = $apartament['apnt_price_rent'];
-		$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],$image['img_id']);
 		$rent['img_id'] = $image['img_id'];
-		$rent['img_title'] = $image['img_title'];
+		$rent['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],0);
 		$pagevalue['rent'] = $rent;
 		$pagevalue['images'] = $images;
 		$this->load->view('user_interface/rent_print_view',$pagevalue);
@@ -2086,11 +1980,12 @@ class Users_interface extends CI_Controller{
 		$rent['extended'] = $apartament['apnt_extended'];
 		$rent['properties'] = $apartament['apnt_properties'];
 		$rent['price'] = $apartament['apnt_price_rent'];
-		$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
+		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],$image['img_id']);
 		$rent['img_id'] = $image['img_id'];
-		$rent['img_title'] = $image['img_title'];
+		$rent['img_title'] = $image['img_title'];*/
+		$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],0);
 		$pagevalue['rent'] = $rent;
 		$pagevalue['images'] = $images;
 		$this->load->view('user_interface/rent_print_view',$pagevalue);

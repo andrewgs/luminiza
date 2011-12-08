@@ -13,7 +13,7 @@
 			<div class="grid_3">
 				<div class="sidebar">
 				<?php if($searchstatus): ?>
-					<a class="crossing" href="<?=$baseurl.$searchback;?>">&larr; Вернуться к поиску</a>
+					<a class="crossing" href="<?=$baseurl.$searchback; ?>">&larr; Вернуться к поиску</a>
 					<div class="clear"></div>
 				<?php else:?>
 					<a class="crossing" href="<?=$baseurl.$backpath;?>">&larr; Вернуться к списку</a>
@@ -57,7 +57,7 @@
 							</div>
 						</div>
 					</div>
-					<?php if($admin): ?>
+				<?php if($admin): ?>
 					<div class="admin-change">
 						<?php $link = 'edit/apartment/'.$retail['id'].'/retail'; ?>
 						<?=anchor($link,'Редактировать',array('class'=>'editlink')); ?>
@@ -70,7 +70,7 @@
 						<?php $link = 'retail/apartment/delete/'.$retail['id']; ?>
 						<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
 					</div>
-					<?php endif; ?>
+				<?php endif; ?>
 					<div class="clear"></div>
 					<?
 					/*
@@ -148,7 +148,6 @@
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);
 		};
-		
 		$('div.missions_row:first').css('border-top', 'none').css('padding-top', 0);
 		$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);
 	});

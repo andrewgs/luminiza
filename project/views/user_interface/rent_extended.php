@@ -40,7 +40,7 @@
 							<div><?=$rent['extended'];?></div>
 						<?php endif; ?>
 						<?php if(isset($rent['properties']) and !empty($rent['properties'])): ?>
-							<div class="car_preferences"><?= $rent['properties'];?></div>
+							<div class="car_preferences"><?=$rent['properties'];?></div>
 						<?php endif; ?>
 							<div><?=$rent['price'];?></div>
 						</div>
@@ -63,8 +63,8 @@
 					<div class="clear"></div>
 					<div class="photo-wrapper">
 						<div id="photo-slider">
-							<?php for($i = 0; $i < count($images); $i++) : ?>
-								<img alt="<?= $images[$i]['img_title'] ?>" width="520px" height="390px" title="<?= $images[$i]['img_title'] ?>" src="<?= $baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
+							<?php for($i=0;$i<count($images);$i++) : ?>
+								<img alt="<?=$images[$i]['img_title'] ?>" width="520px" height="390px" title="<?=$images[$i]['img_title'] ?>" src="<?=$baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
 							<?php endfor; ?>
 						</div>
 						<div id="photo-thumbs"> </div>

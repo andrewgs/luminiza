@@ -2,6 +2,7 @@ AddDefaultCharset utf-8
 Options +FollowSymLinks
 Options -Indexes
 DirectoryIndex index.php
+php_value upload_max_filesize 5M
 
 RewriteEngine On
 RewriteBase /

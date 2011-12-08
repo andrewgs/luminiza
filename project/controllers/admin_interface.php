@@ -271,7 +271,7 @@ class Admin_interface extends CI_Controller{
 			$this->session->set_flashdata('operation_saccessfull','Фотография загружена успешно');
 		 	redirect($_POST['fulluri']);
 		}else{			
-			$this->session->set_flashdata('operation_error','Картинка не загружена!<p>Вы не выбрали картинку.</p>Повторите загрузку снова.</b>');
+			$this->session->set_flashdata('operation_error','Картинка не загружена!<p>Вы не выбрали картинку или размер превышает 5Мб.</p>Повторите загрузку снова.</b>');
 			$this->session->set_flashdata('operation_message','Ошибка при загрузке фото');
 			$this->session->set_flashdata('operation_saccessfull',' ');
 			redirect($_POST['fulluri']);
