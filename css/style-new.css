@@ -201,6 +201,7 @@ a { color: #0477a2; text-decoration: underline; }
 #photo-slider { border: 0 solid #999; border-radius: 2px; box-shadow: 0 0 3px #333; float: left; margin: 2px 7px 0 0; }
 #photo-slider img { display: none; }
 .photo-wrapper { margin: 15px 0 20px; }
+img.print-preview { border-radius: 5px; display: block; margin: 10px 0 0; }
 /* Retail Page */
 
 /* General styles for all pages from old css files */
