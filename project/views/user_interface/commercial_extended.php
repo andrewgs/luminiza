@@ -34,13 +34,8 @@
 			<div class="grid_9 alpha">
 				<div class="main_content">
 					<div class="missions_row">
-					<?php if(isset($retail['img_id'])):						
-							echo '<img alt="'.$retail['img_title'].'"title="'.$retail['img_title'].'" 
-								src="'.$baseurl.'viewimage/'.$retail['img_id'].'">';
-						endif;?>
-						<div class="missions_right_panel">
-						<?php
-							if(!empty($retail['newprice'])):
+						<div class="missions_right_panel extended">
+						<?php if(!empty($retail['newprice'])):
 								echo '<h1>'.$retail['title'].' (<strike>'.$retail['newprice'].'</strike> '.$retail['price'].' &euro;)</h1>';
 							else:
 								echo '<h1>'.$retail['title'].' ('.$retail['price'].' &euro;)</h1>';
@@ -62,22 +57,22 @@
 							</div>
 						</div>
 					</div>
-					<?php if($admin): ?>
-						<div class="admin-change">
-							<?php $link = 'edit/commercial/'.$retail['id'].'/retail'; ?>
-							<?=anchor($link,'Редактировать',array('class'=>'editlink')); ?>
-						</div>
-						<div class="admin-change">
-							<?php $link = 'commercial/photo/manage/list/'.$retail['id']; ?>
-							<?=anchor($link,'Доб./Удал. рисунки',array('class'=>'imagelink')); ?>
-						</div>
-						<div class="admin-change">
-							<?php $link = 'retail/commercial/delete/'.$retail['id']; ?>
-							<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
-						</div>
-					<?php endif; ?>
+				<?php if($admin): ?>
+					<div class="admin-change">
+						<?php $link = 'edit/commercial/'.$retail['id'].'/retail'; ?>
+						<?=anchor($link,'Редактировать',array('class'=>'editlink')); ?>
+					</div>
+					<div class="admin-change">
+						<?php $link = 'commercial/photo/manage/list/'.$retail['id']; ?>
+						<?=anchor($link,'Доб./Удал. рисунки',array('class'=>'imagelink')); ?>
+					</div>
+					<div class="admin-change">
+						<?php $link = 'retail/commercial/delete/'.$retail['id']; ?>
+						<?=anchor($link,'Удалить апартаменты',array('class'=>'dellink')); ?>
+					</div>
+				<?php endif; ?>
 					<div class="clear"></div>
-					<?php for($i=0;$i<count($images); $i++){							
+					<?php /*for($i=0;$i<count($images); $i++){							
 						if(isset($images[$i]['img_id'])):			
 							$text = '<img class="row_image" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
 							$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
@@ -86,7 +81,16 @@
 						endif;
 						if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
 						if(($i+1) == count($images)) echo '<br class="clear"/>';
-					} ?>
+					}*/ ?>
+					<div class="photo-wrapper">
+						<div id="photo-slider">
+							<?php for($i=0;$i<count($images);$i++) : ?>
+								<img alt="<?= $images[$i]['img_title'] ?>" width="520px" height="390px" title="<?= $images[$i]['img_title'] ?>" src="<?=$baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
+							<?php endfor; ?>
+						</div>
+						<div id="photo-thumbs"></div>
+						<div class="clear"></div>
+					</div>
 				<div>
 	<?=anchor('retail/commercial/extended/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
 				</div>
@@ -106,6 +110,7 @@
 <?php $this->load->view('user_interface/scripts');?>
 <?php $this->load->view('user_interface/yandex');?>
 <?php $this->load->view('user_interface/pirobox');?>
+<?php $this->load->view('user_interface/cycle');?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		<?php if($msg):?>
@@ -130,6 +135,8 @@
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);
 		};
+		$('div.missions_row:first').css('border-top', 'none').css('padding-top', 0);
+		$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);
 	});
 </script>
 </body>

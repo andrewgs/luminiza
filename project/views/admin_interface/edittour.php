@@ -16,13 +16,12 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-				<?php
-					if($msg['status'] == 1){
+				<?php if($msg['status'] == 1):
 						echo '<div class="message">';
 							echo $msg['message'].'<br/>'.$msg['error'];
 						echo '</div>';
 						echo '<div class="clear"></div>';
-					}
+					endif;
 					echo form_open('updatetour',array('id'=>'editunitform'));
 						echo form_hidden('id',$pagevalue['id']);
 						echo form_hidden('backpath',$pagevalue['backpath']);
@@ -31,7 +30,7 @@
 							'name' 		=> 'title',
 							'id'   		=> 'texttitle',
 						    'value'		=> $tourinfo['tour_title'],
-							'class'		=> 'textfield',
+							'class'		=> 'textfield inpval',
 						    'maxlength'	=> '100',
 						    'size' 		=> '75'
 						);
@@ -40,21 +39,14 @@
 						$attr =array(
 								'name' 	=> 'extended',
 						        'value'	=> $tourinfo['tour_extended'],
-								'class'	=> 'textfield textextended',
+								'class'	=> 'textfield textextended inpval',
 						        'cols'	=> '81',
 						        'rows' 	=> '10'
 						);
 						echo '<div>'.form_textarea($attr).'</div>';
 						echo '<hr>';
-						$attr =array(
-								'name' => 'btsabmit',
-								'id'   => 'btnsabmit',
-								'value'=> 'Сохранить',
-								'class'=> 'senden'
-							);
-						echo form_submit($attr);
-					echo form_close();
-				?>
+						echo form_submit(array('name'=>'btsabmit','id'=>'send','value'=>'Сохранить','class'=>'senden'));
+					echo form_close();?>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -73,31 +65,12 @@
 <script src="<?=$pagevalue['baseurl'];?>js/datepicker/jquery.ui.widget.js" type="text/javascript" ></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var config = {
-			skin : 'v2',
-			removePlugins : 'scayt',
-			resize_enabled: false,
-			height: '150px',
-			toolbar:
-			[
-				['Source','-','Preview','-','Templates'],
-				['Cut','Copy','Paste','PasteText'],
-				['Undo','Redo','-','SelectAll','RemoveFormat'],
-				'/',
-				['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-				['NumberedList','BulletedList','-','Outdent','Indent'],
-				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-				['Link','Unlink'],
-				'/',
-				['TextColor','Format','FontSize'],
-				['Table','HorizontalRule','SpecialChar','-'],
-				['Maximize', 'ShowBlocks']
-			]
-		};
+		var config = {skin : 'v2',removePlugins : 'scayt',resize_enabled: false,height: '350px',toolbar:[['Source','-','Preview','-','Templates'],['Cut','Copy','Paste','PasteText'],['Undo','Redo','-','SelectAll','RemoveFormat'],'/',['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['NumberedList','BulletedList','-','Outdent','Indent'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],'/',['TextColor','Format','FontSize'],['Table','HorizontalRule','SpecialChar','-'],['Maximize', 'ShowBlocks']]};
 		$('textarea.textextended').ckeditor(config);
 		var editor = $('textarea.textextended').ckeditorGet();
 		CKFinder.setupCKEditor(editor,'<?=$pagevalue['baseurl'].'ckfinder/'; ?>');
 		$("input#unitdate").datepicker($.datepicker.regional['ru']);
+		$("#send").click(function(event){var err = false;var email = $("#email").val();$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Форма редактирования'});event.preventDefault();}});
 	});
 </script>
 </body>

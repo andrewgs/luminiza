@@ -39,14 +39,7 @@
 								echo form_hidden('multi',$pagevalue['multi']);
 								echo form_hidden('fulluri',$pagevalue['fulluri']);
 								echo '<div>'.form_label('Описание: ','slidelabel');
-								$attr = array(
-									'name' 		=> 'imagetitle',
-									'id'   		=> 'newslidertitle',
-								    'value'		=> '',
-									'class'		=> 'textfield',
-								    'maxlength'	=> '100',
-								    'size' 		=> '50'
-								);
+								$attr = array('name'=>'imagetitle','id'=>'newslidertitle','value'=>'','class'=>'textfield inpval','maxlength'=>'100','size'=>'50');
 							if(!$pagevalue['multi'] and $image){
 								$attr['value'] = $image['img_title'];
 								echo form_hidden('id',$image['img_id']);
@@ -56,39 +49,20 @@
 								echo form_input($attr).'</div>';
 							}
 								echo '<div>'.form_label('Выбирите фото: ','slidelabel');
-								$attr = array(
-										'type' 	   => 'file',
-										'name' 	   => 'userfile',
-					              		'id'  	   => 'uploadimage',
-										'accept'   => 'image/jpeg,png,gif',
-								);
+								$attr = array('type'=>'file','name'=>'userfile','id'=>'uploadimage','class'=>'inpval','accept'=>'image/jpeg,png,gif','size'=>33);
 								echo form_input($attr).'</div>';
 								echo '<hr>';
 								echo '<div>'.form_label('Ширина рисунка (в пикселях): ','slidelabel');
-								$attr = array(
-									'name' 		=> 'imagewight',
-									'id'   		=> 'newslidertitle',
-								    'value'		=> '200',
-									'class'		=> 'textfield',
-								    'maxlength'	=> '3',
-								    'size' 		=> '5'
-								);
+								$attr = array('name'=>'imagewight','id'=>'newslidertitle','value'=>'200','class'=>'textfield inpval','maxlength'=>'3','size'=>5);
 								echo form_input($attr).'</div>';
 								echo '<div>'.form_label('Высота рисунка (в пикселях): ','slidelabel');
-								$attr = array(
-									'name' 		=> 'imageheight',
-									'id'   		=> 'newslidertitle',
-								    'value'		=> '170',
-									'class'		=> 'textfield',
-								    'maxlength'	=> '3',
-								    'size' 		=> '5'
-								);
+								$attr = array('name'=>'imageheight','id'=>'newslidertitle','value'=>'170','class'=>'textfield inpval','maxlength'=>'3','size'=>'5');
 								echo form_input($attr).'</div>';
-								echo '<i>Примечание 1: Максимальный размер фотографий недвижимости 752х336, других - 640х480</i><br/>';
-								echo '<i>Примечание 2: Только первый рисунок для недвижимости подвергается обработке (crop image)</i>';
+								/*echo '<i>Примечание 1: Максимальный размер фотографий недвижимости 752х336, других - 640х480</i><br/>';
+								echo '<i>Примечание 2: Только первый рисунок для недвижимости подвергается обработке (crop image)</i>';*/
 								echo '<hr>';
 							?>
-								<button type="submit" border="0" class="senden" value="" name="btsabmit">Загрузить</button>					
+								<button type="submit" border="0" class="senden" id="send" value="send" name="btsabmit">Загрузить</button>
 							<?php
 							echo form_close();
 						echo '</fieldset>';
@@ -166,19 +140,10 @@
   </div>
 <?php $this->load->view('admin_interface/scripts');?>
 <script type="text/javascript"> 
-		$(document).ready(function(){
-			$('a.delimage').confirm({
-			  timeout:5000,
-			  dialogShow:'fadeIn',
-			  dialogSpeed:'slow',
-			  buttons:{
-			  	ok:'Подтвердить',
-   				cancel:'Отмена',
-			    wrapper:'<button></button>',
-			    separator:'  '
-			  }  
-			});
-		});
+	$(document).ready(function(){
+		$('a.delimage').confirm({timeout:5000,dialogShow:'fadeIn',dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:'  '}});
+		$("#send").click(function(event){var err = false;var email = $("#email").val();$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});event.preventDefault();}else if(!isValidEmailAddress(email)){$("#email").css('border-color','#ff0000');$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});event.preventDefault();}});
+	});
 	</script>
 </body>
 </html>

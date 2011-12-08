@@ -16,23 +16,21 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-				<?php
-					if($msg['status'] == 1){
+				<?php if($msg['status'] == 1):
 						echo '<div class="message">';
 							echo $msg['message'].'<br/>'.$msg['error'];
 						echo '</div>';
 						echo '<div class="clear"></div>';
-					}
+					endif;
 					echo form_error('title').'<div class="clear"></div>';
 					echo form_error('extended').'<div class="clear"></div>';
-					if(!$pagevalue['auto']){
+					if(!$pagevalue['auto']):
 						echo form_error('price').'<div class="clear"></div>';
 						echo form_error('object').'<div class="clear"></div>';
 						echo form_error('location').'<div class="clear"></div>';
 						echo form_error('region').'<div class="clear"></div>';
 						echo form_error('count').'<div class="clear"></div>';
-					};	
-
+					endif;	
 					echo form_open_multipart($this->uri->uri_string(),array('id'=>'insertform'));
 						echo form_hidden('auto',$pagevalue['auto']);
 						echo form_hidden('type',$pagevalue['unit']);
@@ -41,7 +39,7 @@
 							'name' 		=> 'title',
 							'id'   		=> 'texttitle',
 							'value'		=> set_value('title'),
-							'class'		=> 'textfield',
+							'class'		=> 'textfield inpval',
 							'maxlength'	=> '100',
 							'size' 		=> '75'
 						);
@@ -52,9 +50,9 @@
 								'name' 		=> 'date',
 								'id'   		=> 'unitdate',
 								'value'		=> set_value('date'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '50',
-								'size' 		=> '10',
+								'size' 		=> '4',
 								'readonly'  => TRUE
 							);
 							if(empty($attr['value'])) $attr['value'] = date('d/m/Y');
@@ -64,7 +62,7 @@
 						$attr =array(
 								'name' 	=> 'extended',
 								'value'	=> set_value('extended'),
-								'class'	=> 'textfield textextended',
+								'class'	=> 'textfield textextended inpval',
 								'cols'	=> '81',
 								'rows' 	=> '10'
 						);
@@ -76,7 +74,7 @@
 								'name' 		=> 'price',
 								'id'   		=> 'textprice',
 								'value'		=> set_value('price'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '40',
 								'size' 		=> '10'
 							);
@@ -86,7 +84,7 @@
 								'name' 		=> 'newprice',
 								'id'   		=> 'textprice',
 								'value'		=> set_value('newprice'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '40',
 								'size' 		=> '10'
 							);
@@ -96,7 +94,7 @@
 								'name' 		=> 'object',
 								'id'   		=> 'textobject',
 								'value'		=> set_value('object'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '100',
 								'size' 		=> '45'
 							);
@@ -106,7 +104,7 @@
 								'name' 		=> 'location',
 								'id'   		=> 'textlocation',
 								'value'		=> set_value('location'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '100',
 								'size' 		=> '45'
 							);
@@ -116,7 +114,7 @@
 								'name' 		=> 'region',
 								'id'   		=> 'textregion',
 								'value'		=> set_value('region'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '100',
 								'size' 		=> '45'
 							);
@@ -126,14 +124,14 @@
 								'name' 		=> 'count',
 								'id'   		=> 'textcount',
 								'value'		=> set_value('count'),
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 								'maxlength'	=> '10',
 								'size' 		=> '5'
 							);
 							echo form_input($attr).'</div>';?>
 							<hr>
 							<label class="label-input">Фото: </label>
-							<input class="textfield" type="file" name="userfile" accept="image/jpeg,png,gif" size="30"/> 
+							<input class="textfield inpval" type="file" name="userfile" accept="image/jpeg,png,gif" size="30"/> 
 							<div class="">Поддерживаемые форматы: JPG, GIF, PNG</div>
 							<hr>
 							<div><label class="label-input">Дополнительные пареметры:</label></div>
@@ -197,15 +195,8 @@
 							}
 						echo '</div>';
 						echo '<hr>';
-						$attr =array(
-								'name' => 'btsabmit',
-								'id'   => 'btnsabmit',
-								'value'=> 'Сохранить',
-								'class'=> 'senden'
-							);
-						echo form_submit($attr);
-					echo form_close();
-				?>
+						echo form_submit(array('name'=>'btsabmit','id'=>'send','value'=>'Сохранить','class'=>'senden'));
+					echo form_close(); ?>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -224,31 +215,12 @@
 <script src="<?=$pagevalue['baseurl'];?>js/datepicker/jquery.ui.widget.js" type="text/javascript" ></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var config = {
-			skin : 'v2',
-			removePlugins : 'scayt',
-			resize_enabled: false,
-			height: '150px',
-			toolbar:
-			[
-				['Source','-','Preview','-','Templates'],
-				['Cut','Copy','Paste','PasteText'],
-				['Undo','Redo','-','SelectAll','RemoveFormat'],
-				'/',
-				['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-				['NumberedList','BulletedList','-','Outdent','Indent'],
-				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-				['Link','Unlink'],
-				'/',
-				['TextColor','Format','FontSize'],
-				['Table','HorizontalRule','SpecialChar','-'],
-				['Maximize', 'ShowBlocks']
-			]
-		};
+		var config = {skin : 'v2',removePlugins : 'scayt',resize_enabled: false,height: '350px',toolbar:[['Source','-','Preview','-','Templates'],['Cut','Copy','Paste','PasteText'],['Undo','Redo','-','SelectAll','RemoveFormat'],'/',['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['NumberedList','BulletedList','-','Outdent','Indent'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],'/',['TextColor','Format','FontSize'],['Table','HorizontalRule','SpecialChar','-'],['Maximize', 'ShowBlocks']]};
 		$('textarea.textextended').ckeditor(config);
 		var editor = $('textarea.textextended').ckeditorGet();
 		CKFinder.setupCKEditor(editor,'<?=$pagevalue['baseurl'].'ckfinder/'; ?>');
 		$("input#unitdate").datepicker($.datepicker.regional['ru']);
+		$("#send").click(function(event){var err = false;var email = $("#email").val();$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Форма добавления'});event.preventDefault();}});
 	});
 </script>
 </body>

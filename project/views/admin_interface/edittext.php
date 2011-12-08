@@ -16,49 +16,28 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-				<?php
-					if($msg['status'] == 1){
+				<?php if($msg['status'] == 1):
 						echo '<div class="message">';
 							echo $msg['message'].'<br/>'.$msg['error'];
 						echo '</div>';
 						echo '<div class="clear"></div>';
-					}
-					echo form_open('updatetext',array('id'=>'edittextform'));
-						echo form_hidden('id',$pagevalue['id']);
+					endif;?>
+				<?=form_open('updatetext',array('id'=>'edittextform'));?>
+					<?php echo form_hidden('id',$pagevalue['id']);
 						echo form_hidden('backpath',$pagevalue['backpath']);
 						echo form_hidden('sidebar',$pagevalue['sidebar']);
-						if(isset($text['title'])){
+						if(isset($text['title'])):
 							echo '<div>'.form_label('Название: ','textlabel');
-							$attr = array(
-								'name' 		=> 'title',
-								'id'   		=> 'texttitle',
-								'value'		=> $text['title'],
-								'class'		=> 'textfield',
-								'maxlength'	=> '100',
-								'size' 		=> '75'
-							);
+				$attr = array('name'=>'title','id'=>'texttitle','value'=>$text['title'],'class'=>'textfield inpval','maxlength'=>'100','size'=>'75');
 							echo form_input($attr).'</div>';
-						}
+						endif;
 						echo '<div>'.form_label('Раcширенная информация: ','textlabel').'</div>';
-						$attr =array(
-								'name' 	=> 'extended',
-								'id'   	=> 'textextended',
-								'value'	=> $text['extended'],
-								'class'	=> 'textfield',
-								'cols'	=> '81',
-								'rows' 	=> '10'
-						);
+				$attr =array('name'=>'extended','id'=>'textextended','value'=>$text['extended'],'class'=>'textfield inpval','cols'=>'81','rows'=> '10');
 						echo '<div>'.form_textarea($attr).'</div>';
 						echo '<hr>';
-						$attr =array(
-								'name' => 'btsabmit',
-								'id'   => 'btnsabmit',
-								'value'=> 'Сохранить',
-								'class'=> 'senden'
-							);
+						$attr =array('name'=>'btsabmit','id'=>'send','value'=>'Сохранить','class'=>'senden');
 						echo form_submit($attr);
-					echo form_close();
-				?>
+					echo form_close();?>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -72,30 +51,11 @@
 <script src="<?=$pagevalue['baseurl'];?>ckfinder/ckfinder.js" type="text/javascript"></script>
   <script type="text/javascript">
 		$(document).ready(function(){
-			var config = {
-				skin : 'v2',
-				removePlugins : 'scayt',
-				resize_enabled: false,
-				height: '350px',
-				toolbar:
-				[
-					['Source','-','Preview','-','Templates'],
-					['Cut','Copy','Paste','PasteText'],
-					['Undo','Redo','-','SelectAll','RemoveFormat'],
-					'/',
-					['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-					['NumberedList','BulletedList','-','Outdent','Indent'],
-					['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-					['Link','Unlink'],
-					'/',
-					['TextColor','Format','FontSize'],
-					['Table','HorizontalRule','SpecialChar','-'],
-					['Maximize', 'ShowBlocks']
-				]
-			};
+			var config = {skin : 'v2',removePlugins : 'scayt',resize_enabled: false,height: '350px',toolbar:[['Source','-','Preview','-','Templates'],['Cut','Copy','Paste','PasteText'],['Undo','Redo','-','SelectAll','RemoveFormat'],'/',['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['NumberedList','BulletedList','-','Outdent','Indent'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],'/',['TextColor','Format','FontSize'],['Table','HorizontalRule','SpecialChar','-'],['Maximize', 'ShowBlocks']]};
 			$('#textextended').ckeditor(config);
 			var editor = $('#textextended').ckeditorGet();
 			CKFinder.setupCKEditor(editor,'<?=$pagevalue['baseurl'].'ckfinder/'; ?>');
+			$("#send").click(function(event){var err = false;var email = $("#email").val();$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Форма редактирования'});event.preventDefault();}});
 		});
 	</script>
 </body>

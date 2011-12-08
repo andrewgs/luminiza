@@ -5,3 +5,4 @@
 <script src="<?=$baseurl;?>js/script.js?v=1"></script>
 <script defer src="<?=$baseurl;?>js/jquery.jgrowl.js"></script>
 <script src="<?=$baseurl;?>js/jquery.confirm.js"></script>
+<script src="<?=$baseurl;?>js/jquery-ui-1.8.16.min.js"></script>

@@ -4,8 +4,8 @@ class Apartmentmodel extends CI_Model{
 	var $apnt_id = 0;
 	var $apnt_title = '';
 	var $apnt_extended = '';
-	var $apnt_price = '';
-	var $apnt_newprice = '';
+	var $apnt_price = 0;
+	var $apnt_newprice = 0;
 	var $apnt_price_rent = '';
 	var $apnt_object = '';
 	var $apnt_location = '';
@@ -37,6 +37,35 @@ class Apartmentmodel extends CI_Model{
 		$data = $query->result_array();
 		if(isset($data[0])) return $data[0];
 		return NULL;
+	}
+	
+	function get_min_price($flag){
+		
+		if($flag == 2):
+			$query = "SELECT MIN(apnt_price) AS apnt_price, MIN(apnt_newprice) AS apnt_newprice FROM apartment WHERE (apnt_flag = 0 OR apnt_flag = 2) AND (apnt_price > 0 AND apnt_newprice > 0)";
+		else:
+			$query = "SELECT MIN(apnt_price) AS apnt_price, MIN(apnt_newprice) AS apnt_newprice FROM apartment WHERE (apnt_flag = 1) AND (apnt_price > 0 AND apnt_newprice > 0)";
+		endif;
+		$query = $this->db->query($query);
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0];
+		else return null;
+	}
+	
+	function get_max_price($flag){
+	
+		$this->db->select_max('apnt_price');
+		$this->db->select_max('apnt_newprice');
+		if($flag == 2):
+			$this->db->where('apnt_flag',0);
+		else:
+			$this->db->where('apnt_flag',1);
+		endif;
+		$this->db->or_where('apnt_flag',2);
+		$query = $this->db->get('apartment');
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0];
+		else return null;
 	}
 	
 	function get_records_flag($flag){

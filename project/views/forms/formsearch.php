@@ -11,8 +11,9 @@
 			<tr>
 				<td>
 				<?php $options = array();
-					for($i = 0;$i < $countrecord['object'];$i++)
+					for($i=0;$i<$countrecord['object'];$i++):
 						$options[$i] = $selectvalue['object'][$i]['apnt_object'];
+					endfor;
 					$options[$countrecord['object']] = 'Любой объект';
 					$attr = 'id="object" class="w215"';
 					echo form_dropdown('object',$options,$countrecord['object'],$attr);	?>
@@ -50,7 +51,7 @@
 					<table class="tbl">
 						<tbody>
 						<?php for($i=0;$i<count($selectvalue['count']);$i++):
-					$attr = array('name'=>'rooms_'.$i,'class'=>'rooms','value'=>$selectvalue['count'][$i]['apnt_count'],'checked'=>FALSE);
+		$attr = array('name'=>'rooms_'.$i,'id'=>'rooms_'.$i,'class'=>'rooms','value'=>$selectvalue['count'][$i]['apnt_count'],'checked'=>FALSE);
 								if($i % 4 == 0):
 									echo '<tr><td>'.form_checkbox($attr).$selectvalue['count'][$i]['apnt_count'].'</td>';
 								else:
@@ -78,6 +79,22 @@
 		<tr><td>Номер по каталогу:</td></tr>
 		<tr><td><input type="text" size="25"class="sname" id="sname" value="<?=$sname;?>" name="sname"></td></tr>
 		<tr><td><button type="submit" border="0" class="senden" value="sname" id="btsname" name="btsname">Поиск</button></td></tr>
+		</tbody>
+	<?=form_close();?>
+	</table>
+	<hr size="2"/>
+	<table width="100%" border="0" class="retail-filter-table">
+	<?=form_open('price-search',array('name'=>'frmPriceSearch','id'=>'frmPriceSearch'));?>
+		<tbody>
+		<tr><td>Диапазон цен (&euro;):</td></tr>
+		<tr>
+			<td>
+				от: <input type="text" size="5" class="rgprice" id="lowprice" value="" name="lowprice" readonly="readonly">
+				до: <input type="text" size="5" class="rgprice" id="topprice" value="" name="topprice" readonly="readonly">
+			</td>
+		</tr>
+		<tr><td><div id="RangePrice" style="width:200px;"></div></td></tr>
+		<tr><td><button type="submit" border="0" class="senden" value="sname" id="btsprice" name="btsprice">Поиск</button></td></tr>
 		</tbody>
 	<?=form_close();?>
 	</table>
