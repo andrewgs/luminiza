@@ -306,3 +306,9 @@ footer .logo { display: block; text-indent: -9999px; margin-top: 30px; backgroun
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
 }
+.rgprice{
+	border:0;
+	background-color: #E0E0E0;
+	color:#f6931f;
+	font-weight:bold;
+}

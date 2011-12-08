@@ -99,6 +99,15 @@
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Результат поиска'});
 		<?php endif;?>
+		$("#btsname").click(function(event){var strsearch = $("#sname").val();$("#sname").css('border-color','#00ff00');if(strsearch == ''){event.preventDefault();$("#sname").css('border-color','#ff0000');$.jGrowl("Поле не може быть пустым",{header:'Форма поиска'});}});
+		$("#RangePrice").slider({range: true,min: <?=$lowprice;?>,max: <?=$topprice;?>,values:[<?=$lowpricev;?>,<?=$toppricev;?>],step: 50000,slide: function(event,ui){$("#lowprice").val(ui.values[0]);$("#topprice").val(ui.values[1]);}});
+		$("#lowprice").val("<?=$lowpricev;?>");$("#topprice").val("<?=$toppricev;?>");
+		$("#object").val(<?=$sobject;?>);
+		$("#location").val(<?=$slocation;?>);
+		$("#region").val(<?=$sregion;?>);
+		<?php for($i=0;$i<count($sroom);$i++):?>
+			$("#<?=$sroom[$i];?>").attr('checked','checked');
+		<?php endfor;?>
 	});
 </script>
 </body>

@@ -207,6 +207,8 @@ class Users_interface extends CI_Controller{
 			'apartment' => array(),
 			'text' 		=> array(),
 			'countrecord' => array(),
+			'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
+			'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
 			'sname' 	=> $this->session->userdata('sname')
 		);
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
@@ -279,7 +281,6 @@ class Users_interface extends CI_Controller{
 				$apartment[$i]['apnt_newprice'] = number_format($apartment[$i]['apnt_newprice'],0,' ','.');
 			endif;
 		endfor;
-		if(isset($from) && ! empty($from)) $this->session->set_userdata('backpage','retail/'.$from);
 		for($i=0;$i<count($apartment);$i++):
 			$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
 			$apartment[$i]['img_id'] = $image[$i]['img_id'];
@@ -431,7 +432,14 @@ class Users_interface extends CI_Controller{
 		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
 		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
 		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-		
+		for($i=0;$i<count($selectvalue['count']);$i++):
+			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
+				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
+			else:
+				continue;
+			endif;
+		endfor;
+		sort($selectvalue['count']);
 		$countrecord['object'] 		= count($selectvalue['object']);
 		$countrecord['location'] 	= count($selectvalue['location']);
 		$countrecord['region'] 		= count($selectvalue['region']);
@@ -1434,12 +1442,22 @@ class Users_interface extends CI_Controller{
 		endif;
 		if($this->input->post('btsearch') || !empty($status)):
 			$param = array(); $selectvalue = array(); $apartment = array(); $text = array();$countrecord = array();
-			$msg = $this->setmessage('','','',0);
 			if($this->input->post('btsearch')):
 				$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
 				$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
 				$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
 				$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
+				for($i=0;$i<count($selectvalue['count']);$i++):
+					if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
+						$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
+					else:
+						continue;
+					endif;
+				endfor;
+				sort($selectvalue['count']);
+				$this->session->set_userdata('shobject',$_POST['object']);
+				$this->session->set_userdata('shlocation',$_POST['location']);
+				$this->session->set_userdata('shregion',$_POST['region']);
 				
 				if($_POST['cntrec']['object'] == $_POST['object']) $param['object'] = null;
 				else $param['object'] = $selectvalue['object'][$_POST['object']]['apnt_object'];
@@ -1450,13 +1468,16 @@ class Users_interface extends CI_Controller{
 				if($_POST['cntrec']['region'] == $_POST['region']) $param['region'] = null;
 				else $param['region'] = $selectvalue['region'][$_POST['region']]['apnt_region'];
 				
-				$param['room'] = array();			
+				$param['room'] = array();	
+				$param['roomid'] = array();	
 				for($i=0,$j=0;$i<=$_POST['cntrec']['count'];$i++):
 					if(!empty($_POST["rooms_$i"])):
 						$param['room'][$j] = $_POST["rooms_$i"];
+						$param['roomid'][$j] = "rooms_$i";
 						$j++;
 					endif;
 				endfor;
+				$this->session->set_userdata('shroom',$param['roomid']);
 				
 				$sql = 'SELECT * FROM apartment WHERE ';
 				if($param['object']) $sql .= 'apnt_object = "'.$param['object'].'" AND ';
@@ -1491,7 +1512,15 @@ class Users_interface extends CI_Controller{
 				'baseurl' 	=> base_url(),
 				'admin' 	=> $this->admin['status'],
 				'msg'		=> $this->session->userdata('msg'),
-				'sname' 	=> $this->session->userdata('sname')
+				'sname' 	=> $this->session->userdata('sname'),
+				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
+				'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
+				'lowpricev'	=> $this->session->userdata('shlowprice'),
+				'toppricev'	=> $this->session->userdata('shtopprice'),
+				'sobject'	=> $this->session->userdata('shobject'),
+				'slocation'	=> $this->session->userdata('shlocation'),
+				'sregion'	=> $this->session->userdata('shregion'),
+				'sroom'		=> $this->session->userdata('shroom')
 			);
 			$this->session->unset_userdata('msg');
 			
@@ -1504,7 +1533,14 @@ class Users_interface extends CI_Controller{
 			$countrecord['location'] 	= count($selectvalue['location']);
 			$countrecord['region'] 		= count($selectvalue['region']);
 			$countrecord['count'] 		= count($selectvalue['count']);
-			
+			for($i=0;$i<count($selectvalue['count']);$i++):
+				if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
+					$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
+				else:
+					continue;
+				endif;
+			endfor;
+			sort($selectvalue['count']);
 			$text['sidebar'] = $this->sidebartextmodel->get_record(3);
 			
 			if(!count($result)):
@@ -1512,7 +1548,8 @@ class Users_interface extends CI_Controller{
 				$pagevalue['selectvalue'] = $selectvalue;
 				$pagevalue['apartment'] = $apartment;
 				$pagevalue['countrecord'] = $countrecord;
-				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
+//				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
+				$pagevalue['msg'] = 'Не найдено ни одного апартамента';
 				$this->load->view('user_interface/result',$pagevalue);
 				return FALSE;
 			endif;
@@ -1606,7 +1643,15 @@ class Users_interface extends CI_Controller{
 				'baseurl' 	=> base_url(),
 				'admin' 	=> $this->admin['status'],
 				'msg'		=> $this->session->userdata('msg'),
-				'sname' 	=> $this->session->userdata('sname')
+				'sname' 	=> $this->session->userdata('sname'),
+				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
+				'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
+				'lowpricev'	=> $this->session->userdata('shlowprice'),
+				'toppricev'	=> $this->session->userdata('shtopprice'),
+				'sobject'	=> $this->session->userdata('shobject'),
+				'slocation'	=> $this->session->userdata('shlocation'),
+				'sregion'	=> $this->session->userdata('shregion'),
+				'sroom'		=> $this->session->userdata('shroom')
 			);
 			$this->session->unset_userdata('msg');
 			
@@ -1664,6 +1709,128 @@ class Users_interface extends CI_Controller{
 			else:
 				$this->session->set_userdata('backpage','name-search');
 				$this->session->set_userdata('searchback','name-search');
+			endif;
+			$apartment = $result;
+			
+			for($i=0;$i<count($apartment);$i++):
+				if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):
+					$tmp = $apartment[$i]['apnt_extended'];			
+					$tmp = mb_substr($tmp,0,325,'UTF-8');	
+					$pos = mb_strrpos($tmp,' ',0,'UTF-8');
+					$tmp = mb_substr($tmp,0,$pos,'UTF-8');
+					$apartment[$i]['apnt_extended'] = $tmp.' ...';
+				endif;				
+				$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
+				if(!$image[$i])	 $image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
+				$apartment[$i]['img_id'] = $image[$i]['img_id'];
+				$apartment[$i]['img_title'] = $image[$i]['img_title'];
+				
+				if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
+			endfor;
+			$this->pagination->initialize($cfgpag);
+			$text['pager'] = $this->pagination->create_links();
+			
+			$pagevalue['text'] = $text;
+			$pagevalue['selectvalue'] = $selectvalue;
+			$pagevalue['apartment'] = $apartment;
+			$pagevalue['countrecord'] = $countrecord;
+			$this->load->view('user_interface/result',$pagevalue);
+		else:
+			redirect($this->session->userdata('backpath'));
+		endif;
+	}
+	
+	function price_search(){
+	
+		$status = $this->session->userdata('status');
+		if(!empty($status)):
+			$sql = $this->session->userdata('query');
+		endif;
+		if($this->input->post('btsprice') || !empty($status)):
+			$param = array(); $selectvalue = array(); $apartment = array(); $text = array();$countrecord = array();
+			if($this->input->post('btsprice')):
+				$this->session->set_userdata('shlowprice',$_POST['lowprice']);
+				$this->session->set_userdata('shtopprice',$_POST['topprice']);
+				$_POST['btsprice'] = NULL;
+				$sql = 'SELECT * FROM apartment WHERE (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_date DESC';
+				$this->session->set_userdata('query',$sql);
+				$this->session->set_userdata('status',TRUE);
+				redirect($this->uri->uri_string());
+			endif;
+			$result = $this->apartmentmodel->search_apartment($sql);
+			$pagevalue = array(
+				'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+				'keywords' 	=> 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+				'author' 	=> 'RealityGroup',
+				'title' 	=> 'Результаты поиска | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
+				'baseurl' 	=> base_url(),
+				'admin' 	=> $this->admin['status'],
+				'msg'		=> $this->session->userdata('msg'),
+				'sname' 	=> $this->session->userdata('sname'),
+				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
+				'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
+				'lowpricev'	=> $this->session->userdata('shlowprice'),
+				'toppricev'	=> $this->session->userdata('shtopprice'),
+				'sobject'	=> $this->session->userdata('shobject'),
+				'slocation'	=> $this->session->userdata('shlocation'),
+				'sregion'	=> $this->session->userdata('shregion'),
+				'sroom'		=> $this->session->userdata('shroom')
+			);
+			$this->session->unset_userdata('msg');
+			$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
+			$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
+			$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
+			$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
+			
+			$countrecord['object'] 		= count($selectvalue['object']);
+			$countrecord['location'] 	= count($selectvalue['location']);
+			$countrecord['region'] 		= count($selectvalue['region']);
+			$countrecord['count'] 		= count($selectvalue['count']);
+			
+			$text['sidebar'] = $this->sidebartextmodel->get_record(3);
+			
+			if(!count($result)):
+				$pagevalue['text'] = $text;
+				$pagevalue['selectvalue'] = $selectvalue;
+				$pagevalue['apartment'] = $apartment;
+				$pagevalue['countrecord'] = $countrecord;
+				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
+				$this->load->view('user_interface/result',$pagevalue);
+				return FALSE;
+			endif;
+			
+			$cfgpag['base_url'] = base_url().'/price-search';
+	        $cfgpag['total_rows'] = count($result);
+	        $cfgpag['per_page'] =  10;
+	        $cfgpag['num_links'] = 4;
+	        $cfgpag['uri_segment'] = 2;
+			$cfgpag['first_link'] = FALSE;
+			$cfgpag['first_tag_open'] = '<li>';
+			$cfgpag['first_tag_close'] = '</li>';
+			$cfgpag['last_link'] = FALSE;
+			$cfgpag['last_tag_open'] = '<li>';
+			$cfgpag['last_tag_close'] = '</li>';
+			$cfgpag['next_link'] = 'Далее &raquo;';
+			$cfgpag['next_tag_open'] = '<li>';
+			$cfgpag['next_tag_close'] = '</li>';
+			$cfgpag['prev_link'] = '&laquo; Назад';
+			$cfgpag['prev_tag_open'] = '<li>';
+			$cfgpag['prev_tag_close'] = '</li>';
+			$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
+			$cfgpag['cur_tag_close'] = '</a></li>';
+			$cfgpag['num_tag_open'] = '<li>';
+			$cfgpag['num_tag_close'] = '</li>';			
+			
+			$from = intval($this->uri->segment(2));
+			$sqlimit = $sql.' LIMIT '.$from.',5';
+			
+			$result = $this->apartmentmodel->search_limit_apartment($sqlimit,10,$from);
+			if(isset($from) and !empty($from)):
+				$this->session->set_userdata('backpage','price-search/'.$from);
+				$this->session->set_userdata('searchback','price-search/'.$from);
+			else:
+				$this->session->set_userdata('backpage','price-search');
+				$this->session->set_userdata('searchback','price-search');
 			endif;
 			$apartment = $result;
 			

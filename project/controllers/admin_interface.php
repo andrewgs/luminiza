@@ -220,16 +220,14 @@ class Admin_interface extends CI_Controller{
 	
 	function uploadimage(){
 			
-		if(!isset($_POST['btsabmit']))
-			show_404();
+		if(!isset($_POST['btsabmit'])) show_404();
 		
-		if(!$_POST['imagetitle']){
-				
+		if(!$_POST['imagetitle']):
 			$this->session->set_flashdata('operation_error','Не указано описание');
 			$this->session->set_flashdata('operation_message','Ошибка при загрузке фото');
 			$this->session->set_flashdata('operation_saccessfull',' ');
 			redirect($_POST['fulluri']);
-		}
+		endif;
 		if ($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0){
 			if(empty($_POST['imageheight']) or empty($_POST['imagewight'])):
 				$wigimg = 200;
@@ -244,9 +242,12 @@ class Admin_interface extends CI_Controller{
 				($wigimg > 640) ? $wight[1] = 640: $wight[1] = $wigimg; 
 				($higimg > 480) ? $height[1] = 480: $height[1] = $higimg; 
 			else:
-				$wight[0] = 752; $height[0] = 336;
-				($wigimg > 752) ? $wight[1] = 752: $wight[1] = $wigimg; 
-				($higimg > 336) ? $height[1] = 336: $height[1] = $higimg;
+//				$wight[0] = 752; $height[0] = 336;
+//				($wigimg > 752) ? $wight[1] = 752: $wight[1] = $wigimg; 
+//				($higimg > 336) ? $height[1] = 336: $height[1] = $higimg;
+				$wight[0] = 640; $height[0] = 480;
+				($wigimg > 640) ? $wight[1] = 640: $wight[1] = $wigimg; 
+				($higimg > 480) ? $height[1] = 480: $height[1] = $higimg; 
 				$wight[2] = 640; $height[2] = 480;
 			endif;
 			
@@ -855,8 +856,7 @@ class Admin_interface extends CI_Controller{
 		$type_manipulation = $this->uri->segment(3);
 		$obj_id = 0;
 		$msg = $this->setmessage('','','',0);
-		$image = array();
-		$images = array();
+		$image = array(); $images = array();
 		
 		$pagevalue = array(
 					'description' 	=>'',
@@ -940,26 +940,20 @@ class Admin_interface extends CI_Controller{
 	
 	function imagesaving(){
 
-		if(isset($_POST['btsabmit'])){
-			
-			if(!$_POST['imagetitle']){
-				
+		if(isset($_POST['btsabmit'])){			
+			if(!$_POST['imagetitle']){				
 				$this->session->set_flashdata('operation_error','Не указано описание');
 				$this->session->set_flashdata('operation_message','Ошибка при загрузке фото');
 				$this->session->set_flashdata('operation_saccessfull',' ');
 				redirect($_POST['fulluri']);
 			}
-			
 			if (!ctype_digit($_POST['imagewight']) or !ctype_digit($_POST['imageheight'])){
-				
 				$this->session->set_flashdata('operation_error','Ширина и высота должны быть целыми числами');
 				$this->session->set_flashdata('operation_message','Ошибка при загрузке фото');
 				$this->session->set_flashdata('operation_saccessfull',' ');
 				redirect($_POST['fulluri']);
 			}
-			
 			if ($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0){
-				
 				if(empty($_POST['imageheight']) or empty($_POST['imagewight'])):
 					$wigth = 200;
 					$height = 170;
@@ -969,7 +963,6 @@ class Admin_interface extends CI_Controller{
 					if($wigth > 640) $wigth = 640;
 					if($height > 480) $height = 480; 	
 				endif;
-				
 				if($_POST['imgtype'] == 'apartment' || $_POST['imgtype'] == 'commercial'):
 					$image = $this->imagesmodel->get_type_ones_image($_POST['imgtype'],$_POST['object']);
 					if($_POST['id'] === $image['img_id'])
