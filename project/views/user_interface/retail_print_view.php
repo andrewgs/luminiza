@@ -30,18 +30,14 @@
 							</div>
 						</div>
 						<div class="clear"></div>
-						<?php if(isset($retail['img_id'])):
-								echo '<img class="retail-preview" alt="'.$retail['img_title'].'"title="'.$retail['img_title'].'" src="'.$baseurl.'viewslideshow/'.$retail['img_id'].'">';
-							endif; ?>
-						<?php for($i=0;$i<count($images);$i++){							
+						<? 
+						for ( $i = 0; $i < count($images); $i++ ) :							
 							if(isset($images[$i]['img_id'])):			
-								$text = '<img class="row_image thumb" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
-								$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
-								$attr = array('class'=>'pirobox_retail','title'=>$images[$i]['img_title']);
-								echo anchor($link,$text,$attr);	
+								echo '<img class="print-preview" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewslideshow/'.$images[$i]['img_id'].'">';
 							endif;
 							if(($i+1) == count($images)) echo '<br class="clear"/>';
-						} ?>
+						endfor;
+						?>
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -49,5 +45,11 @@
 	  </div>
  	</div>
 <?php $this->load->view('user_interface/scripts');?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('div.missions_row:first').css('border-top', 'none').css('padding-top', 0);
+		$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);
+	});
+</script>
 </body>
 </html>
