@@ -18,7 +18,7 @@
 	</div>
 	<div class="clear"></div>
 	<?=form_error('number_people').'<div class="clear"></div>'; ?>
-	<label for="number_people">Количество людей <em class="bright">*</em></label>
+	<label for="number_people">Количество взлослых <em class="bright">*</em></label>
 	<div class="dd">
 	<input type="text" size="45" maxlength="50" class="number_people inpval" id="number_people" value="" name="number_people">
 	</div>

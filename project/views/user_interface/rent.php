@@ -15,8 +15,8 @@
 				<div class="sidebar">
 					<ul>
 						<li><?=anchor('rent/retail','Жилая недвижимость');?></li>
-						<li><?=anchor('rent/commercial','Коммерческая недвижимость');?></li>
 						<li><?=anchor('rent/auto','Аренда автомобилей');?></li>
+						<li><?=anchor('rent/commercial','Коммерческая недвижимость');?></li>
 					</ul>
 					<h3>Информация</h3>
 					<?=$text[0]['sidebar']['sbt_extended']; ?>
@@ -90,8 +90,8 @@
 				<div class="sidebar">
 					<ul>
 						<li><?=anchor('rent/retail','Жилая недвижимость');?></li>
-						<li><?=anchor('rent/commercial','Коммерческая недвижимость');?></li>
 						<li><?=anchor('rent/auto','Аренда автомобилей');?></li>
+						<li><?=anchor('rent/commercial','Коммерческая недвижимость');?></li>
 					</ul>
 					<h3>Информация</h3>
 					<?=$text[1]['sidebar']['sbt_extended']; ?>

@@ -24,7 +24,7 @@
 	</div>
 	<div class="clear"></div>
 	<?=form_error('number_people').'<div class="clear"></div>'; ?>
-	<label for="number_people">Количество людей <em class="bright">*</em></label>
+	<label for="number_people">Количество взрослых <em class="bright">*</em></label>
 	<div class="dd">
 	<input type="text" size="45" maxlength="50" class="number_people inpval" id="number_people" value="" name="number_people">
 	</div>
@@ -53,20 +53,14 @@
 		<input type="text" size="45" maxlength="50" class="country inpval" id="country" value="" name="country">
 	</div>
 	<div class="clear"></div>
-	<?=form_error('car').'<div class="clear"></div>';?>
-	<label for="car">Модель автомобиля <em class="bright">*</em></label>
-	<div class="dd">
-		<input type="text" size="45" maxlength="50" class="car inpval" id="car" value="" name="car">
-	</div>
-	<div class="clear"></div>
 	<?=form_error('rdate').'<div class="clear"></div>';?>
-	<label for="rdate">Дата начала аренды <em class="bright">*</em></label>
+	<label for="rdate">Дата въезда <em class="bright">*</em></label>
 	<div class="dd">
 		<input type="text" size="45" maxlength="50" class="rdate inpval" id="rdate" value="" name="rdate">
 	</div>
 	<div class="clear"></div>
 	<?=form_error('bcdate').'<div class="clear"></div>'; ?>
-	<label for="bcdate">Дата возвращения <em class="bright">*</em></label>
+	<label for="bcdate">Дата выезда <em class="bright">*</em></label>
 	<div class="dd">
 		<input type="text" size="45" maxlength="50" class="bcdate inpval" id="bcdate" value="" name="bcdate">
 	</div>

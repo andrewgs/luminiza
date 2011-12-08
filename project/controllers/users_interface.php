@@ -674,10 +674,10 @@ class Users_interface extends CI_Controller{
 				$this->form_validation->set_rules('name','"Ваше имя и фамилия"','required|trim');
 				$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 				$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-				$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+				$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
 				$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-				$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
-				$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
+				$this->form_validation->set_rules('rdate','"Дата въезда"','required|trim');
+				$this->form_validation->set_rules('bcdate','"Дата выезда"','required');
 				$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 				if(!$this->form_validation->run()):
 					$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -693,10 +693,10 @@ class Users_interface extends CI_Controller{
 					$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 					$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 					$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-					$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+					$_POST['msg'] 	.= 'Количество взрослых - '.$_POST['number_people']."\n";
 					$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-					$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
-					$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
+					$_POST['msg'] 	.= 'Дата въезда - '.$_POST['rdate']."\n";
+					$_POST['msg'] 	.= 'Дата выезда - '.$_POST['bcdate']."\n";
 					$this->email->clear(TRUE);
 					$config['smtp_host'] = 'localhost';
 					$config['charset'] = 'utf-8';
@@ -726,14 +726,13 @@ class Users_interface extends CI_Controller{
 				$this->form_validation->set_rules('name','"Ваше имя и фамилия"','required|trim');
 				$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 				$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-				$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+				$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
 				$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
 				$this->form_validation->set_rules('permit','"Номер водительских прав"','required|trim');
 				$this->form_validation->set_rules('pdate','"Дата получения"','required|trim');
 				$this->form_validation->set_rules('country','"Страна получения"','required|trim');
-				$this->form_validation->set_rules('car','"Модель автомобиля"','required|trim');
-				$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
-				$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
+				$this->form_validation->set_rules('rdate','"Дата въезда"','required|trim');
+				$this->form_validation->set_rules('bcdate','"Дата выезда"','required');
 				$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 				if(!$this->form_validation->run()):
 					$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -749,14 +748,13 @@ class Users_interface extends CI_Controller{
 					$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 					$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 					$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-					$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+					$_POST['msg'] 	.= 'Количество взлослых - '.$_POST['number_people']."\n";
 					$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
 					$_POST['msg'] 	.= 'Номер водительских прав - '.$_POST['permit']."\n";
 					$_POST['msg'] 	.= 'Дата получения - '.$_POST['pdate']."\n";
 					$_POST['msg'] 	.= 'Страна получения - '.$_POST['country']."\n";
-					$_POST['msg'] 	.= 'Модель автомобиля - '.$_POST['car']."\n";
-					$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
-					$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
+					$_POST['msg'] 	.= 'Дата въезда - '.$_POST['rdate']."\n";
+					$_POST['msg'] 	.= 'Дата выезда - '.$_POST['bcdate']."\n";
 					if(isset($_POST['place'])):
 						$sub = array('','к аэропорту','к отелю');
 						$_POST['msg'] 	.= 'Подать авто - '.$sub[$_POST['place']];
@@ -913,10 +911,10 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
-			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
+			$this->form_validation->set_rules('rdate','"Дата въезда"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата выезда"','required');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -932,10 +930,10 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество взрослых - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
-				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
+				$_POST['msg'] 	.= 'Дата въезда - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата выезда - '.$_POST['bcdate']."\n";
 				$this->email->clear(TRUE);
 				$config['smtp_host'] = 'localhost';
 				$config['charset'] = 'utf-8';
@@ -1096,7 +1094,7 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата экскурсии"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
 			$this->form_validation->set_rules('note','"Примечания"','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
@@ -1113,7 +1111,7 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
-				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество взлослых - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
 				$_POST['msg'] 	.= 'Дата экскурсии - '.$_POST['date']."\n";
 				$_POST['msg'] 	.= "Примечания:\n".$_POST['note']."\n";
@@ -1650,7 +1648,7 @@ class Users_interface extends CI_Controller{
 				$this->session->set_userdata('shlowprice',$_POST['lowprice']);
 				$this->session->set_userdata('shtopprice',$_POST['topprice']);
 				$_POST['btsprice'] = NULL;
-				$sql = 'SELECT * FROM apartment WHERE (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_date DESC';
+				$sql = 'SELECT * FROM apartment WHERE (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_price,apnt_newprice';
 				$this->session->set_userdata('query',$sql);
 				$this->session->set_userdata('status',TRUE);
 				redirect($this->uri->uri_string());
@@ -1840,7 +1838,34 @@ class Users_interface extends CI_Controller{
 		$pagevalue['image'] = $image;
 		$this->load->view('user_interface/contacts',$pagevalue);
 	} //функция выводит контактную информацию компании;
-						   
+	
+	/*function sendbackmail($name){
+		
+		$_POST['msg'] 	 = 'Здравствуйте, %имя человека с большой буквы%'. "\n";
+		$_POST['msg'] 	.= 'Название - '.$retail['title']."\n";
+		$_POST['msg'] 	.= 'Идентификатор в таблице - '.$retail['id']."\n";
+		$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+		$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
+		$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
+		$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+		$this->email->clear(TRUE);
+		$config['smtp_host'] = 'localhost';
+		$config['charset'] = 'utf-8';
+		$config['wordwrap'] = TRUE;
+		$this->email->initialize($config);
+		$this->email->from($_POST['email'],$_POST['name']);
+		$this->email->to('info@lum-tenerife.com');
+		$this->email->bcc('');
+		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+		$textmail = strip_tags($_POST['msg']);
+		$this->email->message($textmail);	
+		if(!$this->email->send()):
+			$this->session->set_userdata('msg','Сообщение не отправлено');
+			redirect($this->uri->uri_string());
+			return FALSE;
+		endif;
+	}*/
+		   
 	/*==================================================  PRINT  ======================================================*/
 
 	function retail_print(){

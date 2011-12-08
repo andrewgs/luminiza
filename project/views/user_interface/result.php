@@ -50,28 +50,27 @@
 								if(isset($apartment[$i]['img_id']))
 									echo '<img alt="'.$apartment[$i]['img_title'].'"
 										title="'.$apartment[$i]['img_title'].'"
-										src="'.$baseurl.'viewimage/'.$apartment[$i]['img_id'].'">';
-							?>
+										src="'.$baseurl.'viewimage/'.$apartment[$i]['img_id'].'">';?>
 								<div class="missions_right_panel">
-							<?php
-									echo '<h4>'.$apartment[$i]['apnt_title'];
-									if($apartment[$i]['apnt_flag'] != 1)
-										echo ' ('.$apartment[$i]['apnt_price'].' &euro;)';
-									echo '</h4>';
-									echo '<div class="car_preferences">'.$apartment[$i]['apnt_extended'].'</div>'
-							?>
+									<?php if(!$apartment[$i]['apnt_flag']):
+										$link = 'retail/apartment/'.$apartment[$i]['apnt_id'];
+									elseif($apartment[$i]['apnt_flag'] == 1):
+										$link = 'rent/apartment/'.$apartment[$i]['apnt_id'];
+									else:
+										$link = 'retail/apartment/'.$apartment[$i]['apnt_id'];
+									endif;?>
+									<?php if($apartment[$i]['apnt_flag'] != 1):?>
+										<?php if(!empty($apartment[$i]['apnt_newprice'])):?>
+										
+										<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?> (<strike><?=$apartment[$i]['apnt_newprice'];?></strike> <?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
+										<?php else:?>
+										<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?> (<?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
+										<?php endif;?>
+									<?php endif;?>
+									<div class="car_preferences"><?=$apartment[$i]['apnt_extended'];?></div>
 									<br class="clear"/>
 									<p>
-									<?php
-										if(!$apartment[$i]['apnt_flag']):
-											$link = 'retail/apartment/'.$apartment[$i]['apnt_id'];
-										elseif($apartment[$i]['apnt_flag'] == 1):
-											$link = 'rent/apartment/'.$apartment[$i]['apnt_id'];
-										else:
-											$link = 'rent/apartment/'.$apartment[$i]['apnt_id'];
-										endif;
-									?>
-										<?php echo anchor($link,'Подробнее &rarr;',array('class'=>'retail_link'));?>
+										<?=anchor($link,'Подробнее &rarr;',array('class'=>'retail_link'));?>
 									</p>
 								</div>
 							</div>
