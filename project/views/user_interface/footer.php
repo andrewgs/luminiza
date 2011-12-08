@@ -8,7 +8,7 @@
 	<div class="grid_4">
 		<h3>Недвижимость?</h3>
 		<div class="muted">Мы находимся в постоянном поиске новых объектов. Мы приглашаем Вас предложить свою собственность. Каждое предложение будет очень тщательно проанализировано.</div>
-		<div class="bright">Вы можете связаться с нами по электронной почте <?=mailto('info@lum-tenerife.com', 'info@lum-tenerife.com', 'class="email"');?> или по телефону 8 10 34 678-283-024</div>
+		<div class="bright">Вы можете связаться с нами по электронной почте <?=mailto('info@lum-tenerife.ru', 'info@lum-tenerife.ru', 'class="email"');?> или по телефону 8 10 34 678-283-024</div>
   		</div>
 	<div class="grid_4">
 		<h3>Вопросы?</h3>

@@ -243,7 +243,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -252,6 +252,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -460,7 +462,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -469,6 +471,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -703,7 +707,7 @@ class Users_interface extends CI_Controller{
 					$config['wordwrap'] = TRUE;
 					$this->email->initialize($config);
 					$this->email->from($_POST['email'],$_POST['name']);
-					$this->email->to('info@lum-tenerife.com');
+					$this->email->to('info@lum-tenerife.ru');
 					$this->email->bcc('');
 					$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 					$textmail = strip_tags($_POST['msg']);
@@ -712,6 +716,8 @@ class Users_interface extends CI_Controller{
 						$this->session->set_userdata('msg','Сообщение не отправлено');
 						redirect($this->uri->uri_string());
 						return FALSE;
+					else:
+						$this->sendbackmail($_POST['name'],$_POST['email']);
 					endif;
 					$this->session->set_userdata('msg','Сообщение отправлено');
 					$_POST['extended'] = $_POST['msg'];
@@ -767,7 +773,7 @@ class Users_interface extends CI_Controller{
 					$config['wordwrap'] = TRUE;
 					$this->email->initialize($config);
 					$this->email->from($_POST['email'],$_POST['name']);
-					$this->email->to('info@lum-tenerife.com');
+					$this->email->to('info@lum-tenerife.ru');
 					$this->email->bcc('');
 					$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 					$textmail = strip_tags($_POST['msg']);
@@ -776,6 +782,8 @@ class Users_interface extends CI_Controller{
 						$this->session->set_userdata('msg','Сообщение не отправлено');
 						redirect($this->uri->uri_string());
 						return FALSE;
+					else:
+						$this->sendbackmail($_POST['name'],$_POST['email']);
 					endif;
 					$this->session->set_userdata('msg','Сообщение отправлено');
 					$_POST['extended'] = $_POST['msg'];
@@ -940,7 +948,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -949,6 +957,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1121,7 +1131,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1130,6 +1140,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1190,7 +1202,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1199,6 +1211,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1281,7 +1295,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1290,6 +1304,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1813,7 +1829,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.ru');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1822,6 +1838,8 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
+				else:
+					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1839,32 +1857,22 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/contacts',$pagevalue);
 	} //функция выводит контактную информацию компании;
 	
-	/*function sendbackmail($name){
+	function sendbackmail($name,$email){
 		
-		$_POST['msg'] 	 = 'Здравствуйте, %имя человека с большой буквы%'. "\n";
-		$_POST['msg'] 	.= 'Название - '.$retail['title']."\n";
-		$_POST['msg'] 	.= 'Идентификатор в таблице - '.$retail['id']."\n";
-		$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-		$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
-		$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
-		$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+		$msg = 'Здравствуйте, '.$name."\n".'Спасибо за ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно вам ответим в течение одного рабочего дня'."\n\n".'--------------------------------------'."\n".'С уважением,'."\n".'Агентство недвижимости Luminiza Property Tur S.L.';
 		$this->email->clear(TRUE);
 		$config['smtp_host'] = 'localhost';
 		$config['charset'] = 'utf-8';
 		$config['wordwrap'] = TRUE;
 		$this->email->initialize($config);
-		$this->email->from($_POST['email'],$_POST['name']);
-		$this->email->to('info@lum-tenerife.com');
+		$this->email->from('info@lum-tenerife.ru','Luminiza Property Tur S.L.');
+		$this->email->to($email);
 		$this->email->bcc('');
-		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
-		$textmail = strip_tags($_POST['msg']);
+		$this->email->subject('Заявка принята. Агентство недвижимости Luminiza Property Tur S.L.');
+		$textmail = strip_tags($msg);
 		$this->email->message($textmail);	
-		if(!$this->email->send()):
-			$this->session->set_userdata('msg','Сообщение не отправлено');
-			redirect($this->uri->uri_string());
-			return FALSE;
-		endif;
-	}*/
+		$this->email->send();
+	}
 		   
 	/*==================================================  PRINT  ======================================================*/
 
