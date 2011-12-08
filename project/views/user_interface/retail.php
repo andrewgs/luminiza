@@ -117,7 +117,7 @@
 			$("a.dellink").confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 			$("a.action-sort").click(function(){$("#sort-price")[0].submit();});
 			$("#btsname").click(function(event){var strsearch = $("#sname").val();$("#sname").css('border-color','#00ff00');if(strsearch == ''){event.preventDefault();$("#sname").css('border-color','#ff0000');$.jGrowl("Поле не може быть пустым",{header:'Форма поиска'});}});
-			$("#RangePrice").slider({range: true,min: <?=$lowprice;?>,max: <?=$topprice;?>,values:[<?=$lowprice;?>,<?=$topprice;?>],step: 50000,slide: function(event,ui){$("#lowprice").val(ui.values[0]);$("#topprice").val(ui.values[1]);}});
+			$("#RangePrice").slider({range: true,min: <?=$lowprice;?>,max: <?=$topprice;?>,values:[<?=$lowprice;?>,<?=$topprice;?>],step: 10000,slide: function(event,ui){$("#lowprice").val(ui.values[0]);$("#topprice").val(ui.values[1]);}});
 			$("#lowprice").val("<?=$lowprice;?>");$("#topprice").val("<?=$topprice;?>");
 			$('div.missions_row:first').css('border-top', 'none').css('padding-top', 0);
 			$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);

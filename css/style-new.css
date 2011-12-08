@@ -312,4 +312,5 @@ footer .logo { display: block; text-indent: -9999px; margin-top: 30px; backgroun
 	background-color: #E0E0E0;
 	color:#f6931f;
 	font-weight:bold;
+	cursor:default;
 }
