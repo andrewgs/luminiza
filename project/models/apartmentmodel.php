@@ -54,12 +54,15 @@ class Apartmentmodel extends CI_Model{
 	
 	function get_max_price($flag){
 	
+		$this->db->select_max('apnt_price');
+		$this->db->select_max('apnt_newprice');
 		if($flag == 2):
-			$query = "SELECT MAX(apnt_price) AS apnt_price, MAX(apnt_newprice) AS apnt_newprice FROM apartment WHERE (apnt_flag = 0 OR apnt_flag = 2) AND (apnt_price > 0 AND apnt_newprice > 0)";
+			$this->db->where('apnt_flag',0);
 		else:
-			$query = "SELECT MAX(apnt_price) AS apnt_price, MAX(apnt_newprice) AS apnt_newprice FROM apartment WHERE (apnt_flag = 1) AND (apnt_price > 0 AND apnt_newprice > 0)";
+			$this->db->where('apnt_flag',1);
 		endif;
-		$query = $this->db->query($query);
+		$this->db->or_where('apnt_flag',2);
+		$query = $this->db->get('apartment');
 		$data = $query->result_array();
 		if(isset($data[0])) return $data[0];
 		else return null;
