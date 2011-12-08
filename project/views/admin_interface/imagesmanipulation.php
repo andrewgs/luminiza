@@ -142,20 +142,7 @@
 <script type="text/javascript"> 
 	$(document).ready(function(){
 		$('a.delimage').confirm({timeout:5000,dialogShow:'fadeIn',dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:'  '}});
-		$("#send").click(function(event){
-			var err = false;
-			var email = $("#email").val();
-			$(".inpval").css('border-color','#00ff00');
-			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
-			if(err){
-				$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});
-				event.preventDefault();
-			}else if(!isValidEmailAddress(email)){
-				$("#email").css('border-color','#ff0000');
-				$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});
-				event.preventDefault();
-			}
-		});
+		$("#send").click(function(event){var err = false;var email = $("#email").val();$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});event.preventDefault();}else if(!isValidEmailAddress(email)){$("#email").css('border-color','#ff0000');$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});event.preventDefault();}});
 	});
 	</script>
 </body>

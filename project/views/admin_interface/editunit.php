@@ -16,13 +16,12 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-				<?php
-					if($msg['status'] == 1){
+				<?php if($msg['status'] == 1):
 						echo '<div class="message">';
 							echo $msg['message'].'<br/>'.$msg['error'];
 						echo '</div>';
 						echo '<div class="clear"></div>';
-					}
+					endif;
 					echo form_open($this->uri->uri_string(),array('id'=>'editunitform'));
 						echo form_hidden('id',$pagevalue['id']);
 						echo form_hidden('auto',$pagevalue['auto']);
@@ -31,7 +30,7 @@
 							'name' 		=> 'title',
 							'id'   		=> 'texttitle',
 						    'value'		=> $unitinfo['title'],
-							'class'		=> 'textfield',
+							'class'		=> 'textfield inpval',
 						    'maxlength'	=> '100',
 						    'size' 		=> '75'
 						);
@@ -42,7 +41,7 @@
 								'name' 		=> 'date',
 								'id'   		=> 'unitdate',
 							    'value'		=> $unitinfo['date'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '50',
 							    'size' 		=> '10',
 								'readonly'  => TRUE
@@ -54,7 +53,7 @@
 						$attr =array(
 								'name' 	=> 'extended',
 						        'value'	=> $unitinfo['extended'],
-								'class'	=> 'textfield textextended',
+								'class'	=> 'textfield textextended inpval',
 						        'cols'	=> '81',
 						        'rows' 	=> '10'
 						);
@@ -66,7 +65,7 @@
 								'name' 		=> 'price',
 								'id'   		=> 'textprice',
 							    'value'		=> $unitinfo['price1'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '40',
 							    'size' 		=> '10'
 							);
@@ -76,7 +75,7 @@
 								'name' 		=> 'newprice',
 								'id'   		=> 'textnewprice',
 							    'value'		=> $unitinfo['price2'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '40',
 							    'size' 		=> '10'
 							);
@@ -86,7 +85,7 @@
 								'name' 		=> 'object',
 								'id'   		=> 'textobject',
 							    'value'		=> $unitinfo['object'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '100',
 							    'size' 		=> '45'
 							);
@@ -96,7 +95,7 @@
 								'name' 		=> 'location',
 								'id'   		=> 'textlocation',
 							    'value'		=> $unitinfo['location'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '100',
 							    'size' 		=> '45'
 							);
@@ -106,7 +105,7 @@
 								'name' 		=> 'region',
 								'id'   		=> 'textregion',
 							    'value'		=> $unitinfo['region'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '100',
 							    'size' 		=> '45'
 							);
@@ -116,7 +115,7 @@
 								'name' 		=> 'count',
 								'id'   		=> 'textcount',
 							    'value'		=> $unitinfo['count'],
-								'class'		=> 'textfield',
+								'class'		=> 'textfield inpval',
 							    'maxlength'	=> '10',
 							    'size' 		=> '5'
 							);
@@ -180,15 +179,8 @@
 							}
 						echo '</div>';
 						echo '<hr>';
-						$attr =array(
-								'name' => 'btsabmit',
-								'id'   => 'btnsabmit',
-								'value'=> 'Сохранить',
-								'class'=> 'senden'
-							);
-						echo form_submit($attr);
-					echo form_close();
-				?>
+						echo form_submit(array('name'=>'btsabmit','id'=>'send','value'=>'Сохранить','class'=>'senden'));
+					echo form_close();?>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -207,31 +199,12 @@
 <script src="<?=$pagevalue['baseurl'];?>js/datepicker/jquery.ui.widget.js" type="text/javascript" ></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		var config = {
-			skin : 'v2',
-			removePlugins : 'scayt',
-			resize_enabled: false,
-			height: '150px',
-			toolbar:
-			[
-				['Source','-','Preview','-','Templates'],
-				['Cut','Copy','Paste','PasteText'],
-				['Undo','Redo','-','SelectAll','RemoveFormat'],
-				'/',
-				['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-				['NumberedList','BulletedList','-','Outdent','Indent'],
-				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-				['Link','Unlink'],
-				'/',
-				['TextColor','Format','FontSize'],
-				['Table','HorizontalRule','SpecialChar','-'],
-				['Maximize', 'ShowBlocks']
-			]
-		};
+		var config = {skin : 'v2',removePlugins : 'scayt',resize_enabled: false,height: '350px',toolbar:[['Source','-','Preview','-','Templates'],['Cut','Copy','Paste','PasteText'],['Undo','Redo','-','SelectAll','RemoveFormat'],'/',['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],['NumberedList','BulletedList','-','Outdent','Indent'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['Link','Unlink'],'/',['TextColor','Format','FontSize'],['Table','HorizontalRule','SpecialChar','-'],['Maximize', 'ShowBlocks']]};
 		$('textarea.textextended').ckeditor(config);
 		var editor = $('textarea.textextended').ckeditorGet();
 		CKFinder.setupCKEditor(editor,'<?=$pagevalue['baseurl'].'ckfinder/'; ?>');
 		$("input#unitdate").datepicker($.datepicker.regional['ru']);
+		$("#send").click(function(event){var err = false;var email = $("#email").val();$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Форма редактирования'});event.preventDefault();}});
 	});
 </script>
 </body>

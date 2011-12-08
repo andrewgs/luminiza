@@ -138,10 +138,8 @@ class Admin_interface extends CI_Controller{
 
 	function logoff(){
 	
-		$backpage = $this->session->userdata('backpage');
-		$this->session->unset_userdata('backpage');
     	$this->session->sess_destroy();
-        redirect($backpage,'refresh');
+        redirect('');
     }				//функция завершения сеанса администрирования;
 	
 	function oldpass_check($pass){

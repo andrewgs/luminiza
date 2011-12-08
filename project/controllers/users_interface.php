@@ -1785,7 +1785,7 @@ class Users_interface extends CI_Controller{
 			'msg'		=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
-		$this->session->set_userdata('backpage','contacts');
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
