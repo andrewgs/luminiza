@@ -1755,6 +1755,7 @@ class Users_interface extends CI_Controller{
 		if($this->input->post('btsprice') || !empty($status)):
 			$param = array(); $selectvalue = array(); $apartment = array(); $text = array();$countrecord = array();
 			if($this->input->post('btsprice')):
+				print_r($_POST);exit;
 				$this->session->set_userdata('shlowprice',$_POST['lowprice']);
 				$this->session->set_userdata('shtopprice',$_POST['topprice']);
 				$_POST['btsprice'] = NULL;

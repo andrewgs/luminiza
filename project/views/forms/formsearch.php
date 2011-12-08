@@ -89,8 +89,8 @@
 		<tr><td>Диапазон цен (&euro;):</td></tr>
 		<tr>
 			<td>
-				от: <input type="text" size="5" class="rgprice" id="lowprice" value="" name="lowprice" disabled="disabled">
-				до: <input type="text" size="5" class="rgprice" id="topprice" value="" name="topprice" disabled="disabled">
+				от: <input type="text" size="5" class="rgprice" id="lowprice" value="" name="lowprice" readonly="readonly">
+				до: <input type="text" size="5" class="rgprice" id="topprice" value="" name="topprice" readonly="readonly">
 			</td>
 		</tr>
 		<tr><td><div id="RangePrice" style="width:200px;"></div></td></tr>
