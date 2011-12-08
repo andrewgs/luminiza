@@ -211,6 +211,8 @@ class Users_interface extends CI_Controller{
 			'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
 			'sname' 	=> $this->session->userdata('sname')
 		);
+		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
+		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('backpage',$this->uri->uri_string());
@@ -417,8 +419,12 @@ class Users_interface extends CI_Controller{
 			'apartment' 	=> array(),
 			'text' 			=> array(),
 			'countrecord' 	=> array(),
-			'sname' 	=> $this->session->userdata('sname')
+			'lowprice'		=> min($this->apartmentmodel->get_min_price(2)),
+			'topprice'		=> max($this->apartmentmodel->get_max_price(2)),
+			'sname' 		=> $this->session->userdata('sname')
 		);
+		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
+		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('backpage',$this->uri->uri_string());
