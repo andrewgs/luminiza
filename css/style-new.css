@@ -96,32 +96,21 @@ header { background: #4b4444; height: 70px; border-bottom: 1px solid #383333; }
 .side-phone { font-size: 21px; color: #3b3333; margin: 0 0 5px; }
 .side-phone span { display: block; color: #808080; font-size:13px; }
 
-nav { height: 55px; border: 1px solid #ae8911;  border-style: solid none; background: #e4b211; }
+nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; background: #e4b211; }
 .main-nav { list-style: none; margin: 0; padding: 0; }
 .main-nav.left li { float: left; }
 .main-nav.right li { float: right; }
-.main-nav li a { background: url("../img/sprites.png") no-repeat; display: inline-block; height: 27px; margin: 11px 20px 0 0; text-indent: -9999px; }
-/*
-background: none repeat scroll 0 0 transparent;
-color: #333333;
-font: 15px/21px trebuchet MS,sans-serif;
-padding: 4px 0 0;
-text-decoration: none;
-text-indent: 0;
-text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
-width: 86px; 
-*/
+.main-nav li a { 
+	color: #4B4444;
+	display: inline-block;
+	font: 14px/21px trebuchet MS,sans-serif;
+	letter-spacing: 0.1px;
+	margin: 13px 20px 0 0;
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
 .main-nav li a:hover { border-bottom: 1px solid #716037; }
-	#ref-about { background-position: -110px -89px; width: 72px; }
-	#ref-sell { background-position: 0 -64px; width: 54px; }
-	#ref-rent { background-position: -64px -64px; width: 44px; }
-	#ref-excursion { background-position: -192px -89px; width: 63px; }
-	#ref-transfers { background-position: -265px -89px; width: 66px; }
-	#ref-services { background-position: -118px -64px; width: 79px; }
-	#ref-contacts { background-position: 0px -89px; width: 60px; }
-	#ref-company { background-position: -207px -64px; width: 74px; }
-	#ref-blog { background-position: -70px -89px; width: 30px; }
-.main-nav.right li a { margin: 11px 0 0 20px; }
+.main-nav.right li a { margin: 13px 0 0 20px; }
 
 .cycle-blocks { background: url("../img/bgs/slide-1.jpg") no-repeat center top #050503; height: 347px; margin: 0; padding: 0; width: 100%; }
 .slider-links { position: relative; }
