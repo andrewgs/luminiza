@@ -152,5 +152,8 @@
 		$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);
 	});
 </script>
+<audio autoplay>
+	<source src="http://lum-tenerife.ru/Miaow-07-Bubble.ogg">
+</audio>
 </body>
 </html>
