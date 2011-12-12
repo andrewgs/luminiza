@@ -65,7 +65,7 @@
 					<!--End mc_embed_signup-->
 					<?php if($this->uri->segment(1) == 'contacts'):?>
 					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку: <?=safe_mailto('service@lum-tenerife.com','service@lum-tenerife.com'); ?><br><br></p>
+						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку: <?=safe_mailto('info@lum-tenerife.com','info@lum-tenerife.com'); ?><br><br></p>
 						<?php $this->load->view('forms/formsendcontact');?>
 					</div>
 				<?php endif;?>
