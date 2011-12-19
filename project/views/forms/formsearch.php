@@ -65,7 +65,12 @@
 				</td>
 			</tr>
 		<?php if($this->uri->segment(1) != 'rent'):?>
-			<tr><td>Диапазон цен (&euro;):</td></tr>
+			<tr>
+				<td>
+					<div class="div-notice">Для изменения диапазона цен потяните за левый и правый слайдеры.</div>
+					Диапазон цен (&euro;):
+				</td>
+			</tr>
 			<tr>
 				<td>
 					от: <input type="text" size="5" class="rgprice" id="lowprice" value="" name="lowprice" readonly="readonly">

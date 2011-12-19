@@ -230,6 +230,8 @@ label.inline { display: inline-block; margin: 0 7px 0 0; text-align: right; widt
 #editunitform label, #insertform label { min-width: 65px; display: inline-block; }
 input[type=checkbox], input[type=radio] { display: inline-block; margin: 0 5px 3px; }
 .message { color: #383333; font: bold 13px/21px trebuchet MS,sans-serif; margin: 0 0 15px; }
+.rgprice { background-color: #E0E0E0; border: 0 none; color: #E17900; cursor: default; font-weight: bold; text-shadow: 0 1px 0 #fff; }
+.div-notice { border: 1px dashed #999; font: 12px trebuchet MS,sans-serif; margin: 8px 0; padding: 5px; }
 /* Forms */
 
 .admin-change {	border-radius: 3px; background: #fafafa; border:1px dashed #777; color:#34332D; float:left; font: 12px/18px trebuchet ms, serif; margin:0 11px 15px 0; padding:3px 8px; text-align:center; }
@@ -289,11 +291,4 @@ footer .logo { display: block; text-indent: -9999px; margin-top: 30px; backgroun
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
-}
-.rgprice{
-	border:0;
-	background-color: #E0E0E0;
-	color:#f6931f;
-	font-weight:bold;
-	cursor:default;
 }
