@@ -30,7 +30,7 @@ mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bol
 del { text-decoration: line-through; }
 abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
 table { border-collapse: collapse; border-spacing: 0; }
-hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 5px 0; padding: 0; }
 input, select { vertical-align: middle; }
 
 body { font:13px/1.231 sans-serif; *font-size:small; }
@@ -139,17 +139,18 @@ a { color: #0477a2; text-decoration: underline; }
 #testimonials a { font-size: 14px; margin-top: 10px; display: block; }
 
 /* Retail Page */
-.sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; padding: 15px 10px 15px 15px; width: 100%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); }
+.sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); padding: 20px 10px 15px 15px; }
 	.sidebar h2 { color: #4B4444; font-size: 16px; margin: 0 0 10px; text-decoration: none; }
 	.sidebar select { width: 190px; padding: 2px; }
-	.sidebar p { font-size: 13px; line-height: 19px; }
-	.sidebar strong { display: inline-block; margin: 8px 0 0; }
+	.sidebar p { font-size: 13px; line-height: 19px; margin-bottom: 10px; }
+	.sidebar strong { }
 	.sidebar .crossing  { color: #4B4444; display: block; font: bold 13px trebuchet MS,sans-serif; margin: 0 0 10px; text-decoration: none; }
 	.sidebar .crossing:hover { text-decoration: underline; }
 
-.main_content { padding: 15px 0 0 30px; }
+.main_content { padding: 18px 0 0 18px; }
 	.main_content p { font-size: 13px; line-height: 21px; margin: 12px 0; }
 	.main_content ul, .main_content ol { margin: 0 0 0 40px; }
+	.main_content h2 { color: #4B4444; font: bold 15px trebuchet MS,sans-serif; margin: 15px 0 12px; }
 
 .retail-filter-table { width: 190px; }
 	.retail-filter-table td { font-size: 13px; font-weight: bold; padding: 2px 8px 2px 0; }

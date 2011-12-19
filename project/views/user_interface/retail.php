@@ -18,7 +18,6 @@
 							<li><?=anchor('ipoteka','Ипотечный калькулятор');?></li>
 						</ul>
 						<?php $this->load->view('forms/formsearch');?>
-						<h3>Информация</h3>
 						<?=$text['sidebar']['sbt_extended'];?>
 						<?php if($admin):?>
 							<div class="admin-change">

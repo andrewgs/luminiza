@@ -72,7 +72,7 @@
 					до: <input type="text" size="5" class="rgprice" id="topprice" value="" name="topprice" readonly="readonly">
 				</td>
 			</tr>
-			<tr><td><div id="RangePrice" style="width:200px;"></div></td></tr>
+			<tr><td><div id="RangePrice" style="width:180px;"></div></td></tr>
 		<?php endif;?>
 			<tr><td><button type="submit" border="0" class="senden" value="search" name="btsearch">Найти</button></td></tr>
 		</tbody>
@@ -84,10 +84,9 @@
 		<?=form_hidden('segment',$this->uri->segment(1));?>
 		<tbody>
 		<tr><td>Номер по каталогу:</td></tr>
-		<tr><td><input type="text" size="25"class="sname" id="sname" value="<?=$sname;?>" name="sname"></td></tr>
+		<tr><td><input type="text" class="sname" id="sname" value="<?=$sname;?>" name="sname"></td></tr>
 		<tr><td><button type="submit" border="0" class="senden" value="sname" id="btsname" name="btsname">Поиск</button></td></tr>
 		</tbody>
 	<?=form_close();?>
 	</table>
 </p>
-<p>&nbsp;</p>
