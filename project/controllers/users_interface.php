@@ -76,6 +76,26 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/about',$pagevalue);
 	} //функция выводит информацию об острове;
 	
+	function aviabileti(){
+		
+		$pagevalue = array(
+			'description' =>'Описание острова Тенерифе с фотографиями. Климат на острове, погода. Описание праздников, парадов и карнавала. Недвижимость на Тенерифе. Продажа и аренда апартаментов. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords'	=> 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'О Тенерифе | Достопримечательности Тенерифе | Недвижимость, аренда, экскурсии, трансферы | Luminiza Property Tur S.L.',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'text' 		=> $this->othertextmodel->get_record(21),
+			'sidebar' 	=> $this->sidebartextmodel->get_record(2)
+		);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		$this->load->view('user_interface/aviabileti',$pagevalue);
+	} //функция выводит информацию об Авиабилеты;
+	
 	function retail(){
 		
 		if(isset($_POST['sortlink'])):
@@ -89,6 +109,7 @@ class Users_interface extends CI_Controller{
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
 			'formsort' 	=> $this->uri->uri_string(),
+			'segment'	=> 'retail/',
 			'softvalue' => $this->session->userdata('sortby'),
 			'selectvalue' => array(),
 			'apartment' => array(),
@@ -304,6 +325,7 @@ class Users_interface extends CI_Controller{
 			'baseurl' 		=> base_url(),
 			'admin' 		=> $this->admin['status'],
 			'formsort' 		=> $this->uri->uri_string(),
+			'segment'		=> 'retail/',
 			'softvalue' 	=> $this->session->userdata('sortby'),
 			'selectvalue' 	=> array(),
 			'apartment' 	=> array(),
@@ -514,14 +536,49 @@ class Users_interface extends CI_Controller{
 		
 		$pagevalue = array(
 			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'baseurl' => base_url(),
-			'page'	=> $this->uri->segment(2),
-			'admin' => $this->admin['status'],
-			'text'	=> array(),
+			'author' 	=> 'RealityGroup',
+			'baseurl' 	=> base_url(),
+			'page'		=> $this->uri->segment(2),
+			'admin' 	=> $this->admin['status'],
+			'segment'	=> 'rent/',
+			'text'		=> array(),
 			'rentlist'	=> array(),
-			
+			'countrecord' => array(),
+			'softvalue' => $this->session->userdata('sortby'),
+			'selectvalue' => array(),
+			'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
+			'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
+			'sname' 	=> $this->session->userdata('sname')
 		);
+		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
+		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
+		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpage',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		$countrecord = array(); $text = array(); $rentlist = array();
+		
+		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
+		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
+		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
+		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
+		
+		for($i=0;$i<count($selectvalue['count']);$i++):
+			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
+				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
+			else:
+				continue;
+			endif;
+		endfor;
+		sort($selectvalue['count']);
+		$countrecord['object'] 		= count($selectvalue['object']);
+		$countrecord['location'] 	= count($selectvalue['location']);
+		$countrecord['region'] 		= count($selectvalue['region']);
+		$countrecord['count'] 		= count($selectvalue['count']);
+		
 		if($this->uri->segment(2) == 'auto'):
 			$pagevalue['title'] = 'Аренда автомобилей на Тенерифе | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Аренда автомобилей от семейных минивэнов до престижных моделей представительского класса или стильных спорткаров. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.';  
@@ -529,12 +586,6 @@ class Users_interface extends CI_Controller{
 			$pagevalue['title'] = 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.'; 
 		endif;
-		
-		$this->session->unset_userdata('query');
-		$this->session->unset_userdata('status');
-		$this->session->unset_userdata('calc');
-		$this->session->unset_userdata('searchback');
-		$text = array(); $rentlist = array();
 		
 		$text[0]['sidebar'] = $this->sidebartextmodel->get_record(4);	// раздел авто;
 		$text[0]['head'] = $this->othertextmodel->get_record(2);
@@ -593,11 +644,11 @@ class Users_interface extends CI_Controller{
 		$this->pagination->initialize($cfgpag);
 		$pageslinks = $this->pagination->create_links();
 		
+		$pagevalue['countrecord'] = $countrecord;
+		$pagevalue['selectvalue'] = $selectvalue;
 		$pagevalue['rentlist'] = $rentlist;
 		$pagevalue['pageslinks'] = $pageslinks;
 		$pagevalue['text'] = $text;
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
-		$this->session->set_userdata('backpage',$this->uri->uri_string());
 		$this->load->view('user_interface/rent',$pagevalue);
 	} //функция выводит информацию на страницу аренды;
 	
@@ -808,23 +859,48 @@ class Users_interface extends CI_Controller{
 			'title' 		=> 'Бизнес на Тенерифе | Аренда коммерческой недвижимости | Сопровождение сделки | Luminiza Property Tur S.L.',
 			'baseurl' 		=> base_url(),
 			'admin' 		=> $this->admin['status'],
+			'segment'		=> 'rent/',
 			'text'			=> array(),
 			'commercial'	=> array(),
 			'pageslinks'	=> array(),
-			
+			'softvalue' 	=> $this->session->userdata('sortby'),
+			'selectvalue' 	=> array(),
+			'countrecord' 	=> array(),
+			'lowprice'		=> min($this->apartmentmodel->get_min_price(2)),
+			'topprice'		=> max($this->apartmentmodel->get_max_price(2)),
+			'sname' 		=> $this->session->userdata('sname')
 		);
+		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
+		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
+		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('backpage',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
-		$text = array(); $commercial = array();
+		$selectvalue = array();$countrecord = array();$text = array(); $commercial = array();
 		$text[1]['sidebar'] = $this->sidebartextmodel->get_record(11);	// раздел апартаменты;
 		$text[1]['head'] = $this->othertextmodel->get_record(20);
-
+		
+		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
+		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
+		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
+		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
+		for($i=0;$i<count($selectvalue['count']);$i++):
+			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
+				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
+			else:
+				continue;
+			endif;
+		endfor;
+		sort($selectvalue['count']);
+		$countrecord['object'] 		= count($selectvalue['object']);
+		$countrecord['location'] 	= count($selectvalue['location']);
+		$countrecord['region'] 		= count($selectvalue['region']);
+		$countrecord['count'] 		= count($selectvalue['count']);
+		
 		$cntrec = $this->apartmentmodel->count_commercial_flag(4);
-
 		$cfgpag['base_url'] = base_url().'/rent/commercial';
         $cfgpag['total_rows'] = $cntrec;
         $cfgpag['per_page'] =  10;
@@ -874,6 +950,8 @@ class Users_interface extends CI_Controller{
 		$pagevalue['commercial'] = $commercial;
 		$pagevalue['pageslinks'] = $pageslinks;
 		$pagevalue['text'] = $text;
+		$pagevalue['selectvalue'] = $selectvalue;
+		$pagevalue['countrecord'] = $countrecord;
 		$this->load->view('user_interface/rent_commercial',$pagevalue);
 	} //функция выводит информацию об аренде коммерческой недвижимости;
 	
@@ -1409,8 +1487,13 @@ class Users_interface extends CI_Controller{
 						$sql .= 'apnt_count = '.$param['room'][0].' AND';
 					endif;
 				endif;
-				
-				$sql .= ' TRUE ORDER BY apnt_date DESC';
+				if($_POST['segment'] == 'rent'):
+					$sql .= ' TRUE AND apnt_flag = 1 ORDER BY apnt_date DESC';
+				else:
+					$sql .= ' TRUE AND (apnt_flag = 0 OR apnt_flag = 2) AND (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_price,apnt_newprice,apnt_date DESC';
+					$this->session->set_userdata('shlowprice',$_POST['lowprice']);
+					$this->session->set_userdata('shtopprice',$_POST['topprice']);
+				endif;
 				$this->session->set_userdata('query',$sql);
 				$this->session->set_userdata('status',TRUE);
 				redirect($this->uri->uri_string());
@@ -1422,6 +1505,7 @@ class Users_interface extends CI_Controller{
 				'author' 	=> 'RealityGroup',
 				'title' 	=> 'Результаты поиска | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
 				'baseurl' 	=> base_url(),
+				'segment'	=> $this->uri->segment(1).'/',
 				'admin' 	=> $this->admin['status'],
 				'msg'		=> $this->session->userdata('msg'),
 				'sname' 	=> $this->session->userdata('sname'),
@@ -1460,17 +1544,18 @@ class Users_interface extends CI_Controller{
 				$pagevalue['selectvalue'] = $selectvalue;
 				$pagevalue['apartment'] = $apartment;
 				$pagevalue['countrecord'] = $countrecord;
+				$this->session->unset_userdata('msg');
 //				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
 				$pagevalue['msg'] = 'Не найдено ни одного апартамента';
 				$this->load->view('user_interface/result',$pagevalue);
 				return FALSE;
 			endif;
 			
-			$cfgpag['base_url'] = base_url().'/search';
+			$cfgpag['base_url'] = base_url().$this->uri->segment(1).'/search';
 	        $cfgpag['total_rows'] = count($result);
 	        $cfgpag['per_page'] =  10;
 	        $cfgpag['num_links'] = 4;
-	        $cfgpag['uri_segment'] = 2;
+	        $cfgpag['uri_segment'] = 3;
 			$cfgpag['first_link'] = FALSE;
 			$cfgpag['first_tag_open'] = '<li>';
 			$cfgpag['first_tag_close'] = '</li>';
@@ -1488,29 +1573,35 @@ class Users_interface extends CI_Controller{
 			$cfgpag['num_tag_open'] = '<li>';
 			$cfgpag['num_tag_close'] = '</li>';			
 			
-			$from = intval($this->uri->segment(2));
+			$from = intval($this->uri->segment(3));
 			$sqlimit = $sql.' LIMIT '.$from.',5';
 			
 			$result = $this->apartmentmodel->search_limit_apartment($sqlimit,10,$from);
 			if(isset($from) and !empty($from)):
-				$this->session->set_userdata('backpage','search/'.$from);
-				$this->session->set_userdata('searchback','search/'.$from);
+				$this->session->set_userdata('backpage',$this->uri->segment(1).'/search/'.$from);
+				$this->session->set_userdata('searchback',$this->uri->segment(1).'/search/'.$from);
 			else:
-				$this->session->set_userdata('backpage','search');
-				$this->session->set_userdata('searchback','search');
+				$this->session->set_userdata('backpage',$this->uri->segment(1).'/search');
+				$this->session->set_userdata('searchback',$this->uri->segment(1).'/search');
 			endif;
 			$apartment = $result;
 			
-			for($i = 0; $i < count($apartment);$i++):
-				if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):
+			for($i=0;$i<count($apartment);$i++):
+				if(mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):
 					$tmp = $apartment[$i]['apnt_extended'];			
 					$tmp = mb_substr($tmp,0,325,'UTF-8');	
 					$pos = mb_strrpos($tmp,' ',0,'UTF-8');
 					$tmp = mb_substr($tmp,0,$pos,'UTF-8');
 					$apartment[$i]['apnt_extended'] = $tmp.' ...';
-				endif;				
+				endif;
+				if(is_numeric($apartment[$i]['apnt_price'])):
+					$apartment[$i]['apnt_price'] = number_format($apartment[$i]['apnt_price'],0,' ','.');
+				endif;
+				if(is_numeric($apartment[$i]['apnt_newprice'])):
+					$apartment[$i]['apnt_newprice'] = number_format($apartment[$i]['apnt_newprice'],0,' ','.');
+				endif;
 				$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
-				if(!$image[$i])	 $image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
+				if(!$image[$i]) $image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
 				$apartment[$i]['img_id'] = $image[$i]['img_id'];
 				$apartment[$i]['img_title'] = $image[$i]['img_title'];
 				
@@ -1540,7 +1631,11 @@ class Users_interface extends CI_Controller{
 			if($this->input->post('btsname')):
 				$_POST['btsname'] = NULL;
 				$this->session->set_userdata('sname',$_POST['sname']);
-				$sql = 'SELECT * FROM apartment WHERE apnt_title LIKE "%'.$_POST['sname'].'%" ORDER BY apnt_date DESC';
+				if($_POST['segment'] == 'rent'):
+					$sql = 'SELECT * FROM apartment WHERE apnt_title LIKE "%'.$_POST['sname'].'%" AND apnt_flag = 1 ORDER BY apnt_date DESC';
+				else:
+					$sql = 'SELECT * FROM apartment WHERE apnt_title LIKE "%'.$_POST['sname'].'%" AND (apnt_flag = 0 OR apnt_flag = 2) ORDER BY apnt_date DESC';
+				endif;
 				$this->session->set_userdata('query',$sql);
 				$this->session->set_userdata('status',TRUE);
 				redirect($this->uri->uri_string());
@@ -1554,6 +1649,7 @@ class Users_interface extends CI_Controller{
 				'title' 	=> 'Результаты поиска | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
 				'baseurl' 	=> base_url(),
 				'admin' 	=> $this->admin['status'],
+				'segment'	=> $this->uri->segment(1).'/',
 				'msg'		=> $this->session->userdata('msg'),
 				'sname' 	=> $this->session->userdata('sname'),
 				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
@@ -1584,138 +1680,18 @@ class Users_interface extends CI_Controller{
 				$pagevalue['selectvalue'] = $selectvalue;
 				$pagevalue['apartment'] = $apartment;
 				$pagevalue['countrecord'] = $countrecord;
-				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
-				$this->load->view('user_interface/result',$pagevalue);
-				return FALSE;
-			endif;
-			
-			$cfgpag['base_url'] = base_url().'/name-search';
-	        $cfgpag['total_rows'] = count($result);
-	        $cfgpag['per_page'] =  10;
-	        $cfgpag['num_links'] = 4;
-	        $cfgpag['uri_segment'] = 2;
-			$cfgpag['first_link'] = FALSE;
-			$cfgpag['first_tag_open'] = '<li>';
-			$cfgpag['first_tag_close'] = '</li>';
-			$cfgpag['last_link'] = FALSE;
-			$cfgpag['last_tag_open'] = '<li>';
-			$cfgpag['last_tag_close'] = '</li>';
-			$cfgpag['next_link'] = 'Далее &raquo;';
-			$cfgpag['next_tag_open'] = '<li>';
-			$cfgpag['next_tag_close'] = '</li>';
-			$cfgpag['prev_link'] = '&laquo; Назад';
-			$cfgpag['prev_tag_open'] = '<li>';
-			$cfgpag['prev_tag_close'] = '</li>';
-			$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
-			$cfgpag['cur_tag_close'] = '</a></li>';
-			$cfgpag['num_tag_open'] = '<li>';
-			$cfgpag['num_tag_close'] = '</li>';			
-			
-			$from = intval($this->uri->segment(2));
-			$sqlimit = $sql.' LIMIT '.$from.',5';
-			
-			$result = $this->apartmentmodel->search_limit_apartment($sqlimit,10,$from);
-			if(isset($from) and !empty($from)):
-				$this->session->set_userdata('backpage','name-search/'.$from);
-				$this->session->set_userdata('searchback','name-search/'.$from);
-			else:
-				$this->session->set_userdata('backpage','name-search');
-				$this->session->set_userdata('searchback','name-search');
-			endif;
-			$apartment = $result;
-			
-			for($i=0;$i<count($apartment);$i++):
-				if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):
-					$tmp = $apartment[$i]['apnt_extended'];			
-					$tmp = mb_substr($tmp,0,325,'UTF-8');	
-					$pos = mb_strrpos($tmp,' ',0,'UTF-8');
-					$tmp = mb_substr($tmp,0,$pos,'UTF-8');
-					$apartment[$i]['apnt_extended'] = $tmp.' ...';
-				endif;				
-				$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
-				if(!$image[$i])	 $image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
-				$apartment[$i]['img_id'] = $image[$i]['img_id'];
-				$apartment[$i]['img_title'] = $image[$i]['img_title'];
-				
-				if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
-			endfor;
-			$this->pagination->initialize($cfgpag);
-			$text['pager'] = $this->pagination->create_links();
-			
-			$pagevalue['text'] = $text;
-			$pagevalue['selectvalue'] = $selectvalue;
-			$pagevalue['apartment'] = $apartment;
-			$pagevalue['countrecord'] = $countrecord;
-			$this->load->view('user_interface/result',$pagevalue);
-		else:
-			redirect($this->session->userdata('backpath'));
-		endif;
-	}
-	
-	function price_search(){
-	
-		$status = $this->session->userdata('status');
-		if(!empty($status)):
-			$sql = $this->session->userdata('query');
-		endif;
-		if($this->input->post('btsprice') || !empty($status)):
-			$param = array(); $selectvalue = array(); $apartment = array(); $text = array();$countrecord = array();
-			if($this->input->post('btsprice')):
-				$this->session->set_userdata('shlowprice',$_POST['lowprice']);
-				$this->session->set_userdata('shtopprice',$_POST['topprice']);
-				$_POST['btsprice'] = NULL;
-				$sql = 'SELECT * FROM apartment WHERE (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_price,apnt_newprice';
-				$this->session->set_userdata('query',$sql);
-				$this->session->set_userdata('status',TRUE);
-				redirect($this->uri->uri_string());
-			endif;
-			$result = $this->apartmentmodel->search_apartment($sql);
-			$pagevalue = array(
-				'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-				'keywords' 	=> 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-				'author' 	=> 'RealityGroup',
-				'title' 	=> 'Результаты поиска | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
-				'baseurl' 	=> base_url(),
-				'admin' 	=> $this->admin['status'],
-				'msg'		=> $this->session->userdata('msg'),
-				'sname' 	=> $this->session->userdata('sname'),
-				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
-				'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
-				'lowpricev'	=> $this->session->userdata('shlowprice'),
-				'toppricev'	=> $this->session->userdata('shtopprice'),
-				'sobject'	=> $this->session->userdata('shobject'),
-				'slocation'	=> $this->session->userdata('shlocation'),
-				'sregion'	=> $this->session->userdata('shregion'),
-				'sroom'		=> $this->session->userdata('shroom')
-			);
-			$this->session->unset_userdata('msg');
-			$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
-			$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
-			$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
-			$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-			
-			$countrecord['object'] 		= count($selectvalue['object']);
-			$countrecord['location'] 	= count($selectvalue['location']);
-			$countrecord['region'] 		= count($selectvalue['region']);
-			$countrecord['count'] 		= count($selectvalue['count']);
-			
-			$text['sidebar'] = $this->sidebartextmodel->get_record(3);
-			
-			if(!count($result)):
-				$pagevalue['text'] = $text;
-				$pagevalue['selectvalue'] = $selectvalue;
-				$pagevalue['apartment'] = $apartment;
-				$pagevalue['countrecord'] = $countrecord;
+				$this->session->unset_userdata('msg');
+//				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
 				$pagevalue['msg'] = 'Не найдено ни одного апартамента';
 				$this->load->view('user_interface/result',$pagevalue);
 				return FALSE;
 			endif;
 			
-			$cfgpag['base_url'] = base_url().'/price-search';
+			$cfgpag['base_url'] = base_url().$this->uri->segment(1).'/name-search';
 	        $cfgpag['total_rows'] = count($result);
 	        $cfgpag['per_page'] =  10;
 	        $cfgpag['num_links'] = 4;
-	        $cfgpag['uri_segment'] = 2;
+	        $cfgpag['uri_segment'] = 3;
 			$cfgpag['first_link'] = FALSE;
 			$cfgpag['first_tag_open'] = '<li>';
 			$cfgpag['first_tag_close'] = '</li>';
@@ -1733,16 +1709,16 @@ class Users_interface extends CI_Controller{
 			$cfgpag['num_tag_open'] = '<li>';
 			$cfgpag['num_tag_close'] = '</li>';			
 			
-			$from = intval($this->uri->segment(2));
+			$from = intval($this->uri->segment(3));
 			$sqlimit = $sql.' LIMIT '.$from.',5';
 			
 			$result = $this->apartmentmodel->search_limit_apartment($sqlimit,10,$from);
 			if(isset($from) and !empty($from)):
-				$this->session->set_userdata('backpage','price-search/'.$from);
-				$this->session->set_userdata('searchback','price-search/'.$from);
+				$this->session->set_userdata('backpage',$this->uri->segment(1).'/name-search/'.$from);
+				$this->session->set_userdata('searchback',$this->uri->segment(1).'/name-search/'.$from);
 			else:
-				$this->session->set_userdata('backpage','price-search');
-				$this->session->set_userdata('searchback','price-search');
+				$this->session->set_userdata('backpage',$this->uri->segment(1).'/name-search');
+				$this->session->set_userdata('searchback',$this->uri->segment(1).'/name-search');
 			endif;
 			$apartment = $result;
 			

@@ -7,6 +7,7 @@ $route['scaffolding_trigger'] = "";
 
 $route['index'] 						= "users_interface/index";
 $route['about'] 						= "users_interface/about";
+$route['aviabileti'] 					= "users_interface/aviabileti";
 $route['retail'] 						= "users_interface/retail";
 $route['retail/:num'] 					= "users_interface/retail";
 $route['retail/apartment/:num'] 		= "users_interface/retail_extended";
@@ -30,12 +31,17 @@ $route['tour/extended/:num']			= "users_interface/tour_extended";
 $route['transfers'] 					= "users_interface/transfers";
 $route['service'] 						= "users_interface/service";
 $route['contacts'] 						= "users_interface/contacts";
-$route['search'] 						= "users_interface/search";
-$route['search/:num'] 					= "users_interface/search";
-$route['name-search'] 					= "users_interface/name_search";
-$route['name-search/:num'] 				= "users_interface/name_search";
-$route['price-search'] 					= "users_interface/price_search";
-$route['price-search/:num'] 			= "users_interface/price_search";
+
+$route['retail/search'] 				= "users_interface/search";
+$route['rent/search'] 					= "users_interface/search";
+$route['retail/search/:num'] 			= "users_interface/search";
+$route['rent/search/:num'] 				= "users_interface/search";
+
+$route['retail/name-search'] 			= "users_interface/name_search";
+$route['retail/name-search/:num'] 		= "users_interface/name_search";
+$route['rent/name-search'] 				= "users_interface/name_search";
+$route['rent/name-search/:num'] 		= "users_interface/name_search";
+
 $route['viewimage/:num'] 				= "users_interface/viewimage";
 $route['viewslideshow/:num'] 			= "users_interface/viewslideshow";
 $route['ipoteka'] 						= "users_interface/ipoteka";
@@ -103,6 +109,7 @@ $route['imagesave/:num'] = "admin_interface/imagesaving";
 $route['edit/index'] = "admin_interface/edittext";
 $route['edit/about-top'] = "admin_interface/edittext";
 $route['edit/about-buttom'] = "admin_interface/edittext";
+$route['edit/aviabileti'] = "admin_interface/edittext";
 
 $route['edit/ipoteka/title'] = "admin_interface/edittext";
 $route['edit/ipoteka/fiz'] = "admin_interface/edittext";

@@ -2,10 +2,10 @@
 <p>
 	<hr size="2"/>
 	<table width="100%" border="0" class="retail-filter-table">
-	<?php
-		if(isset($selectvalue) and !empty($selectvalue))
-			echo form_open('search',array('name'=>'frmsearch','id'=>'frmsearch'));
-			echo form_hidden('cntrec',$countrecord);?>
+<?php if(isset($selectvalue) and !empty($selectvalue))
+		echo form_open($segment.'search',array('name'=>'frmsearch','id'=>'frmsearch'));
+		echo form_hidden('cntrec',$countrecord);
+		echo form_hidden('segment',$this->uri->segment(1));?>
 		<tbody>
 			<tr><td>Объект</td></tr>
 			<tr>
@@ -64,17 +64,24 @@
 					</table>
 				</td>
 			</tr>
+		<?php if($this->uri->segment(1) != 'rent'):?>
+			<tr><td>Диапазон цен (&euro;):</td></tr>
 			<tr>
 				<td>
-					<button type="submit" border="0" class="senden" value="search" name="btsearch">Найти</button>
+					от: <input type="text" size="5" class="rgprice" id="lowprice" value="" name="lowprice" readonly="readonly">
+					до: <input type="text" size="5" class="rgprice" id="topprice" value="" name="topprice" readonly="readonly">
 				</td>
 			</tr>
+			<tr><td><div id="RangePrice" style="width:200px;"></div></td></tr>
+		<?php endif;?>
+			<tr><td><button type="submit" border="0" class="senden" value="search" name="btsearch">Найти</button></td></tr>
 		</tbody>
 	</table>
 	<?=form_close();?>
 	<hr size="2"/>
 	<table width="100%" border="0" class="retail-filter-table">
-	<?=form_open('name-search',array('name'=>'frmLikeSearch','id'=>'frmLikeSearch'));?>
+	<?=form_open($segment.'name-search',array('name'=>'frmLikeSearch','id'=>'frmLikeSearch'));?>
+		<?=form_hidden('segment',$this->uri->segment(1));?>
 		<tbody>
 		<tr><td>Номер по каталогу:</td></tr>
 		<tr><td><input type="text" size="25"class="sname" id="sname" value="<?=$sname;?>" name="sname"></td></tr>
@@ -82,22 +89,5 @@
 		</tbody>
 	<?=form_close();?>
 	</table>
-	<hr size="2"/>
-	<table width="100%" border="0" class="retail-filter-table">
-	<?=form_open('price-search',array('name'=>'frmPriceSearch','id'=>'frmPriceSearch'));?>
-		<tbody>
-		<tr><td>Диапазон цен (&euro;):</td></tr>
-		<tr>
-			<td>
-				от: <input type="text" size="5" class="rgprice" id="lowprice" value="" name="lowprice" readonly="readonly">
-				до: <input type="text" size="5" class="rgprice" id="topprice" value="" name="topprice" readonly="readonly">
-			</td>
-		</tr>
-		<tr><td><div id="RangePrice" style="width:200px;"></div></td></tr>
-		<tr><td><button type="submit" border="0" class="senden" value="sname" id="btsprice" name="btsprice">Поиск</button></td></tr>
-		</tbody>
-	<?=form_close();?>
-	</table>
-	<hr size="2"/>
 </p>
 <p>&nbsp;</p>

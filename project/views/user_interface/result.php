@@ -59,14 +59,16 @@
 									else:
 										$link = 'retail/apartment/'.$apartment[$i]['apnt_id'];
 									endif;?>
-									<?php if($apartment[$i]['apnt_flag'] != 1):?>
-										<?php if(!empty($apartment[$i]['apnt_newprice'])):?>
-										
-										<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?> (<strike><?=$apartment[$i]['apnt_newprice'];?></strike> <?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
-										<?php else:?>
-										<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?> (<?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
-										<?php endif;?>
+								<?php if($apartment[$i]['apnt_flag'] != 1):?>
+									<?php if(!empty($apartment[$i]['apnt_newprice'])):?>
+									
+									<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?> (<strike><?=$apartment[$i]['apnt_newprice'];?></strike> <?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
+									<?php else:?>
+									<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?> (<?=$apartment[$i]['apnt_price'];?> &euro;)</a></h2>
 									<?php endif;?>
+								<?php else:?>
+										<h2><a href="<?=$baseurl.$link;?>"><?=$apartment[$i]['apnt_title'];?></a></h2>
+								<?php endif;?>
 									<div class="car_preferences"><?=$apartment[$i]['apnt_extended'];?></div>
 									<br class="clear"/>
 									<p>
@@ -100,7 +102,8 @@
 		<?php endif;?>
 		$("#btsname").click(function(event){var strsearch = $("#sname").val();$("#sname").css('border-color','#00ff00');if(strsearch == ''){event.preventDefault();$("#sname").css('border-color','#ff0000');$.jGrowl("Поле не може быть пустым",{header:'Форма поиска'});}});
 		$("#RangePrice").slider({range: true,min: <?=$lowprice;?>,max: <?=$topprice;?>,values:[<?=$lowpricev;?>,<?=$toppricev;?>],step: 50000,slide: function(event,ui){$("#lowprice").val(ui.values[0]);$("#topprice").val(ui.values[1]);}});
-		$("#lowprice").val("<?=$lowpricev;?>");$("#topprice").val("<?=$toppricev;?>");
+		$("#lowprice").val("<?=$lowpricev;?>");
+		$("#topprice").val("<?=$toppricev;?>");
 		$("#object").val(<?=$sobject;?>);
 		$("#location").val(<?=$slocation;?>);
 		$("#region").val(<?=$sregion;?>);

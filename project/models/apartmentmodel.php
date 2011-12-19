@@ -247,16 +247,14 @@ class Apartmentmodel extends CI_Model{
 	function search_limit_apartment($sql,$count,$from){
 		
 		$query = mysql_query($sql) or die(mysql_error());
-		
-		$i = 0;
+		$i=0;
 		$result = array();
-	  while($line = mysql_fetch_array($query,MYSQL_ASSOC)):
-	    foreach ($line as $key => $col_value)
+		while($line = mysql_fetch_array($query,MYSQL_ASSOC)):
+		foreach($line as $key => $col_value)
 				$result[$i][$key] = $col_value;
 				$i++;
 		endwhile;
-		
-	  mysql_free_result($query);
+		mysql_free_result($query);
 		if(!empty($result)) return $result;
 		return NULL;		
 	}
