@@ -100,17 +100,10 @@ nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; backgr
 .main-nav { list-style: none; margin: 0; padding: 0; }
 .main-nav.left li { float: left; }
 .main-nav.right li { float: right; }
-.main-nav li a { 
-	color: #4B4444;
-	display: inline-block;
-	font: 14px/21px trebuchet MS,sans-serif;
-	letter-spacing: 0.1px;
-	margin: 13px 20px 0 0;
-	text-decoration: none;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
-}
-.main-nav li a:hover { border-bottom: 1px solid #716037; }
-.main-nav.right li a { margin: 13px 0 0 20px; }
+.main-nav li a { border-right: 1px solid rgba(75, 68, 68, 0.25); color: #4B4444; display: inline-block; font: 14px/21px trebuchet MS,sans-serif; letter-spacing: 0.1px; margin: 13px 9px 0 0; padding-right: 8px; text-decoration: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35); }
+.main-nav li.last a { border: 0 none; }
+.main-nav li a:hover { text-decoration: underline; }
+.main-nav.right li a { margin: 13px 0 0 9px; }
 
 .cycle-blocks { background: url("../img/bgs/slide-1.jpg") no-repeat center top #050503; height: 347px; margin: 0; padding: 0; width: 100%; }
 .slider-links { position: relative; }
