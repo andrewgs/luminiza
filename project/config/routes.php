@@ -122,6 +122,7 @@ $route['edit/transfers'] = "admin_interface/edittext";
 $route['edit/service'] = "admin_interface/edittext";
 $route['edit/contacts'] = "admin_interface/edittext";
 $route['edit/about/sidebar'] = "admin_interface/edittext";
+$route['edit/aviabileti/sidebar'] = "admin_interface/edittext";
 $route['edit/commercial/sidebar'] = "admin_interface/edittext";
 $route['edit/retail/sidebar'] = "admin_interface/edittext";
 $route['edit/rent/sidebar/auto'] = "admin_interface/edittext";

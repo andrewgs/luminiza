@@ -15,7 +15,7 @@
 					<?php if(isset($sidebar['sbt_extended'])) echo $sidebar['sbt_extended']; ?>
 						<?php if($admin): ?>
 						<div class="admin-change">
-							<?=anchor('edit/about/sidebar','Редактировать',array('class'=>'editlink')); ?>
+							<?=anchor('edit/aviabileti/sidebar','Редактировать',array('class'=>'editlink')); ?>
 						</div>
 						<?php endif;?>
 						<div class="miniature mt305">

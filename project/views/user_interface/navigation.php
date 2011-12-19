@@ -15,7 +15,7 @@
 				<li><?=anchor('contacts','Контакты', 'id="ref-contacts"');?></li>
 				<li><?=anchor('transfers','Трансферы', 'id="ref-transfers"');?></li>
 				<li><?=anchor('service','Услуги', 'id="ref-services"');?></li>
-				<!--li><?=anchor('service','Авиабилеты', 'id="ref-avia"');?></li-->
+				<li><?=anchor('aviabileti','Авиабилеты', 'id="ref-avia"');?></li>
 			</ul>
 		</div>
 	</div>

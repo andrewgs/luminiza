@@ -321,12 +321,11 @@ class Admin_interface extends CI_Controller{
 				);
 		if(isset($type_object) and !empty($type_object))
 			$pagevalue['backpath'] .= '/'.$type_object;
-		if($this->uri->total_segments() >= 3){
+		if($this->uri->total_segments() >= 3):
 			
 			$text_sidebar = $this->uri->segment(3);
-			if($text_sidebar == 'sidebar')
-				$pagevalue['sidebar'] = TRUE;
-		}
+			if($text_sidebar == 'sidebar') $pagevalue['sidebar'] = TRUE;
+		endif;
 			
 		$msg = $this->setmessage('','','',0);
 		$text = array();
@@ -334,6 +333,14 @@ class Admin_interface extends CI_Controller{
 		switch($text_object){
 			case 'index': 	$pagevalue['id'] = 8;
 							$pagevalue['backpath'] = '';
+							break;
+			case 'aviabileti':	if($pagevalue['sidebar']):
+									$pagevalue['id'] = 12;
+								else:
+									$pagevalue['id'] = 21;
+								endif;
+								$pagevalue['backpath'] = 'aviabileti';
+								break;
 							break;
 			case 'about':	if($pagevalue['sidebar'])
 								$pagevalue['id'] = 2;

@@ -86,7 +86,7 @@ class Users_interface extends CI_Controller{
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
 			'text' 		=> $this->othertextmodel->get_record(21),
-			'sidebar' 	=> $this->sidebartextmodel->get_record(2)
+			'sidebar' 	=> $this->sidebartextmodel->get_record(12)
 		);
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
