@@ -55,13 +55,15 @@
 						endif; ?>
 					
 					<!-- Begin MailChimp Signup Form -->
-					<div id="mc_embed_signup">
+					<!--
+					div id="mc_embed_signup">
 					<form action="http://lum-tenerife.us2.list-manage.com/subscribe/post?u=1233aa73a3d329972e903fe7c&amp;id=c7f9f8a222" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="padding: 10px 0;">
 						<label for="mce-EMAIL">Подпишитесь на нашу рассылку и получайте по почте новые и специальные предложения</label>
 						<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
 						<div class="clearfix"><input type="submit" value="Подписаться" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
 					</form>
-					</div>
+					</div
+					-->
 					<!--End mc_embed_signup-->
 					<?php if($this->uri->segment(1) == 'contacts'):?>
 					<div id="kontakt" class="formmailer">

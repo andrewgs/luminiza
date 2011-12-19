@@ -12,8 +12,10 @@
 	  	<div class="container_12 clearfix">
 	  		<div class="grid_12">
 					<div class="slider-links">
-						<li><?=anchor('retail','Продажа жилой и коммерческой недвижимости', 'id="property-sale"');?></li>
-						<li><?=anchor('rent/retail','Аренда авто, апартаментов и вилл', 'id="property-rent"');?></li>
+						<ul>
+							<li><?=anchor('retail','Продажа жилой и коммерческой недвижимости', 'id="property-sale"');?></li>
+							<li><?=anchor('rent/retail','Аренда авто, апартаментов и вилл', 'id="property-rent"');?></li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -49,7 +51,7 @@
 					<div class="side-phone"><span>Москва</span>8 (499) 245-33-44</div>
 					<div class="side-phone"><span>Санкт-Петербург</span>8 (812) 427-12-20</div>
 					-->
-					<div class="side-phone"><span>Москва</span>8 (499) 703-00-78</div>
+					<div class="side-phone"><span>Москва</span>8 (499) 703-37-25</div>
 					<div class="side-phone"><span>Ростов-на-Дону</span>8 (918) 591-33-37</div>
 					<div class="side-phone"><span>Тенерифе</span>8 10 34 678-283-024</div>
 					<ul id="social-links">
