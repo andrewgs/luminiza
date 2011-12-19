@@ -94,7 +94,7 @@ class Admin_interface extends CI_Controller{
 	
 	function login(){
 		
-		$backpage = $this->session->userdata('backpage');
+		$backpage = $this->session->userdata('backpath');
 		$pagevalue = array(
 				'description'	=>	'',
 				'author' 		=> 	'',

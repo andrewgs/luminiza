@@ -40,13 +40,6 @@
 					<?php for($i = 0;$i < count($apartment); $i++){ ?>
 							<div class="missions_row">
 							<?php
-								if(!$apartment[$i]['apnt_flag']):
-									echo '<div class="sell-date">Апартаменты выставлены на продажу</div>';
-								elseif($apartment[$i]['apnt_flag'] == 1):
-									echo '<div class="sell-date">Апартаменты сдаются в аренду</div>';
-								else:
-									echo '<div class="sell-date">Апартаменты сдаются в аренду и выставлены на продажу</div>';
-								endif;
 								if(isset($apartment[$i]['img_id']))
 									echo '<img alt="'.$apartment[$i]['img_title'].'"
 										title="'.$apartment[$i]['img_title'].'"
