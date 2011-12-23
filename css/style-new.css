@@ -119,6 +119,7 @@ nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; backgr
 #mailchimp-form .button { background: #e5e0dd; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #4b4444; display: inline-block; font-size: 12px; padding: 3px 6px; }
 
 #main {	padding: 25px 0; }
+p { margin-bottom: 10px; }
 h1 { color: #4b4444; font-size: 22px; line-height: 27px; margin-bottom: 10px; }
 h2 { color: #383333; font-size: 18px; line-height: 21px; text-decoration: underline; margin: 0 0 12px; }
 a { color: #0477a2; text-decoration: underline; }
@@ -206,6 +207,9 @@ a.info_link:hover { background: #895935; }
 
 .sidebar ul { margin-bottom: 10px; }
 .sidebar li { font: 13px/21px trebuchet ms, serif; }
+table#reviews { background: #eee; border: 1px dotted #ccc; }
+table#reviews td, table#reviews th { border: 1px dotted #CCC !important; font: 13px trebuchet MS,sans-serif; padding: 5px 8px !important; }
+table#reviews th {  font-weight: bold; vertical-align: middle; text-align: center; }
 /* General styles*/
 
 /* Forms */

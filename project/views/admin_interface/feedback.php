@@ -18,10 +18,12 @@
 				<div class="main_content">
 					<div class="formmailer">
 					<?php $this->load->view('forms/formfeedbackadd');?>
-					<hr size="2"/>
-					<?php $this->load->view('forms/feedbacktable');?>
 					</div>
 				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="grid_12">
+				<?php $this->load->view('forms/feedbacktable');?>			
 			</div>
 			<div class="clear"></div>
 		</div>
