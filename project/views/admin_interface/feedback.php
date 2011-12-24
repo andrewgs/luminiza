@@ -19,16 +19,7 @@
 					<a class="crossing" id="btnAdd" href="">Форма добавления отзыва</a>
 					<div class="formmailer" id="frmAdd" style="display:none;">
 					<?php $this->load->view('forms/formfeedbackadd');?>
-<<<<<<< HEAD
 					</div>
-					<hr size="2"/>
-					<?php if($pagevalue['feedback']):?>
-					<div class="">
-						<?php $this->load->view('forms/feedbacktable');?>
-=======
->>>>>>> ea38c303cb31b6bf846a545803d179ee056395c6
-					</div>
-					<?php endif;?>
 				</div>
 			</div>
 			<div class="clear"></div>
