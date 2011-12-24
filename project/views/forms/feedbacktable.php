@@ -17,7 +17,7 @@
 		<?php for($i=0;$i<count($pagevalue['feedback']);$i++):?>
 			<tr rID="<?=$i?>"> 
 				<td width="2%" rID="<?=$i?>"><?=$pagevalue['feedback'][$i]['fbk_id'];?></td>
-				<td><?=$i;?></td>
+				<td><img class="main_image" alt="" title="" src="<?=$pagevalue['baseurl'];?>feedbackimage/<?=$pagevalue['feedback'][$i]['fbk_id'];?>"></td>
 				<td width="16%" align="center"><?=$pagevalue['feedback'][$i]['fbk_fio'];?></td>
 				<td width="10%" align="center"><?=$pagevalue['feedback'][$i]['fbk_region'];?></td>
 				<td width="70%"><?=$pagevalue['feedback'][$i]['fbk_note'];?></td>

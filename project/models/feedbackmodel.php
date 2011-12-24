@@ -20,6 +20,16 @@ class Feedbackmodel extends CI_Model{
 		return FALSE;
 	}	
 	
+	function read_limit_records($count,$from){
+		
+		$this->db->select('fbk_id,fbk_fio,fbk_note,fbk_region');
+		$this->db->limit($count,$from);
+		$query = $this->db->get('feedback');
+		$data = $query->result_array();
+		if(count($data)) return $data;
+		return NULL;
+	}
+	
 	function read_record($id){
 	
 		$this->db->where('fbk_id',$id);
@@ -62,6 +72,24 @@ class Feedbackmodel extends CI_Model{
 		$this->db->where('fbk_id',$id);
 		$this->db->delete('feedback');
 		return $this->db->affected_rows();
+	}
+
+	function get_image($id){
+		
+		$this->db->where('fbk_id',$id);
+		$query = $this->db->get('feedback',1);
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0]['fbk_image'];
+		return NULL;
+	}
+
+	function rnd_record(){
+		
+		$query = "SELECT fbk_id,fbk_fio,fbk_note,fbk_region FROM feedback ORDER BY RAND() LIMIT 0,1;";
+		$query = $this->db->query($query);
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0];
+		return null;
 	}
 }
 ?>

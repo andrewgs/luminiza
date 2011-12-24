@@ -30,8 +30,9 @@ class Users_interface extends CI_Controller{
 					'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
 					'author' => 'RealityGroup',
 					'title' => 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Прокат автомобилей | Индивидуальные экскурсии и трансферы Тенерифе',
-					'baseurl' 		=> base_url(),
-					'admin' 		=> $this->admin['status']
+					'baseurl' 	=> base_url(),
+					'admin' 	=> $this->admin['status'],
+					'feedback' 	=> $this->feedbackmodel->rnd_record()
 			);
 		$this->session->set_userdata('backpage','');
 		$this->session->unset_userdata('query');
@@ -94,7 +95,79 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
 		$this->load->view('user_interface/aviabileti',$pagevalue);
-	} //функция выводит информацию об Авиабилеты;
+	} //функция выводит информацию об Авиабилетах;
+	
+	function feedbacks(){
+		
+		$pagevalue = array(
+			'description' =>'Покупка дешевых авиабилетов на Тенерифе на регулярные и чартерные рейсы из Москвы и Санкт-Петербурга. Индивидуальный трансфер из южного и северного аэропорта Тенерифе.',
+			'keywords'	=> 'тенерифе, авиабилеты, дешевые авиабилеты, канарские острова, трансферы, тенерифе экскурсии',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Дешевые билеты на Тенерифе | Покупка авиабилетов на Тенерифе онлайн',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'feedbacks'	=> array(),
+			'sidebar' 	=> $this->sidebartextmodel->get_record(13),
+			'pager'		=> array()
+		);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		
+		$cntrec = $this->feedbackmodel->count_records();
+		
+		$cfgpag['base_url'] 	= base_url().'/feedbacks/page/';
+        $cfgpag['total_rows']	= $cntrec;
+        $cfgpag['per_page']		=  10;
+        $cfgpag['num_links'] 	= 4;
+        $cfgpag['uri_segment'] 	= 3;
+		$cfgpag['first_link'] 	= FALSE;
+		$cfgpag['first_tag_open'] = '<li>';
+		$cfgpag['first_tag_close'] = '</li>';
+		$cfgpag['last_link'] = FALSE;
+		$cfgpag['last_tag_open'] = '<li>';
+		$cfgpag['last_tag_close'] = '</li>';
+		$cfgpag['next_link'] = 'Далее &raquo;';
+		$cfgpag['next_tag_open'] = '<li>';
+		$cfgpag['next_tag_close'] = '</li>';
+		$cfgpag['prev_link'] = '&laquo; Назад';
+		$cfgpag['prev_tag_open'] = '<li>';
+		$cfgpag['prev_tag_close'] = '</li>';
+		$cfgpag['cur_tag_open'] = '<li><a class="active" href="#">';
+		$cfgpag['cur_tag_close'] = '</a></li>';
+		$cfgpag['num_tag_open'] = '<li>';
+		$cfgpag['num_tag_close'] = '</li>';			
+		
+		$from = intval($this->uri->segment(3));	
+		$pagevalue['feedbacks'] = $this->feedbackmodel->read_limit_records(10,$from);
+		
+		$this->pagination->initialize($cfgpag);
+		$pagevalue['pager'] = $this->pagination->create_links();
+		
+		$this->load->view('user_interface/feedbacks',$pagevalue);
+	} //функция выводит информацию об отзывах;
+	
+	function services_provided(){
+		
+		$pagevalue = array(
+			'description' =>'Покупка дешевых авиабилетов на Тенерифе на регулярные и чартерные рейсы из Москвы и Санкт-Петербурга. Индивидуальный трансфер из южного и северного аэропорта Тенерифе.',
+			'keywords'	=> 'тенерифе, авиабилеты, дешевые авиабилеты, канарские острова, трансферы, тенерифе экскурсии',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Дешевые билеты на Тенерифе | Покупка авиабилетов на Тенерифе онлайн',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'text'		=> $this->othertextmodel->get_record(22),
+			'sidebar' 	=> $this->sidebartextmodel->get_record(14)
+		);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		$this->load->view('user_interface/services-provided',$pagevalue);
+	} //функция выводит информацию об Список всех предоставляемых услуг;
 	
 	function retail(){
 		
@@ -1406,6 +1479,14 @@ class Users_interface extends CI_Controller{
 		header('Content-type: image/gif');
 		echo $image;
 	}		//функция выводит малый рисунок на страницы;
+	
+	function feedbackimage(){
+		
+		$id = $this->uri->segment(2);
+		$image = $this->feedbackmodel->get_image($id);
+		header('Content-type: image/gif');
+		echo $image;
+	}
 	
 	function viewslideshow(){
 		

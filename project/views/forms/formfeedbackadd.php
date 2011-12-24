@@ -13,7 +13,7 @@
 	<div class="clear"></div>
 	<hr size="2"/>
 	<label class="label-input">Фото: </label>
-	<input class="textfield inpval" type="file" name="userfile" accept="image/jpeg,png,gif" size="32"/> 
+	<input class="textfield" type="file" name="userfile" accept="image/jpeg,png,gif" size="32"/> 
 	<div class="">Поддерживаемые форматы: JPG, GIF, PNG</div>
 	<hr size="2"/>
 	<div class="clear"></div>

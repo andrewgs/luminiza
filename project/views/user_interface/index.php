@@ -76,9 +76,9 @@
 						<img src="<?=$baseurl;?>img/plus.png" />  				
 						Оценка и определение рыночной стоимости недвижимости любого класса. Юридическое сопровождение сделок.<br/>
 	  			</div> 
-					<div class="chapter">
-						<a href="#">Узнайте о всех предоставляемых услугах</a>
-					</div>
+				<div class="chapter">
+					<?=anchor('services-provided','Узнайте о всех предоставляемых услугах');?>
+				</div>
 	  		</div>
 	  		<div class="grid_4">
 	  			<div class="chapter">
@@ -89,18 +89,16 @@
 						Открытие банковских счетов и вкладов различного типа, оформление дебетовых и кредитных карточек.
 					</div> 
 	  		</div>
+		<?php if($feedback):?>
 	  		<div id="testimonials" class="grid_4">
-					<img src="<?=$baseurl;?>img/testimonials/1.png" alt=""/>
-	  			<div class="author">Николай Пивоваров</div>
-	  			<div class="city">Москва</div>
-					«Процесс покупки Виллы на сайте компании занял у меня 15 минут. По прибытии на Тенерифе нас 
-					встретили и разместили в отеле, все документы были уже готовы. Сразу же заключили договор о 
-					долгосрочной аренде. Все деньги поступают мне на московский счет в банке.»
-					<div>
-						<a href="#">Посмотреть еще отзывы</a>
-					</div>
+				<img src="<?=$baseurl;?>feedbackimage/<?=$feedback['fbk_id'];?>" alt="">
+	  			<div class="author"><?=$feedback['fbk_fio'];?></div>
+	  			<div class="city"><?=$feedback['fbk_region'];?></div>
+					<?=$feedback['fbk_note'];?>
+				<div><?=anchor('feedbacks','Посмотреть еще отзывы');?></div>
 	  		</div>
-			</div>
+		<?php endif;?>
+		</div>
 	  </div>
 	  <div class="featured">
 	  	<div class="container_12 clearfix">
