@@ -26,18 +26,131 @@ class Users_interface extends CI_Controller{
 	function index(){
 		
 		$pagevalue = array(
-					'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Индивидуальные экскурсии и трансферы. Воспользовавшись услугами нашего агенства мы сможете купить недвижимость на Тенерифе или снять в аренду апартаменты с видом на океан.',
+					'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
 					'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
 					'author' => 'RealityGroup',
-					'title' => 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Прокат автомобилей | Индивидуальные экскурсии и трансферы Тенерифе',
+					'title' => 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
 					'baseurl' 		=> base_url(),
-					'admin' 		=> $this->admin['status']
+					'admin' 		=> $this->admin['status'],
+					'text' 			=> '',
+					'slideshow' 	=> array(),
+					'apartment' 	=> array()
 			);
 		$this->session->set_userdata('backpage','');
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
+		$slideshow = array();$text = array();$apartment = array();$islands = array();$islandstext = array();
+		$text = $this->othertextmodel->get_record(8);
+		$apart = $this->apartmentmodel->get_records_flag(2);
+		if(isset($apart) and !empty($apart)):
+			(count($apart) >= 4) ? $cnt = 4 : $cnt = count($apart);
+			$keys = array_rand($apart,$cnt);
+			if(count($keys) > 1):
+				for($i = 0; $i < $cnt; $i++):
+					$apart1[$i] = $apart[$keys[$i]];
+				endfor;
+			else:
+				$apart1[0] = $apart[0];
+			endif;
+			if(count($apart1) > 0):
+				for($i = 0; $i < count($apart1); $i++):
+					$image = $this->imagesmodel->get_type_ones_image('apartment',$apart1[$i]['apnt_id']);
+					$slideshow[$i]['link'] = 'retail/apartment/'.$apart1[$i]['apnt_id'];
+					$slideshow[$i]['title'] = strip_tags($apart1[$i]['apnt_title'],'<sup>');
+					$slideshow[$i]['extended'] = strip_tags($apart1[$i]['apnt_extended'],'<sup>');
+					if (mb_strlen($slideshow[$i]['extended'],'UTF-8') > 250):
+						$tmp = $slideshow[$i]['extended'];			
+						$tmp = mb_substr($tmp,0,250,'UTF-8');	
+						$pos = mb_strrpos($tmp,'.',0,'UTF-8');
+						$tmp = mb_substr($tmp,0,$pos,'UTF-8');
+						$slideshow[$i]['extended'] = $tmp.'. ...';
+					endif;
+					$slideshow[$i]['image'] = $image['img_id'];
+					$slideshow[$i]['img_title'] = $image['img_title'];
+					if(empty($slideshow[$i]['img_title'])) $slideshow[$i]['img_title'] = $slideshow[$i]['title'];
+				endfor;
+			endif;
+		endif;
+		$commercial = $this->apartmentmodel->get_comercial_flag(5);
+		if(isset($commercial) and !empty($commercial)):
+			(count($commercial) >= 4) ? $cnt = 4 : $cnt = count($commercial);
+			$keys = array_rand($commercial,$cnt);
+			if(count($keys) > 1):
+				for($i = 0; $i < $cnt; $i++):
+					$commercial1[$i] = $commercial[$keys[$i]];
+				endfor;
+			else:
+				$commercial1[0] = $commercial[0];
+			endif;
+			if(count($commercial1) > 0):
+				$count = count($slideshow);
+				for($i = $count,$y = 0; $i < $count+count($commercial1); $i++,$y++):
+					$image = $this->imagesmodel->get_type_ones_image('commercial',$commercial1[$y]['apnt_id']);
+					$slideshow[$i]['link'] = 'retail/apartment/'.$commercial1[$y]['apnt_id'];
+					$slideshow[$i]['title'] = strip_tags($commercial1[$y]['apnt_title'],'<sup>');
+					$slideshow[$i]['extended'] = strip_tags($commercial1[$y]['apnt_extended'],'<sup>');
+					if (mb_strlen($slideshow[$i]['extended'],'UTF-8') > 250):
+						$tmp = $slideshow[$i]['extended'];			
+						$tmp = mb_substr($tmp,0,250,'UTF-8');	
+						$pos = mb_strrpos($tmp,'.',0,'UTF-8');
+						$tmp = mb_substr($tmp,0,$pos,'UTF-8');
+						$slideshow[$i]['extended'] = $tmp.'. ...';
+					endif;
+					$slideshow[$i]['image'] = $image['img_id'];
+					$slideshow[$i]['img_title'] = $image['img_title'];
+					if(empty($slideshow[$i]['img_title'])) $slideshow[$i]['img_title'] = $slideshow[$i]['title'];
+				endfor;
+			endif;
+		endif;
+		$island = $this->imagesmodel->get_type_ones_image('about',0);
+		if(isset($island) and !empty($island))
+			$islands = $this->imagesmodel->get_images_without('about',0,$island['img_id']);
+		if(isset($islands) and !empty($islands)):
+			(count($islands) >= 4) ? $cnt = 4 : $cnt = count($islands);
+			$islandstext = $this->othertextmodel->limit_records($cnt,13);
+			shuffle($islandstext);
+			$count = count($slideshow);
+			for($i = $count,$y = 0; $i < $count+$cnt; $i++,$y++):
+				$slideshow[$i]['link'] = 'about';
+				$slideshow[$i]['title'] = '';
+				$slideshow[$i]['extended'] = $islandstext[$y]['txt_extended'];
+				$slideshow[$i]['image'] = $islands[$y]['img_id'];
+				$slideshow[$i]['img_title'] = $islands[$y]['img_title'];
+			endfor;
+			shuffle($slideshow);
+		endif;
+		$apart = $this->apartmentmodel->get_records_flag(1);
+		if(isset($apart) and !empty($apart)){
+			(count($apart) >= 3) ? $cnt = 3 : $cnt = count($apart);
+			$keys = array_rand($apart,$cnt);
+			if(count($keys) > 1) 
+				for($i = 0; $i < $cnt; $i++)
+					$apart2[$i] = $apart[$keys[$i]];
+			else
+				$apart2[0] = $apart[0];
+			if(count($apart2) > 0)
+				for($i = 0; $i < count($apart2); $i++){
+					$image = $this->imagesmodel->get_type_ones_image('apartment',$apart2[$i]['apnt_id']);
+					$apartment[$i]['id'] = $apart2[$i]['apnt_id'];
+					$apartment[$i]['img_id'] = $image['img_id'];
+					$apart2[$i]['apnt_title'] = $apart2[$i]['apnt_title'];
+					$apart2[$i]['apnt_extended'] = strip_tags($apart2[$i]['apnt_extended'],'<sup>');
+					if (mb_strlen($apart2[$i]['apnt_extended'],'UTF-8') > 250):	
+						$apart2[$i]['apnt_extended'] = mb_substr($apart2[$i]['apnt_extended'],0,250,'UTF-8');	
+						$pos = mb_strrpos($apart2[$i]['apnt_extended'],' ',0,'UTF-8');
+						$apart2[$i]['apnt_extended'] = mb_substr($apart2[$i]['apnt_extended'],0,$pos,'UTF-8');
+						$apart2[$i]['apnt_extended'] .= ' ...';
+					endif;
+					$apartment[$i]['title'] = $apart2[$i]['apnt_title'];
+					$apartment[$i]['extended'] = $apart2[$i]['apnt_extended'];
+					if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['title'];
+				}
+		}
+		$pagevalue['text'] = $text;
+		$pagevalue['slideshow'] = $slideshow;
+		$pagevalue['apartment'] = $apartment;
 		$this->load->view('user_interface/index',$pagevalue);
 	}			//функция выводит информацию на главную страницу;
 	
@@ -76,26 +189,6 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/about',$pagevalue);
 	} //функция выводит информацию об острове;
 	
-	function aviabileti(){
-		
-		$pagevalue = array(
-			'description' =>'Покупка дешевых авиабилетов на Тенерифе на регулярные и чартерные рейсы из Москвы и Санкт-Петербурга. Индивидуальный трансфер из южного и северного аэропорта Тенерифе.',
-			'keywords'	=> 'тенерифе, авиабилеты, дешевые авиабилеты, канарские острова, трансферы, тенерифе экскурсии',
-			'author' 	=> 'RealityGroup',
-			'title' 	=> 'Дешевые билеты на Тенерифе | Покупка авиабилетов на Тенерифе онлайн',
-			'baseurl' 	=> base_url(),
-			'admin' 	=> $this->admin['status'],
-			'text' 		=> $this->othertextmodel->get_record(21),
-			'sidebar' 	=> $this->sidebartextmodel->get_record(12)
-		);
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
-		$this->session->unset_userdata('query');
-		$this->session->unset_userdata('status');
-		$this->session->unset_userdata('calc');
-		$this->session->unset_userdata('searchback');
-		$this->load->view('user_interface/aviabileti',$pagevalue);
-	} //функция выводит информацию об Авиабилеты;
-	
 	function retail(){
 		
 		if(isset($_POST['sortlink'])):
@@ -109,18 +202,13 @@ class Users_interface extends CI_Controller{
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
 			'formsort' 	=> $this->uri->uri_string(),
-			'segment'	=> 'retail/',
 			'softvalue' => $this->session->userdata('sortby'),
 			'selectvalue' => array(),
 			'apartment' => array(),
 			'text' 		=> array(),
 			'countrecord' => array(),
-			'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
-			'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
 			'sname' 	=> $this->session->userdata('sname')
 		);
-		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
-		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('backpage',$this->uri->uri_string());
@@ -191,6 +279,7 @@ class Users_interface extends CI_Controller{
 				$apartment[$i]['apnt_newprice'] = number_format($apartment[$i]['apnt_newprice'],0,' ','.');
 			endif;
 		endfor;
+		if(isset($from) && ! empty($from)) $this->session->set_userdata('backpage','retail/'.$from);
 		for($i=0;$i<count($apartment);$i++):
 			$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
 			$apartment[$i]['img_id'] = $image[$i]['img_id'];
@@ -228,12 +317,13 @@ class Users_interface extends CI_Controller{
 		$apart_id = $this->uri->segment(3);
 		$retail = array();	$images = array();
 		$status = $this->session->userdata('status');
-//		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('calc',TRUE);
 		if(!empty($status)):
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
+		$this->session->set_userdata('backpage','retail/apartment/'.$apart_id);		
 		$apartament = $this->apartmentmodel->get_record($apart_id);
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
@@ -243,6 +333,10 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
+			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -258,6 +352,10 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
+				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 				$this->email->clear(TRUE);
 				$config['smtp_host'] = 'localhost';
 				$config['charset'] = 'utf-8';
@@ -273,8 +371,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -290,12 +386,11 @@ class Users_interface extends CI_Controller{
 		if(is_numeric($apartament['apnt_newprice'])):
 			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
 		endif;
-		/*$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
+		$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],$image['img_id']);
 		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],0);
+		$retail['img_title'] = $image['img_title'];
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$retail['object'] = 'apartment';
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
@@ -325,18 +420,13 @@ class Users_interface extends CI_Controller{
 			'baseurl' 		=> base_url(),
 			'admin' 		=> $this->admin['status'],
 			'formsort' 		=> $this->uri->uri_string(),
-			'segment'		=> 'retail/',
 			'softvalue' 	=> $this->session->userdata('sortby'),
 			'selectvalue' 	=> array(),
 			'apartment' 	=> array(),
 			'text' 			=> array(),
 			'countrecord' 	=> array(),
-			'lowprice'		=> min($this->apartmentmodel->get_min_price(2)),
-			'topprice'		=> max($this->apartmentmodel->get_max_price(2)),
-			'sname' 		=> $this->session->userdata('sname')
+			'sname' 	=> $this->session->userdata('sname')
 		);
-		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
-		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
 		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('backpage',$this->uri->uri_string());
@@ -350,14 +440,7 @@ class Users_interface extends CI_Controller{
 		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
 		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
 		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-		for($i=0;$i<count($selectvalue['count']);$i++):
-			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
-				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
-			else:
-				continue;
-			endif;
-		endfor;
-		sort($selectvalue['count']);
+		
 		$countrecord['object'] 		= count($selectvalue['object']);
 		$countrecord['location'] 	= count($selectvalue['location']);
 		$countrecord['region'] 		= count($selectvalue['region']);
@@ -452,7 +535,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-//		$this->session->set_userdata('backpath',$this->uri->uri_string());		
+		$this->session->set_userdata('backpath',$this->uri->uri_string());		
 		$apartament = $this->apartmentmodel->get_record($apart_id);
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
@@ -463,6 +546,10 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
+			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
+			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -478,6 +565,10 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
+				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 				$this->email->clear(TRUE);
 				$config['smtp_host'] = 'localhost';
 				$config['charset'] = 'utf-8';
@@ -493,8 +584,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -510,12 +599,11 @@ class Users_interface extends CI_Controller{
 		if(is_numeric($apartament['apnt_newprice'])):
 			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
 		endif;
-		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
+		$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],$image['img_id']);
 		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],0);
+		$retail['img_title'] = $image['img_title'];
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$retail['type'] = 'commercial';
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
@@ -536,49 +624,14 @@ class Users_interface extends CI_Controller{
 		
 		$pagevalue = array(
 			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' 	=> 'RealityGroup',
-			'baseurl' 	=> base_url(),
-			'page'		=> $this->uri->segment(2),
-			'admin' 	=> $this->admin['status'],
-			'segment'	=> 'rent/',
-			'text'		=> array(),
+			'author' => 'RealityGroup',
+			'baseurl' => base_url(),
+			'page'	=> $this->uri->segment(2),
+			'admin' => $this->admin['status'],
+			'text'	=> array(),
 			'rentlist'	=> array(),
-			'countrecord' => array(),
-			'softvalue' => $this->session->userdata('sortby'),
-			'selectvalue' => array(),
-			'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
-			'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
-			'sname' 	=> $this->session->userdata('sname')
+			
 		);
-		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
-		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
-		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
-		$this->session->set_userdata('backpage',$this->uri->uri_string());
-		$this->session->unset_userdata('query');
-		$this->session->unset_userdata('status');
-		$this->session->unset_userdata('calc');
-		$this->session->unset_userdata('searchback');
-		$countrecord = array(); $text = array(); $rentlist = array();
-		
-		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
-		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
-		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
-		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-		
-		for($i=0;$i<count($selectvalue['count']);$i++):
-			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
-				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
-			else:
-				continue;
-			endif;
-		endfor;
-		sort($selectvalue['count']);
-		$countrecord['object'] 		= count($selectvalue['object']);
-		$countrecord['location'] 	= count($selectvalue['location']);
-		$countrecord['region'] 		= count($selectvalue['region']);
-		$countrecord['count'] 		= count($selectvalue['count']);
-		
 		if($this->uri->segment(2) == 'auto'):
 			$pagevalue['title'] = 'Аренда автомобилей на Тенерифе | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Аренда автомобилей от семейных минивэнов до престижных моделей представительского класса или стильных спорткаров. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.';  
@@ -586,6 +639,12 @@ class Users_interface extends CI_Controller{
 			$pagevalue['title'] = 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.'; 
 		endif;
+		
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');
+		$text = array(); $rentlist = array();
 		
 		$text[0]['sidebar'] = $this->sidebartextmodel->get_record(4);	// раздел авто;
 		$text[0]['head'] = $this->othertextmodel->get_record(2);
@@ -644,11 +703,11 @@ class Users_interface extends CI_Controller{
 		$this->pagination->initialize($cfgpag);
 		$pageslinks = $this->pagination->create_links();
 		
-		$pagevalue['countrecord'] = $countrecord;
-		$pagevalue['selectvalue'] = $selectvalue;
 		$pagevalue['rentlist'] = $rentlist;
 		$pagevalue['pageslinks'] = $pageslinks;
 		$pagevalue['text'] = $text;
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpage',$this->uri->uri_string());
 		$this->load->view('user_interface/rent',$pagevalue);
 	} //функция выводит информацию на страницу аренды;
 	
@@ -688,7 +747,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 			
 		endif;
-//		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		switch($rent_type):
 			case 'auto':{
 						$auto = $this->rentautomodel->get_record($rent_id);
@@ -697,12 +756,11 @@ class Users_interface extends CI_Controller{
 						$rent['extended'] = $auto['rnta_extended'];
 						$rent['properties'] = $auto['rnta_properties'];
 						$rent['price'] = $auto['rnta_price'];
-						/*$image = $this->imagesmodel->get_type_ones_image('auto',$rent['id']);
+						$image = $this->imagesmodel->get_type_ones_image('auto',$rent['id']);
 						if(isset($image) and !empty($image))
 							$images = $this->imagesmodel->get_images_without('auto',$rent['id'],$image['img_id']);
 						$rent['img_id'] = $image['img_id'];
-						$rent['img_title'] = $image['img_title'];*/
-						$images = $this->imagesmodel->get_images_without('auto',$rent['id'],0);
+						$rent['img_title'] = $image['img_title'];
 						$text['sidebar'] = $this->sidebartextmodel->get_record(4);						
 						$rent['object'] = 'auto';
 						}; break;
@@ -713,12 +771,11 @@ class Users_interface extends CI_Controller{
 						$rent['extended'] = $apartament['apnt_extended'];
 						$rent['properties'] = $apartament['apnt_properties'];
 						$rent['price'] = $apartament['apnt_price_rent'];
-						/*$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
+						$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
 						if(isset($image) and !empty($image))
 							$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],$image['img_id']);
 						$rent['img_id'] = $image['img_id'];
-						$rent['img_title'] = $image['img_title'];*/
-						$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],0);
+						$rent['img_title'] = $image['img_title'];
 						$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 						$rent['object'] = 'apartment';
 						}; break;
@@ -729,10 +786,10 @@ class Users_interface extends CI_Controller{
 				$this->form_validation->set_rules('name','"Ваше имя и фамилия"','required|trim');
 				$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 				$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-				$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
+				$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 				$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-				$this->form_validation->set_rules('rdate','"Дата въезда"','required|trim');
-				$this->form_validation->set_rules('bcdate','"Дата выезда"','required');
+				$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+				$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 				$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 				if(!$this->form_validation->run()):
 					$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -748,10 +805,10 @@ class Users_interface extends CI_Controller{
 					$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 					$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 					$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-					$_POST['msg'] 	.= 'Количество взрослых - '.$_POST['number_people']."\n";
+					$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 					$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-					$_POST['msg'] 	.= 'Дата въезда - '.$_POST['rdate']."\n";
-					$_POST['msg'] 	.= 'Дата выезда - '.$_POST['bcdate']."\n";
+					$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+					$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 					$this->email->clear(TRUE);
 					$config['smtp_host'] = 'localhost';
 					$config['charset'] = 'utf-8';
@@ -767,8 +824,6 @@ class Users_interface extends CI_Controller{
 						$this->session->set_userdata('msg','Сообщение не отправлено');
 						redirect($this->uri->uri_string());
 						return FALSE;
-					else:
-						$this->sendbackmail($_POST['name'],$_POST['email']);
 					endif;
 					$this->session->set_userdata('msg','Сообщение отправлено');
 					$_POST['extended'] = $_POST['msg'];
@@ -783,13 +838,14 @@ class Users_interface extends CI_Controller{
 				$this->form_validation->set_rules('name','"Ваше имя и фамилия"','required|trim');
 				$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 				$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-				$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
+				$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 				$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
 				$this->form_validation->set_rules('permit','"Номер водительских прав"','required|trim');
 				$this->form_validation->set_rules('pdate','"Дата получения"','required|trim');
 				$this->form_validation->set_rules('country','"Страна получения"','required|trim');
-				$this->form_validation->set_rules('rdate','"Дата въезда"','required|trim');
-				$this->form_validation->set_rules('bcdate','"Дата выезда"','required');
+				$this->form_validation->set_rules('car','"Модель автомобиля"','required|trim');
+				$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+				$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 				$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 				if(!$this->form_validation->run()):
 					$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -805,13 +861,14 @@ class Users_interface extends CI_Controller{
 					$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 					$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 					$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-					$_POST['msg'] 	.= 'Количество взлослых - '.$_POST['number_people']."\n";
+					$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 					$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
 					$_POST['msg'] 	.= 'Номер водительских прав - '.$_POST['permit']."\n";
 					$_POST['msg'] 	.= 'Дата получения - '.$_POST['pdate']."\n";
 					$_POST['msg'] 	.= 'Страна получения - '.$_POST['country']."\n";
-					$_POST['msg'] 	.= 'Дата въезда - '.$_POST['rdate']."\n";
-					$_POST['msg'] 	.= 'Дата выезда - '.$_POST['bcdate']."\n";
+					$_POST['msg'] 	.= 'Модель автомобиля - '.$_POST['car']."\n";
+					$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+					$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 					if(isset($_POST['place'])):
 						$sub = array('','к аэропорту','к отелю');
 						$_POST['msg'] 	.= 'Подать авто - '.$sub[$_POST['place']];
@@ -833,8 +890,6 @@ class Users_interface extends CI_Controller{
 						$this->session->set_userdata('msg','Сообщение не отправлено');
 						redirect($this->uri->uri_string());
 						return FALSE;
-					else:
-						$this->sendbackmail($_POST['name'],$_POST['email']);
 					endif;
 					$this->session->set_userdata('msg','Сообщение отправлено');
 					$_POST['extended'] = $_POST['msg'];
@@ -859,48 +914,23 @@ class Users_interface extends CI_Controller{
 			'title' 		=> 'Бизнес на Тенерифе | Аренда коммерческой недвижимости | Сопровождение сделки | Luminiza Property Tur S.L.',
 			'baseurl' 		=> base_url(),
 			'admin' 		=> $this->admin['status'],
-			'segment'		=> 'rent/',
 			'text'			=> array(),
 			'commercial'	=> array(),
 			'pageslinks'	=> array(),
-			'softvalue' 	=> $this->session->userdata('sortby'),
-			'selectvalue' 	=> array(),
-			'countrecord' 	=> array(),
-			'lowprice'		=> min($this->apartmentmodel->get_min_price(2)),
-			'topprice'		=> max($this->apartmentmodel->get_max_price(2)),
-			'sname' 		=> $this->session->userdata('sname')
+			
 		);
-		if(!$pagevalue['lowprice']) $pagevalue['lowprice'] = 0;
-		if(!$pagevalue['topprice']) $pagevalue['topprice'] = 20000000;
-		if(!$pagevalue['softvalue']) $pagevalue['softvalue'] = 0;
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->set_userdata('backpage',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
-		$selectvalue = array();$countrecord = array();$text = array(); $commercial = array();
+		$text = array(); $commercial = array();
 		$text[1]['sidebar'] = $this->sidebartextmodel->get_record(11);	// раздел апартаменты;
 		$text[1]['head'] = $this->othertextmodel->get_record(20);
-		
-		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
-		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
-		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
-		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-		for($i=0;$i<count($selectvalue['count']);$i++):
-			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
-				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
-			else:
-				continue;
-			endif;
-		endfor;
-		sort($selectvalue['count']);
-		$countrecord['object'] 		= count($selectvalue['object']);
-		$countrecord['location'] 	= count($selectvalue['location']);
-		$countrecord['region'] 		= count($selectvalue['region']);
-		$countrecord['count'] 		= count($selectvalue['count']);
-		
+
 		$cntrec = $this->apartmentmodel->count_commercial_flag(4);
+
 		$cfgpag['base_url'] = base_url().'/rent/commercial';
         $cfgpag['total_rows'] = $cntrec;
         $cfgpag['per_page'] =  10;
@@ -950,8 +980,6 @@ class Users_interface extends CI_Controller{
 		$pagevalue['commercial'] = $commercial;
 		$pagevalue['pageslinks'] = $pageslinks;
 		$pagevalue['text'] = $text;
-		$pagevalue['selectvalue'] = $selectvalue;
-		$pagevalue['countrecord'] = $countrecord;
 		$this->load->view('user_interface/rent_commercial',$pagevalue);
 	} //функция выводит информацию об аренде коммерческой недвижимости;
 	
@@ -984,7 +1012,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
-//		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$apartament = $this->apartmentmodel->get_record($rent_id);
 		$rent['id'] = $apartament['apnt_id'];
 		$rent['title'] = $apartament['apnt_title'];
@@ -997,10 +1025,10 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('max_budget','"Максимальный бюджет"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-			$this->form_validation->set_rules('rdate','"Дата въезда"','required|trim');
-			$this->form_validation->set_rules('bcdate','"Дата выезда"','required');
+			$this->form_validation->set_rules('rdate','"Дата начала аренды"','required|trim');
+			$this->form_validation->set_rules('bcdate','"Дата возвращения"','required');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -1016,10 +1044,10 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
 				$_POST['msg'] 	.= 'Максимальный бюджет - '.$_POST['max_budget']."\n";
-				$_POST['msg'] 	.= 'Количество взрослых - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-				$_POST['msg'] 	.= 'Дата въезда - '.$_POST['rdate']."\n";
-				$_POST['msg'] 	.= 'Дата выезда - '.$_POST['bcdate']."\n";
+				$_POST['msg'] 	.= 'Дата начала аренды - '.$_POST['rdate']."\n";
+				$_POST['msg'] 	.= 'Дата возвращения - '.$_POST['bcdate']."\n";
 				$this->email->clear(TRUE);
 				$config['smtp_host'] = 'localhost';
 				$config['charset'] = 'utf-8';
@@ -1035,8 +1063,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1046,12 +1072,11 @@ class Users_interface extends CI_Controller{
 			endif;
 		endif;
 		
-		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
+		$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
 		if(isset($image) and !empty($image))
 			$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],$image['img_id']);
 		$rent['img_id'] = $image['img_id'];
-		$rent['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],0);
+		$rent['img_title'] = $image['img_title'];
 		$text['sidebar'] = $this->sidebartextmodel->get_record(5);
 		$rent['type'] = 'commercial';
 		$pagevalue['rent'] = $rent;
@@ -1162,7 +1187,7 @@ class Users_interface extends CI_Controller{
 				'images'		=> array(),
 				'msg'			=> $this->session->userdata('msg')
 			);
-//		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('msg');
 		$tour_id = $this->uri->segment(3);
 		$tour = array();$text = array();$images = array();
@@ -1182,7 +1207,7 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата экскурсии"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
+			$this->form_validation->set_rules('number_people','"Количество людей"','required|trim');
 			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
 			$this->form_validation->set_rules('note','"Примечания"','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
@@ -1199,7 +1224,7 @@ class Users_interface extends CI_Controller{
 				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
 				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
 				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
-				$_POST['msg'] 	.= 'Количество взлослых - '.$_POST['number_people']."\n";
+				$_POST['msg'] 	.= 'Количество людей - '.$_POST['number_people']."\n";
 				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
 				$_POST['msg'] 	.= 'Дата экскурсии - '.$_POST['date']."\n";
 				$_POST['msg'] 	.= "Примечания:\n".$_POST['note']."\n";
@@ -1218,8 +1243,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1289,8 +1312,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1382,8 +1403,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1432,22 +1451,12 @@ class Users_interface extends CI_Controller{
 		endif;
 		if($this->input->post('btsearch') || !empty($status)):
 			$param = array(); $selectvalue = array(); $apartment = array(); $text = array();$countrecord = array();
+			$msg = $this->setmessage('','','',0);
 			if($this->input->post('btsearch')):
 				$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
 				$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
 				$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
 				$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
-				for($i=0;$i<count($selectvalue['count']);$i++):
-					if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
-						$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
-					else:
-						continue;
-					endif;
-				endfor;
-				sort($selectvalue['count']);
-				$this->session->set_userdata('shobject',$_POST['object']);
-				$this->session->set_userdata('shlocation',$_POST['location']);
-				$this->session->set_userdata('shregion',$_POST['region']);
 				
 				if($_POST['cntrec']['object'] == $_POST['object']) $param['object'] = null;
 				else $param['object'] = $selectvalue['object'][$_POST['object']]['apnt_object'];
@@ -1458,16 +1467,13 @@ class Users_interface extends CI_Controller{
 				if($_POST['cntrec']['region'] == $_POST['region']) $param['region'] = null;
 				else $param['region'] = $selectvalue['region'][$_POST['region']]['apnt_region'];
 				
-				$param['room'] = array();	
-				$param['roomid'] = array();	
+				$param['room'] = array();			
 				for($i=0,$j=0;$i<=$_POST['cntrec']['count'];$i++):
 					if(!empty($_POST["rooms_$i"])):
 						$param['room'][$j] = $_POST["rooms_$i"];
-						$param['roomid'][$j] = "rooms_$i";
 						$j++;
 					endif;
 				endfor;
-				$this->session->set_userdata('shroom',$param['roomid']);
 				
 				$sql = 'SELECT * FROM apartment WHERE ';
 				if($param['object']) $sql .= 'apnt_object = "'.$param['object'].'" AND ';
@@ -1487,13 +1493,8 @@ class Users_interface extends CI_Controller{
 						$sql .= 'apnt_count = '.$param['room'][0].' AND';
 					endif;
 				endif;
-				if($_POST['segment'] == 'rent'):
-					$sql .= ' TRUE AND apnt_flag = 1 ORDER BY apnt_date DESC';
-				else:
-					$sql .= ' TRUE AND (apnt_flag = 0 OR apnt_flag = 2) AND (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_price,apnt_newprice,apnt_date DESC';
-					$this->session->set_userdata('shlowprice',$_POST['lowprice']);
-					$this->session->set_userdata('shtopprice',$_POST['topprice']);
-				endif;
+				
+				$sql .= ' TRUE ORDER BY apnt_date DESC';
 				$this->session->set_userdata('query',$sql);
 				$this->session->set_userdata('status',TRUE);
 				redirect($this->uri->uri_string());
@@ -1505,18 +1506,9 @@ class Users_interface extends CI_Controller{
 				'author' 	=> 'RealityGroup',
 				'title' 	=> 'Результаты поиска | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
 				'baseurl' 	=> base_url(),
-				'segment'	=> $this->uri->segment(1).'/',
 				'admin' 	=> $this->admin['status'],
 				'msg'		=> $this->session->userdata('msg'),
-				'sname' 	=> $this->session->userdata('sname'),
-				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
-				'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
-				'lowpricev'	=> $this->session->userdata('shlowprice'),
-				'toppricev'	=> $this->session->userdata('shtopprice'),
-				'sobject'	=> $this->session->userdata('shobject'),
-				'slocation'	=> $this->session->userdata('shlocation'),
-				'sregion'	=> $this->session->userdata('shregion'),
-				'sroom'		=> $this->session->userdata('shroom')
+				'sname' 	=> $this->session->userdata('sname')
 			);
 			$this->session->unset_userdata('msg');
 			
@@ -1529,14 +1521,7 @@ class Users_interface extends CI_Controller{
 			$countrecord['location'] 	= count($selectvalue['location']);
 			$countrecord['region'] 		= count($selectvalue['region']);
 			$countrecord['count'] 		= count($selectvalue['count']);
-			for($i=0;$i<count($selectvalue['count']);$i++):
-				if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
-					$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
-				else:
-					continue;
-				endif;
-			endfor;
-			sort($selectvalue['count']);
+			
 			$text['sidebar'] = $this->sidebartextmodel->get_record(3);
 			
 			if(!count($result)):
@@ -1544,18 +1529,16 @@ class Users_interface extends CI_Controller{
 				$pagevalue['selectvalue'] = $selectvalue;
 				$pagevalue['apartment'] = $apartment;
 				$pagevalue['countrecord'] = $countrecord;
-				$this->session->unset_userdata('msg');
-//				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
-				$pagevalue['msg'] = 'Не найдено ни одного апартамента';
+				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
 				$this->load->view('user_interface/result',$pagevalue);
 				return FALSE;
 			endif;
 			
-			$cfgpag['base_url'] = base_url().$this->uri->segment(1).'/search';
+			$cfgpag['base_url'] = base_url().'/search';
 	        $cfgpag['total_rows'] = count($result);
 	        $cfgpag['per_page'] =  10;
 	        $cfgpag['num_links'] = 4;
-	        $cfgpag['uri_segment'] = 3;
+	        $cfgpag['uri_segment'] = 2;
 			$cfgpag['first_link'] = FALSE;
 			$cfgpag['first_tag_open'] = '<li>';
 			$cfgpag['first_tag_close'] = '</li>';
@@ -1573,35 +1556,29 @@ class Users_interface extends CI_Controller{
 			$cfgpag['num_tag_open'] = '<li>';
 			$cfgpag['num_tag_close'] = '</li>';			
 			
-			$from = intval($this->uri->segment(3));
+			$from = intval($this->uri->segment(2));
 			$sqlimit = $sql.' LIMIT '.$from.',5';
 			
 			$result = $this->apartmentmodel->search_limit_apartment($sqlimit,10,$from);
 			if(isset($from) and !empty($from)):
-				$this->session->set_userdata('backpage',$this->uri->segment(1).'/search/'.$from);
-				$this->session->set_userdata('searchback',$this->uri->segment(1).'/search/'.$from);
+				$this->session->set_userdata('backpage','search/'.$from);
+				$this->session->set_userdata('searchback','search/'.$from);
 			else:
-				$this->session->set_userdata('backpage',$this->uri->segment(1).'/search');
-				$this->session->set_userdata('searchback',$this->uri->segment(1).'/search');
+				$this->session->set_userdata('backpage','search');
+				$this->session->set_userdata('searchback','search');
 			endif;
 			$apartment = $result;
 			
-			for($i=0;$i<count($apartment);$i++):
-				if(mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):
+			for($i = 0; $i < count($apartment);$i++):
+				if (mb_strlen($apartment[$i]['apnt_extended'],'UTF-8') > 325):
 					$tmp = $apartment[$i]['apnt_extended'];			
 					$tmp = mb_substr($tmp,0,325,'UTF-8');	
 					$pos = mb_strrpos($tmp,' ',0,'UTF-8');
 					$tmp = mb_substr($tmp,0,$pos,'UTF-8');
 					$apartment[$i]['apnt_extended'] = $tmp.' ...';
-				endif;
-				if(is_numeric($apartment[$i]['apnt_price'])):
-					$apartment[$i]['apnt_price'] = number_format($apartment[$i]['apnt_price'],0,' ','.');
-				endif;
-				if(is_numeric($apartment[$i]['apnt_newprice'])):
-					$apartment[$i]['apnt_newprice'] = number_format($apartment[$i]['apnt_newprice'],0,' ','.');
-				endif;
+				endif;				
 				$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
-				if(!$image[$i]) $image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
+				if(!$image[$i])	 $image[$i] = $this->imagesmodel->get_type_ones_image('commercial',$apartment[$i]['apnt_id']);
 				$apartment[$i]['img_id'] = $image[$i]['img_id'];
 				$apartment[$i]['img_title'] = $image[$i]['img_title'];
 				
@@ -1631,11 +1608,7 @@ class Users_interface extends CI_Controller{
 			if($this->input->post('btsname')):
 				$_POST['btsname'] = NULL;
 				$this->session->set_userdata('sname',$_POST['sname']);
-				if($_POST['segment'] == 'rent'):
-					$sql = 'SELECT * FROM apartment WHERE apnt_title LIKE "%'.$_POST['sname'].'%" AND apnt_flag = 1 ORDER BY apnt_date DESC';
-				else:
-					$sql = 'SELECT * FROM apartment WHERE apnt_title LIKE "%'.$_POST['sname'].'%" AND (apnt_flag = 0 OR apnt_flag = 2) ORDER BY apnt_date DESC';
-				endif;
+				$sql = 'SELECT * FROM apartment WHERE apnt_title LIKE "%'.$_POST['sname'].'%" ORDER BY apnt_date DESC';
 				$this->session->set_userdata('query',$sql);
 				$this->session->set_userdata('status',TRUE);
 				redirect($this->uri->uri_string());
@@ -1649,17 +1622,8 @@ class Users_interface extends CI_Controller{
 				'title' 	=> 'Результаты поиска | Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Экскурсии | Трансферы | Luminiza Property Tur S.L.',
 				'baseurl' 	=> base_url(),
 				'admin' 	=> $this->admin['status'],
-				'segment'	=> $this->uri->segment(1).'/',
 				'msg'		=> $this->session->userdata('msg'),
-				'sname' 	=> $this->session->userdata('sname'),
-				'lowprice'	=> min($this->apartmentmodel->get_min_price(2)),
-				'topprice'	=> max($this->apartmentmodel->get_max_price(2)),
-				'lowpricev'	=> $this->session->userdata('shlowprice'),
-				'toppricev'	=> $this->session->userdata('shtopprice'),
-				'sobject'	=> $this->session->userdata('shobject'),
-				'slocation'	=> $this->session->userdata('shlocation'),
-				'sregion'	=> $this->session->userdata('shregion'),
-				'sroom'		=> $this->session->userdata('shroom')
+				'sname' 	=> $this->session->userdata('sname')
 			);
 			$this->session->unset_userdata('msg');
 			
@@ -1680,18 +1644,16 @@ class Users_interface extends CI_Controller{
 				$pagevalue['selectvalue'] = $selectvalue;
 				$pagevalue['apartment'] = $apartment;
 				$pagevalue['countrecord'] = $countrecord;
-				$this->session->unset_userdata('msg');
-//				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
-				$pagevalue['msg'] = 'Не найдено ни одного апартамента';
+				$this->session->set_userdata('msg','Не найдено ни одного апартамента');
 				$this->load->view('user_interface/result',$pagevalue);
 				return FALSE;
 			endif;
 			
-			$cfgpag['base_url'] = base_url().$this->uri->segment(1).'/name-search';
+			$cfgpag['base_url'] = base_url().'/name-search';
 	        $cfgpag['total_rows'] = count($result);
 	        $cfgpag['per_page'] =  10;
 	        $cfgpag['num_links'] = 4;
-	        $cfgpag['uri_segment'] = 3;
+	        $cfgpag['uri_segment'] = 2;
 			$cfgpag['first_link'] = FALSE;
 			$cfgpag['first_tag_open'] = '<li>';
 			$cfgpag['first_tag_close'] = '</li>';
@@ -1709,16 +1671,16 @@ class Users_interface extends CI_Controller{
 			$cfgpag['num_tag_open'] = '<li>';
 			$cfgpag['num_tag_close'] = '</li>';			
 			
-			$from = intval($this->uri->segment(3));
+			$from = intval($this->uri->segment(2));
 			$sqlimit = $sql.' LIMIT '.$from.',5';
 			
 			$result = $this->apartmentmodel->search_limit_apartment($sqlimit,10,$from);
 			if(isset($from) and !empty($from)):
-				$this->session->set_userdata('backpage',$this->uri->segment(1).'/name-search/'.$from);
-				$this->session->set_userdata('searchback',$this->uri->segment(1).'/name-search/'.$from);
+				$this->session->set_userdata('backpage','name-search/'.$from);
+				$this->session->set_userdata('searchback','name-search/'.$from);
 			else:
-				$this->session->set_userdata('backpage',$this->uri->segment(1).'/name-search');
-				$this->session->set_userdata('searchback',$this->uri->segment(1).'/name-search');
+				$this->session->set_userdata('backpage','name-search');
+				$this->session->set_userdata('searchback','name-search');
 			endif;
 			$apartment = $result;
 			
@@ -1775,7 +1737,7 @@ class Users_interface extends CI_Controller{
 			'msg'		=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->set_userdata('backpage','contacts');
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
@@ -1814,8 +1776,6 @@ class Users_interface extends CI_Controller{
 					$this->session->set_userdata('msg','Сообщение не отправлено');
 					redirect($this->uri->uri_string());
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
 				$this->session->set_userdata('msg','Сообщение отправлено');
 				$_POST['extended'] = $_POST['msg'];
@@ -1832,196 +1792,5 @@ class Users_interface extends CI_Controller{
 		$pagevalue['image'] = $image;
 		$this->load->view('user_interface/contacts',$pagevalue);
 	} //функция выводит контактную информацию компании;
-	
-	function sendbackmail($name,$email){
-		
-		$msg = 'Здравствуйте, '.$name."\n".'Спасибо за ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно вам ответим в течение одного рабочего дня'."\n\n".'--------------------------------------'."\n".'С уважением,'."\n".'Агентство недвижимости Luminiza Property Tur S.L.';
-		$this->email->clear(TRUE);
-		$config['smtp_host'] = 'localhost';
-		$config['charset'] = 'utf-8';
-		$config['wordwrap'] = TRUE;
-		$this->email->initialize($config);
-		$this->email->from('info@lum-tenerife.com','Luminiza Property Tur S.L.');
-		$this->email->to($email);
-		$this->email->bcc('');
-		$this->email->subject('Заявка принята. Агентство недвижимости Luminiza Property Tur S.L.');
-		$textmail = strip_tags($msg);
-		$this->email->message($textmail);	
-		$this->email->send();
-	}
-		   
-	/*==================================================  PRINT  ======================================================*/
-
-	function retail_print(){
-		
-		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Недвижимость на Тенерифе | Ипотека | Сопровождение сделки | Luminiza Property Tur S.L.',
-			'baseurl' 		=> base_url(),
-			'retail'		=> array(),
-			'images'		=> array(),
-		);
-		$apart_id = $this->uri->segment(3);
-		$retail = array();	$images = array();
-		$apartament = $this->apartmentmodel->get_record($apart_id);
-		$retail['id'] = $apartament['apnt_id'];
-		$retail['title'] = $apartament['apnt_title'];
-		$retail['extended'] = $apartament['apnt_extended'];
-		
-		if(is_numeric($apartament['apnt_price'])):
-			$retail['price'] = number_format($apartament['apnt_price'],0,' ','.');
-		endif;
-		if(is_numeric($apartament['apnt_newprice'])):
-			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
-		endif;
-		/*$image = $this->imagesmodel->get_type_ones_image('apartment',$retail['id']);
-		if(isset($image) and !empty($image))
-			$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],$image['img_id']);
-		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('apartment',$retail['id'],0);
-		$retail['object'] = 'apartment';
-		$retail['date'] = $this->operation_date($apartament['apnt_date']);
-		
-		$retail['properties'] = array(
-							'object' 	=> '<strong>Объект:</strong>&nbsp;&nbsp;'.$apartament['apnt_object'],
-							'location' 	=> '<strong>Местонахождение:</strong>&nbsp;&nbsp;'.$apartament['apnt_location'],
-							'region' 	=> '<strong>Район:</strong>&nbsp;&nbsp;'.$apartament['apnt_region'],
-							'rooms' 	=> '<strong>Количество комнат:</strong>&nbsp;&nbsp;'.$apartament['apnt_count'],
-							);
-		$pagevalue['retail'] = $retail;
-		$pagevalue['images'] = $images;
-		$this->load->view('user_interface/retail_print_view',$pagevalue);
-	}
-	
-	function retail_commercial_print(){
-	
-		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Недвижимость на Тенерифе | Ипотека | Сопровождение сделки | Luminiza Property Tur S.L.',
-			'baseurl' 		=> base_url(),
-			'admin' 		=> $this->admin['status'],
-			'retail'		=> array(),
-			'images'		=> array(),
-		);
-		$apart_id = $this->uri->segment(4);
-		$retail = array();$images = array();
-		$apartament = $this->apartmentmodel->get_record($apart_id);
-		$retail['id'] = $apartament['apnt_id'];
-		$retail['title'] = $apartament['apnt_title'];
-		$retail['extended'] = $apartament['apnt_extended'];
-		if(is_numeric($apartament['apnt_price'])):
-			$retail['price'] = number_format($apartament['apnt_price'],0,' ','.');
-		endif;
-		if(is_numeric($apartament['apnt_newprice'])):
-			$retail['newprice'] = number_format($apartament['apnt_newprice'],0,' ','.');
-		endif;
-		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$retail['id']);
-		if(isset($image) and !empty($image))
-			$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],$image['img_id']);
-		$retail['img_id'] = $image['img_id'];
-		$retail['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('commercial',$retail['id'],0);
-		$retail['type'] = 'commercial';
-		$retail['date'] = $this->operation_date($apartament['apnt_date']);
-		
-		$retail['properties'] = array(
-							'object' 	=> '<strong>Объект:</strong>&nbsp;&nbsp;'.$apartament['apnt_object'],
-							'location' 	=> '<strong>Местонахождение:</strong>&nbsp;&nbsp;'.$apartament['apnt_location'],
-							'region' 	=> '<strong>Район:</strong>&nbsp;&nbsp;'.$apartament['apnt_region'],
-							'rooms' 	=> '<strong>Количество комнат:</strong>&nbsp;&nbsp;'.$apartament['apnt_count'],
-							);
-		$pagevalue['retail'] = $retail;
-		$pagevalue['images'] = $images;
-		$this->load->view('user_interface/retail_print_view',$pagevalue);
-	}
-	
-	function rent_print(){
-	
-		$pagevalue = array(
-			'title'			=> 'Аренда апартаментов и вилл | Недвижимость на Тенерифе | Luminiza Property Tur S.L.',
-			'description' 	=> 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' 		=> 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' 		=> 'RealityGroup',
-			'baseurl' 		=> base_url(),
-			'admin' 		=> $this->admin['status'],
-			'rent'			=> array(),
-			'images'		=> array(),
-		);
-		$rent = array(); $images = array();
-		$apartament = $this->apartmentmodel->get_record($this->uri->segment(3));
-		$rent['id'] = $apartament['apnt_id'];
-		$rent['title'] = $apartament['apnt_title'];
-		$rent['extended'] = $apartament['apnt_extended'];
-		$rent['properties'] = $apartament['apnt_properties'];
-		$rent['price'] = $apartament['apnt_price_rent'];
-		/*$image = $this->imagesmodel->get_type_ones_image('apartment',$rent['id']);
-		if(isset($image) and !empty($image))
-			$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],$image['img_id']);
-		$rent['img_id'] = $image['img_id'];
-		$rent['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('apartment',$rent['id'],0);
-		$pagevalue['rent'] = $rent;
-		$pagevalue['images'] = $images;
-		$this->load->view('user_interface/rent_print_view',$pagevalue);
-	}
-	
-	function rent_commercial_print(){
-		
-		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Аренда бизнеса | Коммерческая недвижимость на Тенерифе | Luminiza Property Tur S.L.',
-			'baseurl' 		=> base_url(),
-			'admin' 		=> $this->admin['status'],
-			'rent' 			=> array(),
-			'images' 		=> array(),
-		);
-		$rent = array();$images = array();
-		$apartament = $this->apartmentmodel->get_record($this->uri->segment(4));
-		$rent['id'] = $apartament['apnt_id'];
-		$rent['title'] = $apartament['apnt_title'];
-		$rent['extended'] = $apartament['apnt_extended'];
-		$rent['properties'] = $apartament['apnt_properties'];
-		$rent['price'] = $apartament['apnt_price_rent'];
-		/*$image = $this->imagesmodel->get_type_ones_image('commercial',$rent['id']);
-		if(isset($image) and !empty($image))
-			$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],$image['img_id']);
-		$rent['img_id'] = $image['img_id'];
-		$rent['img_title'] = $image['img_title'];*/
-		$images = $this->imagesmodel->get_images_without('commercial',$rent['id'],0);
-		$pagevalue['rent'] = $rent;
-		$pagevalue['images'] = $images;
-		$this->load->view('user_interface/rent_print_view',$pagevalue);
-	}
-
-/*================================================== END PRINT ======================================================*/
-
-	function pay(){
-		
-		$pagevalue = array(
-			'description' =>'Покупайте недвижимость online, невыходя из дома. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'купить online, тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Купить недвижимость Online | Недвижимость в Испании на Тенерифе | Luminiza Property Tur S.L.',
-			'baseurl' 	=> base_url(),
-			'admin' 	=> $this->admin['status'],
-			'text' 		=> $this->othertextmodel->get_record(21),
-			'sidebar' 	=> $this->sidebartextmodel->get_record(12)
-		);
-		$this->session->set_userdata('backpath',$this->uri->uri_string());
-		$this->session->unset_userdata('query');
-		$this->session->unset_userdata('status');
-		$this->session->unset_userdata('calc');
-		$this->session->unset_userdata('searchback');	
-		
-		$this->load->view('user_interface/pay',$pagevalue);
-	}
-
 }
 ?>

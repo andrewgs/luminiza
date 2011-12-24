@@ -78,7 +78,6 @@ class Admin_interface extends CI_Controller{
 				else:
 					$_POST['image'] = '';
 				endif;
-//				print_r($_POST);exit;
 				$this->session->set_userdata('msg','Отзыв добавлен');
 				$this->feedbackmodel->insert_record($_POST);
 				redirect($this->uri->uri_string());
