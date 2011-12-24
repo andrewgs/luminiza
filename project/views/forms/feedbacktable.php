@@ -3,6 +3,7 @@
 		<thead>
 			<tr class="odd">
 				<th scope="col" abbr="ID">ID</th>
+				<th scope="col" abbr="ФОТО">ФОТО</th>
 				<th scope="col" abbr="ИМИЯ И ФАМИЛИЯ">Имя и фамилия</th>	
 				<th scope="col" abbr="ГОРОД">Город</th>
 				<th scope="col" abbr="ТЕЛЕФОН">ТЕЛ.</th>
@@ -17,6 +18,7 @@
 		<?php for($i=0;$i<count($pagevalue['feedback']);$i++):?>
 			<tr rID="<?=$i?>"> 
 				<td rID="<?=$i?>"><?=$pagevalue['feedback'][$i]['fbk_id'];?></td>
+				<td><?=$i;?></td>
 				<td><?=$pagevalue['feedback'][$i]['fbk_fio'];?></td>
 				<td><?=$pagevalue['feedback'][$i]['fbk_region'];?></td>
 				<td><?=$pagevalue['feedback'][$i]['fbk_note'];?></td>

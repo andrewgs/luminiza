@@ -72,6 +72,13 @@ class Admin_interface extends CI_Controller{
 				return FALSE;
 			else:
 				$_POST['submit'] = NULL;
+				if($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0):
+					$img = $this->resize_img($_FILES,75,75,FALSE);
+					$_POST['image'] = $img['image'];
+				else:
+					$_POST['image'] = '';
+				endif;
+//				print_r($_POST);exit;
 				$this->session->set_userdata('msg','Отзыв добавлен');
 				$this->feedbackmodel->insert_record($_POST);
 				redirect($this->uri->uri_string());

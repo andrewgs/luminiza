@@ -16,11 +16,16 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<div class="formmailer">
+					<a class="crossing" id="btnAdd" href="">Форма добавления отзыва</a>
+					<div class="formmailer" id="frmAdd" style="display:none;">
 					<?php $this->load->view('forms/formfeedbackadd');?>
-					<hr size="2"/>
-					<?php $this->load->view('forms/feedbacktable');?>
 					</div>
+					<hr size="2"/>
+					<?php if($pagevalue['feedback']):?>
+					<div class="">
+						<?php $this->load->view('forms/feedbacktable');?>
+					</div>
+					<?php endif;?>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -44,6 +49,7 @@
 				event.preventDefault();
 			}
 		});
+		$("#btnAdd").click(function(){$("#frmAdd").toggle(); return false;});
 		$(".btndel").click(function(){
 			if(!confirm('Удалить отзыв?')) return false;
 			curID = $(this).attr("rID");

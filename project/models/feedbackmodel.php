@@ -5,6 +5,7 @@ class Feedbackmodel extends CI_Model{
 	var $fbk_fio = '';
 	var $fbk_note = '';
 	var $fbk_region = '';
+	var $fbk_image = '';
 	
 	function __construct(){
     
@@ -38,6 +39,7 @@ class Feedbackmodel extends CI_Model{
 		$this->fbk_fio = htmlspecialchars($data['fio']);
 		$this->fbk_note = strip_tags($data['note'],'<br>');
 		$this->fbk_region = htmlspecialchars($data['region']);
+		$this->fbk_image = $data['image'];
 		$this->db->insert('feedback',$this);
 		return $this->db->insert_id();
 	}
@@ -47,12 +49,16 @@ class Feedbackmodel extends CI_Model{
 		$this->db->set('fbk_fio',$data['fio']);
 		$this->db->set('fbk_note',$data['note']);
 		$this->db->set('fbk_region',$data['region']);
+		if($data['image']):
+			$this->db->set('fbk_image',$data['image']);
+		endif;
 		$this->db->where('fbk_id',$id);
 		$this->db->update('feedback', $this);
 		return $this->db->affected_rows();
 	}
 	
 	function delete_record($id){
+	
 		$this->db->where('fbk_id',$id);
 		$this->db->delete('feedback');
 		return $this->db->affected_rows();
