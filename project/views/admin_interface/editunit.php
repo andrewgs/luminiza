@@ -75,7 +75,7 @@
 								'name' 		=> 'newprice',
 								'id'   		=> 'textnewprice',
 							    'value'		=> $unitinfo['price2'],
-								'class'		=> 'textfield inpval',
+								'class'		=> 'textfield',
 							    'maxlength'	=> '40',
 							    'size' 		=> '10'
 							);

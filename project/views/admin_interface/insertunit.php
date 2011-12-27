@@ -84,7 +84,7 @@
 								'name' 		=> 'newprice',
 								'id'   		=> 'textprice',
 								'value'		=> set_value('newprice'),
-								'class'		=> 'textfield inpval',
+								'class'		=> 'textfield',
 								'maxlength'	=> '40',
 								'size' 		=> '10'
 							);
