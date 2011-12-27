@@ -16,7 +16,8 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<div class="formmailer">
+					<a class="crossing" id="btnAdd" href="">Форма добавления отзыва</a>
+					<div class="formmailer" id="frmAdd" style="display:none;">
 					<?php $this->load->view('forms/formfeedbackadd');?>
 					</div>
 				</div>
@@ -46,6 +47,7 @@
 				event.preventDefault();
 			}
 		});
+		$("#btnAdd").click(function(){$("#frmAdd").toggle(); return false;});
 		$(".btndel").click(function(){
 			if(!confirm('Удалить отзыв?')) return false;
 			curID = $(this).attr("rID");

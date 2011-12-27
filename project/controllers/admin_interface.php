@@ -16,7 +16,7 @@ class Admin_interface extends CI_Controller{
 		$this->load->model('imagesmodel');
 		$this->load->model('sidebartextmodel');
 		$this->load->model('tourlistmodel');		
-		$this->load->model('feedbackmodel');		
+		$this->load->model('feedbackmodel');
 		
 		$this->load->library('image_lib');
 		
@@ -72,6 +72,12 @@ class Admin_interface extends CI_Controller{
 				return FALSE;
 			else:
 				$_POST['submit'] = NULL;
+				if($_FILES['userfile']['error'] == 0 && $_FILES['userfile']['size'] > 0):
+					$img = $this->resize_img($_FILES,75,75,FALSE);
+					$_POST['image'] = $img['image'];
+				else:
+					$_POST['image'] = file_get_contents(base_url().'images/no_photo.jpg');
+				endif;
 				$this->session->set_userdata('msg','Отзыв добавлен');
 				$this->feedbackmodel->insert_record($_POST);
 				redirect($this->uri->uri_string());
@@ -342,6 +348,20 @@ class Admin_interface extends CI_Controller{
 								$pagevalue['backpath'] = 'aviabileti';
 								break;
 							break;
+			case 'services':	if($pagevalue['sidebar']):
+									$pagevalue['id'] = 14;
+								else:
+									$pagevalue['id'] = 22;
+								endif;
+								$pagevalue['backpath'] = 'services-provided';
+								break;
+							break;
+			case 'feedbacks':	if($pagevalue['sidebar']):
+									$pagevalue['id'] = 13;
+								endif;
+								$pagevalue['backpath'] = 'feedbacks';
+								break;
+							break;
 			case 'about':	if($pagevalue['sidebar'])
 								$pagevalue['id'] = 2;
 							break;
@@ -441,7 +461,6 @@ class Admin_interface extends CI_Controller{
 	function updatetext(){
 	
 		if(isset($_POST['btsabmit'])):
-		
 			if($_POST['sidebar']):
 				$this->sidebartextmodel->update_record($_POST);
 			else:
