@@ -76,7 +76,7 @@ class Admin_interface extends CI_Controller{
 					$img = $this->resize_img($_FILES,75,75,FALSE);
 					$_POST['image'] = $img['image'];
 				else:
-					$_POST['image'] = file_get_contents(base_url().'images/no_photo.jpg');
+					$_POST['image'] = file_get_contents(base_url().'images/no_photo.png');
 				endif;
 				$this->session->set_userdata('msg','Отзыв добавлен');
 				$this->feedbackmodel->insert_record($_POST);

@@ -1571,7 +1571,7 @@ class Users_interface extends CI_Controller{
 				if($_POST['segment'] == 'rent'):
 					$sql .= ' TRUE AND apnt_flag = 1 ORDER BY apnt_date DESC';
 				else:
-					$sql .= ' TRUE AND (apnt_flag = 0 OR apnt_flag = 2) AND (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice <= '.$_POST['topprice'].') ORDER BY apnt_price,apnt_newprice,apnt_date DESC';
+					$sql .= ' TRUE AND (apnt_flag = 0 OR apnt_flag = 2) AND (apnt_price >= '.$_POST['lowprice'].' AND apnt_price <= '.$_POST['topprice'].') OR (apnt_newprice >= '.$_POST['lowprice'].' AND apnt_newprice1 <= '.$_POST['topprice'].') ORDER BY apnt_price,apnt_newprice,apnt_date DESC';
 					$this->session->set_userdata('shlowprice',$_POST['lowprice']);
 					$this->session->set_userdata('shtopprice',$_POST['topprice']);
 				endif;

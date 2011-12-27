@@ -16,7 +16,7 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<a class="crossing" id="btnAdd" href="">Форма добавления отзыва</a>
+					<a class="crossing" id="btnAdd" href="">Показать/скрыть форму</a>
 					<div class="formmailer" id="frmAdd" style="display:none;">
 					<?php $this->load->view('forms/formfeedbackadd');?>
 					</div>
