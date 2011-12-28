@@ -119,7 +119,6 @@ nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; backgr
 #mailchimp-form .button { background: #e5e0dd; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #4b4444; display: inline-block; font-size: 12px; padding: 3px 6px; }
 
 #main {	padding: 25px 0; }
-p { margin-bottom: 10px; }
 h1 { color: #4b4444; font-size: 22px; line-height: 27px; margin-bottom: 10px; }
 h2 { color: #383333; font-size: 18px; line-height: 21px; text-decoration: underline; margin: 0 0 12px; }
 a { color: #0477a2; text-decoration: underline; }
@@ -133,11 +132,11 @@ a { color: #0477a2; text-decoration: underline; }
 #social-links .vkontakte { background-position: 0 -276px; }
 #social-links .twitter { background-position: 0 -302px; }
 
-.testimonials { margin-top: 25px; line-height: 19px; font-size: 12px; }
-.testimonials img { float: left; border:1px solid #afafaf; margin: 0 15px 0 0; }
-.testimonials .author { margin: 10px 0 0; font-size: 14px; }
-.testimonials .city { color: #808080; font-size: 13px; line-height: 14px; margin: 0 0 10px; }
-.testimonials a { font-size: 14px; margin-top: 10px; display: block; }
+#testimonials { margin-top: 25px; line-height: 19px; font-size: 12px; }
+#testimonials img { float: left; border:1px solid #afafaf; margin: 0 15px 0 0; }
+#testimonials .author { margin: 10px 0 0; font-size: 14px; }
+#testimonials .city { color: #808080; font-size: 13px; line-height: 14px; margin: 0 0 10px; }
+#testimonials a { font-size: 14px; margin-top: 10px; display: block; }
 
 /* Retail Page */
 .sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); padding: 20px 10px 15px 15px; }
@@ -150,7 +149,7 @@ a { color: #0477a2; text-decoration: underline; }
 
 .main_content { padding: 18px 0 0 18px; }
 	.main_content p { font-size: 13px; line-height: 21px; margin: 12px 0; }
-	.main_content ul, .main_content ol { margin: 0 0 20px 15px; }
+	.main_content ul, .main_content ol { margin: 0 0 0 40px; }
 	.main_content h2 { color: #4B4444; font: bold 15px trebuchet MS,sans-serif; margin: 15px 0 12px; }
 
 .retail-filter-table { width: 190px; }
@@ -162,7 +161,7 @@ a { color: #0477a2; text-decoration: underline; }
 	
 .main_content ul.pages { background:none repeat scroll 0 0 #F8F6ED; border-bottom:1px solid #E2DDCD; border-top:1px solid #E2DDCD; margin:-5px 0 0; overflow:hidden; padding:6px 2%; width:96%; }
 .main_content ul.top_pages { margin:24px 0; }
-.main_content ul li, .main_content dl dd { color: #777; display: list-item; font: 12px/21px trebuchet MS,sans-serif; list-style: none outside none; margin: 0 !important; padding: 0 0 5px 10px; }
+.main_content ul li, .main_content dl dd { display:list-item; font-size:12px; line-height:1.3em; list-style:disc outside none; margin-bottom:6px; margin-left:32px; padding-left:4px; }
 .main_content ul.pages li { color:#6D5935; display:inline; float:left; margin:0 6px 0 0; padding:0; }
 .main_content ul.pages li.title { font-weight:bold; padding-top:3px; }
 .main_content ul.pages li a { display:block; padding:3px 4px; text-decoration:underline; }
@@ -174,12 +173,12 @@ a { color: #0477a2; text-decoration: underline; }
 .missions_right_panel.extended { display: block; float: none; width: auto; }
 	.missions_right_panel p { margin: 8px 0 0; }
 	.missions_right_panel .car_preferences { float: left; font-size: 12px; line-height: 18px; margin: 10px 50px 0 0; }
+	.missions_right_panel .notmargin { margin-top: 0; }
 	.missions_right_panel h1 { font-size: 16px; margin: 0; line-height: 19px; }
 	.sell-date { font-size: 12px; }
 	.lnk-mortage { display: none; }
 	.missions_right_panel h2 { font-size: 15px; margin-bottom: 0; }
 	h1 strike, h2 strike { color: #d13a31; font-weight: normal; }
-	.notmargin { margin-top: 0; }
 
 .ml10 { display: inline-block; font-size: 13px; margin: 0 10px 0 0; }
 #photo-slider { border: 0 solid #999; border-radius: 2px; box-shadow: 0 0 3px #333; float: left; margin: 2px 7px 0 0; }
@@ -207,10 +206,6 @@ a.info_link:hover { background: #895935; }
 
 .sidebar ul { margin-bottom: 10px; }
 .sidebar li { font: 13px/21px trebuchet ms, serif; }
-.sidebar li a { background: #E4B211; border: 1px solid #AE8911; border-radius: 3px; color: #4B4444; display: block; font-size: 12px; margin: 0 0 3px; padding: 4px 8px; text-decoration: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35); }
-table#reviews { background: #eee; border: 1px dotted #ccc; }
-table#reviews td, table#reviews th { border: 1px dotted #CCC !important; font: 13px trebuchet MS,sans-serif; padding: 5px 8px !important; }
-table#reviews th {  font-weight: bold; vertical-align: middle; text-align: center; }
 /* General styles*/
 
 /* Forms */

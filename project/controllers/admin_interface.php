@@ -44,7 +44,21 @@ class Admin_interface extends CI_Controller{
 			$msg = $this->setmessage('','',$flashmsg,1);
 
 		$this->load->view('admin_interface/adminpanel',array('pagevalue'=>$pagevalue,'msg'=>$msg));
-	}				//функция показывает панель администрирования;
+	}//функция показывает панель администрирования;
+	
+	function ficha(){
+	
+		$backpage = $this->session->userdata('backpage');
+		$pagevalue = array(
+				'description'	=> '',
+				'author' 		=> '',
+				'title'			=> "Вкладка собственности",
+				'backpage' 		=> $backpage,
+				'admin' 		=> FALSE,
+				'baseurl' 		=> base_url()
+		);
+		$this->load->view('admin_interface/ficha',array('pagevalue'=>$pagevalue));
+	}
 	
 	function feedback(){
 	
