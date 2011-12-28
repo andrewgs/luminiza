@@ -8,6 +8,7 @@ $route['scaffolding_trigger'] = "";
 $route['index'] 						= "users_interface/index";
 $route['about'] 						= "users_interface/about";
 $route['aviabileti'] 					= "users_interface/aviabileti";
+$route['pay']		 					= "users_interface/pay";
 $route['feedbacks'] 					= "users_interface/feedbacks";
 $route['feedbacks/page'] 				= "users_interface/feedbacks";
 $route['feedbacks/page/:num'] 			= "users_interface/feedbacks";
@@ -71,6 +72,7 @@ $route['login'] = "admin_interface/login";
 $route[':any/login'] = "admin_interface/login";
 $route['logoff'] = "admin_interface/logoff";
 
+$route['ficha'] = "admin_interface/ficha";
 $route['feedback'] = "admin_interface/feedback";
 $route['feedback/delete-record'] = "admin_interface/delete_feedback";
 
