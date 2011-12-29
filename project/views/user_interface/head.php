@@ -6,8 +6,8 @@
 	<meta name="keywords" content="<?=$keywords;?>">
 	<meta name="author" content="<?=$author;?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="<?=$baseurl;?>/favicon.ico">
-	<link rel="apple-touch-icon" href="<?=$baseurl;?>/apple-touch-icon.png">
+	<link rel="shortcut icon" href="<?=$baseurl;?>favicon.ico">
+	<link rel="apple-touch-icon" href="<?=$baseurl;?>apple-touch-icon.png">
 	<link rel="stylesheet" href="<?=$baseurl;?>css/style-new.css?v=2">
 	<link rel="stylesheet" href="<?=$baseurl;?>css/960.css"> 
 	<link rel="stylesheet" href="<?=$baseurl;?>css/pirobox.css">

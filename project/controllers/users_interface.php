@@ -295,6 +295,7 @@ class Users_interface extends CI_Controller{
 			'retail'		=> array(),
 			'images'		=> array(),
 			'text'			=> '',
+			'ficha'			=> 'retail/apartment/68/ficha'
 			'msg'			=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
