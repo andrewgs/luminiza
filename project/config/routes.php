@@ -72,7 +72,12 @@ $route['login'] = "admin_interface/login";
 $route[':any/login'] = "admin_interface/login";
 $route['logoff'] = "admin_interface/logoff";
 
-$route['ficha'] = "admin_interface/ficha";
+$route['retail/apartment/:num/ficha']  				= "admin_interface/ficha";
+$route['retail/commercial/extended/:num/ficha']  	= "admin_interface/ficha";
+$route['rent/apartment/:num/ficha']  				= "admin_interface/ficha";
+$route['rent/commercial/extended/:num/ficha']  		= "admin_interface/ficha";
+
+
 $route['feedback'] = "admin_interface/feedback";
 $route['feedback/delete-record'] = "admin_interface/delete_feedback";
 

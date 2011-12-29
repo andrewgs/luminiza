@@ -295,11 +295,12 @@ class Users_interface extends CI_Controller{
 			'retail'		=> array(),
 			'images'		=> array(),
 			'text'			=> '',
-			'ficha'			=> 'retail/apartment/68/ficha'
+			'ficha'			=> '',
 			'msg'			=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
 		$apart_id = $this->uri->segment(3);
+		$pagevalue['ficha'] = 'retail/apartment/'.$apart_id.'/ficha';
 		$retail = array();	$images = array();
 		$status = $this->session->userdata('status');
 //		$this->session->set_userdata('backpath',$this->uri->uri_string());
@@ -515,10 +516,12 @@ class Users_interface extends CI_Controller{
 			'retail'		=> array(),
 			'images'		=> array(),
 			'text'			=> '',
+			'ficha'			=> '',
 			'msg'			=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
 		$apart_id = $this->uri->segment(4);
+		$pagevalue['ficha'] = 'retail/commercial/extended/'.$apart_id.'/ficha';
 		$retail = array();$images = array();
 		$status = $this->session->userdata('status');
 		$this->session->set_userdata('calc',TRUE);
@@ -744,6 +747,7 @@ class Users_interface extends CI_Controller{
 			'rent'			=> array(),
 			'images'		=> array(),
 			'text'			=> array(),
+			'ficha'			=> NULL,
 			'msg'			=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
@@ -751,6 +755,7 @@ class Users_interface extends CI_Controller{
 			$pagevalue['title'] = 'Аренда автомобилей на Тенерифе | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Аренда автомобилей от семейных минивэнов до престижных моделей представительского класса или стильных спорткаров. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.';  
 		else:
+			$pagevalue['ficha'] = 'rent/apartment/'.$rent_id.'/ficha';
 			$pagevalue['title'] = 'Аренда апартаментов и вилл | Недвижимость на Тенерифе | Luminiza Property Tur S.L.';
 			$pagevalue['description'] = 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.'; 
 		endif;
@@ -1048,9 +1053,11 @@ class Users_interface extends CI_Controller{
 			'rent' 			=> array(),
 			'images' 		=> array(),
 			'text' 			=> array(),
+			'ficha'			=> '',
 			'msg'			=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
+		$pagevalue['ficha'] = 'rent/commercial/extended/'.$rent_id.'/ficha';
 		$rent = array();$images = array();
 		$status = $this->session->userdata('status');
 		$text = array();

@@ -17,6 +17,7 @@ class Admin_interface extends CI_Controller{
 		$this->load->model('sidebartextmodel');
 		$this->load->model('tourlistmodel');		
 		$this->load->model('feedbackmodel');
+		$this->load->model('fichamodel');
 		
 		$this->load->library('image_lib');
 		
@@ -48,15 +49,41 @@ class Admin_interface extends CI_Controller{
 	
 	function ficha(){
 	
-		$backpage = $this->session->userdata('backpage');
+		$backpage = $this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->segment(3);
+		$apart_id = $this->uri->segment(3);
+		if($this->uri->total_segments() == 5):
+			$backpage .= '/'.$this->uri->segment(4);
+			$apart_id = $this->uri->segment(4);
+		endif;
+		
 		$pagevalue = array(
 				'description'	=> '',
 				'author' 		=> '',
 				'title'			=> "Вкладка собственности",
 				'backpage' 		=> $backpage,
 				'admin' 		=> FALSE,
-				'baseurl' 		=> base_url()
+				'baseurl' 		=> base_url(),
+				'ficha'			=> $this->fichamodel->read_record($apart_id)
 		);
+		if(!$pagevalue['ficha']):
+			$this->fichamodel->insert_empty($apart_id);
+			$pagevalue['ficha'] = $this->fichamodel->read_record($apart_id);
+		endif;
+		
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('fecha','"fecha"','required|trim');
+			$this->form_validation->set_rules('referencia','"referencia"','required|trim');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$_POST['submit'] = NULL;
+				$this->ficha();
+				return FALSE;
+			else:
+				$this->fichamodel->update_record($apart_id,$_POST);
+				$this->session->set_userdata('msg','Паспорт сохранен!');
+				redirect($backpage);
+			endif;
+		endif;
 		$this->load->view('admin_interface/ficha',array('pagevalue'=>$pagevalue));
 	}
 	
