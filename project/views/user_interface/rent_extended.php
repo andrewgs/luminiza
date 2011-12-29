@@ -73,6 +73,9 @@
 				<?php if($this->uri->segment(2) == 'apartment'):?>
 					<div>
 			<?=anchor('rent/apartment/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+			<?php if(isset($ficha)):?>
+				<?=anchor($ficha,'Ficha',array('class'=>'retail_link'));?>
+			<?php endif;?>
 					</div>
 				<?php endif; ?>
 					<div id="kontakt" class="formmailer">

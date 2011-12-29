@@ -339,7 +339,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -561,7 +561,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -837,7 +837,7 @@ class Users_interface extends CI_Controller{
 					$config['wordwrap'] = TRUE;
 					$this->email->initialize($config);
 					$this->email->from($_POST['email'],$_POST['name']);
-					$this->email->to('info@lum-tenerife.com');
+					$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 					$this->email->bcc('');
 					$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 					$textmail = strip_tags($_POST['msg']);
@@ -903,7 +903,7 @@ class Users_interface extends CI_Controller{
 					$config['wordwrap'] = TRUE;
 					$this->email->initialize($config);
 					$this->email->from($_POST['email'],$_POST['name']);
-					$this->email->to('info@lum-tenerife.com');
+					$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 					$this->email->bcc('');
 					$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 					$textmail = strip_tags($_POST['msg']);
@@ -1107,7 +1107,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1290,7 +1290,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1361,7 +1361,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1454,7 +1454,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);
@@ -1903,7 +1903,7 @@ class Users_interface extends CI_Controller{
 				$config['wordwrap'] = TRUE;
 				$this->email->initialize($config);
 				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com');
+				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 				$this->email->bcc('');
 				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
 				$textmail = strip_tags($_POST['msg']);

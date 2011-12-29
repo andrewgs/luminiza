@@ -65,6 +65,9 @@
 					</div>
 				<div>
 	<?=anchor('rent/commercial/extended/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+			<?php if(isset($ficha)):?>
+				<?=anchor($ficha,'Ficha',array('class'=>'retail_link'));?>
+			<?php endif;?>
 				</div>
 				<?php if($this->uri->segment(1) == 'rent'):?>
 					<div id="kontakt" class="formmailer">

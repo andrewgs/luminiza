@@ -106,6 +106,9 @@
 					</div>
 				<div>
 			<?=anchor('retail/apartment/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+			<?php if(isset($ficha)):?>
+				<?=anchor($ficha,'Ficha',array('class'=>'retail_link'));?>
+			<?php endif;?>
 				</div>
 					<?php if($this->uri->segment(1) == 'retail'):?>
 					<div id="kontakt" class="formmailer">
