@@ -109,6 +109,7 @@ class Admin_interface extends CI_Controller{
 		$pagevalue['apartcount']['retail'] =  $this->apartmentmodel->count_records_flags(0);
 		$pagevalue['apartcount']['rent'] =  $this->apartmentmodel->count_records_flags(1);
 		$pagevalue['apartcount']['retail_rent'] =  $this->apartmentmodel->count_records_flags(2);
+		$pagevalue['apartcount']['comercial'] =  $this->apartmentmodel->count_records_flags(3);
 
 		$this->load->view('admin_interface/statistic',array('pagevalue'=>$pagevalue));
 	}
