@@ -2,6 +2,7 @@
 	<div class="admin-panel">
 		<div class="container_12 clearfix">
 			<div class="grid_12">
+				<?=anchor('statistic','Статистика');?>
 				<?=anchor('feedback','Отзывы');?>
 				<?=anchor('profile','Сменить пароль');?>
 				<?=anchor('logoff','Завершить сеанс');?>

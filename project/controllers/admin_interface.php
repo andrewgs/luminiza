@@ -89,6 +89,30 @@ class Admin_interface extends CI_Controller{
 		$this->load->view('admin_interface/ficha',array('pagevalue'=>$pagevalue));
 	}
 	
+	function statistic(){
+		
+		$pagevalue = array(
+				'description'	=> '',
+				'author' 		=> '',
+				'title'			=> "Статистика",
+				'backpage' 		=> $this->session->userdata('backpage'),
+				'admin' 		=> FALSE,
+				'baseurl' 		=> base_url(),
+				'apartcount'	=> array(),
+				'apartments'	=> $this->apartmentmodel->get_records(),
+				'autocount'		=> $this->rentautomodel->count_records(),
+				'auto'			=> $this->rentautomodel->get_records(),
+				'specials'		=> $this->apartmentmodel->get_specials(),
+				'sold'			=> $this->apartmentmodel->get_sold()
+		);
+		$pagevalue['apartcount']['all'] =  $this->apartmentmodel->count_records();
+		$pagevalue['apartcount']['retail'] =  $this->apartmentmodel->count_records_flags(0);
+		$pagevalue['apartcount']['rent'] =  $this->apartmentmodel->count_records_flags(1);
+		$pagevalue['apartcount']['retail_rent'] =  $this->apartmentmodel->count_records_flags(2);
+
+		$this->load->view('admin_interface/statistic',array('pagevalue'=>$pagevalue));
+	}
+	
 	function feedback(){
 	
 		$backpage = $this->session->userdata('backpage');

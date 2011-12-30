@@ -71,6 +71,7 @@ $route['profile'] = "admin_interface/profile";
 $route['login'] = "admin_interface/login";
 $route[':any/login'] = "admin_interface/login";
 $route['logoff'] = "admin_interface/logoff";
+$route['statistic'] = "admin_interface/statistic";
 
 $route['retail/apartment/:num/ficha']  				= "admin_interface/ficha";
 $route['retail/commercial/extended/:num/ficha']  	= "admin_interface/ficha";
