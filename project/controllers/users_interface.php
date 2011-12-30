@@ -19,8 +19,10 @@ class Users_interface extends CI_Controller{
 		$this->load->model('tourlistmodel');		
 		$this->load->model('feedbackmodel');		
 		
-		if($this->session->userdata('logon') == '0ddd2cf5b8929fcbd721f2365099c6e3')
+		if($this->session->userdata('logon') == '0ddd2cf5b8929fcbd721f2365099c6e3'){
 			$this->admin['status'] = TRUE;
+			$this->session->unset_userdata('ficha');
+		}
 	}
 	
 	function index(){

@@ -57,19 +57,26 @@ class Admin_interface extends CI_Controller{
 		endif;
 		
 		if($this->input->post('psubmit')):
-			$_POST['psubmit'] = NULL;
 			$ulogin = $this->session->userdata('login');
 			$user = $this->authentication->valid_user($ulogin,$_POST['pass']);
 			if(!$user):
+				$this->session->unset_userdata('ficha');
 				redirect($backpage);
 			else:
+				$this->session->set_userdata('ficha',TRUE);
 				redirect($this->uri->uri_string());
 			endif;
+		elseif($this->session->userdata('ficha')):
+			TRUE;
+		else:
+			$this->session->unset_userdata('ficha');
+			redirect($backpage);
 		endif;
+		
 		$pagevalue = array(
 				'description'	=> '',
 				'author' 		=> '',
-				'title'			=> "Вкладка собственности",
+				'title'			=> "Ficha",
 				'backpage' 		=> $backpage,
 				'admin' 		=> FALSE,
 				'baseurl' 		=> base_url(),
@@ -84,6 +91,7 @@ class Admin_interface extends CI_Controller{
 			$_POST['submit'] = NULL;
 			$this->fichamodel->update_record($apart_id,$_POST);
 			$this->session->set_userdata('msg','Паспорт сохранен!');
+			$this->session->unset_userdata('ficha');
 			redirect($backpage);
 		endif;
 		$this->load->view('admin_interface/ficha',array('pagevalue'=>$pagevalue));
