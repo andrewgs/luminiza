@@ -28,10 +28,5 @@
 	<?php $this->load->view('admin_interface/footer');?>
 </div>
 <?php $this->load->view('admin_interface/scripts');?>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#send").click(function(event){var err = false;$(".inpval").css('border-color','#00ff00');$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});if(err){$.jGrowl("Поля не могут быть пустыми",{header:'Форма добавления'});event.preventDefault();}});
-	});
-</script>
 </body>
 </html>

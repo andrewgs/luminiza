@@ -1,13 +1,13 @@
 <?=form_open($this->uri->uri_string(),array('id'=>'frmRent'));?>
 	<div class="m-sangria">
 		<label for="fecha">FECHA</label>
-		<input type="text" class="inv inpval" name="fecha" value="<?=$pagevalue['ficha']['fch_fecha'];?>">
+		<input type="text" class="inv" name="fecha" value="<?=$pagevalue['ficha']['fch_fecha'];?>">
 	</div>
 	<div class="m-sangria">
 		<label for="nombre">NOMBRE quien hizo la referencia</label>
 		<input type="text" class="inv" name="nombre" value="<?=$pagevalue['ficha']['fch_nombre'];?>">
 		<label for="referencia">REFERENCIA</label>
-		<input type="text" class="inv inpval" name="referencia" value="<?=$pagevalue['ficha']['fch_referencia'];?>">
+		<input type="text" class="inv" name="referencia" value="<?=$pagevalue['ficha']['fch_referencia'];?>">
 	</div>
 	<div class="m-sangria">
 		<label for="direccion">DIRECCION</label>

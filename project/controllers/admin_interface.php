@@ -48,7 +48,7 @@ class Admin_interface extends CI_Controller{
 	}//функция показывает панель администрирования;
 	
 	function ficha(){
-	
+		
 		$backpage = $this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->segment(3);
 		$apart_id = $this->uri->segment(3);
 		if($this->uri->total_segments() == 5):
@@ -56,6 +56,16 @@ class Admin_interface extends CI_Controller{
 			$apart_id = $this->uri->segment(4);
 		endif;
 		
+		if($this->input->post('psubmit')):
+			$_POST['psubmit'] = NULL;
+			$ulogin = $this->session->userdata('login');
+			$user = $this->authentication->valid_user($ulogin,$_POST['pass']);
+			if(!$user):
+				redirect($backpage);
+			else:
+				redirect($this->uri->uri_string());
+			endif;
+		endif;
 		$pagevalue = array(
 				'description'	=> '',
 				'author' 		=> '',
@@ -71,18 +81,10 @@ class Admin_interface extends CI_Controller{
 		endif;
 		
 		if($this->input->post('submit')):
-			$this->form_validation->set_rules('fecha','"fecha"','required|trim');
-			$this->form_validation->set_rules('referencia','"referencia"','required|trim');
-			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
-			if(!$this->form_validation->run()):
-				$_POST['submit'] = NULL;
-				$this->ficha();
-				return FALSE;
-			else:
-				$this->fichamodel->update_record($apart_id,$_POST);
-				$this->session->set_userdata('msg','Паспорт сохранен!');
-				redirect($backpage);
-			endif;
+			$_POST['submit'] = NULL;
+			$this->fichamodel->update_record($apart_id,$_POST);
+			$this->session->set_userdata('msg','Паспорт сохранен!');
+			redirect($backpage);
 		endif;
 		$this->load->view('admin_interface/ficha',array('pagevalue'=>$pagevalue));
 	}

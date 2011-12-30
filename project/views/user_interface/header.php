@@ -2,9 +2,6 @@
 	<div class="admin-panel">
 		<div class="container_12 clearfix">
 			<div class="grid_12">
-			<?php if(isset($ficha)):?>
-				<?=anchor($ficha,'Ficha');?>
-			<?php endif;?>
 				<?=anchor('feedback','Отзывы');?>
 				<?=anchor('profile','Сменить пароль');?>
 				<?=anchor('logoff','Завершить сеанс');?>

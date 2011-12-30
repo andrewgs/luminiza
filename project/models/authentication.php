@@ -15,6 +15,7 @@ class Authentication extends CI_Model{
   }
 	
 	function get_users_info($login){
+		
 		$this->db->where('usr_login',$login);
 		$query = $this->db->get('users',1);
 		$data = $query->result_array();
@@ -30,6 +31,16 @@ class Authentication extends CI_Model{
 		$this->db->set('usr_pass_crypt',$pass_crypt);
 		$this->db->where('usr_id',$data['id']);
 		$this->db->update('users'); 
+	}
+
+	function valid_user($login,$pass){
+	
+		$this->db->where('usr_login',$login);
+		$this->db->where('usr_password',md5($pass));
+		$query = $this->db->get('users',1);
+		$data = $query->result_array();
+		if(isset($data[0])) return TRUE;
+		return FALSE;
 	}
 }
 ?>
