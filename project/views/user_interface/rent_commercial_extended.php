@@ -65,7 +65,7 @@
 					</div>
 				<div>
 	<?=anchor('rent/commercial/extended/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
-			<?php if(isset($ficha)):?>
+			<?php if(isset($ficha) && $admin):?>
 				<?=anchor($ficha,'Ficha',array('class'=>'retail_link','id'=>'FichaView'));?>
 				<div id="FichaPassForm" style="display:none;">
 					<?=form_open($ficha,array('id'=>'frmPass'));?>
