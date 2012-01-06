@@ -859,16 +859,14 @@ class Admin_interface extends CI_Controller{
 	function inserttourvalue(){
 		
 		if(isset($_POST['btsabmit'])):
-			
 			$this->form_validation->set_rules('title','"Навание"','required|trim');
 			$this->form_validation->set_rules('extended','"Раcширенная информация"','required|trim');
-
+			$this->form_validation->set_rules('price','"Цена"','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
-			
-			if (!$this->form_validation->run()){
+			if(!$this->form_validation->run()):
 				$this->inserttour($_POST['backpath']);
 				return FALSE;
-			}
+			endif;
 			$this->tourlistmodel->insert_record($_POST);
 			redirect($_POST['backpath']);
 		else:
@@ -942,12 +940,12 @@ class Admin_interface extends CI_Controller{
 
 	function updatetour(){
 		
-		if(isset($_POST['btsabmit'])){
-		
+		if(isset($_POST['btsabmit'])):
 			$this->tourlistmodel->update_record($_POST);
 			redirect($_POST['backpath']);
-		}else
+		else:
 			show_404();
+		endif;
 	}					//функция обновляет информацию об экскурсии;
 
 	function photomanipulation(){
