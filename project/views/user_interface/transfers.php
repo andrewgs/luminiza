@@ -65,29 +65,80 @@
   <?php $this->load->view('user_interface/footer');?>
 	</div>
 <?php $this->load->view('user_interface/scripts');?>
+<script src="<?=$baseurl;?>js/datepicker/jquery.bgiframe-2.1.1.js" type="text/javascript"></script>
+<script src="<?=$baseurl;?>js/datepicker/jquery.ui.core.js" type="text/javascript" ></script>
+<script src="<?=$baseurl;?>js/datepicker/jquery.ui.datepicker-ru.js" type="text/javascript" ></script>
+<script src="<?=$baseurl;?>js/datepicker/jquery.ui.datepicker.js" type="text/javascript" ></script>
+<script src="<?=$baseurl;?>js/datepicker/jquery.ui.widget.js" type="text/javascript" ></script>
 <?php $this->load->view('user_interface/yandex');?>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var price = 0;
+		$("#TotalPrice").html(pricing($("#place option:selected").attr("price"),1));
+		$("#date").datepicker($.datepicker.regional['ru']);
 		<?php if($msg):?>
-			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
+			$.jGrowl("<?=$msg;?>",{header:'Форма заказа'});
 		<?php endif;?>
 		$("#send").click(function(event){
 			var err = false;
 			var email = $("#email").val();
+			var phone = $("#phone").val();
 			$(".inpval").css('border-color','#00ff00');
 			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
 			if(err){
-				$.jGrowl("Поля не могут быть пустыми",{header:'Контакная форма'});
+				$.jGrowl("Поля не могут быть пустыми",{header:'Форма заказа'});
 				event.preventDefault();
 			}else if(!isValidEmailAddress(email)){
 				$("#email").css('border-color','#ff0000');
-				$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});
+				$.jGrowl("Не верный адрес E-Mail",{header:'Форма заказа'});
+				event.preventDefault();
+			}else if(!isValidPhone(phone)){
+				$("#email").css('border-color','#ff0000');
+				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
+				event.preventDefault();
+			}else if(people > 8){
+				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
 				event.preventDefault();
 			}
 		});
+		
+		$("#place").change(function(){
+			var pPrice = $("#place option:selected").attr("price");
+			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			var price = pricing(pPrice,people);
+			$("#TotalPrice").html(price);
+		});
+		
+		$(".short").change(function(){
+			var curVal = $(this).val();
+			var cAdults = parseFloat($("#adults").val());
+			var cChildren = parseFloat($("#children").val());
+			var cInfants = parseFloat($("#infants").val());
+			var people = cAdults+cChildren+cInfants;
+			if(people > 8){
+				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
+				var subPeople = 8-people;
+				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
+				return false;
+			}else{
+				var pPrice = $("#place option:selected").attr("price");
+				var price = pricing(pPrice,people);
+				$("#TotalPrice").html(price);
+			}
+			
+		});
+		
+		function pricing(pPrice,people){
+			var price = parseFloat(pPrice)+parseFloat(people*23);
+			return price+'.00';
+		}
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);
+		};
+		function isValidPhone(phoneNumber){
+			var pattern = new RegExp(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i);
+			return pattern.test(phoneNumber);
 		};
 	});
 </script>

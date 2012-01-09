@@ -4,9 +4,9 @@
 		<label for="name">Откуда/Куда</label>
 		<div class="dd">
 			<select class="name inpval" id="place" name="place">
-				<option value="0">Северный аэропорт (Los Rodeos)</option>
-				<option value="1">Южный аэропорт (Reina Sofia)</option>
-				<option value="2">Лоро Парк (Loro Parque)</option>
+				<option value="0" price="1">Северный аэропорт (Los Rodeos)</option>
+				<option value="1" price="10">Южный аэропорт (Reina Sofia)</option>
+				<option value="2" price="100">Лоро Парк (Loro Parque)</option>
 			</select>
 		</div>
 		<div class="clear"></div>
@@ -22,25 +22,25 @@
 			<div class="labelbox">
 				<label class="minor">Взрослые</label>
 				<select class="short" id="adults" name="adults">
-					<? for ($i = 1; $i <= 8; $i++) : ?>
+					<?php for ($i = 1; $i <= 8; $i++) : ?>
 					<option value="<?=$i;?>"><?=$i;?></option>
-					<? endfor; ?>
+					<?php endfor; ?>
 				</select>
 			</div>
 			<div class="labelbox">
 				<label class="minor">Дети</label>
-				<select class="short" id="adults" name="adults">
-					<? for ($i = 0; $i <= 4; $i++) : ?>
+				<select class="short" id="children" name="adults">
+					<?php for ($i = 0; $i <= 4; $i++) : ?>
 					<option value="<?=$i;?>"><?=$i;?></option>
-					<? endfor; ?>
+					<?php endfor; ?>
 				</select>
 			</div>
 			<div class="labelbox">
 				<label class="minor">Младенцы</label>
-				<select class="short" id="adults" name="adults">
-					<? for ($i = 0; $i <= 4; $i++) : ?>
+				<select class="short" id="infants" name="adults">
+					<?php for ($i = 0; $i <= 4; $i++) : ?>
 					<option value="<?=$i;?>"><?=$i;?></option>
-					<? endfor; ?>
+					<?php endfor; ?>
 				</select>
 			</div>
 			<div class="clear"></div>
@@ -70,7 +70,7 @@
 		</div>
 		<div class="total-price">
 			Всего: 
-			<span id="price">90.00</span>
+			<span id="TotalPrice">0.00</span>
 			<span> &euro;</span>
 		</div>
 		<div class="clear"></div>
