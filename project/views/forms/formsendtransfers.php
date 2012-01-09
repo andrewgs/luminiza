@@ -4,9 +4,9 @@
 		<label for="name">Откуда/Куда</label>
 		<div class="dd">
 			<select class="name inpval" id="place" name="place">
-				<option value="0" price="1">Северный аэропорт (Los Rodeos)</option>
-				<option value="1" price="10">Южный аэропорт (Reina Sofia)</option>
-				<option value="2" price="100">Лоро Парк (Loro Parque)</option>
+				<option value="1" price="">Северный аэропорт (Los Rodeos)</option>
+				<option value="2" price="">Южный аэропорт (Reina Sofia)</option>
+				<option value="3" price="">Лоро Парк (Loro Parque)</option>
 			</select>
 		</div>
 		<div class="clear"></div>

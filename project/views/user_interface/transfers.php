@@ -65,17 +65,13 @@
   <?php $this->load->view('user_interface/footer');?>
 	</div>
 <?php $this->load->view('user_interface/scripts');?>
-<script src="<?=$baseurl;?>js/datepicker/jquery.bgiframe-2.1.1.js" type="text/javascript"></script>
-<script src="<?=$baseurl;?>js/datepicker/jquery.ui.core.js" type="text/javascript" ></script>
-<script src="<?=$baseurl;?>js/datepicker/jquery.ui.datepicker-ru.js" type="text/javascript" ></script>
-<script src="<?=$baseurl;?>js/datepicker/jquery.ui.datepicker.js" type="text/javascript" ></script>
-<script src="<?=$baseurl;?>js/datepicker/jquery.ui.widget.js" type="text/javascript" ></script>
+<?php $this->load->view('user_interface/datepicker');?>
 <?php $this->load->view('user_interface/yandex');?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var price = 0;
-		$("#TotalPrice").html(pricing($("#place option:selected").attr("price"),1));
-		$("#date").datepicker($.datepicker.regional['ru']);
+		$("#TotalPrice").html(pricing(1,1));
+		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Форма заказа'});
 		<?php endif;?>
@@ -103,9 +99,9 @@
 		});
 		
 		$("#place").change(function(){
-			var pPrice = $("#place option:selected").attr("price");
+			var place = $("#place").val();
 			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
-			var price = pricing(pPrice,people);
+			var price = pricing(place,people);
 			$("#TotalPrice").html(price);
 		});
 		
@@ -121,16 +117,21 @@
 				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
 				return false;
 			}else{
-				var pPrice = $("#place option:selected").attr("price");
-				var price = pricing(pPrice,people);
+				var place = $("#place").val();
+				var price = pricing(place,people);
 				$("#TotalPrice").html(price);
 			}
 			
 		});
 		
-		function pricing(pPrice,people){
-			var price = parseFloat(pPrice)+parseFloat(people*23);
-			return price+'.00';
+		function pricing(place,people){
+			var price = "0.00";
+			if(place == 1 && people <= 4) price = "90.00";
+			if(place == 1 && people > 4) price = "120.00";
+			if(place == 2 && people <= 4) price = "30.00";
+			if(place == 2 && people > 4) price = "60.00";
+			if(place == 3) price = "150.00";
+			return price;
 		}
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
