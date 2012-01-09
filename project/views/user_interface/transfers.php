@@ -89,7 +89,7 @@
 				$.jGrowl("Не верный адрес E-Mail",{header:'Форма заказа'});
 				event.preventDefault();
 			}else if(!isValidPhone(phone)){
-				$("#email").css('border-color','#ff0000');
+				$("#phone").css('border-color','#ff0000');
 				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
 				event.preventDefault();
 			}else if(people > 8){

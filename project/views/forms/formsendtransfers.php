@@ -4,16 +4,16 @@
 	<label for="name">Откуда/Куда</label>
 	<div class="dd">
 		<select class="name inpval" id="place" name="place">
-			<option value="0">Северный аэропорт (Los Rodeos)</option>
-			<option value="1">Южный аэропорт (Reina Sofia)</option>
-			<option value="2">Лоро Парк (Loro Parque)</option>
+			<option value="1">Северный аэропорт (Los Rodeos)</option>
+			<option value="2">Южный аэропорт (Reina Sofia)</option>
+			<option value="3">Лоро Парк (Loro Parque)</option>
 		</select>
 	</div>
 	<div class="clear"></div>
 	<?=form_error('date').'<div class="clear"></div>'; ?>
 	<label for="arrival_date">Дата</label>
 	<div class="dd">
-		<input type="text" size="45" class="date inpval" id="date" value="" name="date">
+		<input type="text" size="45" class="date inpval" readonly="readonly" id="date" value="" name="date">
 	</div>							
 	<div class="clear"></div>
 	<?=form_error('name').'<div class="clear"></div>'; ?>

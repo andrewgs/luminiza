@@ -222,7 +222,7 @@ class Apartmentmodel extends CI_Model{
 		$this->apnt_recommended = $data['recommended'];
 		$this->apnt_special = $data['special'];
 
-		$pattern = "/(\d+)\/(\w+)\/(\d+)/i";
+		$pattern = "/(\d+)\.(\w+)\.(\d+)/i";
 		$replacement = "\$3-\$2-\$1";
 		$this->apnt_date = preg_replace($pattern, $replacement, $_POST['date']);
 		
@@ -248,7 +248,7 @@ class Apartmentmodel extends CI_Model{
 		$this->apnt_recommended = $data['recommended'];
 		$this->apnt_special = $data['special'];
 		
-		$pattern = "/(\d+)\/(\w+)\/(\d+)/i";
+		$pattern = "/(\d+)\.(\w+)\.(\d+)/i";
 		$replacement = "\$3-\$2-\$1";
 		$this->apnt_date = preg_replace($pattern, $replacement, $_POST['date']);
 		

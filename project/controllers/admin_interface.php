@@ -911,7 +911,7 @@ class Admin_interface extends CI_Controller{
 	function operation_date_slash($field){
 			
 		$pattern = "/(\d+)(-)(\w+)(-)(\d+)/i";
-		$replacement = "\$5/\$3/\$1"; 
+		$replacement = "\$5.\$3.\$1"; 
 		return preg_replace($pattern, $replacement,$field);
 	}	//функция меняет внешний вид даты;
 	
