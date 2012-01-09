@@ -26,7 +26,7 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<h1><?=$text['head']['txt_title']; ?> <a href="#kontakt" class="senden">Заказать трансфер</a></h1>
+					<h1><?=$text['head']['txt_title']; ?> <a href="#kontakt" class="colorful">Заказать трансфер</a></h1>
 					<?=$text['head']['txt_extended'];
 						if($admin): ?>
 						<div class="admin-change">

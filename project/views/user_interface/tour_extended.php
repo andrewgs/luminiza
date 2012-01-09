@@ -21,7 +21,7 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<h1><?=$tour['tour_title']; ?> <a href="#kontakt" class="senden">Купить экскурсию</a></h1>
+					<h1><?=$tour['tour_title']; ?> <a href="#kontakt" class="colorful">Купить экскурсию</a></h1>
 					<!--
 					<h1>
 						<?= $tour['tour_title']; ?> 
