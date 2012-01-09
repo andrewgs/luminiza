@@ -6,13 +6,13 @@
 	</div>
 	<div class="clear"></div>
 	<?=form_error('name').'<div class="clear"></div>'; ?>
-	<label for="name">Ваше имя и фамилия <em class="bright">*</em></label>
+	<label for="name">Контактное лицо <em class="bright">*</em></label>
 	<div class="dd">
 		<input type="text" size="45" maxlength="50" class="name inpval" id="name" value="" name="name">
 	</div>
 	<div class="clear"></div>
 	<?=form_error('phone').'<div class="clear"></div>'; ?>
-	<label for="phone">Контактный номер телефона <em class="bright">*</em></label>
+	<label for="phone">Номер телефона <em class="bright">*</em></label>
 	<div class="dd">
 		<input type="text" size="45" maxlength="50" class="phone inpval" id="phone" value="" name="phone">
 	</div>

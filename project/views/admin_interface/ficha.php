@@ -9,7 +9,7 @@
 	<?php $this->load->view('admin_interface/header');?>
     <div id="content_box">
 		<div class="content container_12">
-			<div class="grid_12">
+			<div class="grid_3">
 				<div class="sidebar">
 					<a class="crossing" href="<?=$pagevalue['baseurl'].$pagevalue['backpage']; ?>">&larr; Вернуться назад</a>
 				</div>

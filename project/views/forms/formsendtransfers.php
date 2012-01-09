@@ -1,43 +1,78 @@
-<?=form_open($this->uri->uri_string(),array('id'=>'frmRent'));?>
-	<?=form_error('email').'<div class="clear"></div>'; ?>
-		<label for="email">E-Mail <em class="bright">*</em></label>
+<?=form_open($this->uri->uri_string(),array('id'=>'frmTransfer'));?>
+		<div class="clear"></div>
+		<?=form_error('name').'<div class="clear"></div>'; ?>
+		<label for="name">Откуда/Куда</label>
 		<div class="dd">
-			<input type="text" size="45" maxlength="50" class="email inpval" id="email" value="" name="email">
+			<select class="name inpval" id="place" name="place">
+				<option value="0">Северный аэропорт (Los Rodeos)</option>
+				<option value="1">Южный аэропорт (Reina Sofia)</option>
+				<option value="2">Лоро Парк (Loro Parque)</option>
+			</select>
 		</div>
 		<div class="clear"></div>
-	<?=form_error('name').'<div class="clear"></div>'; ?>
-		<label for="name">Ваше имя и фамилия <em class="bright">*</em></label>
+		<?=form_error('date').'<div class="clear"></div>'; ?>
+		<label for="arrival_date">Дата</label>
+		<div class="dd">
+			<input type="text" size="45" class="date inpval" id="date" value="" name="date">
+		</div>							
+		<div class="clear"></div>
+		<?=form_error('name').'<div class="clear"></div>'; ?>
+		<label for="name">Пассажиры</label>
+		<div class="dd">
+			<div class="labelbox">
+				<label class="minor">Взрослые</label>
+				<select class="short" id="adults" name="adults">
+					<? for ($i = 1; $i <= 8; $i++) : ?>
+					<option value="<?=$i;?>"><?=$i;?></option>
+					<? endfor; ?>
+				</select>
+			</div>
+			<div class="labelbox">
+				<label class="minor">Дети</label>
+				<select class="short" id="adults" name="adults">
+					<? for ($i = 0; $i <= 4; $i++) : ?>
+					<option value="<?=$i;?>"><?=$i;?></option>
+					<? endfor; ?>
+				</select>
+			</div>
+			<div class="labelbox">
+				<label class="minor">Младенцы</label>
+				<select class="short" id="adults" name="adults">
+					<? for ($i = 0; $i <= 4; $i++) : ?>
+					<option value="<?=$i;?>"><?=$i;?></option>
+					<? endfor; ?>
+				</select>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		<?=form_error('name').'<div class="clear"></div>'; ?>
+		<label for="name">Контактное лицо</label>
 		<div class="dd">
 			<input type="text" size="45" maxlength="50" class="name inpval" id="name" value="" name="name">
 		</div>
 		<div class="clear"></div>
 		<?=form_error('phone').'<div class="clear"></div>'; ?>
-		<label for="phone">Контактный номер телефона <em class="bright">*</em></label>
+		<label for="phone">Номер телефона</label>
 		<div class="dd">
 			<input type="text" size="45" maxlength="50" class="phone inpval" id="phone" value="" name="phone">
 		</div>
 		<div class="clear"></div>
-		
-		<?=form_error('date').'<div class="clear"></div>'; ?>
-		<label for="arrival_date">Дата прилета <em class="bright">*</em></label>
+		<?=form_error('email').'<div class="clear"></div>'; ?>
+		<label for="email">E-Mail</label>
 		<div class="dd">
-			<input type="text" size="45" class="date inpval" id="date" value="" name="date">
-		</div>							
-		<div class="clear"></div>
+			<input type="text" size="45" maxlength="50" class="email inpval" id="email" value="" name="email">
+		</div>		
 		<?=form_error('textmail').'<div class="clear"></div>'; ?>
-		<label for="msg">Сообщение <em class="bright">*</em></label>
+		<label for="msg">Примечания</label>
 		<div class="dd">
-			<textarea class="textmail inpval" id="textmail" rows="5" cols="40" name="textmail"></textarea>
+			<textarea class="textmail inpval" id="textmail" rows="2" cols="40" name="textmail"></textarea>
+		</div>
+		<div class="total-price">
+			Всего: 
+			<span id="price">90.00</span>
+			<span> &euro;</span>
 		</div>
 		<div class="clear"></div>
-		<label for="subject">Откуда Вы о нас узнали?</label>
-		<div class="ddr">
-			<input type="radio" value="0" name="subject" class="radio"/>Интернет <br/>
-			<input type="radio" value="1" name="subject" class="radio"/>От друзей <br/>
-			<input type="radio" value="2" name="subject" class="radio"/>Реклама <br/>
-			<input type="radio" value="3" name="subject" class="radio"/>Другое 
-			<input type="text" value="" id="subject_txt" name="subject_txt"/>
-		</div>
-		<div class="clear"></div>
-		<button type="submit" border="0" id="send" class="senden" value="send" name="submit">Отправить</button>
-<?=form_close(); ?>
+		<button type="submit" border="0" id="send" class="senden" value="send" name="submit">Перейти к оплате</button>
+	<?=form_close(); ?>

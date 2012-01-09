@@ -27,26 +27,31 @@
 					<div class="main_content">
 						<h1>Покупка недвижимости online</h1>
 						<div class="clear"></div>
-						<form action="http://tpv.ceca.es:8000/cgi-bin/tpv" method="POST" enctype="application/x-www-formurlencoded">
-							<input name="MerchantID" TYPE="hidden" value="##MerchantID##">
-							<input name="AcquirerBIN" TYPE="hidden" value="##AcquirerBIN##">
-							<input name="TerminalID" type="hidden" value="##TerminalID##">
-							<input name="URL_OK" type="hidden" value="##URL_OK##">
-							<input name="URL_NOK" type="hidden" value="##URL_NOK##">
-							<input name="Firma" type="hidden" value="##Firma##">
-							<input name="Cifrado" type="hidden" value="SHA1">
-							<input name="Num_operacion" type="hidden" value="##Num_operacion##">
-							<input name="Importe" type="hidden" value="##Importe##">
-							<input name="TipoMoneda" type="hidden" value="978">
-							<input name="Exponente" type="hidden" value="2">
-							<input name="Pago_soportado" type="hidden" value="SSL">
-							<input name="Pago_elegido" type="hidden" value="SSL">
-							Номер карты: <input name="PAN" type="text" value=""><br>
-							Срок действия:<input name="Caducidad" type="text" value=""><br>
-							CVV2/CVC2: <input name="CVV2" type="text" value=""><br>
-							<input name="Idioma" type="hidden" value="1">
-							<input type="submit" value="Оплатить">
-						</form>
+						<FORM ACTION="https://pgw.ceca.es/cgi-bin/tpv" METHOD="POST" ENCTYPE="application/x-www-form-urlencoded"> 
+							<INPUT NAME="MerchantID" TYPE="hidden" VALUE="102621166"> 
+							<INPUT NAME="AcquirerBIN" TYPE="hidden" VALUE="0000554008"> 
+							<INPUT NAME="TerminalID" TYPE="hidden" VALUE="00000003"> 
+							<INPUT NAME="URL_OK" TYPE="hidden" VALUE="http://tpv.ceca.es:8000/cgi-bin/comunicacion-on-line"> 
+							<INPUT NAME="URL_NOK" TYPE="hidden" VALUE="http://lum-tenerife.com"> 
+							<INPUT NAME="Firma" TYPE="hidden" VALUE="3967a9ceb8024b252f80723991cbf0470663100a"> 
+							<INPUT NAME="Cifrado" TYPE="hidden" VALUE="SHA1"> 
+							<INPUT NAME="Num_operacion" TYPE="hidden" VALUE="000007"> 
+							<INPUT NAME="Importe" TYPE="hidden" VALUE="100"> 
+							<INPUT NAME="TipoMoneda" TYPE="hidden" VALUE="978"> 
+							<INPUT NAME="Exponente" TYPE="hidden" VALUE="2"> 
+							<INPUT NAME="Pago_soportado" TYPE="hidden" VALUE="SSL"> 
+							<!--
+							<p>Номер карты: <input name="PAN" type="text" value="5540500001000004"></p>
+							<p>Срок действия: <input name="Caducidad" type="text" value="201112"></p>
+							<p>CVV2/CVC2: <input name="CVV2" type="text" value="989"></p>
+							-->
+							<INPUT NAME="Idioma" TYPE="hidden" VALUE="6"> 
+							<INPUT TYPE="submit" VALUE="Оплатить">
+							<!--
+							Key_encription+MerchantID+AcquirerBIN+TerminalID+No_operation+Amount+TypeCurrency+Exponent+ +String SHA1+URL_OK+URL_NOK
+							64681300102621166000055400800000003000007100009782SHA1http://tpv.ceca.es:8000/cgi-bin/comunicacion-on-linehttp://lum-tenerife.com
+							-->
+						</FORM>
 					</div>
 				</div>
 				<div class="clear"></div>

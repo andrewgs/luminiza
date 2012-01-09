@@ -35,6 +35,16 @@
 						    'size' 		=> '75'
 						);
 						echo form_input($attr).'</div>';
+						echo '<div>'.form_label('Цена за экскурсию: ','textlabel');
+						$attr = array(
+							'name' 		=> 'price',
+							'id'   		=> 'textprice',
+							'value'		=> $tourinfo['tour_price'],
+							'class'		=> 'textfield inpval',
+							'maxlength'	=> '100',
+							'style' 	=> 'min-width: 50px;'
+						);
+						echo form_input($attr).'</div>';
 						echo '<div>'.form_label('Раcширенная информация: ','textlabel').'</div>';
 						$attr =array(
 								'name' 	=> 'extended',

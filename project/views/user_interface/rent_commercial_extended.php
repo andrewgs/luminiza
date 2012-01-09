@@ -65,6 +65,17 @@
 					</div>
 				<div>
 	<?=anchor('rent/commercial/extended/'.$rent['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+			<?php if(isset($ficha) && $admin):?>
+				<?=anchor($ficha,'Ficha',array('class'=>'retail_link','id'=>'FichaView'));?>
+				<div id="FichaPassForm" style="display:none;">
+					<?=form_open($ficha,array('id'=>'frmPass'));?>
+						<div class="dd">
+							<input type="password" id="PassValue" name="pass" value="" placeholder="Введите пароль">
+							<button type="submit" id="SendPass" class="senden" value="send" name="psubmit">Продолжить</button>
+						</div>
+					<?=form_close(); ?>
+				</div>
+			<?php endif;?>
 				</div>
 				<?php if($this->uri->segment(1) == 'rent'):?>
 					<div id="kontakt" class="formmailer">
@@ -102,6 +113,8 @@
 				event.preventDefault();
 			}
 		});
+		$("#SendPass").click(function(event){var pass = $("#PassValue").val();if(pass == ''){$("#PassValue").css('border-color','#ff0000');$.jGrowl("Поле не может быть пустым",{header:'Проверка пароля'});event.preventDefault();}});
+		$("#FichaView").click(function(){$("#FichaPassForm").toggle();$("#PassValue").css('border-color','#DAD7D0');return false;});
 		$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -111,8 +124,8 @@
 		$('div.missions_row:last').css('border-bottom', 'none').css('padding-bottom', 0);
 	});
 </script>
-<audio autoplay>
+<!--<audio autoplay>
 	<source src="http://lum-tenerife.ru/Miaow-07-Bubble.ogg">
-</audio>
+</audio>-->
 </body>
 </html>
