@@ -26,7 +26,7 @@
 			</div>
 			<div class="grid_9 alpha">
 				<div class="main_content">
-					<h1><?=$text['head']['txt_title']; ?></h1>
+					<h1><?=$text['head']['txt_title']; ?> <a href="#kontakt" class="senden">Заказать трансфер</a></h1>
 					<?=$text['head']['txt_extended'];
 						if($admin): ?>
 						<div class="admin-change">
@@ -53,7 +53,7 @@
 					<br class="clear"/>
 				<?php if($this->uri->segment(1) == 'transfers'):?>
 					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку:	<?=safe_mailto('info@lum-tenerife.com','info@lum-tenerife.com'); ?><br><br></p>
+						<p>Используйте данную контакную форму для того, чтобы оформить Ваш заказ. После оплаты заказа Вы получите на указанный Вами e-mail все платежные документы и ваучер, подтверждающий ваше право на трансфер. По всем вопросам Вы можете позвонить нам по телефону или написать по электронной почте.</p>
 						<?php $this->load->view('forms/formsendtransfers');?>
 					</div>
 				<?php endif;?>

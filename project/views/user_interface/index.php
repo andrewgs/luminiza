@@ -57,9 +57,9 @@
 	  		</div>
 	  		<div class="grid_4">
 		  		<h2>Справочная служба</h2>
-					<div class="side-phone"><span>Москва</span>8 (499) 703-37-25</div>
-					<div class="side-phone"><span>Ростов-на-Дону</span>8 (918) 591-33-37</div>
-					<div class="side-phone"><span>Тенерифе</span>8 10 34 678-283-024</div>
+					<div class="side-phone"><span>Москва</span>8 (918) 591-33-37</div>
+					<div class="side-phone"><span>Тенерифе (Испания)</span>8 10 34 678-283-024</div>
+					<div class="side-phone"><span>Электронная почта</span>info@lum-tenerife.com</div>
 					<ul id="social-links">
 						<li><a target="_blank" class="skype" href="#">lum-tenerife</a></li>
 						<li><a target="_blank" class="facebook" href="http://www.facebook.com/pages/Luminiza-Property-Tur-SL/279976642024849">Facebook</a></li>
@@ -68,6 +68,13 @@
 					</ul>
 	  		</div>
 	  		<div class="clear"></div>
+			<div class="grid_8">
+	  			<h2 class="margin">Приемущества работы с нами</h2>
+	  		</div>
+			<div class="grid_4">
+	  			<h2 class="margin">Отзывы клиентов</h2>
+	  		</div>
+			<div class="clear"></div>
 	  		<div class="grid_4">
 	  			<div class="chapter">
 						<img src="<?=$baseurl;?>img/plus.png" />
@@ -128,6 +135,7 @@
 	  </div>
 	  <?php $this->load->view('user_interface/footer');?>
 	</div>
-<?php $this->load->view('user_interface/scripts');?>
-<?php $this->load->view('user_interface/yandex');?>
+	<?php $this->load->view('user_interface/scripts');?>
+	<?php $this->load->view('user_interface/yandex');?>
 </body>
+</html>
