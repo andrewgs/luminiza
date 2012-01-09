@@ -68,6 +68,8 @@
 		<div class="dd">
 			<textarea class="textmail inpval" id="textmail" rows="2" cols="40" name="textmail"></textarea>
 		</div>
+		<div id="mastercard"></div>
+		<div id="visa"></div>
 		<div class="total-price">
 			Всего: 
 			<span id="TotalPrice">0.00</span>
