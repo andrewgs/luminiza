@@ -135,7 +135,7 @@
 	  </div>
 	  <?php $this->load->view('user_interface/footer');?>
 	</div>
-<?php $this->load->view('user_interface/scripts');?>
-<?php $this->load->view('user_interface/yandex');?>
+	<?php $this->load->view('user_interface/scripts');?>
+	<?php $this->load->view('user_interface/yandex');?>
 </body>
 </html>

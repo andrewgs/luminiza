@@ -21,7 +21,7 @@
 					<div>Количество объектов (только продажа): <?=$pagevalue['apartcount']['retail'];?></div>
 					<div>Количество объектов (только аренда): <?=$pagevalue['apartcount']['rent'];?></div>
 					<div>Количество объектов (продажа и аренда): <?=$pagevalue['apartcount']['retail_rent'];?></div>
-					<div>Количество объектов (комерческая): <?=$pagevalue['apartcount']['comercial'];?></div>
+					<div>Количество объектов (коммерческая): <?=$pagevalue['apartcount']['comercial'];?></div>
 					<div class="clear"></div>
 					<button type="button" class="senden ApartsView" style="float:right;">Показать/Скрыть список</button>
 					<div class="clear"></div>

@@ -24,16 +24,38 @@ class Apartmentmodel extends CI_Model{
   }
 	
 	function get_records(){
-		$this->db->order_by('apnt_id desc');
+	
+		$this->db->order_by("apnt_price","DESC");
+		$this->db->order_by("apnt_id","DESC");
+		$this->db->order_by("apnt_title","DESC");
 		$query = $this->db->get('apartment');
 		return $query->result_array();
 	}	
+	
+	function get_specials(){
+		
+		$this->db->select('COUNT(*) AS cnt');
+		$this->db->where('apnt_special',1);
+		$query = $this->db->get('apartment');
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0]['cnt'];
+		return NULL;
+	}
+	
+	function get_sold(){
+		
+		$this->db->select('COUNT(*) AS cnt');
+		$this->db->where('apnt_sold',1);
+		$query = $this->db->get('apartment');
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0]['cnt'];
+		return NULL;
+	}
 	
 	function get_record($id){
 	
 		$this->db->where('apnt_id',$id);
 		$query = $this->db->get('apartment',1);
-		
 		$data = $query->result_array();
 		if(isset($data[0])) return $data[0];
 		return NULL;
@@ -114,6 +136,17 @@ class Apartmentmodel extends CI_Model{
 		return $query->result_array();
 	} 
 	
+	function all_limit_records($count,$from){
+	
+		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
+		$this->db->limit($count,$from);
+		$this->db->order_by("apnt_price","ASC");
+		$this->db->order_by("apnt_id","ASC");
+		$this->db->order_by("apnt_title","ASC");
+		$query = $this->db->get('apartment');
+		return $query->result_array();
+	} 
+	
 	function get_limit_commercial($count,$from,$flag,$sortby){
 		//flag = [3]- продажа,[4] - аренда,[5] - продажа/аренда
 		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice, apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
@@ -142,13 +175,23 @@ class Apartmentmodel extends CI_Model{
 	
 	function count_records_flag($flag){
 	
-		if ($flag == 2)
+		if($flag == 2)
 			$this->db->where('apnt_flag',0);
 		else
 			$this->db->where('apnt_flag',1);
 		$this->db->or_where('apnt_flag',2);
 		$query = $this->db->get('apartment');
 		return $query->num_rows();
+	}
+	
+	function count_records_flags($flag){
+		
+		$this->db->select('COUNT(*) AS cnt');
+		$this->db->where('apnt_flag',$flag);
+		$query = $this->db->get('apartment');
+		$data = $query->result_array();
+		if(isset($data[0])) return $data[0]['cnt'];
+		return NULL;
 	}
 	
 	function count_commercial_flag($flag){

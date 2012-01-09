@@ -17,6 +17,7 @@ class Admin_interface extends CI_Controller{
 		$this->load->model('sidebartextmodel');
 		$this->load->model('tourlistmodel');		
 		$this->load->model('feedbackmodel');
+		$this->load->model('fichamodel');
 		
 		$this->load->library('image_lib');
 		
@@ -47,17 +48,78 @@ class Admin_interface extends CI_Controller{
 	}//функция показывает панель администрирования;
 	
 	function ficha(){
-	
-		$backpage = $this->session->userdata('backpage');
+		
+		$backpage = $this->uri->slash_segment(1).$this->uri->slash_segment(2).$this->uri->segment(3);
+		$apart_id = $this->uri->segment(3);
+		if($this->uri->total_segments() == 5):
+			$backpage .= '/'.$this->uri->segment(4);
+			$apart_id = $this->uri->segment(4);
+		endif;
+		
+		if($this->input->post('psubmit')):
+			$ulogin = $this->session->userdata('login');
+			$user = $this->authentication->valid_user($ulogin,$_POST['pass']);
+			if(!$user):
+				$this->session->unset_userdata('ficha');
+				redirect($backpage);
+			else:
+				$this->session->set_userdata('ficha',TRUE);
+				redirect($this->uri->uri_string());
+			endif;
+		elseif($this->session->userdata('ficha')):
+			TRUE;
+		else:
+			$this->session->unset_userdata('ficha');
+			redirect($backpage);
+		endif;
+		
 		$pagevalue = array(
 				'description'	=> '',
 				'author' 		=> '',
-				'title'			=> "Вкладка собственности",
+				'title'			=> "Ficha",
 				'backpage' 		=> $backpage,
 				'admin' 		=> FALSE,
-				'baseurl' 		=> base_url()
+				'baseurl' 		=> base_url(),
+				'ficha'			=> $this->fichamodel->read_record($apart_id)
 		);
+		if(!$pagevalue['ficha']):
+			$this->fichamodel->insert_empty($apart_id);
+			$pagevalue['ficha'] = $this->fichamodel->read_record($apart_id);
+		endif;
+		
+		if($this->input->post('submit')):
+			$_POST['submit'] = NULL;
+			$this->fichamodel->update_record($apart_id,$_POST);
+			$this->session->set_userdata('msg','Паспорт сохранен!');
+			$this->session->unset_userdata('ficha');
+			redirect($backpage);
+		endif;
 		$this->load->view('admin_interface/ficha',array('pagevalue'=>$pagevalue));
+	}
+	
+	function statistic(){
+		
+		$pagevalue = array(
+				'description'	=> '',
+				'author' 		=> '',
+				'title'			=> "Статистика",
+				'backpage' 		=> $this->session->userdata('backpage'),
+				'admin' 		=> FALSE,
+				'baseurl' 		=> base_url(),
+				'apartcount'	=> array(),
+				'apartments'	=> $this->apartmentmodel->get_records(),
+				'autocount'		=> $this->rentautomodel->count_records(),
+				'auto'			=> $this->rentautomodel->get_records(),
+				'specials'		=> $this->apartmentmodel->get_specials(),
+				'sold'			=> $this->apartmentmodel->get_sold()
+		);
+		$pagevalue['apartcount']['all'] =  $this->apartmentmodel->count_records();
+		$pagevalue['apartcount']['retail'] =  $this->apartmentmodel->count_records_flags(0);
+		$pagevalue['apartcount']['rent'] =  $this->apartmentmodel->count_records_flags(1);
+		$pagevalue['apartcount']['retail_rent'] =  $this->apartmentmodel->count_records_flags(2);
+		$pagevalue['apartcount']['comercial'] =  $this->apartmentmodel->count_records_flags(3);
+
+		$this->load->view('admin_interface/statistic',array('pagevalue'=>$pagevalue));
 	}
 	
 	function feedback(){
@@ -797,16 +859,14 @@ class Admin_interface extends CI_Controller{
 	function inserttourvalue(){
 		
 		if(isset($_POST['btsabmit'])):
-			
 			$this->form_validation->set_rules('title','"Навание"','required|trim');
 			$this->form_validation->set_rules('extended','"Раcширенная информация"','required|trim');
-
+			$this->form_validation->set_rules('price','"Цена"','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
-			
-			if (!$this->form_validation->run()){
+			if(!$this->form_validation->run()):
 				$this->inserttour($_POST['backpath']);
 				return FALSE;
-			}
+			endif;
 			$this->tourlistmodel->insert_record($_POST);
 			redirect($_POST['backpath']);
 		else:
@@ -880,12 +940,12 @@ class Admin_interface extends CI_Controller{
 
 	function updatetour(){
 		
-		if(isset($_POST['btsabmit'])){
-		
+		if(isset($_POST['btsabmit'])):
 			$this->tourlistmodel->update_record($_POST);
 			redirect($_POST['backpath']);
-		}else
+		else:
 			show_404();
+		endif;
 	}					//функция обновляет информацию об экскурсии;
 
 	function photomanipulation(){
