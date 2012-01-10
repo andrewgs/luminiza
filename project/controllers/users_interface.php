@@ -2160,17 +2160,18 @@ class Users_interface extends CI_Controller{
 		endif;
 		
 		$place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)');
-		$mess['msg'] 	 = 'Обект - "Трансферы"'. "\n";
-		$mess['msg'] 	.= 'Место - "'.$place[$this->session->userdata('place')].'"'. "\n";
-		$mess['msg'] 	.= 'E-Mail клиента - '.$this->session->userdata('email')."\n";
-		$mess['msg'] 	.= 'Контактное лицо - '.$this->session->userdata('name')."\n";
-		$mess['msg'] 	.= 'Номер телефона - '.$this->session->userdata('phone')."\n";
-		$mess['msg'] 	.= 'Дата - '.$this->session->userdata('date')."\n";
-		$mess['msg'] 	.= 'Взрослых - '.$this->session->userdata('adults')."\n";
-		$mess['msg'] 	.= 'Детей - '.$this->session->userdata('children')."\n";
-		$mess['msg'] 	.= 'Младенцов - '.$this->session->userdata('infants')."\n";
-		$mess['msg'] 	.= 'Примечание - '.$this->session->userdata('note')."\n";
-		
+		ob_start();
+		?>
+Поступил новый заказ на трансфер из <?=$place[$this->session->userdata('place')]?> на <?=$this->session->userdata('date')?>.
+
+Имя клиента: <?=$this->session->userdata('name')?> 
+Контактный номер телефона: <?=$this->session->userdata('phone')?> 
+Пассажиры: <?=$this->session->userdata('adults')?> взрослых, <?=$this->session->userdata('children')?> детей и <?=$this->session->userdata('infants')?> детей до 2 лет.
+
+Клиент добавил к запросу следующее примечание: <?=$this->session->userdata('note')?>
+		<?
+		$mess['msg'] = ob_get_clean();
+
 		$this->email->clear(TRUE);
 		$config['smtp_host'] = 'localhost';
 		$config['charset'] = 'utf-8';
@@ -2222,16 +2223,17 @@ class Users_interface extends CI_Controller{
 			redirect($this->session->userdata('backpath'));
 		endif;
 		
-		$mess['msg'] 	 = 'Обект - "Экскурсии"'. "\n";
-		$mess['msg'] 	.= 'Экскурсия - "'.$this->session->userdata('tour').'"'. "\n";
-		$mess['msg'] 	.= 'E-Mail клиента - '.$this->session->userdata('email')."\n";
-		$mess['msg'] 	.= 'Контактное лицо - '.$this->session->userdata('name')."\n";
-		$mess['msg'] 	.= 'Номер телефона - '.$this->session->userdata('phone')."\n";
-		$mess['msg'] 	.= 'Дата - '.$this->session->userdata('date')."\n";
-		$mess['msg'] 	.= 'Взрослых - '.$this->session->userdata('adults')."\n";
-		$mess['msg'] 	.= 'Детей - '.$this->session->userdata('children')."\n";
-		$mess['msg'] 	.= 'Младенцов - '.$this->session->userdata('infants')."\n";
-		$mess['msg'] 	.= 'Примечание - '.$this->session->userdata('note')."\n";
+		ob_start();
+		?>
+Поступил новый заказ на экскурсию  <?=$this->session->userdata('tour');?> на <?=$this->session->userdata('date')?>.
+
+Имя клиента: <?=$this->session->userdata('name')?> 
+Контактный номер телефона: <?=$this->session->userdata('phone')?> 
+Пассажиры: <?=$this->session->userdata('adults')?> взрослых, <?=$this->session->userdata('children')?> детей и <?=$this->session->userdata('infants')?> детей до 2 лет.
+
+Клиент добавил к запросу следующее примечание: <?=$this->session->userdata('note')?>
+		<?
+		$mess['msg'] = ob_get_clean();
 		
 		$this->email->clear(TRUE);
 		$config['smtp_host'] = 'localhost';
