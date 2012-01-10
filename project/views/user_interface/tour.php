@@ -29,7 +29,7 @@
 					<h1><?= $text['head']['txt_title']; ?></h1>
 					<?= $text['head']['txt_extended'];?>
 					<br class="clear"/>
-					<?php if($admin){ ?>
+					<? if ($admin) : ?>
 						<br class="clear"/>
 						<div class="admin-change">
 							<?= anchor('edit/tour','Редактировать текст',array('class'=>'editlink'));?>
@@ -39,37 +39,26 @@
 							<?=anchor($link,'Добавить экскурсию',array('class'=>'insertlink')); ?>
 						</div>
 						<br class="clear"/>
-					<?php }?>
-				<?php for($i=0;$i<count($tour);$i++): ?>	
-							<div class="missions_row">
-							<?php
-								if(isset($tour[$i]['img_id']))
-									echo '<img alt="'.$tour[$i]['img_title'].'"
-										title="'.$tour[$i]['img_title'].'"
-										src="'.$baseurl.'viewimage/'.$tour[$i]['img_id'].'">';
-							?>
-								<div class="missions_right_panel">
-									<h2><?= anchor('tour/extended/'.$tour[$i]['tour_id'],$tour[$i]['tour_title']);?></h2>
-									<?= $tour[$i]['tour_extended']; ?>
-									<br class="clear"/>
-									<p>
-										<?= anchor('tour/extended/'.$tour[$i]['tour_id'],'Подробнее &rarr;',array('class'=>'retail_link'));?>
-									</p>
-								</div>
-							</div>
-						<?php if($admin): ?>
-							<div class="admin-change">
-								<?=anchor('edit/tour/'.$tour[$i]['tour_id'],'Редактировать',array('class'=>'editlink')); ?>
-							</div>
-							<div class="admin-change">
-								<?=anchor('tour/photo/manage/list/'.$tour[$i]['tour_id'],'Доб./Удал. рисунки',array('class'=>'editlink'));?>
-							</div>
-							<div class="admin-change">
-								<?=anchor('tour/delete/'.$tour[$i]['tour_id'],'Удалить экскурсию',array('class'=>'dellink'));?>
-							</div>
-							<div class="clear"></div>
-						<?php endif;?>
-					<?php endfor;?>
+					<? endif; ?>
+					<table class="transfers tour">
+					<? for ($i = 0; $i < count($tour); $i++): ?>
+						<tr>
+							<? if(isset($tour[$i]['img_id'])) : ?>
+							<!--td><img alt="<?= $tour[$i]['img_title'] ?>" title="<?= $tour[$i]['img_title'] ?>" src="<?= $baseurl.'viewimage/'.$tour[$i]['img_id'] ?>" width="50px" /></td-->
+							<? endif; ?>
+							<td><?= anchor('tour/extended/'.$tour[$i]['tour_id'], $tour[$i]['tour_title'], array('title' => strip_tags($tour[$i]['tour_extended'])));?></td>
+							<!--td><strong><?= $tour[$i]['tour_price']; ?> &euro;</strong></td-->
+							<?php if($admin): ?>
+							<td><?=anchor('edit/tour/'.$tour[$i]['tour_id'],'Ред.',array('class'=>'editlink')); ?></td>
+							<td><?=anchor('tour/photo/manage/list/'.$tour[$i]['tour_id'],'Изм. рисунки',array('class'=>'editlink'));?></td>
+							<td><?=anchor('tour/delete/'.$tour[$i]['tour_id'],'Удалить',array('class'=>'dellink'));?></td>
+							<?php endif; ?>
+						</tr>
+					<?php endfor; ?>
+					</table>
+					<p>На нашем сайте вы можете заказать и оплатить экскурсии онлайн. После оплаты вам будут отправлены все платежные документы 
+					и ваучер, подтверждающий ваше право на посещение экскурсии. Мы будем рады ответить на все возникшие вопросы по контактному телефону 
+					<strong>(+34) 922-712-237</strong> или по электронной почте <?= safe_mailto('info@lum-tenerife.com', 'info@lum-tenerife.com'); ?></p>
 					<p>Мы желаем Вам отличного отдыха на Тенерифе и ждём новых встреч с Вами.</p>
 				</div>
 			</div>
