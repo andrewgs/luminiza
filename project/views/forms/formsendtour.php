@@ -1,4 +1,6 @@
 <?=form_open($this->uri->uri_string(),array('id'=>'frmRent'));?>
+	<input type="hidden" value="" id="price" name="price"/>
+	<div class="clear"></div>
 	<?=form_error('date').'<div class="clear"></div>'; ?>
 	<label for="rdate">Дата экскурсии</label>
 	<div class="dd">

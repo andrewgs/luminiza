@@ -2112,7 +2112,7 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/pay',$pagevalue);
 	}
 
-	function confirmation_order(){
+	function confirmation_transfers_order(){
 		
 		$order = $this->session->userdata('order');
 		if(!$order) redirect($this->session->userdata('backpath'));
@@ -2141,7 +2141,7 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/confirmation-order',$pagevalue);
 	}
 
-	function confirmation_error(){
+	function confirmation_transfers_error(){
 		
 		$order = $this->session->userdata('order');
 		if(!$order) redirect($this->session->userdata('backpath'));
@@ -2150,7 +2150,7 @@ class Users_interface extends CI_Controller{
 		redirect($this->session->userdata('backpath').'#kontakt');
 	}
 
-	function confirmation_success(){
+	function confirmation_transfers_success(){
 		
 		$order = $this->session->userdata('order');
 		if(!$order) redirect($this->session->userdata('backpath'));
