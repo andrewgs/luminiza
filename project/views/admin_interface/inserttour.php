@@ -37,7 +37,7 @@
 							'size' 		=> '75'
 						);
 						echo form_input($attr).'</div>';
-						echo '<div>'.form_label('Цена за экскурсию: ','textlabel');
+						echo '<div>'.form_label('Цена для одного человека: ','textlabel');
 						$attr = array(
 							'name' 		=> 'price',
 							'id'   		=> 'textprice',
