@@ -9,6 +9,9 @@ $route['index'] 						= "users_interface/index";
 $route['about'] 						= "users_interface/about";
 $route['aviabileti'] 					= "users_interface/aviabileti";
 $route['pay']		 					= "users_interface/pay";
+
+$route['transfers/confirmation-of-order'] = "users_interface/confirmation_order";
+
 $route['feedbacks'] 					= "users_interface/feedbacks";
 $route['feedbacks/page'] 				= "users_interface/feedbacks";
 $route['feedbacks/page/:num'] 			= "users_interface/feedbacks";

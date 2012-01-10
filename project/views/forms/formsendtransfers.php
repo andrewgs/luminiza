@@ -29,7 +29,7 @@
 		</div>
 		<div class="labelbox">
 			<label class="minor">Дети</label>
-			<select class="short" id="children" name="adults">
+			<select class="short" id="children" name="children">
 				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
 				<?php endfor; ?>
@@ -37,7 +37,7 @@
 		</div>
 		<div class="labelbox">
 			<label class="minor">Младенцы</label>
-			<select class="short" id="infants" name="adults">
+			<select class="short" id="infants" name="infants">
 				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
 				<?php endfor; ?>

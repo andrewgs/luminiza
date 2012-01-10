@@ -1405,8 +1405,9 @@ class Users_interface extends CI_Controller{
 			'text' 		=> array(),
 			'msg'		=> $this->session->userdata('msg')
 		);
+		$this->session->set_userdata('order',FALSE);
 		$this->session->unset_userdata('msg');
-		$this->session->set_userdata('backpage','transfers');
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
@@ -1419,64 +1420,31 @@ class Users_interface extends CI_Controller{
 		
 		if($this->input->post('submit')):
 			$this->form_validation->set_rules('email','"E-Mail"','required|valid_email|trim');
-			$this->form_validation->set_rules('name','"Ваше имя и фамилия"','required|trim');
-			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
-			$this->form_validation->set_rules('date','"Дата прилета"','required|trim');
-			$this->form_validation->set_rules('textmail','"Сообщение"','required|trim');
+			$this->form_validation->set_rules('name','"Контактное лицо"','required|trim');
+			$this->form_validation->set_rules('phone','"Номер телефона"','required|trim');
+			$this->form_validation->set_rules('date','"Дата"','required|trim');
+			$this->form_validation->set_rules('textmail','"Примечания"','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$_POST['submit'] = NULL;
-				$this->tour_extended();
+				$this->transfers();
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
 				return FALSE;
 			else:
 				$_POST['submit'] = NULL;
-				$_POST['msg'] 	 = 'Обект - "Трансферы"'. "\n";
-				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
-				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
-				$_POST['msg'] 	.= 'Дата прилета - '.$_POST['date']."\n";
-				$_POST['msg'] 	.= 'Сообщение - '.$_POST['textmail']."\n";
-				$_POST['msg'] 	.= 'Дата экскурсии - '.$_POST['date']."\n";
-				if(isset($_POST['subject'])):
-					$sub = array('Интернет','От друзей','Реклама');
-					if($_POST['subject'] < 3):
-						$_POST['msg'] 	.= 'О нас узнал через - '.$sub[$_POST['subject']];
-					elseif(!empty($_POST['subject_txt'])):
-						$_POST['msg'] 	.= 'О нас узнал через - '.$_POST['subject_txt'];
-					else:
-						$_POST['msg'] 	.= 'Пользователь не уточнил откуда узнал о нас.';
-					endif;
-				else:
-					$_POST['msg'] 	.= 'Пользователь не уточнил откуда узнал о нас.';
-				endif;
-				$this->email->clear(TRUE);
-				$config['smtp_host'] = 'localhost';
-				$config['charset'] = 'utf-8';
-				$config['wordwrap'] = TRUE;
-				$this->email->initialize($config);
-				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
-				$this->email->bcc('');
-				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
-				$textmail = strip_tags($_POST['msg']);
-				$this->email->message($textmail);	
-				if(!$this->email->send()):
-					$this->session->set_userdata('msg','Сообщение не отправлено');
-					redirect($this->uri->uri_string());
-					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
-				endif;
-				$this->session->set_userdata('msg','Сообщение отправлено');
-				$_POST['extended'] = $_POST['msg'];
-				$_POST['date'] = date("Y-m-d");
-				$this->maillistmodel->insert_record($_POST);
-				redirect($this->uri->uri_string());
+				$this->session->set_userdata('order',TRUE);
+				$this->session->set_userdata('place',$_POST['place']);
+				$this->session->set_userdata('email',$_POST['email']);
+				$this->session->set_userdata('name',$_POST['name']);
+				$this->session->set_userdata('phone',$_POST['phone']);
+				$this->session->set_userdata('date',$_POST['date']);
+				$this->session->set_userdata('adults',$_POST['adults']);
+				$this->session->set_userdata('children',$_POST['children']);
+				$this->session->set_userdata('infants',$_POST['infants']);
+				$this->session->set_userdata('textmail',$_POST['textmail']);
+				redirect('transfers/confirmation-of-order');
 			endif;
 		endif;
-		
-		
 		$pagevalue['text'] = $text;
 		$pagevalue['transfer'] = $transfer;
 		$this->load->view('user_interface/transfers',$pagevalue);
@@ -2123,5 +2091,26 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/pay',$pagevalue);
 	}
 
+	function confirmation_order(){
+		
+		$order = $this->session->userdata('order');
+		if(!$order) redirect($this->session->userdata('backpath'));
+		
+		$pagevalue = array(
+			'description' =>'Покупайте недвижимость online, невыходя из дома. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' 	=> 'купить online, тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Купить недвижимость Online | Недвижимость в Испании на Тенерифе | Luminiza Property Tur S.L.',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'sidebar' 	=> array(),
+			'backpath'	=> $this->session->userdata('backpage'),
+		);
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');	
+		$this->load->view('user_interface/confirmation-order',$pagevalue);
+	}
 }
 ?>
