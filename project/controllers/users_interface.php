@@ -2150,7 +2150,7 @@ class Users_interface extends CI_Controller{
 		redirect($this->session->userdata('backpath').'#kontakt');
 	}
 
-	function confirmation_successful(){
+	function confirmation_success(){
 		
 		$order = $this->session->userdata('order');
 		if(!$order) redirect($this->session->userdata('backpath'));
@@ -2163,6 +2163,38 @@ class Users_interface extends CI_Controller{
 			redirect($this->session->userdata('backpath'));
 		endif;
 		
+		$place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)');
+		$mess['msg'] 	 = 'Обект - "Трансферы"'. "\n";
+		$mess['msg'] 	.= 'Место - "'.$place[$this->session->userdata('place')].'"'. "\n";
+		$mess['msg'] 	.= 'E-Mail клиента - '.$this->session->userdata('email')."\n";
+		$mess['msg'] 	.= 'Контактное лицо - '.$this->session->userdata('name')."\n";
+		$mess['msg'] 	.= 'Номер телефона - '.$this->session->userdata('phone')."\n";
+		$mess['msg'] 	.= 'Дата - '.$this->session->userdata('date')."\n";
+		$mess['msg'] 	.= 'Взрослых - '.$this->session->userdata('adults')."\n";
+		$mess['msg'] 	.= 'Детей - '.$this->session->userdata('children')."\n";
+		$mess['msg'] 	.= 'Младенцов - '.$this->session->userdata('infants')."\n";
+		$mess['msg'] 	.= 'Примечание - '.$this->session->userdata('textmail')."\n";
+		
+		$this->email->clear(TRUE);
+		$config['smtp_host'] = 'localhost';
+		$config['charset'] = 'utf-8';
+		$config['wordwrap'] = TRUE;
+		$this->email->initialize($config);
+		$this->email->from($this->session->userdata('email'),$this->session->userdata('name'));
+//		$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
+		$this->email->to('admin@lum-tenerife.com');
+		$this->email->bcc('');
+		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+		$textmail = strip_tags($mess['msg']);
+		$this->email->message($textmail);	
+		$this->email->send();
+		$this->sendbackmail($this->session->userdata('email'),$this->session->userdata('email'));
+		$mas['extended'] = $mess['msg'];
+		$mas['date'] = date("Y-m-d");
+		$mas['name'] = $this->session->userdata('name');
+		$mas['email'] = $this->session->userdata('email');
+		$this->maillistmodel->insert_record($mas);
+		
 		$this->session->unset_userdata('place');
 		$this->session->unset_userdata('email');
 		$this->session->unset_userdata('name');
@@ -2174,36 +2206,6 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('textmail');
 		$this->session->unset_userdata('price');
 		$this->session->unset_userdata('order');
-		
-		$place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)');
-		$_POST['msg'] 	 = 'Обект - "Трансферы"'. "\n";
-		$_POST['msg'] 	.= 'Место - "'.$place[$_POST['place']].'"'. "\n";
-		$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-		$_POST['msg'] 	.= 'Контактное лицо - '.$_POST['name']."\n";
-		$_POST['msg'] 	.= 'Номер телефона - '.$_POST['phone']."\n";
-		$_POST['msg'] 	.= 'Дата - '.$_POST['date']."\n";
-		$_POST['msg'] 	.= 'Взрослых - '.$_POST['adults']."\n";
-		$_POST['msg'] 	.= 'Детей - '.$_POST['children']."\n";
-		$_POST['msg'] 	.= 'Младенцов - '.$_POST['infants']."\n";
-		$_POST['msg'] 	.= 'Примечание - '.$_POST['textmail']."\n";
-		
-		$this->email->clear(TRUE);
-		$config['smtp_host'] = 'localhost';
-		$config['charset'] = 'utf-8';
-		$config['wordwrap'] = TRUE;
-		$this->email->initialize($config);
-		$this->email->from($_POST['email'],$_POST['name']);
-//		$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
-		$this->email->to('admin@lum-tenerife.com');
-		$this->email->bcc('');
-		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
-		$textmail = strip_tags($_POST['msg']);
-		$this->email->message($textmail);	
-		$this->email->send();
-		$this->sendbackmail($_POST['name'],$_POST['email']);
-		$_POST['extended'] = $_POST['msg'];
-		$_POST['date'] = date("Y-m-d");
-		$this->maillistmodel->insert_record($_POST);
 		
 		$pagevalue = array(
 			'description' =>'',
