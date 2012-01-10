@@ -153,6 +153,8 @@ a { color: #0477a2; text-decoration: underline; }
 	.main_content ul, .main_content ol { margin: 0 0 20px 15px; }
 	.main_content h2 { color: #4B4444; font: bold 15px trebuchet MS,sans-serif; margin: 15px 0 12px; }
 	h2.margin { margin: 20px 0 15px; }
+p.confirm { margin: 4px 0; }
+p.confirm-title { border-bottom: 1px solid rgba(0, 0, 0, 0.15); display: inline-block; font: 18px/23px trebuchet MS,sans-serif; margin: 0 0 15px; padding-bottom: 2px; }
 
 .retail-filter-table { width: 190px; }
 	.retail-filter-table td { font-size: 13px; font-weight: bold; padding: 2px 8px 2px 0; }
@@ -222,46 +224,17 @@ table.transfers th { font-weight: bold; vertical-align: middle; text-align: righ
 .formmailer { background: url('../images/form_overlay.jpg') repeat scroll 0 0 transparent; border: 1px solid #dad7d0; margin: 15px 0 0; padding: 20px 20px 7px; width: 500px; font: 1.2em/1.5em "Helvetica", Calibri, Arial, sans-serif; color: #34332d; -moz-border-radius: 10px; -webkit-border-radius: 10px; position: relative; }
 	.formmailer p { color: #888; font: 12px/18px trebuchet MS,sans-serif; margin: 0 0 20px; }
 .ddr { font: 13px/19px trebuchet MS,sans-serif; display: inline-block; }
-.dd input, .dd select {
-	border: 1px solid #DAD7D0;
-	border-radius: 3px;
-	color: #453E34;
-	font: 13px trebuchet MS,sans-serif;
-	letter-spacing: 1px;
-	padding: 5px;
-	width: 320px;
-}
-.dd select { 
-	padding: 4px 3px;
-	width: 332px; 
-}
+.dd input, .dd select {	border: 1px solid #DAD7D0; border-radius: 3px; color: #453E34; font: 13px trebuchet MS,sans-serif; letter-spacing: 1px; padding: 5px; width: 320px; }
+.dd select { padding: 4px 3px; width: 332px; }
 .ddr input { border: solid 1px #dad7d0; color: #453E34; font: 15px/23px Cambria, Georgia,"Times New Roman",Times,serif; padding: 5px; margin: 3px 10px 3px 0; line-height: 25px; -moz-border-radius: 5px; -webkit-border-radius : 5px; }
 .ddr input[type=text] { margin-left: 10px }
-	.formmailer small, .formmailer label { 
-		border-radius: 2px;
-		color: #6D5935;
-		display: inline-block;
-		font: 13px "trebuchet MS",serif;
-		margin: 4px 5px 6px 3px;
-		text-align: right;
-		vertical-align: top;
-		width: 120px; 
-	}
+	.formmailer small, .formmailer label { border-radius: 2px; color: #6D5935; display: inline-block; font: 13px "trebuchet MS",serif; margin: 4px 5px 6px 3px; text-align: right; vertical-align: top; width: 120px; }
 	.formmailer .dd_name, 
 	.formmailer .dd_mail,
 	.formmailer .dd_url,
 	.formmailer .dd_msg,
 	.formmailer .dd { display: inline-block; margin: 0 0 8px; }
-.dd textarea { 
-	border: 1px solid #DAD7D0;
-	border-radius: 3px;
-	color: #453E34;
-	font: 13px trebuchet MS,sans-serif;
-	height: 100px;
-	letter-spacing: 1px;
-	padding: 5px;
-	width: 320px;
-}
+.dd textarea { border: 1px solid #DAD7D0; border-radius: 3px; color: #453E34; font: 13px trebuchet MS,sans-serif; height: 100px; letter-spacing: 1px; padding: 5px; width: 320px; }
 .senden { border: 0 none; background: #72923f; color: #fff; cursor: pointer; padding: 8px; margin: 1em 0 0.75em; font: bold 12px arial, sans-serif; letter-spacing: 0.5px; text-shadow: 0 1px 1px #000000; -moz-border-radius: 5px; -webkit-border-radius: 5px; }
 h1 .senden { background: #72923F; border: 0 none; border-radius: 2px; color: #fff; font: 12px trebuchet MS,sans-serif; letter-spacing: 0.5px; margin: 0 0 0 5px; padding: 4px 7px; text-shadow: 0 1px 1px #000; text-decoration: none; }
 .senden:hover { background: #B42720 }
@@ -269,13 +242,7 @@ h1 .senden { background: #72923F; border: 0 none; border-radius: 2px; color: #ff
 .textfield { border: 1px solid rgba(0, 0, 0, 0.35); border-radius: 3px; box-shadow: 0 0 1px rgba(0, 0, 0, 0.2); display: inline-block; font: 13px trebuchet MS,sans-serif; letter-spacing: 0.25px; margin: 2px 0 5px; padding: 5px; min-width: 300px; }
 label { color: #6D5935; font: bold 13px "trebuchet MS",serif; letter-spacing: 0; margin: 4px 0 8px; }
 label.inline { display: inline-block; margin: 0 7px 0 0; text-align: right; width: 145px; }
-label.minor { 
-	color: #999;
-	display: block;
-	font-size: 12px;
-	text-align: left;
-	width: auto; 
-}
+label.minor { color: #999; display: block; font-size: 12px; text-align: left; width: auto; }
 #editunitform label, #insertform label { min-width: 65px; display: inline-block; }
 input[type=checkbox], input[type=radio] { display: inline-block; margin: 0 5px 3px; }
 .message { color: #383333; font: bold 13px/21px trebuchet MS,sans-serif; margin: 0 0 15px; }
@@ -287,6 +254,7 @@ input[type=checkbox], input[type=radio] { display: inline-block; margin: 0 5px 3
 .total-price span { font-weight: bold; font-size: 20px; }
 #mastercard { position: absolute; bottom: 12px; left: 190px; background: url("../images/mastercard.gif"); width: 89px; height: 40px; }
 #visa { position: absolute; bottom: 10px; left: 300px; background: url("../images/visa.gif"); width: 68px; height: 40px; }
+.pay-form { display: inline; }
 
 .m-sangria { margin: 12px 0; }
 .sangria { margin: 30px 0 12px; }
