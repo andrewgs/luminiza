@@ -70,13 +70,19 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var price = 0;
-		$("#TotalPrice").html(pricing(1,1));
+		$("#TotalPrice").html(pricing(1,1)+'.00');
+		$("#price").val(pricing(1,1));
 		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Форма заказа'});
 		<?php endif;?>
 		$("#send").click(function(event){
 			var err = false;
+			if($("#price").val() == ''){
+				$.jGrowl("Ошибка расчета стоимости.<br/>Повторите снова.",{header:'Форма заказа'});
+				event.preventDefault();
+				return false;
+			}
 			var email = $("#email").val();
 			var phone = $("#phone").val();
 			$(".inpval").css('border-color','#00ff00');
@@ -102,7 +108,8 @@
 			var place = $("#place").val();
 			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
 			var price = pricing(place,people);
-			$("#TotalPrice").html(price);
+			$("#TotalPrice").html(price+'.00');
+			$("#price").val(price);
 		});
 		
 		$(".short").change(function(){
@@ -119,18 +126,19 @@
 			}else{
 				var place = $("#place").val();
 				var price = pricing(place,people);
-				$("#TotalPrice").html(price);
+				$("#TotalPrice").html(price+'.00');
+				$("#price").val(price);
 			}
 			
 		});
 		
 		function pricing(place,people){
-			var price = "0.00";
-			if(place == 1 && people <= 4) price = "90.00";
-			if(place == 1 && people > 4) price = "120.00";
-			if(place == 2 && people <= 4) price = "30.00";
-			if(place == 2 && people > 4) price = "60.00";
-			if(place == 3) price = "150.00";
+			var price = "0";
+			if(place == 1 && people <= 4) price = "90";
+			if(place == 1 && people > 4) price = "120";
+			if(place == 2 && people <= 4) price = "30";
+			if(place == 2 && people > 4) price = "60";
+			if(place == 3) price = "150";
 			return price;
 		}
 		function isValidEmailAddress(emailAddress){
@@ -143,6 +151,8 @@
 		};
 		
 		<?php if($this->session->userdata('order')):?>
+			$("#price").val("<?=$this->session->userdata('price');?>");
+			$("#TotalPrice").html("<?=$this->session->userdata('price');?>"+".00");
 			$("#place").val(<?=$this->session->userdata('place');?>);
 			$("#date").val("<?=$this->session->userdata('date');?>");
 			$("#adults").val(<?=$this->session->userdata('adults');?>);

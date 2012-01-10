@@ -1,4 +1,5 @@
 <?=form_open($this->uri->uri_string(),array('id'=>'frmTransfer'));?>
+	<input type="hidden" value="" id="price" name="price"/>
 	<div class="clear"></div>
 	<?=form_error('name').'<div class="clear"></div>'; ?>
 	<label for="name">Откуда/Куда</label>

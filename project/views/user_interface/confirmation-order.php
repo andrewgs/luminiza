@@ -37,7 +37,7 @@
 						$AcquirerBIN = "0000554008";
 						$TerminalID  = "00000003";
 						$OperationID = time();
-						$Amount = "100";
+						$Amount = $amountval;
 						$TypeCurrency = "978";
 						$Exponent = "2";
 						$URL_OK = $baseurl.'transfers/confirmation-of-order/success';
@@ -72,7 +72,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#prev").click(function(){location.href="<?=$baseurl.$this->session->userdata('backpath');?>#kontakt";return true;});
-		$("#next").click(function(){location.href="http://bank.ru/";return true;});
 	});
 </script>
 </body>

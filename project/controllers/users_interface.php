@@ -1423,32 +1423,37 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('phone','"Номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата"','required|trim');
 			$this->form_validation->set_rules('textmail','"Примечания"','required|trim');
-//			$this->form_validation->set_rules('price','','required|trim');
+			$this->form_validation->set_rules('price','','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$_POST['submit'] = NULL;
-				$this->transfers();
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$this->transfers();
 				return FALSE;
 			else:
 				$_POST['submit'] = NULL;
 				$mprice = array(0,90,120,30,60,150);
 				$price = 0;
 				$people = $_POST['adults']+$_POST['children']+$_POST['infants'];
-				echo $people; exit;
 				if($people > 8):
 					$_POST['submit'] = NULL;
+					$this->session->set_userdata('msg','Превышено количество пасажиров.<br/>Макс: 8 человек');
 					$this->transfers();
-					$this->session->set_userdata('msg','Превышено количество пасажиров. Макс: 8 человек');
 					return FALSE;
 				endif;
 				switch ($_POST['place']):
 					case '1': $people <=4 ? $price = $mprice['1'] : $price = $mprice['2']; break;
 					case '2': $people <=4 ? $price = $mprice['3'] : $price = $mprice['4']; break;
-					case '1': $price = $mprice['5']; break;
+					case '3': $price = $mprice['5']; break;
 				endswitch;
-				echo $price;exit;
+				if($_POST['price'] != $price):
+					$_POST['submit'] = NULL;
+					$this->session->set_userdata('msg','Ошибка расчета стоимости.<br/>Повторите снова.');
+					$this->transfers();
+					return FALSE;
+				endif;
 				$this->session->set_userdata('order',TRUE);
+				$this->session->set_userdata('price',$_POST['price']);
 				$this->session->set_userdata('place',$_POST['place']);
 				$this->session->set_userdata('email',$_POST['email']);
 				$this->session->set_userdata('name',$_POST['name']);
@@ -1458,7 +1463,6 @@ class Users_interface extends CI_Controller{
 				$this->session->set_userdata('children',$_POST['children']);
 				$this->session->set_userdata('infants',$_POST['infants']);
 				$this->session->set_userdata('textmail',$_POST['textmail']);
-				$this->session->set_userdata('price',$_POST['textmail']);
 				redirect('transfers/confirmation-of-order');
 			endif;
 		endif;
@@ -2122,7 +2126,14 @@ class Users_interface extends CI_Controller{
 			'admin' 	=> $this->admin['status'],
 			'sidebar' 	=> array(),
 			'backpath'	=> $this->session->userdata('backpage'),
+			'amountval'	=> ''
 		);
+		if(!$this->session->userdata('price')):
+			$this->session->set_userdata('msg','Ошибка расчета стоимости.<br/>Повторите снова.');
+			redirect($this->session->userdata('backpath'));
+		else:
+			$pagevalue['amountval'] = $this->session->userdata('price').'00';
+		endif;
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
