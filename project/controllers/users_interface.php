@@ -1422,7 +1422,7 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Контактное лицо"','required|trim');
 			$this->form_validation->set_rules('phone','"Номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата"','required|trim');
-			$this->form_validation->set_rules('textmail','"Примечания"','required|trim');
+			$this->form_validation->set_rules('textmail','"Примечания"','trim');
 			$this->form_validation->set_rules('price','','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
@@ -2125,7 +2125,7 @@ class Users_interface extends CI_Controller{
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
 			'sidebar' 	=> array(),
-			'backpath'	=> $this->session->userdata('backpage'),
+			'backpath'	=> $this->session->userdata('backpath'),
 			'amountval'	=> ''
 		);
 		if(!$this->session->userdata('price')):
@@ -2139,6 +2139,83 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');	
 		$this->load->view('user_interface/confirmation-order',$pagevalue);
+	}
+
+	function confirmation_error(){
+		
+		$order = $this->session->userdata('order');
+		if(!$order) redirect($this->session->userdata('backpath'));
+		
+		$this->session->set_userdata('msg','Операция оплаты произведена с ошибкой или отменена');
+		redirect($this->session->userdata('backpath').'#kontakt');
+	}
+
+	function confirmation_successful(){
+		
+		$order = $this->session->userdata('order');
+		if(!$order) redirect($this->session->userdata('backpath'));
+		
+		if(isset($_SERVER['HTTP_REFERER'])):
+			if($_SERVER['HTTP_REFERER'] != 'http://tpv.ceca.es:8000/cgi-bin/tpv'):
+				redirect($this->session->userdata('backpath'));
+			endif;
+		else:
+			redirect($this->session->userdata('backpath'));
+		endif;
+		
+		$this->session->unset_userdata('place');
+		$this->session->unset_userdata('email');
+		$this->session->unset_userdata('name');
+		$this->session->unset_userdata('phone');
+		$this->session->unset_userdata('date');
+		$this->session->unset_userdata('adults');
+		$this->session->unset_userdata('children');
+		$this->session->unset_userdata('infants');
+		$this->session->unset_userdata('textmail');
+		$this->session->unset_userdata('price');
+		$this->session->unset_userdata('order');
+		
+		$place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)');
+		$_POST['msg'] 	 = 'Обект - "Трансферы"'. "\n";
+		$_POST['msg'] 	.= 'Место - "'.$place[$_POST['place']].'"'. "\n";
+		$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
+		$_POST['msg'] 	.= 'Контактное лицо - '.$_POST['name']."\n";
+		$_POST['msg'] 	.= 'Номер телефона - '.$_POST['phone']."\n";
+		$_POST['msg'] 	.= 'Дата - '.$_POST['date']."\n";
+		$_POST['msg'] 	.= 'Взрослых - '.$_POST['adults']."\n";
+		$_POST['msg'] 	.= 'Детей - '.$_POST['children']."\n";
+		$_POST['msg'] 	.= 'Младенцов - '.$_POST['infants']."\n";
+		$_POST['msg'] 	.= 'Примечание - '.$_POST['textmail']."\n";
+		
+		$this->email->clear(TRUE);
+		$config['smtp_host'] = 'localhost';
+		$config['charset'] = 'utf-8';
+		$config['wordwrap'] = TRUE;
+		$this->email->initialize($config);
+		$this->email->from($_POST['email'],$_POST['name']);
+		$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
+		$this->email->bcc('');
+		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+		$textmail = strip_tags($_POST['msg']);
+		$this->email->message($textmail);	
+		$this->email->send();
+		$this->sendbackmail($_POST['name'],$_POST['email']);
+		$_POST['extended'] = $_POST['msg'];
+		$_POST['date'] = date("Y-m-d");
+		$this->maillistmodel->insert_record($_POST);
+		
+		$pagevalue = array(
+			'description' =>'',
+			'keywords' 	=> '',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Операция оплаты произведена успешно',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'sidebar' 	=> array(),
+			'backpath'	=> $this->session->userdata('backpath'),
+			'text'		=> 'Операция оплаты произведена успешно'
+		);
+		$this->load->view('user_interface/confirmation-successful',$pagevalue);
 	}
 }
 ?>
