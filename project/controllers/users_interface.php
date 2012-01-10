@@ -1924,7 +1924,7 @@ class Users_interface extends CI_Controller{
 	
 	function sendbackmail($name,$email){
 		
-		$msg = 'Здравствуйте, '.$name."\n".'Спасибо за ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно вам ответим в течение одного рабочего дня'."\n\n".'--------------------------------------'."\n".'С уважением,'."\n".'Агентство недвижимости Luminiza Property Tur S.L.';
+		$msg = "Здравствуйте, {$name}\n\nСпасибо за ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно вам ответим в течение одного рабочего дня.\n\n--\nС уважением,\nДемченко Светлана\nАгентство недвижимости Luminiza Property Tur S.L.\n(+34) 922-712-237\nwww.lum-tenerife.ru";
 		$this->email->clear(TRUE);
 		$config['smtp_host'] = 'localhost';
 		$config['charset'] = 'utf-8';
@@ -1933,7 +1933,7 @@ class Users_interface extends CI_Controller{
 		$this->email->from('info@lum-tenerife.com','Luminiza Property Tur S.L.');
 		$this->email->to($email);
 		$this->email->bcc('');
-		$this->email->subject('Заявка принята. Агентство недвижимости Luminiza Property Tur S.L.');
+		$this->email->subject('Заявка принята. Luminiza Property Tur S.L.');
 		$textmail = strip_tags($msg);
 		$this->email->message($textmail);	
 		$this->email->send();
@@ -2168,8 +2168,8 @@ class Users_interface extends CI_Controller{
 		?>
 Поступил новый заказ на трансфер из <?=$place[$this->session->userdata('place')]?> на <?=$this->session->userdata('date')?>.
 
-Имя клиента: <?=$this->session->userdata('name')?>
-Контактный номер телефона: <?=$this->session->userdata('phone')?>
+Имя клиента: <?=$this->session->userdata('name')?> 
+Контактный номер телефона: <?=$this->session->userdata('phone')?> 
 Пассажиры: <?=$this->session->userdata('adults')?> взрослых, <?=$this->session->userdata('children')?> детей и <?=$this->session->userdata('infants')?> детей до 2 лет.
 
 Клиент добавил к запросу следующее примечание: <?=$this->session->userdata('textmail')?>
