@@ -1405,7 +1405,6 @@ class Users_interface extends CI_Controller{
 			'text' 		=> array(),
 			'msg'		=> $this->session->userdata('msg')
 		);
-		$this->session->set_userdata('order',FALSE);
 		$this->session->unset_userdata('msg');
 		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$this->session->unset_userdata('query');

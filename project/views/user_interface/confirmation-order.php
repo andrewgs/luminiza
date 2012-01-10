@@ -45,7 +45,7 @@
 <?php $this->load->view('user_interface/scripts');?>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#prev").click(function(){location.href="<?=$baseurl.$this->session->userdata('backpath');?>";return true;});
+		$("#prev").click(function(){location.href="<?=$baseurl.$this->session->userdata('backpath');?>#kontakt";return true;});
 		$("#next").click(function(){location.href="http://bank.ru/";return true;});
 	});
 </script>
