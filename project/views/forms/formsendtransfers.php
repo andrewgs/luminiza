@@ -67,7 +67,7 @@
 	<?=form_error('textmail').'<div class="clear"></div>'; ?>
 	<label for="msg">Примечания</label>
 	<div class="dd">
-		<textarea class="textmail" id="textmail" rows="2" cols="40" name="textmail"></textarea>
+		<textarea class="note" id="note" rows="2" cols="40" name="note"></textarea>
 	</div>
 	<div id="mastercard"></div>
 	<div id="visa"></div>

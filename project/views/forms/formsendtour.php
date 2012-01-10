@@ -13,25 +13,25 @@
 		<div class="labelbox">
 			<label class="minor">Взрослые</label>
 			<select class="short" id="adults" name="adults">
-				<? for ($i = 1; $i <= 8; $i++) : ?>
+				<?php for ($i = 1; $i <= 8; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
-				<? endfor; ?>
+				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="labelbox">
 			<label class="minor">Дети</label>
-			<select class="short" id="adults" name="adults">
-				<? for ($i = 0; $i <= 4; $i++) : ?>
+			<select class="short" id="children" name="children">
+				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
-				<? endfor; ?>
+				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="labelbox">
 			<label class="minor">Младенцы</label>
-			<select class="short" id="adults" name="adults">
-				<? for ($i = 0; $i <= 4; $i++) : ?>
+			<select class="short" id="infants" name="infants">
+				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
-				<? endfor; ?>
+				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="clear"></div>
@@ -58,11 +58,11 @@
 	<?=form_error('note').'<div class="clear"></div>'; ?>
 	<label for="rdate">Примечания</label>
 	<div class="dd">
-		<textarea class="note inpval" id="note" name="note"></textarea>
+		<textarea class="note" id="note" name="note"></textarea>
 	</div>
 	<div class="total-price">
 		Всего: 
-		<span id="price">90.00</span>
+		<span id="TotalPrice">0.00</span>
 		<span> &euro;</span>
 	</div>	
 	<div class="clear"></div>

@@ -96,15 +96,20 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-  </div>
-  <?php $this->load->view('user_interface/footer'); ?>
- 	</div>
+	</div>
+	<?php $this->load->view('user_interface/footer'); ?>
+</div>
 <?php $this->load->view('user_interface/scripts');?>
 <?php $this->load->view('user_interface/datepicker');?>
 <?php $this->load->view('user_interface/yandex');?>
 <?php $this->load->view('user_interface/pirobox');?>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var price = 0;
+		var tprice = <?=$tour['tour_price'];?>;
+		var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+		$("#TotalPrice").html(pricing(tprice,people)+'.00');
+		$("#price").val(pricing(tprice,people));
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
 		<?php endif;?>
@@ -127,6 +132,28 @@
 				event.preventDefault();
 			}
 		});
+		
+		$(".short").change(function(){
+			var curVal = $(this).val();
+			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			if(people > 8){
+				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
+				var subPeople = 8-people;
+				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
+				people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+				var price = pricing(tprice,people);
+				$("#TotalPrice").html(price+'.00');
+				$("#price").val(price);
+				return false;
+			}else{
+				var price = pricing(tprice,people);
+				$("#TotalPrice").html(price+'.00');
+				$("#price").val(price);
+			}
+			
+		});
+		function pricing(tprice,people){return parseFloat(tprice*people);}
+		
 		$('a.dellink').confirm({timeout:5000,dialogShow:'fadeIn', dialogSpeed:'slow',buttons:{ok:'Подтвердить',cancel:'Отмена',wrapper:'<button></button>',separator:' '}});
 		function isValidPhone(phoneNumber){
 			var pattern = new RegExp(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i);
@@ -136,6 +163,20 @@
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);
 		};
+		
+		<?php if($this->session->userdata('torder')):?>
+			$("#price").val("<?=$this->session->userdata('tprice');?>");
+			$("#TotalPrice").html("<?=$this->session->userdata('tprice');?>"+".00");
+			$("#date").val("<?=$this->session->userdata('date');?>");
+			$("#adults").val(<?=$this->session->userdata('adults');?>);
+			$("#children").val(<?=$this->session->userdata('children');?>);
+			$("#infants").val(<?=$this->session->userdata('infants');?>);
+			$("#name").val("<?=$this->session->userdata('name');?>");
+			$("#phone").val("<?=$this->session->userdata('phone');?>");
+			$("#email").val("<?=$this->session->userdata('email');?>");
+			$("#note").val("<?=$this->session->userdata('note');?>");
+		<?php endif;?>
+		
 	});
 </script>
 </body>
