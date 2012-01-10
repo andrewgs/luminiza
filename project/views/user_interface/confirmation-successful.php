@@ -12,7 +12,7 @@
 		<div class="content container_12">
 			<div class="grid_3">
 				<div class="sidebar">
-					<a class="crossing" href="<?=$baseurl.$backpath;?>">&larr; Вернуться к списку</a>
+					<a class="crossing" href="<?=$baseurl.$backpath;?>">&larr; Вернуться к разделу</a>
 					<div class="clear"></div>
 					<div class="miniature">
 						<img title="Picasso Miniature" alt="Picasso Miniature" src="<?=$baseurl;?>images/transfers_miniature.png"/>

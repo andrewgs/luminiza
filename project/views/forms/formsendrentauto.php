@@ -44,7 +44,7 @@
 	<?=form_error('pdate').'<div class="clear"></div>';?>
 	<label for="pdate">Дата получения <em class="bright">*</em></label>
 	<div class="dd">
-		<input type="text" size="45" maxlength="50" class="pdate inpval" id="pdate" value="" name="pdate">
+		<input type="text" size="45" maxlength="50" class="pdate inpval" readonly="readonly" id="pdate" value="" name="pdate">
 	</div>
 	<div class="clear"></div>
 	<?=form_error('country').'<div class="clear"></div>';?>
@@ -56,13 +56,13 @@
 	<?=form_error('rdate').'<div class="clear"></div>';?>
 	<label for="rdate">Дата въезда <em class="bright">*</em></label>
 	<div class="dd">
-		<input type="text" size="45" maxlength="50" class="rdate inpval" id="rdate" value="" name="rdate">
+		<input type="text" size="45" maxlength="50" class="rdate inpval" readonly="readonly" id="rdate" value="" name="rdate">
 	</div>
 	<div class="clear"></div>
 	<?=form_error('bcdate').'<div class="clear"></div>'; ?>
 	<label for="bcdate">Дата выезда <em class="bright">*</em></label>
 	<div class="dd">
-		<input type="text" size="45" maxlength="50" class="bcdate inpval" id="bcdate" value="" name="bcdate">
+		<input type="text" size="45" maxlength="50" class="bcdate inpval" readonly="readonly" id="bcdate" value="" name="bcdate">
 	</div>
 	<div class="clear"></div>
 	<label for="place">Где должен быть автомобиль? </label>

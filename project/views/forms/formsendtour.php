@@ -2,7 +2,7 @@
 	<?=form_error('date').'<div class="clear"></div>'; ?>
 	<label for="rdate">Дата экскурсии</label>
 	<div class="dd">
-		<input type="text" size="45" maxlength="50" class="date inpval" id="date" value="" name="date">
+		<input type="text" size="45" maxlength="50" class="date inpval" readonly="readonly" id="date" value="" name="date">
 	</div>
 	<div class="clear"></div>	
 	<?=form_error('number_people').'<div class="clear"></div>'; ?>
