@@ -71,7 +71,7 @@ button {  width: auto; overflow: visible; }
 
 body, select, input, textarea { color: #444; }
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
-a, a:active, a:visited { color: #607890; }
+a, a:active, a:visited { /*color: #607890;*/ }
 a:hover { color: #036; }
 
 
@@ -216,8 +216,11 @@ table#reviews { background: #eee; border: 1px dotted #ccc; }
 table#reviews td, table#reviews th { border: 1px dotted #CCC !important; font: 13px trebuchet MS,sans-serif; padding: 5px 8px !important; }
 table#reviews th { font-weight: bold; vertical-align: middle; text-align: center; }
 table.transfers { background: #eee; border: 1px dotted #ccc; }
+table.tour { margin: 5px 0; }
 table.transfers td, table.transfers th { border: 1px dotted #CCC !important; font: 12px trebuchet MS,sans-serif; padding: 5px 8px !important; }
 table.transfers th { font-weight: bold; vertical-align: middle; text-align: right; width: 130px; }
+table.tour td { font-size: 13px; }
+table.tour td a { text-decoration: none; }
 /* General styles*/
 
 /* Forms */
