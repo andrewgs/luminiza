@@ -1423,6 +1423,7 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('phone','"Номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата"','required|trim');
 			$this->form_validation->set_rules('textmail','"Примечания"','required|trim');
+//			$this->form_validation->set_rules('price','','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$_POST['submit'] = NULL;
@@ -1431,6 +1432,22 @@ class Users_interface extends CI_Controller{
 				return FALSE;
 			else:
 				$_POST['submit'] = NULL;
+				$mprice = array(0,90,120,30,60,150);
+				$price = 0;
+				$people = $_POST['adults']+$_POST['children']+$_POST['infants'];
+				echo $people; exit;
+				if($people > 8):
+					$_POST['submit'] = NULL;
+					$this->transfers();
+					$this->session->set_userdata('msg','Превышено количество пасажиров. Макс: 8 человек');
+					return FALSE;
+				endif;
+				switch ($_POST['place']):
+					case '1': $people <=4 ? $price = $mprice['1'] : $price = $mprice['2']; break;
+					case '2': $people <=4 ? $price = $mprice['3'] : $price = $mprice['4']; break;
+					case '1': $price = $mprice['5']; break;
+				endswitch;
+				echo $price;exit;
 				$this->session->set_userdata('order',TRUE);
 				$this->session->set_userdata('place',$_POST['place']);
 				$this->session->set_userdata('email',$_POST['email']);
@@ -1441,6 +1458,7 @@ class Users_interface extends CI_Controller{
 				$this->session->set_userdata('children',$_POST['children']);
 				$this->session->set_userdata('infants',$_POST['infants']);
 				$this->session->set_userdata('textmail',$_POST['textmail']);
+				$this->session->set_userdata('price',$_POST['textmail']);
 				redirect('transfers/confirmation-of-order');
 			endif;
 		endif;
