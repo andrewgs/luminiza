@@ -1,4 +1,4 @@
-/**
+﻿/**
  * jGrowl 1.2.6
  *
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -156,13 +156,13 @@
 			themeState: 	'highlight',
 			corners: 		'10px',
 			check: 			250,
-			life: 			3000,
+			life: 			10000,
 			closeDuration:  'normal',
 			openDuration:   'normal',
 			easing: 		'swing',
 			closer: 		true,
 			closeTemplate: '&times;',
-			closerTemplate: '<div>[ close all ]</div>',
+			closerTemplate: '<div>[ Закрыть все ]</div>',
 			log: 			function(e,m,o) {},
 			beforeOpen: 	function(e,m,o) {},
 			afterOpen: 		function(e,m,o) {},

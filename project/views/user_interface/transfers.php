@@ -141,6 +141,18 @@
 			var pattern = new RegExp(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i);
 			return pattern.test(phoneNumber);
 		};
+		
+		<?php if($this->session->userdata('order')):?>
+			$("#place").val(<?=$this->session->userdata('place');?>);
+			$("#date").val("<?=$this->session->userdata('date');?>");
+			$("#adults").val(<?=$this->session->userdata('adults');?>);
+			$("#children").val(<?=$this->session->userdata('children');?>);
+			$("#infants").val(<?=$this->session->userdata('infants');?>);
+			$("#name").val("<?=$this->session->userdata('name');?>");
+			$("#phone").val("<?=$this->session->userdata('phone');?>");
+			$("#email").val("<?=$this->session->userdata('email');?>");
+			$("#textmail").val("<?=$this->session->userdata('textmail');?>");
+		<?php endif;?>
 	});
 </script>
 </body>
