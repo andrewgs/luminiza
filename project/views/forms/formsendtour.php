@@ -12,7 +12,7 @@
 	<div class="dd">
 		<div class="labelbox">
 			<label class="minor">Взрослые</label>
-			<select class="short" id="adults" name="adults">
+			<select class="short ppl" id="adults" name="adults">
 				<?php for ($i = 1; $i <= 8; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
 				<?php endfor; ?>
@@ -20,7 +20,7 @@
 		</div>
 		<div class="labelbox">
 			<label class="minor">Дети от 5 до 10 лет</label>
-			<select class="shorter" id="children" name="children">
+			<select class="shorter ppl" id="children" name="children">
 				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
 				<?php endfor; ?>
@@ -28,7 +28,7 @@
 		</div>
 		<div class="labelbox">
 			<label class="minor">Дети до 5 лет</label>
-			<select class="short" id="infants" name="infants">
+			<select class="short ppl" id="infants" name="infants">
 				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
 				<?php endfor; ?>

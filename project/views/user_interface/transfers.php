@@ -113,7 +113,7 @@
 			$("#price").val(price);
 		});
 		
-		$(".short").change(function(){
+		$(".ppl").change(function(){
 			var curVal = $(this).val();
 			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
 			if(tpeople > 8){

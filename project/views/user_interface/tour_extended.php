@@ -78,9 +78,11 @@
 			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
 		<?php endif;?>
 		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
+		
 		$("#send").click(function(event){
 			var err = false;
 			var email = $("#email").val();
+			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
 			$(".inpval").css('border-color','#00ff00');
 			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
 			if(err){
@@ -94,10 +96,15 @@
 				$("#phone").css('border-color','#ff0000');
 				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
 				event.preventDefault();
+			}else if(isValidPeople(tpeople)){
+				people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
+				var price = pricing(tprice,people);
+				$("#TotalPrice").html(price+'.00');
+				$("#price").val(price);
 			}
 		});
 		
-		$(".short").change(function(){
+		$(".ppl").change(function(){
 			var curVal = $(this).val();
 			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
 			if(tpeople > 8){
@@ -124,6 +131,14 @@
 			var pattern = new RegExp(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i);
 			return pattern.test(phoneNumber);
 		};
+		function isValidPeople(tpeople){
+			if(tpeople > 8){
+				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
+				return false;
+			}else{
+				return tr;
+			}
+		}
 		function isValidEmailAddress(emailAddress){
 			var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 			return pattern.test(emailAddress);

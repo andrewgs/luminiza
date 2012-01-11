@@ -1275,7 +1275,7 @@ class Users_interface extends CI_Controller{
 			else:
 				$_POST['submit'] = NULL;
 				$price = 0;
-				$people = $_POST['adults']+$_POST['children']+$_POST['infants'];
+				$people = $_POST['adults']+($_POST['children']*0.5);
 				if($people > 8):
 					$_POST['submit'] = NULL;
 					$this->session->set_userdata('msg','Превышено количество пасажиров.<br/>Макс: 8 человек');
@@ -1417,7 +1417,7 @@ class Users_interface extends CI_Controller{
 				$_POST['submit'] = NULL;
 				$mprice = array(0,90,120,30,60,150);
 				$price = 0;
-				$people = $_POST['adults']+$_POST['children']+$_POST['infants'];
+				$people = $_POST['adults'];
 				if($people > 8):
 					$_POST['submit'] = NULL;
 					$this->session->set_userdata('msg','Превышено количество пасажиров.<br/>Макс: 8 человек');
