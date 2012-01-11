@@ -70,8 +70,9 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var price = 0;
-		$("#TotalPrice").html(pricing(1,1)+'.00');
-		$("#price").val(pricing(1,1));
+		var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+ parseFloat($("#infants").val());
+		$("#TotalPrice").html(pricing($("#place").val(),people)+'.00');
+		$("#price").val(pricing($("#place").val(),people));
 		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Форма заказа'});
@@ -114,14 +115,15 @@
 		
 		$(".short").change(function(){
 			var curVal = $(this).val();
-			var cAdults = parseFloat($("#adults").val());
-			var cChildren = parseFloat($("#children").val());
-			var cInfants = parseFloat($("#infants").val());
-			var people = cAdults+cChildren+cInfants;
+			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
 			if(people > 8){
 				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
 				var subPeople = 8-people;
 				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
+				people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+				var price = pricing(tprice,people);
+				$("#TotalPrice").html(price+'.00');
+				$("#price").val(price);
 				return false;
 			}else{
 				var place = $("#place").val();
@@ -150,9 +152,9 @@
 			return pattern.test(phoneNumber);
 		};
 		
-		<?php if($this->session->userdata('order')):?>
-			$("#price").val("<?=$this->session->userdata('price');?>");
-			$("#TotalPrice").html("<?=$this->session->userdata('price');?>"+".00");
+		<?php if($this->session->userdata('trorder')):?>
+			$("#price").val("<?=$this->session->userdata('trprice');?>");
+			$("#TotalPrice").html("<?=$this->session->userdata('trprice');?>"+".00");
 			$("#place").val(<?=$this->session->userdata('place');?>);
 			$("#date").val("<?=$this->session->userdata('date');?>");
 			$("#adults").val(<?=$this->session->userdata('adults');?>);
@@ -161,7 +163,7 @@
 			$("#name").val("<?=$this->session->userdata('name');?>");
 			$("#phone").val("<?=$this->session->userdata('phone');?>");
 			$("#email").val("<?=$this->session->userdata('email');?>");
-			$("#textmail").val("<?=$this->session->userdata('textmail');?>");
+			$("#note").val("<?=$this->session->userdata('note');?>");
 		<?php endif;?>
 	});
 </script>

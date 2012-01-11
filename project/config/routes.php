@@ -10,9 +10,14 @@ $route['about'] 						= "users_interface/about";
 $route['aviabileti'] 					= "users_interface/aviabileti";
 $route['pay']		 					= "users_interface/pay";
 
-$route['transfers/confirmation-of-order'] = "users_interface/confirmation_order";
-$route['transfers/confirmation-of-order/error'] 		= "users_interface/confirmation_error";
-$route['transfers/confirmation-of-order/successful'] 	= "users_interface/confirmation_successful";
+$route['transfers/confirmation-of-order'] 			= "users_interface/confirmation_order";
+$route['tour/confirmation-of-order'] 				= "users_interface/confirmation_order";
+
+$route['transfers/confirmation-of-order/error'] 	= "users_interface/confirmation_error";
+$route['tour/confirmation-of-order/error'] 			= "users_interface/confirmation_error";
+
+$route['transfers/confirmation-of-order/success'] 	= "users_interface/confirmation_transfers_success";
+$route['tour/confirmation-of-order/success'] 		= "users_interface/confirmation_tour_success";
 
 $route['feedbacks'] 					= "users_interface/feedbacks";
 $route['feedbacks/page'] 				= "users_interface/feedbacks";

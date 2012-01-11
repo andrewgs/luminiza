@@ -1265,9 +1265,7 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Ваше имя"','required|trim');
 			$this->form_validation->set_rules('phone','"Контактный номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата экскурсии"','required|trim');
-			$this->form_validation->set_rules('number_people','"Количество взлослых"','required|trim');
-			$this->form_validation->set_rules('number_children','"Количество детей"','required|trim');
-			$this->form_validation->set_rules('note','"Примечания"','required|trim');
+			$this->form_validation->set_rules('textmail','"Примечания"','trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
 				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
@@ -1276,39 +1274,24 @@ class Users_interface extends CI_Controller{
 				return FALSE;
 			else:
 				$_POST['submit'] = NULL;
-				$_POST['msg'] 	 = 'Обект - "Экскурсия"'. "\n";
-				$_POST['msg'] 	.= 'Название - '.$pagevalue['tour']['tour_title']."\n";
-				$_POST['msg'] 	.= 'Идентификатор в таблице - '.$pagevalue['tour']['tour_id']."\n";
-				$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-				$_POST['msg'] 	.= 'Имя клиента - '.$_POST['name']."\n";
-				$_POST['msg'] 	.= 'Контактный номер телефона - '.$_POST['phone']."\n";
-				$_POST['msg'] 	.= 'Количество взлослых - '.$_POST['number_people']."\n";
-				$_POST['msg'] 	.= 'Количество детей - '.$_POST['number_children']."\n";
-				$_POST['msg'] 	.= 'Дата экскурсии - '.$_POST['date']."\n";
-				$_POST['msg'] 	.= "Примечания:\n".$_POST['note']."\n";
-				$this->email->clear(TRUE);
-				$config['smtp_host'] = 'localhost';
-				$config['charset'] = 'utf-8';
-				$config['wordwrap'] = TRUE;
-				$this->email->initialize($config);
-				$this->email->from($_POST['email'],$_POST['name']);
-				$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
-				$this->email->bcc('');
-				$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
-				$textmail = strip_tags($_POST['msg']);
-				$this->email->message($textmail);	
-				if(!$this->email->send()):
-					$this->session->set_userdata('msg','Сообщение не отправлено');
-					redirect($this->uri->uri_string());
+				$price = 0;
+				$people = $_POST['adults']+$_POST['children']+$_POST['infants'];
+				if($people > 8):
+					$_POST['submit'] = NULL;
+					$this->session->set_userdata('msg','Превышено количество пасажиров.<br/>Макс: 8 человек');
+					$this->tour_extended();
 					return FALSE;
-				else:
-					$this->sendbackmail($_POST['name'],$_POST['email']);
 				endif;
-				$this->session->set_userdata('msg','Сообщение отправлено');
-				$_POST['extended'] = $_POST['msg'];
-				$_POST['date'] = date("Y-m-d");
-				$this->maillistmodel->insert_record($_POST);
-				redirect($this->uri->uri_string());
+				$price = $people * $tour['tour_price'];
+				if($_POST['price'] != $price):
+					$_POST['submit'] = NULL;
+					$this->session->set_userdata('msg','Ошибка расчета стоимости.<br/>Повторите снова.');
+					$this->tour_extended();
+					return FALSE;
+				endif;
+				
+				$this->session->set_userdata(array('torder'=>TRUE,'tprice'=>$_POST['price'],'tourid'=>$tour['tour_id'],'tour'=>$tour['tour_title'],'email'=>$_POST['email'],'name'=>$_POST['name'],'phone'=>$_POST['phone'],'date'=>$_POST['date'],'adults'=>$_POST['adults'],'children'=>$_POST['children'],'infants'=>$_POST['infants'],'note'=>$_POST['note']));
+				redirect('tour/confirmation-of-order');
 			endif;
 		endif;
 		
@@ -1422,7 +1405,7 @@ class Users_interface extends CI_Controller{
 			$this->form_validation->set_rules('name','"Контактное лицо"','required|trim');
 			$this->form_validation->set_rules('phone','"Номер телефона"','required|trim');
 			$this->form_validation->set_rules('date','"Дата"','required|trim');
-			$this->form_validation->set_rules('textmail','"Примечания"','trim');
+			$this->form_validation->set_rules('note','"Примечания"','trim');
 			$this->form_validation->set_rules('price','','required|trim');
 			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
 			if(!$this->form_validation->run()):
@@ -1452,17 +1435,8 @@ class Users_interface extends CI_Controller{
 					$this->transfers();
 					return FALSE;
 				endif;
-				$this->session->set_userdata('order',TRUE);
-				$this->session->set_userdata('price',$_POST['price']);
-				$this->session->set_userdata('place',$_POST['place']);
-				$this->session->set_userdata('email',$_POST['email']);
-				$this->session->set_userdata('name',$_POST['name']);
-				$this->session->set_userdata('phone',$_POST['phone']);
-				$this->session->set_userdata('date',$_POST['date']);
-				$this->session->set_userdata('adults',$_POST['adults']);
-				$this->session->set_userdata('children',$_POST['children']);
-				$this->session->set_userdata('infants',$_POST['infants']);
-				$this->session->set_userdata('textmail',$_POST['textmail']);
+				
+				$this->session->set_userdata(array('trorder'=>TRUE,'trprice'=>$_POST['price'],'place'=>$_POST['place'],'email'=>$_POST['email'],'name'=>$_POST['name'],'phone'=>$_POST['phone'],'date'=>$_POST['date'],'adults'=>$_POST['adults'],'children'=>$_POST['children'],'infants'=>$_POST['infants'],'note'=>$_POST['note']));
 				redirect('transfers/confirmation-of-order');
 			endif;
 		endif;
@@ -2114,8 +2088,20 @@ class Users_interface extends CI_Controller{
 
 	function confirmation_order(){
 		
-		$order = $this->session->userdata('order');
-		if(!$order) redirect($this->session->userdata('backpath'));
+		$type = $this->uri->segment(1);
+		switch($type):
+			case 'transfers' : 	{$order = $this->session->userdata('trorder');
+								$price =  $this->session->userdata('trprice');
+								$backpath = $this->session->userdata('backpath');
+								}; break;
+			case 'tour' 	: 	{$order = $this->session->userdata('torder');
+								$price =  $this->session->userdata('tprice');
+								$backpath = 'tour/extended/'.$this->session->userdata('tourid');
+								}; break;
+		endswitch;
+		if(!$order): 
+			redirect($backpath);
+		endif;
 		
 		$pagevalue = array(
 			'description' =>'Покупайте недвижимость online, невыходя из дома. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
@@ -2125,14 +2111,14 @@ class Users_interface extends CI_Controller{
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
 			'sidebar' 	=> array(),
-			'backpath'	=> $this->session->userdata('backpath'),
+			'backpath'	=> $backpath,
 			'amountval'	=> ''
 		);
-		if(!$this->session->userdata('price')):
+		if(!$price):
 			$this->session->set_userdata('msg','Ошибка расчета стоимости.<br/>Повторите снова.');
-			redirect($this->session->userdata('backpath'));
+			redirect($backpath);
 		else:
-			$pagevalue['amountval'] = $this->session->userdata('price').'00';
+			$pagevalue['amountval'] = $price.'00';
 		endif;
 		$this->session->unset_userdata('query');
 		$this->session->unset_userdata('status');
@@ -2143,16 +2129,26 @@ class Users_interface extends CI_Controller{
 
 	function confirmation_error(){
 		
-		$order = $this->session->userdata('order');
-		if(!$order) redirect($this->session->userdata('backpath'));
+		$type = $this->uri->segment(1);
+		switch($type):
+			case 'transfers' : 	{$order = $this->session->userdata('trorder');
+								$backpath = $this->session->userdata('backpath');
+								}; break;
+			case 'tour' 	: 	{$order = $this->session->userdata('torder');
+								$backpath = 'tour/extended/'.$this->session->userdata('tourid');
+								}; break;
+		endswitch;
+		if(!$order): 
+			redirect($backpath);
+		endif;
 		
 		$this->session->set_userdata('msg','Операция оплаты произведена с ошибкой или отменена');
-		redirect($this->session->userdata('backpath').'#kontakt');
+		redirect($backpath.'#kontakt');
 	}
 
-	function confirmation_successful(){
+	function confirmation_transfers_success(){
 		
-		$order = $this->session->userdata('order');
+		$order = $this->session->userdata('trorder');
 		if(!$order) redirect($this->session->userdata('backpath'));
 		
 		if(isset($_SERVER['HTTP_REFERER'])):
@@ -2163,47 +2159,40 @@ class Users_interface extends CI_Controller{
 			redirect($this->session->userdata('backpath'));
 		endif;
 		
-		$this->session->unset_userdata('place');
-		$this->session->unset_userdata('email');
-		$this->session->unset_userdata('name');
-		$this->session->unset_userdata('phone');
-		$this->session->unset_userdata('date');
-		$this->session->unset_userdata('adults');
-		$this->session->unset_userdata('children');
-		$this->session->unset_userdata('infants');
-		$this->session->unset_userdata('textmail');
-		$this->session->unset_userdata('price');
-		$this->session->unset_userdata('order');
-		
 		$place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)');
-		$_POST['msg'] 	 = 'Обект - "Трансферы"'. "\n";
-		$_POST['msg'] 	.= 'Место - "'.$place[$_POST['place']].'"'. "\n";
-		$_POST['msg'] 	.= 'E-Mail клиента - '.$_POST['email']."\n";
-		$_POST['msg'] 	.= 'Контактное лицо - '.$_POST['name']."\n";
-		$_POST['msg'] 	.= 'Номер телефона - '.$_POST['phone']."\n";
-		$_POST['msg'] 	.= 'Дата - '.$_POST['date']."\n";
-		$_POST['msg'] 	.= 'Взрослых - '.$_POST['adults']."\n";
-		$_POST['msg'] 	.= 'Детей - '.$_POST['children']."\n";
-		$_POST['msg'] 	.= 'Младенцов - '.$_POST['infants']."\n";
-		$_POST['msg'] 	.= 'Примечание - '.$_POST['textmail']."\n";
-		
+		ob_start();
+		?>
+Поступил новый заказ на трансфер из <?=$place[$this->session->userdata('place')]?> на <?=$this->session->userdata('date')?>.
+
+Имя клиента: <?=$this->session->userdata('name')?> 
+Контактный номер телефона: <?=$this->session->userdata('phone')?> 
+Пассажиры: <?=$this->session->userdata('adults')?> взрослых, <?=$this->session->userdata('children')?> детей и <?=$this->session->userdata('infants')?> детей до 2 лет.
+
+Клиент добавил к запросу следующее примечание: <?=$this->session->userdata('note')?>
+		<?
+		$mess['msg'] = ob_get_clean();
+
 		$this->email->clear(TRUE);
 		$config['smtp_host'] = 'localhost';
 		$config['charset'] = 'utf-8';
 		$config['wordwrap'] = TRUE;
 		$this->email->initialize($config);
-		$this->email->from($_POST['email'],$_POST['name']);
+		$this->email->from($this->session->userdata('email'),$this->session->userdata('name'));
 //		$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 		$this->email->to('admin@lum-tenerife.com');
 		$this->email->bcc('');
 		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
-		$textmail = strip_tags($_POST['msg']);
+		$textmail = strip_tags($mess['msg']);
 		$this->email->message($textmail);	
 		$this->email->send();
-		$this->sendbackmail($_POST['name'],$_POST['email']);
-		$_POST['extended'] = $_POST['msg'];
-		$_POST['date'] = date("Y-m-d");
-		$this->maillistmodel->insert_record($_POST);
+		$this->sendbackmail($this->session->userdata('email'),$this->session->userdata('email'));
+		$mas['extended'] = $mess['msg'];
+		$mas['date'] = date("Y-m-d");
+		$mas['name'] = $this->session->userdata('name');
+		$mas['email'] = $this->session->userdata('email');
+		$this->maillistmodel->insert_record($mas);
+		
+		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','note'=>''));
 		
 		$pagevalue = array(
 			'description' =>'',
@@ -2216,6 +2205,70 @@ class Users_interface extends CI_Controller{
 			'backpath'	=> $this->session->userdata('backpath'),
 			'text'		=> 'Операция оплаты произведена успешно'
 		);
+		$this->load->view('user_interface/confirmation-successful',$pagevalue);
+	}
+
+	function confirmation_tour_success(){
+		
+		$order = $this->session->userdata('torder');
+		if(!$order):
+			redirect($this->session->userdata('backpath'));
+		endif;
+		
+		if(isset($_SERVER['HTTP_REFERER'])):
+			if($_SERVER['HTTP_REFERER'] != 'http://tpv.ceca.es:8000/cgi-bin/tpv'):
+				redirect($this->session->userdata('backpath'));
+			endif;
+		else:
+			redirect($this->session->userdata('backpath'));
+		endif;
+		
+		ob_start();
+		?>
+Поступил новый заказ на экскурсию  <?=$this->session->userdata('tour');?> на <?=$this->session->userdata('date')?>.
+
+Имя клиента: <?=$this->session->userdata('name')?> 
+Контактный номер телефона: <?=$this->session->userdata('phone')?> 
+Пассажиры: <?=$this->session->userdata('adults')?> взрослых, <?=$this->session->userdata('children')?> детей и <?=$this->session->userdata('infants')?> детей до 2 лет.
+
+Клиент добавил к запросу следующее примечание: <?=$this->session->userdata('note')?>
+		<?
+		$mess['msg'] = ob_get_clean();
+		
+		$this->email->clear(TRUE);
+		$config['smtp_host'] = 'localhost';
+		$config['charset'] = 'utf-8';
+		$config['wordwrap'] = TRUE;
+		$this->email->initialize($config);
+		$this->email->from($this->session->userdata('email'),$this->session->userdata('name'));
+//		$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
+		$this->email->to('admin@lum-tenerife.com');
+		$this->email->bcc('');
+		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+		$textmail = strip_tags($mess['msg']);
+		$this->email->message($textmail);	
+		$this->email->send();
+		$this->sendbackmail($this->session->userdata('email'),$this->session->userdata('email'));
+		$mas['extended'] = $mess['msg'];
+		$mas['date'] = date("Y-m-d");
+		$mas['name'] = $this->session->userdata('name');
+		$mas['email'] = $this->session->userdata('email');
+		$this->maillistmodel->insert_record($mas);
+		
+		$pagevalue = array(
+			'description' =>'',
+			'keywords' 	=> '',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Операция оплаты произведена успешно',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'sidebar' 	=> array(),
+			'backpath'	=> 'tour/extended/'.$this->session->userdata('tourid'),
+			'text'		=> 'Операция оплаты произведена успешно'
+		);
+		
+		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','note'=>''));
+		
 		$this->load->view('user_interface/confirmation-successful',$pagevalue);
 	}
 }
