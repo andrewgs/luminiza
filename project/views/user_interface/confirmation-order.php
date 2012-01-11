@@ -20,18 +20,28 @@
 			<div class="grid_9 alpha">
 				<div class="main_content">
 					<p class="confirm-title">Проверьте правильность отправляемых данных</p>
-					<? $place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)'); ?>
-					<?= '<p class="confirm"><strong>Откуда/Куда: </strong> '.$place[$this->session->userdata('place')]; ?></p>
-					<?= '<p class="confirm"><strong>Дата: </strong> '.$this->session->userdata('date');?></p>
-					<?= '<p class="confirm"><strong>Пассажиры: </strong>';?>
-					<?= 'Взрослые: '.$this->session->userdata('adults');?>
-					<?= ' Дети: '.$this->session->userdata('children');?>
-					<?= ' Младенцы: '.$this->session->userdata('infants');?></p>
-					<?= '<p class="confirm"><strong>Контактное лицо: </strong>'.$this->session->userdata('name');?></p>
-					<?= '<p class="confirm"><strong>Номер телефона: </strong>'.$this->session->userdata('phone');?></p>
-					<?= '<p class="confirm"><strong>E-Mail: </strong>'.$this->session->userdata('email');?></p>
-					<?= '<p class="confirm"><strong>Примечания: </strong>'.$this->session->userdata('textmail');?></p>
-					<? 
+				<?php $type = $this->uri->segment(1);?>
+				<?php if($type == 'transfers'):?>
+					<?php $place = array('','Северный аэропорт (Los Rodeos)','Южный аэропорт (Reina Sofia)','Лоро Парк (Loro Parque)'); ?>
+					<p class="confirm"><strong>Откуда/Куда:</strong> <?= $place[$this->session->userdata('place')]; ?></p>
+					<? $price = $this->session->userdata('trprice'); ?>					
+				<?php endif;?>
+				<?php if($type == 'tour'):?>
+					<p class="confirm"><strong>Экскурсия:</strong> <?= $this->session->userdata('tour');?></p>
+					<? $price = $this->session->userdata('tprice'); ?>
+				<?php endif;?>
+					<p class="confirm"><strong>Дата:</strong> <?= $this->session->userdata('date'); ?></p>
+					<p class="confirm"><strong>Стоимость:</strong> <?=$price;?> &euro;</p>
+					<p class="confirm"><strong>Пассажиры:</strong><br/>
+					Взрослых <u><?=$this->session->userdata('adults');?> чел.</u>
+					<? if ($this->session->userdata('children')) { ?><br/> Детей от 5 до 10 лет <u><?=$this->session->userdata('children');?> чел.</u><? } ?>
+					<? if ($this->session->userdata('infants')) { ?><br/> Младенцев <u><?=$this->session->userdata('infants');?> чел.</u><? } ?></p>
+					<p class="confirm"><strong>Контактное лицо:</strong> <?=$this->session->userdata('name');?></p>
+					<p class="confirm"><strong>Номер телефона:</strong> <?=$this->session->userdata('phone');?></p>
+					<p class="confirm"><strong>E-Mail:</strong> <?=$this->session->userdata('email');?></p>
+					<p class="confirm"><strong>Примечание:</strong> <?=$this->session->userdata('note');?></p>
+					<p class="confirm">&nbsp;</p>
+					<?php 
 						$Key		 = "41670330";
 						$MerchantID  = "102621166";
 						$AcquirerBIN = "0000554008";
@@ -40,8 +50,8 @@
 						$Amount = $amountval;
 						$TypeCurrency = "978";
 						$Exponent = "2";
-						$URL_OK = $baseurl.'transfers/confirmation-of-order/success';
-						$URL_NOK = $baseurl.'transfers/confirmation-of-order/error';
+						$URL_OK = $baseurl.$type.'/confirmation-of-order/success';
+						$URL_NOK = $baseurl.$type.'/confirmation-of-order/error';
 						$firma = sha1($Key.$MerchantID.$AcquirerBIN.$TerminalID.$OperationID.$Amount.$TypeCurrency.$Exponent.'SHA1'.$URL_OK.$URL_NOK);
 					?>
 					<form class="pay-form" ACTION="http://tpv.ceca.es:8000/cgi-bin/tpv" METHOD="POST" ENCtype="application/x-www-form-urlencoded"> 
@@ -71,7 +81,7 @@
 <?php $this->load->view('user_interface/scripts');?>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#prev").click(function(){location.href="<?=$baseurl.$this->session->userdata('backpath');?>#kontakt";return true;});
+		$("#prev").click(function(){location.href="<?=$baseurl.$backpath;?>#kontakt";return true;});
 	});
 </script>
 </body>

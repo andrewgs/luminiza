@@ -1,4 +1,6 @@
 <?=form_open($this->uri->uri_string(),array('id'=>'frmRent'));?>
+	<input type="hidden" value="" id="price" name="price"/>
+	<div class="clear"></div>
 	<?=form_error('date').'<div class="clear"></div>'; ?>
 	<label for="rdate">Дата экскурсии</label>
 	<div class="dd">
@@ -11,25 +13,25 @@
 		<div class="labelbox">
 			<label class="minor">Взрослые</label>
 			<select class="short" id="adults" name="adults">
-				<? for ($i = 1; $i <= 8; $i++) : ?>
+				<?php for ($i = 1; $i <= 8; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
-				<? endfor; ?>
+				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="labelbox">
-			<label class="minor">Дети</label>
-			<select class="short" id="adults" name="adults">
-				<? for ($i = 0; $i <= 4; $i++) : ?>
+			<label class="minor">Дети от 5 до 10 лет</label>
+			<select class="shorter" id="children" name="children">
+				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
-				<? endfor; ?>
+				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="labelbox">
-			<label class="minor">Младенцы</label>
-			<select class="short" id="adults" name="adults">
-				<? for ($i = 0; $i <= 4; $i++) : ?>
+			<label class="minor">Дети до 5 лет</label>
+			<select class="short" id="infants" name="infants">
+				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
-				<? endfor; ?>
+				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="clear"></div>
@@ -56,11 +58,14 @@
 	<?=form_error('note').'<div class="clear"></div>'; ?>
 	<label for="rdate">Примечания</label>
 	<div class="dd">
-		<textarea class="note inpval" id="note" name="note"></textarea>
+		<textarea class="note" id="note" name="note"></textarea>
+		<label class="textarea-note">* Если вы желаете, чтобы никаких других пассажиров, кроме вашей семьи не было, пожалуйста укажите это в примечании.</label>
 	</div>
+	<div id="mastercard"></div>
+	<div id="visa"></div>
 	<div class="total-price">
 		Всего: 
-		<span id="price">90.00</span>
+		<span id="TotalPrice">0.00</span>
 		<span> &euro;</span>
 	</div>	
 	<div class="clear"></div>
