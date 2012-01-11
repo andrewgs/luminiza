@@ -71,7 +71,7 @@
 	$(document).ready(function(){
 		var price = 0;
 		var tprice = <?=$tour['tour_price'];?>;
-		var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+		var people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
 		$("#TotalPrice").html(pricing(tprice,people)+'.00');
 		$("#price").val(pricing(tprice,people));
 		<?php if($msg):?>
@@ -99,17 +99,18 @@
 		
 		$(".short").change(function(){
 			var curVal = $(this).val();
-			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
-			if(people > 8){
+			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			if(tpeople > 8){
 				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
-				var subPeople = 8-people;
+				var subPeople = 8-tpeople;
 				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
-				people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+				people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
 				var price = pricing(tprice,people);
 				$("#TotalPrice").html(price+'.00');
 				$("#price").val(price);
 				return false;
 			}else{
+				people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
 				var price = pricing(tprice,people);
 				$("#TotalPrice").html(price+'.00');
 				$("#price").val(price);
