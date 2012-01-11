@@ -1898,7 +1898,7 @@ class Users_interface extends CI_Controller{
 	
 	function sendbackmail($name,$email){
 		
-		$msg = 'Здравствуйте, '.$name."\n".'Спасибо за ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно вам ответим в течение одного рабочего дня'."\n\n".'--------------------------------------'."\n".'С уважением,'."\n".'Агентство недвижимости Luminiza Property Tur S.L.';
+		$msg = "Здравствуйте, {$name}. Спасибо за Ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно Вам ответим в течение одного рабочего дня\n\n.--\nС уважением,\nДемченко Светлана\n(+34) 922-712-237\nwww.lum-tenerife.ru\nАгентство недвижимости Luminiza Property Tur S.L.";
 		$this->email->clear(TRUE);
 		$config['smtp_host'] = 'localhost';
 		$config['charset'] = 'utf-8';
@@ -2241,7 +2241,7 @@ class Users_interface extends CI_Controller{
 		$config['wordwrap'] = TRUE;
 		$this->email->initialize($config);
 		$this->email->from($this->session->userdata('email'),$this->session->userdata('name'));
-//		$this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
+		// $this->email->to('info@lum-tenerife.com,admin@lum-tenerife.com');
 		$this->email->to('admin@lum-tenerife.com');
 		$this->email->bcc('');
 		$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
