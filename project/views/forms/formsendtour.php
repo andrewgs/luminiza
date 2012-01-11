@@ -19,15 +19,15 @@
 			</select>
 		</div>
 		<div class="labelbox">
-			<label class="minor">Дети</label>
-			<select class="short" id="children" name="children">
+			<label class="minor">Дети от 5 до 10 лет</label>
+			<select class="shorter" id="children" name="children">
 				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
 				<?php endfor; ?>
 			</select>
 		</div>
 		<div class="labelbox">
-			<label class="minor">Младенцы</label>
+			<label class="minor">Дети до 5 лет</label>
 			<select class="short" id="infants" name="infants">
 				<?php for ($i = 0; $i <= 4; $i++) : ?>
 				<option value="<?=$i;?>"><?=$i;?></option>
@@ -59,7 +59,10 @@
 	<label for="rdate">Примечания</label>
 	<div class="dd">
 		<textarea class="note" id="note" name="note"></textarea>
+		<label class="textarea-note">* Если вы желаете, чтобы никаких других пассажиров, кроме вашей семьи не было, пожалуйста укажите это в примечании.</label>
 	</div>
+	<div id="mastercard"></div>
+	<div id="visa"></div>
 	<div class="total-price">
 		Всего: 
 		<span id="TotalPrice">0.00</span>

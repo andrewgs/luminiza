@@ -22,42 +22,6 @@
 			<div class="grid_9 alpha">
 				<div class="main_content">
 					<h1><?=$tour['tour_title']; ?> <a href="#kontakt" class="colorful">Купить экскурсию</a></h1>
-					<!--
-					<h1>
-						<?= $tour['tour_title']; ?> 
-						<? if ($tour['tour_id'] == 4):
-								$Key		 = "64681300";
-								$MerchantID  = "102621166";
-								$AcquirerBIN = "0000554008";
-								$TerminalID  = "00000003";
-								$OperationID = time();
-								$Amount = "100";
-								$TypeCurrency = "978";
-								$Exponent = "2";
-								$URL_OK = 'http://tpv.ceca.es:8000/cgi-bin/comunicacion-on-line';
-								$URL_NOK = 'http://lum-tenerife.ru/tour/extended/4';
-								$firma = sha1($Key.$MerchantID.$AcquirerBIN.$TerminalID.$OperationID.$Amount.$TypeCurrency.$Exponent.'SHA1'.$URL_OK.$URL_NOK); 
-						?>
-						<FORM ACTION="https://pgw.ceca.es/cgi-bin/tpv" METHOD="POST" ENCTYPE="application/x-www-form-urlencoded"> 
-							<INPUT NAME="MerchantID" TYPE="hidden" VALUE="<?= $MerchantID; ?>"> 
-							<INPUT NAME="AcquirerBIN" TYPE="hidden" VALUE="<?= $AcquirerBIN; ?>"> 
-							<INPUT NAME="TerminalID" TYPE="hidden" VALUE="<?= $TerminalID; ?>"> 
-							<INPUT NAME="URL_OK" TYPE="hidden" VALUE="<?= $URL_OK; ?>"> 
-							<INPUT NAME="URL_NOK" TYPE="hidden" VALUE="<?= $URL_NOK; ?>"> 
-							<INPUT NAME="Firma" TYPE="hidden" VALUE="<?= $firma; ?>"> 
-							<INPUT NAME="Cifrado" TYPE="hidden" VALUE="SHA1"> 
-							<INPUT NAME="Num_operacion" TYPE="hidden" VALUE="<?= $OperationID; ?>"> 
-							<INPUT NAME="Importe" TYPE="hidden" VALUE="<?= $Amount; ?>"> 
-							<INPUT NAME="TipoMoneda" TYPE="hidden" VALUE="<?= $TypeCurrency; ?>"> 
-							<INPUT NAME="Exponente" TYPE="hidden" VALUE="<?= $Exponent;  ?>"> 
-							<INPUT NAME="Pago_soportado" TYPE="hidden" VALUE="SSL">
-							<INPUT NAME="Idioma" TYPE="hidden" VALUE="6"> 
-							<input type="submit" class="senden" value="Купить">
-							Key_encription+MerchantID+AcquirerBIN+TerminalID+No_operation+Amount+TypeCurrency+Exponent+ +String SHA1+URL_OK+URL_NOK
-						</FORM>
-						<? endif; ?>
-					</h1>
-					-->
 					<?php if(isset($tour['img_id'])):
 						echo '<img class="main_image" alt="'.$tour['img_title'].'"title="'.$tour['img_title'].'" src="'.$baseurl.'viewimage/'.$tour['img_id'].'">';
 					endif; ?>

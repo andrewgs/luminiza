@@ -22,6 +22,10 @@
 			<div class="grid_9 alpha">
 				<div class="main_content">
 					<p class="confirm-title"><?=$text;?></p>
+					<p class="confirm">Спасибо за то, что воспользовались услугами нашей компании. Все необходимые платежные документы и ваучеры 
+					отправлены на указанный вами адрес электронной почты.</p>
+					<p>Если вы не получили письмо, тогда свяжитесь с нами по контактному телефону 
+					<strong>(+34) 922-712-237</strong> или по электронной почте <?=safe_mailto('info@lum-tenerife.com', 'info@lum-tenerife.com')?></p>
 				</div>
 			</div>
 			<div class="clear"></div>
