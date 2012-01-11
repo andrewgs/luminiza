@@ -70,7 +70,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var price = 0;
-		var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+ parseFloat($("#infants").val());
+		var people = parseFloat($("#adults").val());
 		$("#TotalPrice").html(pricing($("#place").val(),people)+'.00');
 		$("#price").val(pricing($("#place").val(),people));
 		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
@@ -107,7 +107,7 @@
 		
 		$("#place").change(function(){
 			var place = $("#place").val();
-			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			var people = parseFloat($("#adults").val());
 			var price = pricing(place,people);
 			$("#TotalPrice").html(price+'.00');
 			$("#price").val(price);
@@ -115,17 +115,18 @@
 		
 		$(".short").change(function(){
 			var curVal = $(this).val();
-			var people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
-			if(people > 8){
+			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			if(tpeople > 8){
 				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
-				var subPeople = 8-people;
+				var subPeople = 8-tpeople;
 				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
-				people = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
-				var price = pricing(tprice,people);
+				people = parseFloat($("#adults").val());
+				var price = pricing($("#place").val(),people);
 				$("#TotalPrice").html(price+'.00');
 				$("#price").val(price);
 				return false;
 			}else{
+				people = parseFloat($("#adults").val());
 				var place = $("#place").val();
 				var price = pricing(place,people);
 				$("#TotalPrice").html(price+'.00');
