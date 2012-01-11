@@ -1436,7 +1436,7 @@ class Users_interface extends CI_Controller{
 					return FALSE;
 				endif;
 				
-				$this->session->set_userdata(array('trorder'=>TRUE,'trprice'=>$_POST['price'],'place'=>$_POST['place'],'email'=>$_POST['email'],'name'=>$_POST['name'],'phone'=>$_POST['phone'],'date'=>$_POST['date'],'adults'=>$_POST['adults'],'children'=>$_POST['children'],'infants'=>$_POST['infants'],'note'=>$_POST['note']));
+				$this->session->set_userdata(array('trorder'=>TRUE,'trprice'=>$_POST['price'],'place'=>$_POST['place'],'email'=>$_POST['email'],'name'=>$_POST['name'],'phone'=>$_POST['phone'],'date'=>$_POST['date'],'adults'=>$_POST['adults'],'children'=>$_POST['children'],'infants'=>$_POST['infants'],'flight'=>$_POST['flight'],'note'=>$_POST['note']));
 				redirect('transfers/confirmation-of-order');
 			endif;
 		endif;
@@ -2168,6 +2168,7 @@ class Users_interface extends CI_Controller{
 Контактный номер телефона: <?=$this->session->userdata('phone')?> 
 Пассажиры: <?=$this->session->userdata('adults')?> взрослых, <?=$this->session->userdata('children')?> детей и <?=$this->session->userdata('infants')?> детей до 2 лет.
 
+Номер авиарейса: <?=$this->session->userdata('flight');?>
 Клиент добавил к запросу следующее примечание: <?=$this->session->userdata('note')?>
 		<?
 		$mess['msg'] = ob_get_clean();
@@ -2192,7 +2193,7 @@ class Users_interface extends CI_Controller{
 		$mas['email'] = $this->session->userdata('email');
 		$this->maillistmodel->insert_record($mas);
 		
-		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','note'=>''));
+		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','flight'=>'','note'=>''));
 		
 		$pagevalue = array(
 			'description' =>'',
@@ -2267,7 +2268,7 @@ class Users_interface extends CI_Controller{
 			'text'		=> 'Операция оплаты произведена успешно'
 		);
 		
-		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','note'=>''));
+		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','flight'=>'','note'=>''));
 		
 		$this->load->view('user_interface/confirmation-successful',$pagevalue);
 	}

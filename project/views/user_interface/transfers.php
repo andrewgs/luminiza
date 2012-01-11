@@ -95,12 +95,14 @@
 				$("#email").css('border-color','#ff0000');
 				$.jGrowl("Не верный адрес E-Mail",{header:'Форма заказа'});
 				event.preventDefault();
-			}else if(!isValidPhone(phone)){
+			}else if(parseFloat($("#adults").val()) > 8){
+				$("#ppl").css('border-color','#ff0000');
+				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
+				event.preventDefault();
+			}
+			if(!err && !isValidPhone(phone)){
 				$("#phone").css('border-color','#ff0000');
 				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
-				event.preventDefault();
-			}else if(people > 8){
-				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
 				event.preventDefault();
 			}
 		});
@@ -164,6 +166,7 @@
 			$("#name").val("<?=$this->session->userdata('name');?>");
 			$("#phone").val("<?=$this->session->userdata('phone');?>");
 			$("#email").val("<?=$this->session->userdata('email');?>");
+			$("#flight").val("<?=$this->session->userdata('flight');?>");
 			$("#note").val("<?=$this->session->userdata('note');?>");
 		<?php endif;?>
 	});

@@ -118,6 +118,7 @@
 		$("#send").click(function(event){
 			var err = false;
 			var email = $("#email").val();
+			var phone = $("#phone").val();
 			$(".inpval").css('border-color','#00ff00');
 			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
 			if(err){
@@ -127,7 +128,8 @@
 				$("#email").css('border-color','#ff0000');
 				$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});
 				event.preventDefault();
-			}else if(!isValidPhone(phone)){
+			}
+			if(!err && !isValidPhone(phone)){
 				$("#phone").css('border-color','#ff0000');
 				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
 				event.preventDefault();

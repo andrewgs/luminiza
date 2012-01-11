@@ -39,6 +39,9 @@
 					<p class="confirm"><strong>Контактное лицо:</strong> <?=$this->session->userdata('name');?></p>
 					<p class="confirm"><strong>Номер телефона:</strong> <?=$this->session->userdata('phone');?></p>
 					<p class="confirm"><strong>E-Mail:</strong> <?=$this->session->userdata('email');?></p>
+				<?php if($type == 'transfers'):?>
+					<p class="confirm"><strong>Номер авиарейса:</strong> <?=$this->session->userdata('flight'); ?></p>
+				<?php endif;?>
 					<p class="confirm"><strong>Примечание:</strong> <?=$this->session->userdata('note');?></p>
 					<p class="confirm">&nbsp;</p>
 					<?php 

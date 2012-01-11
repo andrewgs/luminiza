@@ -4,7 +4,7 @@
 	<?=form_error('name').'<div class="clear"></div>'; ?>
 	<label for="name">Откуда/Куда</label>
 	<div class="dd">
-		<select class="name inpval" id="place" name="place">
+		<select class="name" id="place" name="place">
 			<option value="1">Северный аэропорт (Los Rodeos)</option>
 			<option value="2">Южный аэропорт (Reina Sofia)</option>
 			<option value="3">Лоро Парк (Loro Parque)</option>
@@ -63,6 +63,11 @@
 	<label for="email">E-Mail</label>
 	<div class="dd">
 		<input type="text" size="45" maxlength="50" class="email inpval" id="email" value="" name="email">
+	</div>
+	<?=form_error('flight').'<div class="clear"></div>'; ?>
+	<label for="email">Номер авиарейса</label>
+	<div class="dd">
+		<input type="text" size="45" maxlength="50" class="flight" id="flight" value="" name="flight">
 	</div>		
 	<?=form_error('textmail').'<div class="clear"></div>'; ?>
 	<label for="msg">Примечания</label>
