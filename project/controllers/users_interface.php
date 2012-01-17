@@ -1275,14 +1275,20 @@ class Users_interface extends CI_Controller{
 			else:
 				$_POST['submit'] = NULL;
 				$price = 0;
-				$people = $_POST['adults']+($_POST['children']*0.5);
+				$people = $_POST['adults']+$_POST['children']+$_POST['infants'];
 				if($people > 8):
 					$_POST['submit'] = NULL;
 					$this->session->set_userdata('msg','Превышено количество пасажиров.<br/>Макс: 8 человек');
 					$this->tour_extended();
 					return FALSE;
 				endif;
-				$price = $people * $tour['tour_price'];
+				if($people < $tour['tour_people']):
+					$_POST['submit'] = NULL;
+					$this->session->set_userdata('msg','Минимальное количество человек равно '.$tour['tour_people']);
+					$this->tour_extended();
+					return FALSE;
+				endif;
+				$price = ($_POST['adults']+($_POST['children']*0.5)) * $tour['tour_price'];
 				if($_POST['price'] != $price):
 					$_POST['submit'] = NULL;
 					$this->session->set_userdata('msg','Ошибка расчета стоимости.<br/>Повторите снова.');

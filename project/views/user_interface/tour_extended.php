@@ -81,9 +81,11 @@
 		
 		$("#send").click(function(event){
 			var err = false;
+			var mpeople = <?=$tour['tour_people'];?>;
 			var email = $("#email").val();
 			var phone = $("#phone").val();
 			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			$(".ppl").css('border-color','#00ff00');
 			$(".inpval").css('border-color','#00ff00');
 			$(".inpval").each(function(i,element){if($(this).val()===''){$(this).css('border-color','#ff0000');err = true;}});
 			if(err){
@@ -102,6 +104,11 @@
 			if(!err && !isValidPhone(phone)){
 				$("#phone").css('border-color','#ff0000');
 				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
+				event.preventDefault();
+			}
+			if(!err && tpeople==mpeople){
+				$(".ppl").css('border-color','#ff0000');
+				$.jGrowl("Минимальное количество человек равно "+mpeople,{header:'Форма заказа'});
 				event.preventDefault();
 			}
 		});

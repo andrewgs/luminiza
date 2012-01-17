@@ -45,6 +45,16 @@
 							'style' 	=> 'min-width: 50px;'
 						);
 						echo form_input($attr).'</div>';
+						echo '<div>'.form_label('Мин. кол-во человек: ','textlabel');
+						$attr = array(
+							'name' 		=> 'people',
+							'id'   		=> 'textpeople',
+							'value'		=> $tourinfo['tour_people'],
+							'class'		=> 'textfield inpval',
+							'maxlength'	=> '100',
+							'style' 	=> 'min-width: 50px;'
+						);
+						echo form_input($attr).'</div>';
 						echo '<div>'.form_label('Раcширенная информация: ','textlabel').'</div>';
 						$attr =array(
 								'name' 	=> 'extended',

@@ -5,6 +5,7 @@ class Tourlistmodel extends CI_Model{
 	var $tour_title = '';
 	var $tour_extended = '';
 	var $tour_price = 0;
+	var $tour_people = 8;
 	
 	function __construct(){
     
@@ -37,6 +38,7 @@ class Tourlistmodel extends CI_Model{
 		$this->tour_title = $data['title'];
 		$this->tour_extended = $data['extended'];
 		$this->tour_price = $data['price'];
+		$this->tour_people = $data['people'];
 		$this->db->insert('tourlist', $this);
 	}
 	
@@ -46,6 +48,7 @@ class Tourlistmodel extends CI_Model{
 		$this->tour_title = $data['title'];
 		$this->tour_extended = $data['extended'];
 		$this->tour_price = $data['price'];
+		$this->tour_people = $data['people'];
 		$this->db->where('tour_id', $this->tour_id);
 		$this->db->update('tourlist', $this);
 	}
