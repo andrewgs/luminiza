@@ -45,7 +45,7 @@
 					<p class="confirm"><strong>Примечание:</strong> <?=$this->session->userdata('note');?></p>
 					<p class="confirm">&nbsp;</p>
 					<?php 
-						$Key		 = "41670330";
+						$Key		 = "64681300";
 						$MerchantID  = "102621166";
 						$AcquirerBIN = "0000554008";
 						$TerminalID  = "00000003";
@@ -57,7 +57,7 @@
 						$URL_NOK = $baseurl.$type.'/confirmation-of-order/error';
 						$firma = sha1($Key.$MerchantID.$AcquirerBIN.$TerminalID.$OperationID.$Amount.$TypeCurrency.$Exponent.'SHA1'.$URL_OK.$URL_NOK);
 					?>
-					<form class="pay-form" ACTION="http://tpv.ceca.es:8000/cgi-bin/tpv" METHOD="POST" ENCtype="application/x-www-form-urlencoded"> 
+					<form class="pay-form" ACTION="https://pgw.ceca.es/cgi-bin/tpv" METHOD="POST" ENCtype="application/x-www-form-urlencoded"> 
 						<input name="MerchantID" type="hidden" value="<?= $MerchantID; ?>"> 
 						<input name="AcquirerBIN" type="hidden" value="<?= $AcquirerBIN; ?>"> 
 						<input name="TerminalID" type="hidden" value="<?= $TerminalID; ?>"> 

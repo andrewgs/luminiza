@@ -57,7 +57,7 @@
 	  		</div>
 	  		<div class="grid_4">
 		  		<h2>Справочная служба</h2>
-					<div class="side-phone"><span>Москва</span>8 (918) 591-33-37</div>
+					<div class="side-phone"><span>Москва</span>8 (909) 836-36-66</div>
 					<div class="side-phone"><span>Тенерифе (Испания)</span>8 10 34 678-283-024</div>
 					<div class="side-phone"><span>Электронная почта</span>info@lum-tenerife.com</div>
 					<ul id="social-links">
