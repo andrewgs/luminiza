@@ -67,13 +67,17 @@
 <?php $this->load->view('user_interface/datepicker');?>
 <?php $this->load->view('user_interface/yandex');?>
 <?php $this->load->view('user_interface/pirobox');?>
+<script src="<?=$baseurl;?>js/tours.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var price = 0;
 		var tprice = <?=$tour['tour_price'];?>;
-		var people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
-		$("#TotalPrice").html(pricing(tprice,people)+'.00');
-		$("#price").val(pricing(tprice,people));
+		var adults = parseFloat($("#adults").val());
+		var children = parseFloat($("#children").val());
+		var infants = parseFloat($("#infants").val());
+		$("#TotalPrice").html(tours[<?=$tour['tour_id'];?>].cprice(tprice,adults,children,infants));
+		$("#price").val(tours[<?=$tour['tour_id'];?>].cprice(tprice,adults,children,infants));
+		
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
 		<?php endif;?>
@@ -96,9 +100,9 @@
 				$.jGrowl("Не верный адрес E-Mail",{header:'Форма обратной связи'});
 				event.preventDefault();
 			}else if(isValidPeople(tpeople)){
-				people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
-				var price = pricing(tprice,people);
-				$("#TotalPrice").html(price+'.00');
+				adults = parseFloat($("#adults").val()); children = parseFloat($("#children").val()); infants = parseFloat($("#infants").val());
+				var price = tours[<?=$tour['tour_id'];?>].cprice(tprice,adults,children,infants);
+				$("#TotalPrice").html(price);
 				$("#price").val(price);
 			}
 			if(!err && !isValidPhone(phone)){
@@ -106,7 +110,7 @@
 				$.jGrowl("Не верный номер телефона",{header:'Форма заказа'});
 				event.preventDefault();
 			}
-			if(!err && tpeople==mpeople){
+			if(!err && tpeople<mpeople){
 				$(".ppl").css('border-color','#ff0000');
 				$.jGrowl("Минимальное количество человек равно "+mpeople,{header:'Форма заказа'});
 				event.preventDefault();
@@ -115,20 +119,23 @@
 		
 		$(".ppl").change(function(){
 			var curVal = $(this).val();
-			var tpeople = parseFloat($("#adults").val())+parseFloat($("#children").val())+parseFloat($("#infants").val());
+			var adults = parseFloat($("#adults").val());
+			var children = parseFloat($("#children").val());
+			var infants = parseFloat($("#infants").val());
+			var tpeople = adults+children+infants;
 			if(tpeople > 8){
 				$.jGrowl("Превышено количество пасажиров. Макс: 8 человек",{header:'Форма заказа'});
 				var subPeople = 8-tpeople;
 				if(subPeople < 0) $(this).val(curVal-Math.abs(subPeople)).attr('selected','selected');
-				people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
-				var price = pricing(tprice,people);
-				$("#TotalPrice").html(price+'.00');
+				adults = parseFloat($("#adults").val()); children = parseFloat($("#children").val()); infants = parseFloat($("#infants").val());
+				var price = tours[<?=$tour['tour_id'];?>].cprice(tprice,adults,children,infants);
+				$("#TotalPrice").html(price);
 				$("#price").val(price);
 				return false;
 			}else{
-				people = parseFloat($("#adults").val())+parseFloat($("#children").val())*0.5;
-				var price = pricing(tprice,people);
-				$("#TotalPrice").html(price+'.00');
+				adults = parseFloat($("#adults").val()); children = parseFloat($("#children").val()); infants = parseFloat($("#infants").val());
+				var price = tours[<?=$tour['tour_id'];?>].cprice(tprice,adults,children,infants);
+				$("#TotalPrice").html(price);
 				$("#price").val(price);
 			}
 			
