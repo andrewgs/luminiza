@@ -1288,8 +1288,29 @@ class Users_interface extends CI_Controller{
 					$this->tour_extended();
 					return FALSE;
 				endif;
-				$price = ($_POST['adults']+($_POST['children']*0.5)) * $tour['tour_price'];
-				if($_POST['price'] != $price):
+				
+				$people = $_POST['adults']+($_POST['children']*0.5);
+				switch ($tour['tour_id']):
+				case '1' : 	if($people <= 4):
+								$price = $tour['tour_price']*4;
+							else:
+								$price = $tour['tour_price']*$people;
+							endif;
+							break;
+				case '2' : 	$price = $tour['tour_price'];
+							break;
+				case '3' : 	if($people <= 4):
+								$price = $tour['tour_price']*4;
+							else:
+								$price = $tour['tour_price']*$people;
+							endif;
+							break;
+				case '4' : 	$price = $tour['tour_price']*$people;
+							break;
+				case '5' : 	$price = $tour['tour_price']*$people;
+							break;
+				endswitch;
+				if($price != $_POST['price']):
 					$_POST['submit'] = NULL;
 					$this->session->set_userdata('msg','Ошибка расчета стоимости.<br/>Повторите снова.');
 					$this->tour_extended();
