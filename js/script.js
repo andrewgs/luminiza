@@ -20,6 +20,14 @@ function calc() {
 	calc_sum.html((cost-first).toFixed(2));
 	calc_ej.html(paid.toFixed(2));
 }
+
+function popup(href) {
+	var left = parseInt(document.body.offsetWidth/2 - 450);
+	var top = parseInt(document.body.offsetHeight/2 - 740);
+	var height = 560;
+	var query = 'scrollbars=yes,toolbar=no,left='+ left +',top='+ top +',location=no,directories=no,status=no,width=600,height='+height;
+	window.open(href, 'mustKnow', query);
+}
  
 (function($){
 	

@@ -1902,6 +1902,50 @@ class Users_interface extends CI_Controller{
 		$this->load->view('user_interface/contacts',$pagevalue);
 	} //функция выводит контактную информацию компании;
 	
+	function contacts_popup() {
+		
+		if ( $this->input->post('submit') ) 
+		{
+			$status = 0;
+			$email = @$_POST['email'];
+			$name  = @$_POST['name'];
+			$phone = @$_POST['phone'];
+			$note  = @$_POST['note'];
+			
+			$textmail = "Поступило новое сообщение от пользователя веб-сайта {$name}.\n\nТелефонный номер клиента: {$phone}\n\nСообщение пользователя:\n{$note}";
+			
+			$this->email->clear(TRUE);
+			$config['smtp_host'] = 'localhost';
+			$config['charset'] = 'utf-8';
+			$config['wordwrap'] = TRUE;
+			$this->email->initialize($config);
+			$this->email->from($_POST['email'], $_POST['name']);
+			$this->email->to('admin@lum-tenerife.com');
+			$this->email->bcc('');
+			$this->email->subject('Сообщение от пользователя Luminiza Property Tur S.L.');
+			$this->email->message($textmail);	
+			
+			if ( !$this->email->send() ) {
+				$status = -1;
+			} else {
+				$this->sendbackmail($_POST['name'], $_POST['email']);
+				$status = 1;
+			}
+			
+			echo $status;
+		} else {
+			$pagevalue = array(
+				'description' 	=> 'Форма обратной связи с агентством недвижимости Luminiza Property Tur S.L.',
+				'keywords' 		=> '',
+				'author' 		=> 'RealityGroup',
+				'title' 		=> 'Форма обратной связи :: Luminiza Property Tur S.L.',
+				'baseurl' 		=> base_url()
+			);
+		
+			$this->load->view('user_interface/contacts_popup', $pagevalue);
+		}
+	} //функция выводит контактную информацию компании;
+	
 	function sendbackmail($name,$email){
 		
 		$msg = "Здравствуйте, {$name}. Спасибо за Ваш интерес к нашему агенству. Ваше письмо доставлено и мы обязательно Вам ответим в течение одного рабочего дня\n\n.--\nС уважением,\nДемченко Светлана\n(+34) 922-712-237\nwww.lum-tenerife.ru\nАгентство недвижимости Luminiza Property Tur S.L.";

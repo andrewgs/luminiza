@@ -59,7 +59,7 @@
 		  		<h2>Справочная служба</h2>
 					<div class="side-phone"><span>Москва</span>8 (909) 836-36-66</div>
 					<div class="side-phone"><span>Тенерифе (Испания)</span>8 10 34 678-283-024</div>
-					<div class="side-phone"><span>Электронная почта</span>info@lum-tenerife.com</div>
+					<div class="side-phone"><span>Электронная почта</span><a class="text-link" href="/" onclick="popup('<?=$baseurl;?>contacts_popup'); return false;">info@lum-tenerife.com</a></div>
 					<ul id="social-links">
 						<li><a target="_blank" class="skype" href="#">lum-tenerife</a></li>
 						<li><a target="_blank" class="facebook" href="http://www.facebook.com/pages/Luminiza-Property-Tur-SL/279976642024849">Facebook</a></li>

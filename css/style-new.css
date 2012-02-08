@@ -123,6 +123,7 @@ p { margin-bottom: 10px; }
 h1 { color: #4b4444; font-size: 22px; line-height: 27px; margin-bottom: 10px; position: relative; }
 h2 { color: #383333; font-size: 18px; line-height: 21px; text-decoration: underline; margin: 0 0 12px; }
 a { color: #0477a2; text-decoration: underline; }
+.text-link, .text-link:hover { color: #3b3333; text-decoration: none; }
 .featured-link { display: block; margin: 8px 0 0; }
 .chapter { margin: 0 0 10px; }
 #usefull-links ul { list-style: none; margin: 0; line-height: 24px; }
@@ -224,14 +225,15 @@ table.tour td a { text-decoration: none; }
 /* General styles*/
 
 /* Forms */
-.formmailer { background: url('../images/form_overlay.jpg') repeat scroll 0 0 transparent; border: 1px solid #dad7d0; margin: 15px 0 0; padding: 20px 20px 7px; width: 500px; font: 1.2em/1.5em "Helvetica", Calibri, Arial, sans-serif; color: #34332d; -moz-border-radius: 10px; -webkit-border-radius: 10px; position: relative; }
-	.formmailer p { color: #888; font: 12px/18px trebuchet MS,sans-serif; margin: 0 0 20px; }
+.formmailer { background: url('../images/form_overlay.jpg') repeat scroll 0 0 transparent; border: 1px solid #dad7d0; margin: 15px 0 0; padding: 20px 20px 7px; width: 500px; font: 1.2em/1.5em "Helvetica", Calibri, Arial, sans-serif; color: #34332d; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; position: relative; }
+	.formmailer p { color: #444; font: 13px/19px Trebuchet MS,sans-serif; margin: 0 0 8px; text-shadow: 0 1px 3px #fff; }
+.text { background-color: #372D2D; color: #fff; font: 13px trebuchet MS,serif; padding: 10px 13px 11px; }
 .ddr { font: 13px/19px trebuchet MS,sans-serif; display: inline-block; }
 .dd input, .dd select {	border: 1px solid #DAD7D0; border-radius: 3px; color: #453E34; font: 13px trebuchet MS,sans-serif; letter-spacing: 1px; padding: 5px; width: 320px; }
 .dd select { padding: 4px 3px; width: 332px; }
 .ddr input { border: solid 1px #dad7d0; color: #453E34; font: 15px/23px Cambria, Georgia,"Times New Roman",Times,serif; padding: 5px; margin: 3px 10px 3px 0; line-height: 25px; -moz-border-radius: 5px; -webkit-border-radius : 5px; }
 .ddr input[type=text] { margin-left: 10px }
-	.formmailer small, .formmailer label { border-radius: 2px; color: #6D5935; display: inline-block; font: 13px "trebuchet MS",serif; margin: 4px 5px 6px 3px; text-align: right; vertical-align: top; width: 120px; }
+	.formmailer small, .formmailer label { color: #6D5935; display: block; font: 13px "trebuchet MS",serif; margin: 4px 5px 2px 3px; vertical-align: top; }
 	.formmailer .dd_name, 
 	.formmailer .dd_mail,
 	.formmailer .dd_url,
