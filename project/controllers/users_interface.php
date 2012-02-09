@@ -177,10 +177,10 @@ class Users_interface extends CI_Controller{
 			$this->session->set_userdata('sortby',$_POST['sortvalue']);
 		endif;
 		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'description' =>'Жилая и коммерческая недвижимость на Тенерифе. Агенство недвижимости Luminiza Property Tur S.L. предлагает услуги по продаже и аренде апартаментов, вил и коммерческой недвижимости на Канарских островах. Полный комплект документов, юридическое сопровождение сделок и возможность оформления ипотеки. Сегодня вы можете купить недвижимость на Тенерифе Онлайн.',
+			'keywords' => 'тенерифе, канарские острова, недвижимость, купить, продажа, аренда, лас америкас, ипотека, апартаменты, виллы, luminiza',
 			'author' 	=> 'RealityGroup',
-			'title' 	=> 'Недвижимость на Тенерифе | Продажа апартаментов и вилл | Ипотека в Испании | Luminiza Property Tur S.L.',
+			'title' 	=> 'Недвижимость на Тенерифе | Продажа апартаментов и вилл на Канарских островах | Купить недвижимость Онлайн',
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
 			'formsort' 	=> $this->uri->uri_string(),
@@ -203,12 +203,17 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
-		$selectvalue = array();$apartment = array();$text = array();$countrecord = array();
+		
+		$selectvalue = array();
+		$apartment = array();
+		$text = array();
+		$countrecord = array();
 		
 		$selectvalue['object'] 		= $this->apartmentmodel->select_list('apnt_object');
 		$selectvalue['location']	= $this->apartmentmodel->select_list('apnt_location');
 		$selectvalue['region'] 		= $this->apartmentmodel->select_list('apnt_region');
 		$selectvalue['count'] 		= $this->apartmentmodel->select_list('apnt_count');
+		
 		for($i=0;$i<count($selectvalue['count']);$i++):
 			if(is_numeric($selectvalue['count'][$i]['apnt_count'])):
 				$selectvalue['count'][$i]['apnt_count'] = intval($selectvalue['count'][$i]['apnt_count']);
@@ -216,6 +221,7 @@ class Users_interface extends CI_Controller{
 				continue;
 			endif;
 		endfor;
+		
 		sort($selectvalue['count']);
 		$countrecord['object'] 		= count($selectvalue['object']);
 		$countrecord['location'] 	= count($selectvalue['location']);
@@ -285,10 +291,10 @@ class Users_interface extends CI_Controller{
 	function retail_extended(){
 		
 		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Недвижимость на Тенерифе | Ипотека | Сопровождение сделки | Luminiza Property Tur S.L.',
+			'description' 	=> '',
+			'keywords' 		=> 'тенерифе, канарские острова, недвижимость, купить, продажа, аренда, лас америкас, ипотека, апартаменты, виллы, luminiza',
+			'author' 		=> 'RealityGroup',
+			'title' 		=> '',
 			'baseurl' 		=> base_url(),
 			'searchstatus'	=> FALSE,
 			'searchback'	=> '',
@@ -300,6 +306,7 @@ class Users_interface extends CI_Controller{
 			'ficha'			=> '',
 			'msg'			=> $this->session->userdata('msg')
 		);
+		
 		$this->session->unset_userdata('msg');
 		$apart_id = $this->uri->segment(3);
 		$pagevalue['ficha'] = 'retail/apartment/'.$apart_id.'/ficha';
@@ -378,14 +385,20 @@ class Users_interface extends CI_Controller{
 		$retail['date'] = $this->operation_date($apartament['apnt_date']);
 		
 		$retail['properties'] = array(
-							'object' 	=> '<strong>Объект:</strong>&nbsp;&nbsp;'.$apartament['apnt_object'],
-							'location' 	=> '<strong>Местонахождение:</strong>&nbsp;&nbsp;'.$apartament['apnt_location'],
-							'region' 	=> '<strong>Район:</strong>&nbsp;&nbsp;'.$apartament['apnt_region'],
-							'rooms' 	=> '<strong>Количество комнат:</strong>&nbsp;&nbsp;'.$apartament['apnt_count'],
-							);
+			'object' 	=> '<strong>Объект:</strong>&nbsp;&nbsp;'.$apartament['apnt_object'],
+			'location' 	=> '<strong>Местонахождение:</strong>&nbsp;&nbsp;'.$apartament['apnt_location'],
+			'region' 	=> '<strong>Район:</strong>&nbsp;&nbsp;'.$apartament['apnt_region'],
+			'rooms' 	=> '<strong>Количество комнат:</strong>&nbsp;&nbsp;'.$apartament['apnt_count'],
+		);
 		$pagevalue['retail'] = $retail;
 		$pagevalue['images'] = $images;
 		$pagevalue['text'] = $text;
+		
+		// fill description and title meta fields for SEO optimization
+		$pagevalue['title'] = 'Продажа. ' . preg_replace("/Ref.*?:.*?\d+\s?/i", "", $retail['title']) . ' | Недвижимость на Тенерифе';
+		$pagevalue['description'] = preg_replace("/\s{2,}/", " ", trim(html_entity_decode(strip_tags($retail['extended']), ENT_QUOTES, 'UTF-8')));
+		$pagevalue['description'] = preg_replace('/"/i', "", mb_substr($pagevalue['description'], 0, 500, 'UTF-8'));
+			
 		$this->load->view('user_interface/retail_extended',$pagevalue);
 	} //функция выводит полную информацию объекта продажи;
 	
@@ -395,10 +408,10 @@ class Users_interface extends CI_Controller{
 			$this->session->set_userdata('sortby',$_POST['sortvalue']);
 		endif;
 		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'description' 	=>'Жилая и коммерческая недвижимость на Тенерифе. Агенство недвижимости Luminiza Property Tur S.L. предлагает услуги по продаже и аренде апартаментов, вил и коммерческой недвижимости на Канарских островах. Полный комплект документов, юридическое сопровождение сделок и возможность оформления ипотеки. Сегодня вы можете купить недвижимость на Тенерифе Онлайн.',
+			'keywords' 		=> 'тенерифе, канарские острова, коммерческая недвижимость, купить, продажа, аренда, лас америкас, ипотека, апартаменты, виллы, luminiza',
 			'author' 		=> 'RealityGroup',
-			'title' 		=> 'Бизнес на Тенерифе | Коммерческая недвижимость | Ипотека в Испании | Luminiza Property Tur S.L.',
+			'title' 		=> 'Продажа бизнеса на Тенерифе | Коммерческая недвижимость | Ипотека | Купить недвижимость Онлайн',
 			'baseurl' 		=> base_url(),
 			'admin' 		=> $this->admin['status'],
 			'formsort' 		=> $this->uri->uri_string(),
@@ -506,10 +519,10 @@ class Users_interface extends CI_Controller{
 	function commercial_extended(){
 		
 		$pagevalue = array(
-			'description' =>'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
-			'keywords' => 'тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
-			'author' => 'RealityGroup',
-			'title' => 'Недвижимость на Тенерифе | Ипотека | Сопровождение сделки | Luminiza Property Tur S.L.',
+			'description' 	=>'',
+			'keywords' 		=> 'тенерифе, канарские острова, коммерческая недвижимость, бизнес, купить, продажа, аренда, лас америкас, ипотека, апартаменты, виллы, luminiza',
+			'author' 		=> 'RealityGroup',
+			'title' 		=> '',
 			'baseurl' 		=> base_url(),
 			'searchstatus'	=> FALSE,
 			'searchback'	=> '',
@@ -608,6 +621,12 @@ class Users_interface extends CI_Controller{
 		$pagevalue['retail'] = $retail;
 		$pagevalue['images'] = $images;
 		$pagevalue['text'] = $text;
+		
+		// fill description and title meta fields for SEO optimization
+		$pagevalue['title'] = 'Продажа. ' . preg_replace("/Ref.*?:.*?\d+\s?/i", "", $retail['title']) . ' | Коммерческая недвижимость | Бизнес на Тенерифе';
+		$pagevalue['description'] = preg_replace("/\s{2,}/", " ", trim(html_entity_decode(strip_tags($retail['extended']), ENT_QUOTES, 'UTF-8')));
+		$pagevalue['description'] = preg_replace('/"/i', "", mb_substr($pagevalue['description'], 0, 500, 'UTF-8'));
+		
 		$this->load->view('user_interface/commercial_extended',$pagevalue);
 	} //функция выводит полную информацию rоммерческой недвижимости продажи;
 	
@@ -662,8 +681,8 @@ class Users_interface extends CI_Controller{
 			$pagevalue['title'] = 'Аренда авто на Тенерифе | Прокат машин любого класса | Обслуживание на русском языке | Аренда новых автомобилей';
 			$pagevalue['description'] = 'К вашим услугам аренда машин на Тенерифе. Наша компания предосталяет услуги проката авто от семейных минивэнов до стильных спорткаров. Мы предлагаем арендовать новые автомобили на любой срок, общение на родном языке и круглосуточную техническую поддержку.';  
 		else:
-			$pagevalue['title'] = 'Недвижимость на Тенерифе | Аренда апартаментов и вилл | Ипотека в Испании | Luminiza Property Tur S.L.';
-			$pagevalue['description'] = 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.'; 
+			$pagevalue['title'] = 'Аренда апартаментов и вилл на Тенерифе | Агентство недвижимости Luminiza Property Tur S.L.';
+			$pagevalue['description'] = 'Аренда апартаментов, вилл, домов и квартир на Тенерифе, Канарских островах. Услуга предварительного бронирования апартаментов и квартир на нашем сайте. Встреча в аэропорту и предоставление услуг трансфера из аэропорта.'; 
 		endif;
 		
 		$text[0]['sidebar'] = $this->sidebartextmodel->get_record(4);	// раздел авто;
@@ -753,17 +772,11 @@ class Users_interface extends CI_Controller{
 			'msg'			=> $this->session->userdata('msg')
 		);
 		$this->session->unset_userdata('msg');
-		if($rent_type == 'auto'):
-			$pagevalue['title'] = 'Аренда автомобилей на Тенерифе | Luminiza Property Tur S.L.';
-			$pagevalue['description'] = 'Аренда автомобилей от семейных минивэнов до престижных моделей представительского класса или стильных спорткаров. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.';  
-		else:
-			$pagevalue['ficha'] = 'rent/apartment/'.$rent_id.'/ficha';
-			$pagevalue['title'] = 'Аренда апартаментов и вилл | Недвижимость на Тенерифе | Luminiza Property Tur S.L.';
-			$pagevalue['description'] = 'Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.'; 
-		endif;
-		
-		$rent = array(); $images = array();
+				
+		$rent = array(); 
+		$images = array();
 		$status = $this->session->userdata('status');
+		
 		if(!empty($status)):
 			$pagevalue['searchstatus'] = TRUE;
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
@@ -928,6 +941,19 @@ class Users_interface extends CI_Controller{
 		$pagevalue['rent'] = $rent;
 		$pagevalue['images'] = $images;
 		$pagevalue['text'] = $text;
+		
+		if($rent_type == 'auto'):
+			// fill description and title meta fields for SEO optimization
+			$pagevalue['title'] = 'Прокат автомобилей на Тенерифе :: ' . $rent['title'];
+			$pagevalue['description'] = 'Возьмите сегодня в прокат автомобиль '.$rent['title'].' и устройте себе путешествие по островам. Вы можете арендовать любой другой автомобиль от семейного минивэна до модели бизнес класса.';  
+		else:
+			$pagevalue['ficha'] = 'rent/apartment/'.$rent_id.'/ficha';
+			// fill description and title meta fields for SEO optimization
+			$pagevalue['title'] = 'Сдается в аренду. ' . preg_replace("/Ref.*?:.*?\d+\s?/i", "", $rent['title']) . ' | Остров Тенерифе';
+			$pagevalue['description'] = preg_replace("/\s{2,}/", " ", trim(html_entity_decode(strip_tags($rent['extended']), ENT_QUOTES, 'UTF-8')));
+			$pagevalue['description'] = preg_replace('/"/i', "", mb_substr($pagevalue['description'], 0, 500, 'UTF-8'));
+		endif;
+		
 		$this->load->view('user_interface/rent_extended',$pagevalue);
 	} //функция выводит полную информацию объекта аренды;
 
