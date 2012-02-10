@@ -72,36 +72,13 @@
 					</div>
 				<?php endif; ?>
 					<div class="clear"></div>
-					<?
-					/*
-						if(isset($retail['img_id'])):
-							echo '<img class="retail-preview" alt="'.$retail['img_title'].'"title="'.$retail['img_title'].'" src="'.$baseurl.'viewslideshow/'.$retail['img_id'].'">';
-						endif;
-					 */ 
-					?>
 					<div class="photo-wrapper">
 						<div id="photo-slider">
 							<?php for($i = 0; $i < count($images); $i++) : ?>
 								<img alt="<?= $images[$i]['img_title'] ?>" width="520px" height="390px" title="<?= $images[$i]['img_title'] ?>" src="<?= $baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
 							<?php endfor; ?>
 						</div>
-						<div id="photo-thumbs">
-						<?
-						/*
-						echo '<img class="retail-preview" alt="'.$images[0]['img_title'].'"title="'.$images[0]['img_title'].'" src="'.$baseurl.'viewslideshow/'.$images[0]['img_id'].'">';
-						for($i = 1; $i < count($images); $i++) {
-							if(isset($images[$i]['img_id'])):			
-								$text = '<img class="row_image thumb" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
-								$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
-								$attr = array('class'=>'pirobox_retail','title'=>$images[$i]['img_title']);
-								echo anchor($link,$text,$attr);	
-							endif;
-							// if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
-							if(($i+1) == count($images)) echo '<br class="clear"/>';
-						} 
-						*/
-						?>
-						</div>
+						<div id="photo-thumbs"> </div>
 						<div class="clear"></div>
 					</div>
 				<div>
