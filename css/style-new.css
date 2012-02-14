@@ -105,7 +105,7 @@ nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; backgr
 .main-nav li a:hover { text-decoration: underline; }
 .main-nav.right li a { margin: 13px 0 0 9px; }
 
-.cycle-blocks { background: url("../img/bgs/slide-1.jpg") no-repeat center top #050503; height: 347px; margin: 0; padding: 0; width: 100%; }
+.cycle-blocks { background: url("../img/bgs/slide-1.jpg") no-repeat center top #adc3d8; height: 347px; margin: 0; padding: 0; width: 100%; }
 .slider-links { position: relative; }
 .slider-links a { background: url("../img/sprites.png") no-repeat; position: absolute; top: 255px; display: block; text-indent: -9999px; }
 	#property-sale { background-position: -149px -121px; width: 99px; height: 30px; left: 687px; }
