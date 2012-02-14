@@ -41,6 +41,22 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('status');
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');
+		
+		$apartment = array();
+		$apartment = $this->apartmentmodel->get_limit_records(9, 0, 2, 1);
+		
+		for ( $i=0; $i < count($apartment); $i++ ) {
+			$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
+			$apartment[$i]['img_id'] = $image[$i]['img_id'];
+			$apartment[$i]['img_title'] = $image[$i]['img_title'];
+			if ( empty($apartment[$i]['img_title']) ) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
+			if ( is_numeric($apartment[$i]['apnt_price']) ) {
+				$apartment[$i]['apnt_price'] = number_format($apartment[$i]['apnt_price'],0,' ','.');
+			}
+		}
+		
+		$pagevalue['apartment'] = $apartment;
+		
 		$this->load->view('user_interface/index',$pagevalue);
 	}			//функция выводит информацию на главную страницу;
 	
