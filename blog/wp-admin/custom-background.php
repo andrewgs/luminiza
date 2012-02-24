@@ -165,11 +165,11 @@ class Custom_Background {
 	function admin_page() {
 ?>
 <div class="wrap" id="custom-background">
-<?php screen_icon();?>
-<h2><?php _e('Custom Background');?></h2>
+<?php screen_icon(); ?>
+<h2><?php _e('Custom Background'); ?></h2>
 <?php if ( !empty($this->updated) ) { ?>
 <div id="message" class="updated">
-<p><?php printf( __( 'Background updated. <a href="%s">Visit your site</a> to see how it looks.' ), home_url( '/' ) );?></p>
+<p><?php printf( __( 'Background updated. <a href="%s">Visit your site</a> to see how it looks.' ), home_url( '/' ) ); ?></p>
 </div>
 <?php }
 
@@ -177,11 +177,11 @@ class Custom_Background {
 		call_user_func($this->admin_image_div_callback);
 	} else {
 ?>
-<h3><?php _e('Background Image');?></h3>
+<h3><?php _e('Background Image'); ?></h3>
 <table class="form-table">
 <tbody>
 <tr valign="top">
-<th scope="row"><?php _e('Preview');?></th>
+<th scope="row"><?php _e('Preview'); ?></th>
 <td>
 <?php
 $background_styles = '';
@@ -195,10 +195,10 @@ if ( get_background_image() ) {
 		. ' background-position: top ' . get_theme_mod('background_position_x', 'left');
 }
 ?>
-<div id="custom-background-image" style="<?=$background_styles;?>"><?php // must be double quote, see above ?>
+<div id="custom-background-image" style="<?php echo $background_styles; ?>"><?php // must be double quote, see above ?>
 <?php if ( get_background_image() ) { ?>
-<img class="custom-background-image" src="<?=get_theme_mod('background_image_thumb', '');?>" style="visibility:hidden;" alt="" /><br />
-<img class="custom-background-image" src="<?=get_theme_mod('background_image_thumb', '');?>" style="visibility:hidden;" alt="" />
+<img class="custom-background-image" src="<?php echo get_theme_mod('background_image_thumb', ''); ?>" style="visibility:hidden;" alt="" /><br />
+<img class="custom-background-image" src="<?php echo get_theme_mod('background_image_thumb', ''); ?>" style="visibility:hidden;" alt="" />
 <?php } ?>
 </div>
 <?php } ?>
@@ -206,37 +206,37 @@ if ( get_background_image() ) {
 </tr>
 <?php if ( get_background_image() ) : ?>
 <tr valign="top">
-<th scope="row"><?php _e('Remove Image');?></th>
+<th scope="row"><?php _e('Remove Image'); ?></th>
 <td>
 <form method="post" action="">
-<?php wp_nonce_field('custom-background-remove', '_wpnonce-custom-background-remove');?>
-<?php submit_button( __( 'Remove Background Image' ), 'button', 'remove-background', false );?><br/>
+<?php wp_nonce_field('custom-background-remove', '_wpnonce-custom-background-remove'); ?>
+<?php submit_button( __( 'Remove Background Image' ), 'button', 'remove-background', false ); ?><br/>
 <?php _e('This will remove the background image. You will not be able to restore any customizations.') ?>
 </form>
 </td>
 </tr>
-<?php endif;?>
+<?php endif; ?>
 
 <?php if ( defined( 'BACKGROUND_IMAGE' ) ) : // Show only if a default background image exists ?>
 <tr valign="top">
-<th scope="row"><?php _e('Restore Original Image');?></th>
+<th scope="row"><?php _e('Restore Original Image'); ?></th>
 <td>
 <form method="post" action="">
-<?php wp_nonce_field('custom-background-reset', '_wpnonce-custom-background-reset');?>
-<?php submit_button( __( 'Restore Original Image' ), 'button', 'reset-background', false );?><br/>
+<?php wp_nonce_field('custom-background-reset', '_wpnonce-custom-background-reset'); ?>
+<?php submit_button( __( 'Restore Original Image' ), 'button', 'reset-background', false ); ?><br/>
 <?php _e('This will restore the original background image. You will not be able to restore any customizations.') ?>
 </form>
 </td>
 </tr>
 
-<?php endif;?>
+<?php endif; ?>
 <tr valign="top">
-<th scope="row"><?php _e('Upload Image');?></th>
+<th scope="row"><?php _e('Upload Image'); ?></th>
 <td><form enctype="multipart/form-data" id="upload-form" method="post" action="">
-<label for="upload"><?php _e('Choose an image from your computer:');?></label><br /><input type="file" id="upload" name="import" />
+<label for="upload"><?php _e('Choose an image from your computer:'); ?></label><br /><input type="file" id="upload" name="import" />
 <input type="hidden" name="action" value="save" />
 <?php wp_nonce_field('custom-background-upload', '_wpnonce-custom-background-upload') ?>
-<?php submit_button( __( 'Upload' ), 'button', 'submit', false );?>
+<?php submit_button( __( 'Upload' ), 'button', 'submit', false ); ?>
 </form>
 </td>
 </tr>
@@ -249,61 +249,61 @@ if ( get_background_image() ) {
 <tbody>
 <?php if ( get_background_image() ) : ?>
 <tr valign="top">
-<th scope="row"><?php _e( 'Position' );?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Position' );?></span></legend>
+<th scope="row"><?php _e( 'Position' ); ?></th>
+<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Position' ); ?></span></legend>
 <label>
-<input name="background-position-x" type="radio" value="left"<?php checked('left', get_theme_mod('background_position_x', 'left'));?> />
+<input name="background-position-x" type="radio" value="left"<?php checked('left', get_theme_mod('background_position_x', 'left')); ?> />
 <?php _e('Left') ?>
 </label>
 <label>
-<input name="background-position-x" type="radio" value="center"<?php checked('center', get_theme_mod('background_position_x', 'left'));?> />
+<input name="background-position-x" type="radio" value="center"<?php checked('center', get_theme_mod('background_position_x', 'left')); ?> />
 <?php _e('Center') ?>
 </label>
 <label>
-<input name="background-position-x" type="radio" value="right"<?php checked('right', get_theme_mod('background_position_x', 'left'));?> />
+<input name="background-position-x" type="radio" value="right"<?php checked('right', get_theme_mod('background_position_x', 'left')); ?> />
 <?php _e('Right') ?>
 </label>
 </fieldset></td>
 </tr>
 
 <tr valign="top">
-<th scope="row"><?php _e( 'Repeat' );?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Repeat' );?></span></legend>
-<label><input type="radio" name="background-repeat" value="no-repeat"<?php checked('no-repeat', get_theme_mod('background_repeat', 'repeat'));?> /> <?php _e('No Repeat');?></label>
-	<label><input type="radio" name="background-repeat" value="repeat"<?php checked('repeat', get_theme_mod('background_repeat', 'repeat'));?> /> <?php _e('Tile');?></label>
-	<label><input type="radio" name="background-repeat" value="repeat-x"<?php checked('repeat-x', get_theme_mod('background_repeat', 'repeat'));?> /> <?php _e('Tile Horizontally');?></label>
-	<label><input type="radio" name="background-repeat" value="repeat-y"<?php checked('repeat-y', get_theme_mod('background_repeat', 'repeat'));?> /> <?php _e('Tile Vertically');?></label>
+<th scope="row"><?php _e( 'Repeat' ); ?></th>
+<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Repeat' ); ?></span></legend>
+<label><input type="radio" name="background-repeat" value="no-repeat"<?php checked('no-repeat', get_theme_mod('background_repeat', 'repeat')); ?> /> <?php _e('No Repeat'); ?></label>
+	<label><input type="radio" name="background-repeat" value="repeat"<?php checked('repeat', get_theme_mod('background_repeat', 'repeat')); ?> /> <?php _e('Tile'); ?></label>
+	<label><input type="radio" name="background-repeat" value="repeat-x"<?php checked('repeat-x', get_theme_mod('background_repeat', 'repeat')); ?> /> <?php _e('Tile Horizontally'); ?></label>
+	<label><input type="radio" name="background-repeat" value="repeat-y"<?php checked('repeat-y', get_theme_mod('background_repeat', 'repeat')); ?> /> <?php _e('Tile Vertically'); ?></label>
 </fieldset></td>
 </tr>
 
 <tr valign="top">
-<th scope="row"><?php _e( 'Attachment' );?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Attachment' );?></span></legend>
+<th scope="row"><?php _e( 'Attachment' ); ?></th>
+<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Attachment' ); ?></span></legend>
 <label>
-<input name="background-attachment" type="radio" value="scroll" <?php checked('scroll', get_theme_mod('background_attachment', 'scroll'));?> />
+<input name="background-attachment" type="radio" value="scroll" <?php checked('scroll', get_theme_mod('background_attachment', 'scroll')); ?> />
 <?php _e('Scroll') ?>
 </label>
 <label>
-<input name="background-attachment" type="radio" value="fixed" <?php checked('fixed', get_theme_mod('background_attachment', 'scroll'));?> />
+<input name="background-attachment" type="radio" value="fixed" <?php checked('fixed', get_theme_mod('background_attachment', 'scroll')); ?> />
 <?php _e('Fixed') ?>
 </label>
 </fieldset></td>
 </tr>
 <?php endif; // get_background_image() ?>
 <tr valign="top">
-<th scope="row"><?php _e( 'Color' );?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Color' );?></span></legend>
-<?php $show_clear = get_background_color() ? '' : ' style="display:none"';?>
-<input type="text" name="background-color" id="background-color" value="#<?=esc_attr(get_background_color()) ?>" />
-<a class="hide-if-no-js" href="#" id="pickcolor"><?php _e('Select a Color');?></a> <span <?=$show_clear;?>class="hide-if-no-js" id="clearcolor"> (<a href="#"><?php _e( 'Clear' );?></a>)</span>
+<th scope="row"><?php _e( 'Color' ); ?></th>
+<td><fieldset><legend class="screen-reader-text"><span><?php _e( 'Background Color' ); ?></span></legend>
+<?php $show_clear = get_background_color() ? '' : ' style="display:none"'; ?>
+<input type="text" name="background-color" id="background-color" value="#<?php echo esc_attr(get_background_color()) ?>" />
+<a class="hide-if-no-js" href="#" id="pickcolor"><?php _e('Select a Color'); ?></a> <span <?php echo $show_clear; ?>class="hide-if-no-js" id="clearcolor"> (<a href="#"><?php _e( 'Clear' ); ?></a>)</span>
 <div id="colorPickerDiv" style="z-index: 100; background:#eee; border:1px solid #ccc; position:absolute; display:none;"></div>
 </fieldset></td>
 </tr>
 </tbody>
 </table>
 
-<?php wp_nonce_field('custom-background');?>
-<?php submit_button( null, 'primary', 'save-background-options' );?>
+<?php wp_nonce_field('custom-background'); ?>
+<?php submit_button( null, 'primary', 'save-background-options' ); ?>
 </form>
 
 </div>

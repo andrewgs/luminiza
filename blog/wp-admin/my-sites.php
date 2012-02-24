@@ -49,12 +49,12 @@ add_contextual_help($current_screen,
 require_once( './admin-header.php' );
 
 if ( $updated ) { ?>
-	<div id="message" class="updated"><p><strong><?php _e( 'Settings saved.' );?></strong></p></div>
+	<div id="message" class="updated"><p><strong><?php _e( 'Settings saved.' ); ?></strong></p></div>
 <?php } ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 <form id="myblogs" action="" method="post">
 	<?php
 	choose_primary_blog();
@@ -101,8 +101,8 @@ if ( $updated ) { ?>
 	}?>
 	</table>
 	<input type="hidden" name="action" value="updateblogsettings" />
-	<?php wp_nonce_field( 'update-my-sites' );?>
-	<?php submit_button();?>
+	<?php wp_nonce_field( 'update-my-sites' ); ?>
+	<?php submit_button(); ?>
 	</form>
 	</div>
 <?php

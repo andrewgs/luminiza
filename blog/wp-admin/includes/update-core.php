@@ -367,7 +367,7 @@ function update_core($from, $to) {
 	apply_filters('update_feedback', __('Installing the latest version&#8230;'));
 
 	// Create maintenance file to signal that we are upgrading
-	$maintenance_string = '<?php $upgrading = ' . time() . ';?>';
+	$maintenance_string = '<?php $upgrading = ' . time() . '; ?>';
 	$maintenance_file = $to . '.maintenance';
 	$wp_filesystem->delete($maintenance_file);
 	$wp_filesystem->put_contents($maintenance_file, $maintenance_string, FS_CHMOD_FILE);

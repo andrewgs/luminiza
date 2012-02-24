@@ -140,16 +140,16 @@ $desc_header = ( $description != $file_show ) ? "$description <span>($file_show)
 $is_child_theme = $themes[$theme]['Template'] != $themes[$theme]['Stylesheet'];
 ?>
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 
 <div class="fileedit-sub">
 <div class="alignleft">
-<h3><?=$themes[$theme]['Name'] . ': ' . $desc_header;?></h3>
+<h3><?php echo $themes[$theme]['Name'] . ': ' . $desc_header; ?></h3>
 </div>
 <div class="alignright">
 	<form action="theme-editor.php" method="post">
-		<strong><label for="theme"><?php _e('Select theme to edit:');?> </label></strong>
+		<strong><label for="theme"><?php _e('Select theme to edit:'); ?> </label></strong>
 		<select name="theme" id="theme">
 <?php
 	foreach ($themes as $a_theme) {
@@ -161,7 +161,7 @@ $is_child_theme = $themes[$theme]['Template'] != $themes[$theme]['Stylesheet'];
 }
 ?>
 		</select>
-		<?php submit_button( __( 'Select' ), 'button', 'Submit', false );?>
+		<?php submit_button( __( 'Select' ), 'button', 'Submit', false ); ?>
 	</form>
 </div>
 <br class="clear" />
@@ -170,10 +170,10 @@ $is_child_theme = $themes[$theme]['Template'] != $themes[$theme]['Stylesheet'];
 <?php
 if ($allowed_files) :
 ?>
-	<h3><?php _e('Templates');?></h3>
+	<h3><?php _e('Templates'); ?></h3>
 	<?php if ( $is_child_theme ) : ?>
-	<p class="howto"><?php printf( __( 'This child theme inherits templates from a parent theme, %s.' ), $themes[$theme]['Parent Theme'] );?></p>
-	<?php endif;?>
+	<p class="howto"><?php printf( __( 'This child theme inherits templates from a parent theme, %s.' ), $themes[$theme]['Parent Theme'] ); ?></p>
+	<?php endif; ?>
 	<ul>
 <?php
 	$template_mapping = array();
@@ -192,10 +192,10 @@ if ($allowed_files) :
 	ksort( $template_mapping );
 	while ( list( $template_sorted_key, list( $template_file, $filedesc ) ) = each( $template_mapping ) ) :
 	?>
-		<li><a href="theme-editor.php?file=<?=urlencode( $template_file ) ?>&amp;theme=<?=urlencode( $theme ) ?>&amp;dir=theme"><?=$filedesc ?></a></li>
-<?php endwhile;?>
+		<li><a href="theme-editor.php?file=<?php echo urlencode( $template_file ) ?>&amp;theme=<?php echo urlencode( $theme ) ?>&amp;dir=theme"><?php echo $filedesc ?></a></li>
+<?php endwhile; ?>
 	</ul>
-	<h3><?php /* translators: Theme stylesheets in theme editor */ _ex('Styles', 'Theme stylesheets in theme editor');?></h3>
+	<h3><?php /* translators: Theme stylesheets in theme editor */ _ex('Styles', 'Theme stylesheets in theme editor'); ?></h3>
 	<ul>
 <?php
 	$template_mapping = array();
@@ -214,39 +214,39 @@ if ($allowed_files) :
 	ksort( $template_mapping );
 	while ( list( $template_sorted_key, list( $style_file, $filedesc ) ) = each( $template_mapping ) ) :
 		?>
-		<li><a href="theme-editor.php?file=<?=urlencode( $style_file ) ?>&amp;theme=<?=urlencode($theme) ?>&amp;dir=style"><?=$filedesc ?></a></li>
-<?php endwhile;?>
+		<li><a href="theme-editor.php?file=<?php echo urlencode( $style_file ) ?>&amp;theme=<?php echo urlencode($theme) ?>&amp;dir=style"><?php echo $filedesc ?></a></li>
+<?php endwhile; ?>
 	</ul>
-<?php endif;?>
+<?php endif; ?>
 </div>
 <?php if (!$error) { ?>
 	<form name="template" id="template" action="theme-editor.php" method="post">
 	<?php wp_nonce_field('edit-theme_' . $file . $theme) ?>
-		 <div><textarea cols="70" rows="25" name="newcontent" id="newcontent" tabindex="1"><?=$content ?></textarea>
+		 <div><textarea cols="70" rows="25" name="newcontent" id="newcontent" tabindex="1"><?php echo $content ?></textarea>
 		 <input type="hidden" name="action" value="update" />
-		 <input type="hidden" name="file" value="<?=esc_attr($file) ?>" />
-		 <input type="hidden" name="theme" value="<?=esc_attr($theme) ?>" />
-		 <input type="hidden" name="scrollto" id="scrollto" value="<?=$scrollto;?>" />
+		 <input type="hidden" name="file" value="<?php echo esc_attr($file) ?>" />
+		 <input type="hidden" name="theme" value="<?php echo esc_attr($theme) ?>" />
+		 <input type="hidden" name="scrollto" id="scrollto" value="<?php echo $scrollto; ?>" />
 		 </div>
 	<?php if ( isset($functions ) && count($functions) ) { ?>
 		<div id="documentation" class="hide-if-no-js">
 		<label for="docs-list"><?php _e('Documentation:') ?></label>
-		<?=$docs_select;?>
-		<input type="button" class="button" value=" <?php esc_attr_e( 'Lookup' );?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.wordpress.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?=urlencode( get_locale() ) ?>&amp;version=<?=urlencode( $wp_version ) ?>&amp;redirect=true'); }" />
+		<?php echo $docs_select; ?>
+		<input type="button" class="button" value=" <?php esc_attr_e( 'Lookup' ); ?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.wordpress.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $wp_version ) ?>&amp;redirect=true'); }" />
 		</div>
 	<?php } ?>
 
 		<div>
 		<?php if ( is_child_theme() && ! $is_child_theme && $themes[$theme]['Template'] == get_option('template') ) : ?>
-			<p><?php if ( is_writeable( $file ) ) { ?><strong><?php _e( 'Caution:' );?></strong><?php } ?>
-			<?php _e( 'This is a file in your current parent theme.' );?></p>
-		<?php endif;?>
+			<p><?php if ( is_writeable( $file ) ) { ?><strong><?php _e( 'Caution:' ); ?></strong><?php } ?>
+			<?php _e( 'This is a file in your current parent theme.' ); ?></p>
+		<?php endif; ?>
 <?php
 	if ( is_writeable( $file ) ) :
 		submit_button( __( 'Update File' ), 'primary', 'submit', true, array( 'tabindex' => '2' ) );
 	else : ?>
-<p><em><?php _e('You need to make this file writable before you can save your changes. See <a href="http://codex.wordpress.org/Changing_File_Permissions">the Codex</a> for more information.');?></em></p>
-<?php endif;?>
+<p><em><?php _e('You need to make this file writable before you can save your changes. See <a href="http://codex.wordpress.org/Changing_File_Permissions">the Codex</a> for more information.'); ?></em></p>
+<?php endif; ?>
 		</div>
 	</form>
 <?php

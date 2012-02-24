@@ -8,7 +8,7 @@
 
 		<div id="comment-wrapper">
 
-			<h3 id="comments" id="comment-<?php comment_ID();?>"><?php _e( 'Enter the password to view comments.', 'wu-wei' );?></h3>
+			<h3 id="comments" id="comment-<?php comment_ID(); ?>"><?php _e( 'Enter the password to view comments.', 'wu-wei' ); ?></h3>
 
 		</div>
 
@@ -22,7 +22,7 @@
 <div id="comment-wrapper">
 	
 	<h3 id="comments">
-		<span class="comment-number"><?php comments_number( __( 'No comments', 'wu-wei' ), __( '1 comment', 'wu-wei' ), __( '% comments', 'wu-wei' ) );?></span>
+		<span class="comment-number"><?php comments_number( __( 'No comments', 'wu-wei' ), __( '1 comment', 'wu-wei' ), __( '% comments', 'wu-wei' ) ); ?></span>
 		<span class="comment-message">
 			<?php if ( comments_open() && pings_open() ) {
 				printf( __( '<a href="#respond">Post your own</a> or leave a trackback: <a href="%1$s">Trackback URL</a>', 'wu-wei' ), get_trackback_url() );
@@ -47,7 +47,7 @@
 		<?php endif; // check for comment navigation ?>
 
 		<ol class="commentlist snap_preview">
-		<?php wp_list_comments( 'avatar_size=48' );?>
+		<?php wp_list_comments( 'avatar_size=48' ); ?>
 		</ol>
 
 		<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
@@ -58,12 +58,12 @@
 		</div>
 		<?php endif; // check for comment navigation ?>
 
-	<?php endif;?>
+	<?php endif; ?>
 
 
 	<?php if ('open' == $post->comment_status) : ?>
 		
-	<?php comment_form();?>
+	<?php comment_form(); ?>
 
 <?php endif; // if you delete this the sky will fall on your head ?>
 

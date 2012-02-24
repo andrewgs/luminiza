@@ -1783,7 +1783,7 @@ function _custom_background_cb() {
 	}
 ?>
 <style type="text/css">
-body { <?=trim( $style );?> }
+body { <?php echo trim( $style ); ?> }
 </style>
 <?php
 }

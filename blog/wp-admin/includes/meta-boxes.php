@@ -22,17 +22,17 @@ function post_submit_meta_box($post) {
 
 <?php // Hidden submit button early on so that the browser chooses the right button when form is submitted with Return key ?>
 <div style="display:none;">
-<?php submit_button( __( 'Save' ), 'button', 'save' );?>
+<?php submit_button( __( 'Save' ), 'button', 'save' ); ?>
 </div>
 
 <div id="minor-publishing-actions">
 <div id="save-action">
 <?php if ( 'publish' != $post->post_status && 'future' != $post->post_status && 'pending' != $post->post_status )  { ?>
-<input <?php if ( 'private' == $post->post_status ) { ?>style="display:none"<?php } ?> type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save Draft');?>" tabindex="4" class="button button-highlighted" />
+<input <?php if ( 'private' == $post->post_status ) { ?>style="display:none"<?php } ?> type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save Draft'); ?>" tabindex="4" class="button button-highlighted" />
 <?php } elseif ( 'pending' == $post->post_status && $can_publish ) { ?>
-<input type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save as Pending');?>" tabindex="4" class="button button-highlighted" />
+<input type="submit" name="save" id="save-post" value="<?php esc_attr_e('Save as Pending'); ?>" tabindex="4" class="button button-highlighted" />
 <?php } ?>
-<img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading" id="draft-ajax-loading" alt="" />
+<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="draft-ajax-loading" alt="" />
 </div>
 
 <div id="preview-action">
@@ -48,7 +48,7 @@ if ( 'publish' == $post->post_status ) {
 	$preview_button = __( 'Preview' );
 }
 ?>
-<a class="preview button" href="<?=$preview_link;?>" target="wp-preview" id="post-preview" tabindex="4"><?=$preview_button;?></a>
+<a class="preview button" href="<?php echo $preview_link; ?>" target="wp-preview" id="post-preview" tabindex="4"><?php echo $preview_button; ?></a>
 <input type="hidden" name="wp-preview" id="wp-preview" value="" />
 </div>
 
@@ -84,31 +84,31 @@ switch ( $post->post_status ) {
 <a href="#post_status" <?php if ( 'private' == $post->post_status ) { ?>style="display:none;" <?php } ?>class="edit-post-status hide-if-no-js" tabindex='4'><?php _e('Edit') ?></a>
 
 <div id="post-status-select" class="hide-if-js">
-<input type="hidden" name="hidden_post_status" id="hidden_post_status" value="<?=esc_attr( ('auto-draft' == $post->post_status ) ? 'draft' : $post->post_status);?>" />
+<input type="hidden" name="hidden_post_status" id="hidden_post_status" value="<?php echo esc_attr( ('auto-draft' == $post->post_status ) ? 'draft' : $post->post_status); ?>" />
 <select name='post_status' id='post_status' tabindex='4'>
 <?php if ( 'publish' == $post->post_status ) : ?>
-<option<?php selected( $post->post_status, 'publish' );?> value='publish'><?php _e('Published') ?></option>
+<option<?php selected( $post->post_status, 'publish' ); ?> value='publish'><?php _e('Published') ?></option>
 <?php elseif ( 'private' == $post->post_status ) : ?>
-<option<?php selected( $post->post_status, 'private' );?> value='publish'><?php _e('Privately Published') ?></option>
+<option<?php selected( $post->post_status, 'private' ); ?> value='publish'><?php _e('Privately Published') ?></option>
 <?php elseif ( 'future' == $post->post_status ) : ?>
-<option<?php selected( $post->post_status, 'future' );?> value='future'><?php _e('Scheduled') ?></option>
-<?php endif;?>
-<option<?php selected( $post->post_status, 'pending' );?> value='pending'><?php _e('Pending Review') ?></option>
+<option<?php selected( $post->post_status, 'future' ); ?> value='future'><?php _e('Scheduled') ?></option>
+<?php endif; ?>
+<option<?php selected( $post->post_status, 'pending' ); ?> value='pending'><?php _e('Pending Review') ?></option>
 <?php if ( 'auto-draft' == $post->post_status ) : ?>
-<option<?php selected( $post->post_status, 'auto-draft' );?> value='draft'><?php _e('Draft') ?></option>
+<option<?php selected( $post->post_status, 'auto-draft' ); ?> value='draft'><?php _e('Draft') ?></option>
 <?php else : ?>
-<option<?php selected( $post->post_status, 'draft' );?> value='draft'><?php _e('Draft') ?></option>
-<?php endif;?>
+<option<?php selected( $post->post_status, 'draft' ); ?> value='draft'><?php _e('Draft') ?></option>
+<?php endif; ?>
 </select>
- <a href="#post_status" class="save-post-status hide-if-no-js button"><?php _e('OK');?></a>
- <a href="#post_status" class="cancel-post-status hide-if-no-js"><?php _e('Cancel');?></a>
+ <a href="#post_status" class="save-post-status hide-if-no-js button"><?php _e('OK'); ?></a>
+ <a href="#post_status" class="cancel-post-status hide-if-no-js"><?php _e('Cancel'); ?></a>
 </div>
 
 <?php } ?>
 </div><?php // /misc-pub-section ?>
 
 <div class="misc-pub-section " id="visibility">
-<?php _e('Visibility:');?> <span id="post-visibility-display"><?php
+<?php _e('Visibility:'); ?> <span id="post-visibility-display"><?php
 
 if ( 'private' == $post->post_status ) {
 	$post->post_password = '';
@@ -125,29 +125,29 @@ if ( 'private' == $post->post_status ) {
 	$visibility_trans = __('Public');
 }
 
-echo esc_html( $visibility_trans );?></span>
+echo esc_html( $visibility_trans ); ?></span>
 <?php if ( $can_publish ) { ?>
-<a href="#visibility" class="edit-visibility hide-if-no-js"><?php _e('Edit');?></a>
+<a href="#visibility" class="edit-visibility hide-if-no-js"><?php _e('Edit'); ?></a>
 
 <div id="post-visibility-select" class="hide-if-js">
-<input type="hidden" name="hidden_post_password" id="hidden-post-password" value="<?=esc_attr($post->post_password);?>" />
+<input type="hidden" name="hidden_post_password" id="hidden-post-password" value="<?php echo esc_attr($post->post_password); ?>" />
 <?php if ($post_type == 'post'): ?>
-<input type="checkbox" style="display:none" name="hidden_post_sticky" id="hidden-post-sticky" value="sticky" <?php checked(is_sticky($post->ID));?> />
-<?php endif;?>
-<input type="hidden" name="hidden_post_visibility" id="hidden-post-visibility" value="<?=esc_attr( $visibility );?>" />
+<input type="checkbox" style="display:none" name="hidden_post_sticky" id="hidden-post-sticky" value="sticky" <?php checked(is_sticky($post->ID)); ?> />
+<?php endif; ?>
+<input type="hidden" name="hidden_post_visibility" id="hidden-post-visibility" value="<?php echo esc_attr( $visibility ); ?>" />
 
 
-<input type="radio" name="visibility" id="visibility-radio-public" value="public" <?php checked( $visibility, 'public' );?> /> <label for="visibility-radio-public" class="selectit"><?php _e('Public');?></label><br />
+<input type="radio" name="visibility" id="visibility-radio-public" value="public" <?php checked( $visibility, 'public' ); ?> /> <label for="visibility-radio-public" class="selectit"><?php _e('Public'); ?></label><br />
 <?php if ( $post_type == 'post' && current_user_can( 'edit_others_posts' ) ) : ?>
-<span id="sticky-span"><input id="sticky" name="sticky" type="checkbox" value="sticky" <?php checked( is_sticky( $post->ID ) );?> tabindex="4" /> <label for="sticky" class="selectit"><?php _e( 'Stick this post to the front page' );?></label><br /></span>
-<?php endif;?>
-<input type="radio" name="visibility" id="visibility-radio-password" value="password" <?php checked( $visibility, 'password' );?> /> <label for="visibility-radio-password" class="selectit"><?php _e('Password protected');?></label><br />
-<span id="password-span"><label for="post_password"><?php _e('Password:');?></label> <input type="text" name="post_password" id="post_password" value="<?=esc_attr($post->post_password);?>" /><br /></span>
-<input type="radio" name="visibility" id="visibility-radio-private" value="private" <?php checked( $visibility, 'private' );?> /> <label for="visibility-radio-private" class="selectit"><?php _e('Private');?></label><br />
+<span id="sticky-span"><input id="sticky" name="sticky" type="checkbox" value="sticky" <?php checked( is_sticky( $post->ID ) ); ?> tabindex="4" /> <label for="sticky" class="selectit"><?php _e( 'Stick this post to the front page' ); ?></label><br /></span>
+<?php endif; ?>
+<input type="radio" name="visibility" id="visibility-radio-password" value="password" <?php checked( $visibility, 'password' ); ?> /> <label for="visibility-radio-password" class="selectit"><?php _e('Password protected'); ?></label><br />
+<span id="password-span"><label for="post_password"><?php _e('Password:'); ?></label> <input type="text" name="post_password" id="post_password" value="<?php echo esc_attr($post->post_password); ?>" /><br /></span>
+<input type="radio" name="visibility" id="visibility-radio-private" value="private" <?php checked( $visibility, 'private' ); ?> /> <label for="visibility-radio-private" class="selectit"><?php _e('Private'); ?></label><br />
 
 <p>
- <a href="#visibility" class="save-post-visibility hide-if-no-js button"><?php _e('OK');?></a>
- <a href="#visibility" class="cancel-post-visibility hide-if-no-js"><?php _e('Cancel');?></a>
+ <a href="#visibility" class="save-post-visibility hide-if-no-js button"><?php _e('OK'); ?></a>
+ <a href="#visibility" class="cancel-post-visibility hide-if-no-js"><?php _e('Cancel'); ?></a>
 </p>
 </div>
 <?php } ?>
@@ -178,19 +178,19 @@ if ( 0 != $post->ID ) {
 if ( $can_publish ) : // Contributors don't get to choose the date of publish ?>
 <div class="misc-pub-section curtime misc-pub-section-last">
 	<span id="timestamp">
-	<?php printf($stamp, $date);?></span>
+	<?php printf($stamp, $date); ?></span>
 	<a href="#edit_timestamp" class="edit-timestamp hide-if-no-js" tabindex='4'><?php _e('Edit') ?></a>
-	<div id="timestampdiv" class="hide-if-js"><?php touch_time(($action == 'edit'),1,4);?></div>
+	<div id="timestampdiv" class="hide-if-js"><?php touch_time(($action == 'edit'),1,4); ?></div>
 </div><?php // /misc-pub-section ?>
-<?php endif;?>
+<?php endif; ?>
 
-<?php do_action('post_submitbox_misc_actions');?>
+<?php do_action('post_submitbox_misc_actions'); ?>
 </div>
 <div class="clear"></div>
 </div>
 
 <div id="major-publishing-actions">
-<?php do_action('post_submitbox_start');?>
+<?php do_action('post_submitbox_start'); ?>
 <div id="delete-action">
 <?php
 if ( current_user_can( "delete_post", $post->ID ) ) {
@@ -199,25 +199,25 @@ if ( current_user_can( "delete_post", $post->ID ) ) {
 	else
 		$delete_text = __('Move to Trash');
 	?>
-<a class="submitdelete deletion" href="<?=get_delete_post_link($post->ID);?>"><?=$delete_text;?></a><?php
+<a class="submitdelete deletion" href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo $delete_text; ?></a><?php
 } ?>
 </div>
 
 <div id="publishing-action">
-<img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading" id="ajax-loading" alt="" />
+<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading" id="ajax-loading" alt="" />
 <?php
 if ( !in_array( $post->post_status, array('publish', 'future', 'private') ) || 0 == $post->ID ) {
 	if ( $can_publish ) :
 		if ( !empty($post->post_date_gmt) && time() < strtotime( $post->post_date_gmt . ' +0000' ) ) : ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e('Schedule') ?>" />
-		<?php submit_button( __( 'Schedule' ), 'primary', 'publish', false, array( 'tabindex' => '5', 'accesskey' => 'p' ) );?>
+		<?php submit_button( __( 'Schedule' ), 'primary', 'publish', false, array( 'tabindex' => '5', 'accesskey' => 'p' ) ); ?>
 <?php	else : ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e('Publish') ?>" />
-		<?php submit_button( __( 'Publish' ), 'primary', 'publish', false, array( 'tabindex' => '5', 'accesskey' => 'p' ) );?>
+		<?php submit_button( __( 'Publish' ), 'primary', 'publish', false, array( 'tabindex' => '5', 'accesskey' => 'p' ) ); ?>
 <?php	endif;
 	else : ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="<?php esc_attr_e('Submit for Review') ?>" />
-		<?php submit_button( __( 'Submit for Review' ), 'primary', 'publish', false, array( 'tabindex' => '5', 'accesskey' => 'p' ) );?>
+		<?php submit_button( __( 'Submit for Review' ), 'primary', 'publish', false, array( 'tabindex' => '5', 'accesskey' => 'p' ) ); ?>
 <?php
 	endif;
 } else { ?>
@@ -253,10 +253,10 @@ function post_format_meta_box( $post, $box ) {
 			$post_formats[0][] = $post_format;
 	?>
 	<div id="post-formats-select">
-		<input type="radio" name="post_format" class="post-format" id="post-format-0" value="0" <?php checked( $post_format, '0' );?> /> <label for="post-format-0"><?php _e('Standard');?></label>
+		<input type="radio" name="post_format" class="post-format" id="post-format-0" value="0" <?php checked( $post_format, '0' ); ?> /> <label for="post-format-0"><?php _e('Standard'); ?></label>
 		<?php foreach ( $post_formats[0] as $format ) : ?>
-		<br /><input type="radio" name="post_format" class="post-format" id="post-format-<?=esc_attr( $format );?>" value="<?=esc_attr( $format );?>" <?php checked( $post_format, $format );?> /> <label for="post-format-<?=esc_attr( $format );?>"><?=esc_html( get_post_format_string( $format ) );?></label>
-		<?php endforeach;?><br />
+		<br /><input type="radio" name="post_format" class="post-format" id="post-format-<?php echo esc_attr( $format ); ?>" value="<?php echo esc_attr( $format ); ?>" <?php checked( $post_format, $format ); ?> /> <label for="post-format-<?php echo esc_attr( $format ); ?>"><?php echo esc_html( get_post_format_string( $format ) ); ?></label>
+		<?php endforeach; ?><br />
 	</div>
 	<?php endif; endif;
 }
@@ -280,26 +280,26 @@ function post_tags_meta_box($post, $box) {
 	$taxonomy = get_taxonomy($taxonomy);
 	$disabled = !current_user_can($taxonomy->cap->assign_terms) ? 'disabled="disabled"' : '';
 ?>
-<div class="tagsdiv" id="<?=$tax_name;?>">
+<div class="tagsdiv" id="<?php echo $tax_name; ?>">
 	<div class="jaxtag">
 	<div class="nojs-tags hide-if-js">
-	<p><?=$taxonomy->labels->add_or_remove_items;?></p>
-	<textarea name="<?="tax_input[$tax_name]";?>" rows="3" cols="20" class="the-tags" id="tax-input-<?=$tax_name;?>" <?=$disabled;?>><?=get_terms_to_edit( $post->ID, $tax_name ); // textarea_escaped by esc_attr() ?></textarea></div>
+	<p><?php echo $taxonomy->labels->add_or_remove_items; ?></p>
+	<textarea name="<?php echo "tax_input[$tax_name]"; ?>" rows="3" cols="20" class="the-tags" id="tax-input-<?php echo $tax_name; ?>" <?php echo $disabled; ?>><?php echo get_terms_to_edit( $post->ID, $tax_name ); // textarea_escaped by esc_attr() ?></textarea></div>
  	<?php if ( current_user_can($taxonomy->cap->assign_terms) ) : ?>
 	<div class="ajaxtag hide-if-no-js">
-		<label class="screen-reader-text" for="new-tag-<?=$tax_name;?>"><?=$box['title'];?></label>
-		<div class="taghint"><?=$taxonomy->labels->add_new_item;?></div>
-		<p><input type="text" id="new-tag-<?=$tax_name;?>" name="newtag[<?=$tax_name;?>]" class="newtag form-input-tip" size="16" autocomplete="off" value="" />
-		<input type="button" class="button tagadd" value="<?php esc_attr_e('Add');?>" tabindex="3" /></p>
+		<label class="screen-reader-text" for="new-tag-<?php echo $tax_name; ?>"><?php echo $box['title']; ?></label>
+		<div class="taghint"><?php echo $taxonomy->labels->add_new_item; ?></div>
+		<p><input type="text" id="new-tag-<?php echo $tax_name; ?>" name="newtag[<?php echo $tax_name; ?>]" class="newtag form-input-tip" size="16" autocomplete="off" value="" />
+		<input type="button" class="button tagadd" value="<?php esc_attr_e('Add'); ?>" tabindex="3" /></p>
 	</div>
-	<p class="howto"><?=esc_attr( $taxonomy->labels->separate_items_with_commas );?></p>
-	<?php endif;?>
+	<p class="howto"><?php echo esc_attr( $taxonomy->labels->separate_items_with_commas ); ?></p>
+	<?php endif; ?>
 	</div>
 	<div class="tagchecklist"></div>
 </div>
 <?php if ( current_user_can($taxonomy->cap->assign_terms) ) : ?>
-<p class="hide-if-no-js"><a href="#titlediv" class="tagcloud-link" id="link-<?=$tax_name;?>"><?=$taxonomy->labels->choose_from_most_used;?></a></p>
-<?php endif;?>
+<p class="hide-if-no-js"><a href="#titlediv" class="tagcloud-link" id="link-<?php echo $tax_name; ?>"><?php echo $taxonomy->labels->choose_from_most_used; ?></a></p>
+<?php endif; ?>
 <?php
 }
 
@@ -321,50 +321,50 @@ function post_categories_meta_box( $post, $box ) {
 	$tax = get_taxonomy($taxonomy);
 
 	?>
-	<div id="taxonomy-<?=$taxonomy;?>" class="categorydiv">
-		<ul id="<?=$taxonomy;?>-tabs" class="category-tabs">
-			<li class="tabs"><a href="#<?=$taxonomy;?>-all" tabindex="3"><?=$tax->labels->all_items;?></a></li>
-			<li class="hide-if-no-js"><a href="#<?=$taxonomy;?>-pop" tabindex="3"><?php _e( 'Most Used' );?></a></li>
+	<div id="taxonomy-<?php echo $taxonomy; ?>" class="categorydiv">
+		<ul id="<?php echo $taxonomy; ?>-tabs" class="category-tabs">
+			<li class="tabs"><a href="#<?php echo $taxonomy; ?>-all" tabindex="3"><?php echo $tax->labels->all_items; ?></a></li>
+			<li class="hide-if-no-js"><a href="#<?php echo $taxonomy; ?>-pop" tabindex="3"><?php _e( 'Most Used' ); ?></a></li>
 		</ul>
 
-		<div id="<?=$taxonomy;?>-pop" class="tabs-panel" style="display: none;">
-			<ul id="<?=$taxonomy;?>checklist-pop" class="categorychecklist form-no-clear" >
-				<?php $popular_ids = wp_popular_terms_checklist($taxonomy);?>
+		<div id="<?php echo $taxonomy; ?>-pop" class="tabs-panel" style="display: none;">
+			<ul id="<?php echo $taxonomy; ?>checklist-pop" class="categorychecklist form-no-clear" >
+				<?php $popular_ids = wp_popular_terms_checklist($taxonomy); ?>
 			</ul>
 		</div>
 
-		<div id="<?=$taxonomy;?>-all" class="tabs-panel">
+		<div id="<?php echo $taxonomy; ?>-all" class="tabs-panel">
 			<?php
             $name = ( $taxonomy == 'category' ) ? 'post_category' : 'tax_input[' . $taxonomy . ']';
             echo "<input type='hidden' name='{$name}[]' value='0' />"; // Allows for an empty term set to be sent. 0 is an invalid Term ID and will be ignored by empty() checks.
             ?>
-			<ul id="<?=$taxonomy;?>checklist" class="list:<?=$taxonomy?> categorychecklist form-no-clear">
+			<ul id="<?php echo $taxonomy; ?>checklist" class="list:<?php echo $taxonomy?> categorychecklist form-no-clear">
 				<?php wp_terms_checklist($post->ID, array( 'taxonomy' => $taxonomy, 'popular_cats' => $popular_ids ) ) ?>
 			</ul>
 		</div>
 	<?php if ( current_user_can($tax->cap->edit_terms) ) : ?>
-			<div id="<?=$taxonomy;?>-adder" class="wp-hidden-children">
+			<div id="<?php echo $taxonomy; ?>-adder" class="wp-hidden-children">
 				<h4>
-					<a id="<?=$taxonomy;?>-add-toggle" href="#<?=$taxonomy;?>-add" class="hide-if-no-js" tabindex="3">
+					<a id="<?php echo $taxonomy; ?>-add-toggle" href="#<?php echo $taxonomy; ?>-add" class="hide-if-no-js" tabindex="3">
 						<?php
 							/* translators: %s: add new taxonomy label */
 							printf( __( '+ %s' ), $tax->labels->add_new_item );
 						?>
 					</a>
 				</h4>
-				<p id="<?=$taxonomy;?>-add" class="category-add wp-hidden-child">
-					<label class="screen-reader-text" for="new<?=$taxonomy;?>"><?=$tax->labels->add_new_item;?></label>
-					<input type="text" name="new<?=$taxonomy;?>" id="new<?=$taxonomy;?>" class="form-required form-input-tip" value="<?=esc_attr( $tax->labels->new_item_name );?>" tabindex="3" aria-required="true"/>
-					<label class="screen-reader-text" for="new<?=$taxonomy;?>_parent">
-						<?=$tax->labels->parent_item_colon;?>
+				<p id="<?php echo $taxonomy; ?>-add" class="category-add wp-hidden-child">
+					<label class="screen-reader-text" for="new<?php echo $taxonomy; ?>"><?php echo $tax->labels->add_new_item; ?></label>
+					<input type="text" name="new<?php echo $taxonomy; ?>" id="new<?php echo $taxonomy; ?>" class="form-required form-input-tip" value="<?php echo esc_attr( $tax->labels->new_item_name ); ?>" tabindex="3" aria-required="true"/>
+					<label class="screen-reader-text" for="new<?php echo $taxonomy; ?>_parent">
+						<?php echo $tax->labels->parent_item_colon; ?>
 					</label>
-					<?php wp_dropdown_categories( array( 'taxonomy' => $taxonomy, 'hide_empty' => 0, 'name' => 'new'.$taxonomy.'_parent', 'orderby' => 'name', 'hierarchical' => 1, 'show_option_none' => '&mdash; ' . $tax->labels->parent_item . ' &mdash;', 'tab_index' => 3 ) );?>
-					<input type="button" id="<?=$taxonomy;?>-add-submit" class="add:<?=$taxonomy ?>checklist:<?=$taxonomy ?>-add button category-add-sumbit" value="<?=esc_attr( $tax->labels->add_new_item );?>" tabindex="3" />
-					<?php wp_nonce_field( 'add-'.$taxonomy, '_ajax_nonce-add-'.$taxonomy, false );?>
-					<span id="<?=$taxonomy;?>-ajax-response"></span>
+					<?php wp_dropdown_categories( array( 'taxonomy' => $taxonomy, 'hide_empty' => 0, 'name' => 'new'.$taxonomy.'_parent', 'orderby' => 'name', 'hierarchical' => 1, 'show_option_none' => '&mdash; ' . $tax->labels->parent_item . ' &mdash;', 'tab_index' => 3 ) ); ?>
+					<input type="button" id="<?php echo $taxonomy; ?>-add-submit" class="add:<?php echo $taxonomy ?>checklist:<?php echo $taxonomy ?>-add button category-add-sumbit" value="<?php echo esc_attr( $tax->labels->add_new_item ); ?>" tabindex="3" />
+					<?php wp_nonce_field( 'add-'.$taxonomy, '_ajax_nonce-add-'.$taxonomy, false ); ?>
+					<span id="<?php echo $taxonomy; ?>-ajax-response"></span>
 				</p>
 			</div>
-		<?php endif;?>
+		<?php endif; ?>
 	</div>
 	<?php
 }
@@ -379,8 +379,8 @@ function post_categories_meta_box( $post, $box ) {
  */
 function post_excerpt_meta_box($post) {
 ?>
-<label class="screen-reader-text" for="excerpt"><?php _e('Excerpt') ?></label><textarea rows="1" cols="40" name="excerpt" tabindex="6" id="excerpt"><?=$post->post_excerpt; // textarea_escaped ?></textarea>
-<p><?php _e('Excerpts are optional hand-crafted summaries of your content that can be used in your theme. <a href="http://codex.wordpress.org/Excerpt" target="_blank">Learn more about manual excerpts.</a>');?></p>
+<label class="screen-reader-text" for="excerpt"><?php _e('Excerpt') ?></label><textarea rows="1" cols="40" name="excerpt" tabindex="6" id="excerpt"><?php echo $post->post_excerpt; // textarea_escaped ?></textarea>
+<p><?php _e('Excerpts are optional hand-crafted summaries of your content that can be used in your theme. <a href="http://codex.wordpress.org/Excerpt" target="_blank">Learn more about manual excerpts.</a>'); ?></p>
 <?php
 }
 
@@ -404,8 +404,8 @@ function post_trackback_meta_box($post) {
 	}
 
 ?>
-<p><label for="trackback_url"><?php _e('Send trackbacks to:');?></label> <?=$form_trackback;?><br /> (<?php _e('Separate multiple URLs with spaces');?>)</p>
-<p><?php _e('Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. If you link other WordPress sites they&#8217;ll be notified automatically using <a href="http://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments" target="_blank">pingbacks</a>, no other action necessary.');?></p>
+<p><label for="trackback_url"><?php _e('Send trackbacks to:'); ?></label> <?php echo $form_trackback; ?><br /> (<?php _e('Separate multiple URLs with spaces'); ?>)</p>
+<p><?php _e('Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. If you link other WordPress sites they&#8217;ll be notified automatically using <a href="http://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments" target="_blank">pingbacks</a>, no other action necessary.'); ?></p>
 <?php
 if ( ! empty($pings) )
 	echo $pings;
@@ -426,9 +426,9 @@ function post_custom_meta_box($post) {
 <?php
 $metadata = has_meta($post->ID);
 list_meta($metadata);
-meta_form();?>
+meta_form(); ?>
 </div>
-<p><?php _e('Custom fields can be used to add extra metadata to a post that you can <a href="http://codex.wordpress.org/Using_Custom_Fields" target="_blank">use in your theme</a>.');?></p>
+<p><?php _e('Custom fields can be used to add extra metadata to a post that you can <a href="http://codex.wordpress.org/Using_Custom_Fields" target="_blank">use in your theme</a>.'); ?></p>
 <?php
 }
 
@@ -444,9 +444,9 @@ function post_comment_status_meta_box($post) {
 ?>
 <input name="advanced_view" type="hidden" value="1" />
 <p class="meta-options">
-	<label for="comment_status" class="selectit"><input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($post->comment_status, 'open');?> /> <?php _e( 'Allow comments.' ) ?></label><br />
-	<label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open');?> /> <?php printf( __( 'Allow <a href="%s" target="_blank">trackbacks and pingbacks</a> on this page.' ), __( 'http://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' ) );?></label>
-	<?php do_action('post_comment_status_meta_box-options', $post);?>
+	<label for="comment_status" class="selectit"><input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($post->comment_status, 'open'); ?> /> <?php _e( 'Allow comments.' ) ?></label><br />
+	<label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($post->ping_status, 'open'); ?> /> <?php printf( __( 'Allow <a href="%s" target="_blank">trackbacks and pingbacks</a> on this page.' ), __( 'http://codex.wordpress.org/Introduction_to_Blogging#Managing_Comments' ) ); ?></label>
+	<?php do_action('post_comment_status_meta_box-options', $post); ?>
 </p>
 <?php
 }
@@ -486,11 +486,11 @@ function post_comment_meta_box($post) {
 	$wp_list_table = _get_list_table('WP_Post_Comments_List_Table');
 	$wp_list_table->display( true );
 ?>
-<p class="hide-if-no-js"><a href="#commentstatusdiv" id="show-comments" onclick="commentsBox.get(<?=$total;?>);return false;"><?php _e('Show comments');?></a> <img class="waiting" style="display:none;" src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" alt="" /></p>
+<p class="hide-if-no-js"><a href="#commentstatusdiv" id="show-comments" onclick="commentsBox.get(<?php echo $total; ?>);return false;"><?php _e('Show comments'); ?></a> <img class="waiting" style="display:none;" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="" /></p>
 <?php
 	$hidden = get_hidden_meta_boxes('post');
 	if ( ! in_array('commentsdiv', $hidden) ) { ?>
-		<script type="text/javascript">jQuery(document).ready(function(){commentsBox.get(<?=$total;?>, 10);});</script>
+		<script type="text/javascript">jQuery(document).ready(function(){commentsBox.get(<?php echo $total; ?>, 10);});</script>
 <?php
 	}
 	wp_comment_trashnotice();
@@ -506,7 +506,7 @@ function post_comment_meta_box($post) {
  */
 function post_slug_meta_box($post) {
 ?>
-<label class="screen-reader-text" for="post_name"><?php _e('Slug') ?></label><input name="post_name" type="text" size="13" id="post_name" value="<?=esc_attr( apply_filters('editable_slug', $post->post_name) );?>" />
+<label class="screen-reader-text" for="post_name"><?php _e('Slug') ?></label><input name="post_name" type="text" size="13" id="post_name" value="<?php echo esc_attr( apply_filters('editable_slug', $post->post_name) ); ?>" />
 <?php
 }
 
@@ -521,7 +521,7 @@ function post_slug_meta_box($post) {
 function post_author_meta_box($post) {
 	global $user_ID;
 ?>
-<label class="screen-reader-text" for="post_author_override"><?php _e('Author');?></label>
+<label class="screen-reader-text" for="post_author_override"><?php _e('Author'); ?></label>
 <?php
 	wp_dropdown_users( array(
 		'who' => 'authors',
@@ -561,7 +561,7 @@ function page_attributes_meta_box($post) {
 ?>
 <p><strong><?php _e('Parent') ?></strong></p>
 <label class="screen-reader-text" for="parent_id"><?php _e('Parent') ?></label>
-<?=$pages;?>
+<?php echo $pages; ?>
 <?php
 		} // end empty pages check
 	} // end hierarchical check.
@@ -570,14 +570,14 @@ function page_attributes_meta_box($post) {
 		?>
 <p><strong><?php _e('Template') ?></strong></p>
 <label class="screen-reader-text" for="page_template"><?php _e('Page Template') ?></label><select name="page_template" id="page_template">
-<option value='default'><?php _e('Default Template');?></option>
-<?php page_template_dropdown($template);?>
+<option value='default'><?php _e('Default Template'); ?></option>
+<?php page_template_dropdown($template); ?>
 </select>
 <?php
 	} ?>
 <p><strong><?php _e('Order') ?></strong></p>
-<p><label class="screen-reader-text" for="menu_order"><?php _e('Order') ?></label><input name="menu_order" type="text" size="4" id="menu_order" value="<?=esc_attr($post->menu_order) ?>" /></p>
-<p><?php if ( 'page' == $post->post_type ) _e( 'Need help? Use the Help tab in the upper right of your screen.' );?></p>
+<p><label class="screen-reader-text" for="menu_order"><?php _e('Order') ?></label><input name="menu_order" type="text" size="4" id="menu_order" value="<?php echo esc_attr($post->menu_order) ?>" /></p>
+<p><?php if ( 'page' == $post->post_type ) _e( 'Need help? Use the Help tab in the upper right of your screen.' ); ?></p>
 <?php
 }
 
@@ -599,13 +599,13 @@ function link_submit_meta_box($link) {
 
 <?php // Hidden submit button early on so that the browser chooses the right button when form is submitted with Return key ?>
 <div style="display:none;">
-<?php submit_button( __( 'Save' ), 'button', 'save', false );?>
+<?php submit_button( __( 'Save' ), 'button', 'save', false ); ?>
 </div>
 
 <div id="minor-publishing-actions">
 <div id="preview-action">
 <?php if ( !empty($link->link_id) ) { ?>
-	<a class="preview button" href="<?=$link->link_url;?>" target="_blank" tabindex="4"><?php _e('Visit Link');?></a>
+	<a class="preview button" href="<?php echo $link->link_url; ?>" target="_blank" tabindex="4"><?php _e('Visit Link'); ?></a>
 <?php } ?>
 </div>
 <div class="clear"></div>
@@ -613,18 +613,18 @@ function link_submit_meta_box($link) {
 
 <div id="misc-publishing-actions">
 <div class="misc-pub-section misc-pub-section-last">
-	<label for="link_private" class="selectit"><input id="link_private" name="link_visible" type="checkbox" value="N" <?php checked($link->link_visible, 'N');?> /> <?php _e('Keep this link private') ?></label>
+	<label for="link_private" class="selectit"><input id="link_private" name="link_visible" type="checkbox" value="N" <?php checked($link->link_visible, 'N'); ?> /> <?php _e('Keep this link private') ?></label>
 </div>
 </div>
 
 </div>
 
 <div id="major-publishing-actions">
-<?php do_action('post_submitbox_start');?>
+<?php do_action('post_submitbox_start'); ?>
 <div id="delete-action">
 <?php
 if ( !empty($_GET['action']) && 'edit' == $_GET['action'] && current_user_can('manage_links') ) { ?>
-	<a class="submitdelete deletion" href="<?=wp_nonce_url("link.php?action=delete&amp;link_id=$link->link_id", 'delete-bookmark_' . $link->link_id);?>" onclick="if ( confirm('<?=esc_js(sprintf(__("You are about to delete this link '%s'\n  'Cancel' to stop, 'OK' to delete."), $link->link_name ));?>') ) {return true;}return false;"><?php _e('Delete');?></a>
+	<a class="submitdelete deletion" href="<?php echo wp_nonce_url("link.php?action=delete&amp;link_id=$link->link_id", 'delete-bookmark_' . $link->link_id); ?>" onclick="if ( confirm('<?php echo esc_js(sprintf(__("You are about to delete this link '%s'\n  'Cancel' to stop, 'OK' to delete."), $link->link_name )); ?>') ) {return true;}return false;"><?php _e('Delete'); ?></a>
 <?php } ?>
 </div>
 
@@ -637,7 +637,7 @@ if ( !empty($_GET['action']) && 'edit' == $_GET['action'] && current_user_can('m
 </div>
 <div class="clear"></div>
 </div>
-<?php do_action('submitlink_box');?>
+<?php do_action('submitlink_box'); ?>
 <div class="clear"></div>
 </div>
 <?php
@@ -653,8 +653,8 @@ if ( !empty($_GET['action']) && 'edit' == $_GET['action'] && current_user_can('m
  */
 function link_categories_meta_box($link) { ?>
 <ul id="category-tabs" class="category-tabs">
-	<li class="tabs"><a href="#categories-all"><?php _e( 'All Categories' );?></a></li>
-	<li class="hide-if-no-js"><a href="#categories-pop"><?php _e( 'Most Used' );?></a></li>
+	<li class="tabs"><a href="#categories-all"><?php _e( 'All Categories' ); ?></a></li>
+	<li class="hide-if-no-js"><a href="#categories-pop"><?php _e( 'Most Used' ); ?></a></li>
 </ul>
 
 <div id="categories-all" class="tabs-panel">
@@ -670,17 +670,17 @@ function link_categories_meta_box($link) { ?>
 
 <div id="categories-pop" class="tabs-panel" style="display: none;">
 	<ul id="categorychecklist-pop" class="categorychecklist form-no-clear">
-		<?php wp_popular_terms_checklist('link_category');?>
+		<?php wp_popular_terms_checklist('link_category'); ?>
 	</ul>
 </div>
 
 <div id="category-adder" class="wp-hidden-children">
-	<h4><a id="category-add-toggle" href="#category-add"><?php _e( '+ Add New Category' );?></a></h4>
+	<h4><a id="category-add-toggle" href="#category-add"><?php _e( '+ Add New Category' ); ?></a></h4>
 	<p id="link-category-add" class="wp-hidden-child">
-		<label class="screen-reader-text" for="newcat"><?php _e( '+ Add New Category' );?></label>
-		<input type="text" name="newcat" id="newcat" class="form-required form-input-tip" value="<?php esc_attr_e( 'New category name' );?>" aria-required="true" />
-		<input type="button" id="category-add-submit" class="add:categorychecklist:linkcategorydiv button" value="<?php esc_attr_e( 'Add' );?>" />
-		<?php wp_nonce_field( 'add-link-category', '_ajax_nonce', false );?>
+		<label class="screen-reader-text" for="newcat"><?php _e( '+ Add New Category' ); ?></label>
+		<input type="text" name="newcat" id="newcat" class="form-required form-input-tip" value="<?php esc_attr_e( 'New category name' ); ?>" aria-required="true" />
+		<input type="button" id="category-add-submit" class="add:categorychecklist:linkcategorydiv button" value="<?php esc_attr_e( 'Add' ); ?>" />
+		<?php wp_nonce_field( 'add-link-category', '_ajax_nonce', false ); ?>
 		<span id="category-ajax-response"></span>
 	</p>
 </div>
@@ -698,16 +698,16 @@ function link_categories_meta_box($link) { ?>
 function link_target_meta_box($link) { ?>
 <fieldset><legend class="screen-reader-text"><span><?php _e('Target') ?></span></legend>
 <p><label for="link_target_blank" class="selectit">
-<input id="link_target_blank" type="radio" name="link_target" value="_blank" <?=( isset( $link->link_target ) && ($link->link_target == '_blank') ? 'checked="checked"' : '');?> />
-<?php _e('<code>_blank</code> &mdash; new window or tab.');?></label></p>
+<input id="link_target_blank" type="radio" name="link_target" value="_blank" <?php echo ( isset( $link->link_target ) && ($link->link_target == '_blank') ? 'checked="checked"' : ''); ?> />
+<?php _e('<code>_blank</code> &mdash; new window or tab.'); ?></label></p>
 <p><label for="link_target_top" class="selectit">
-<input id="link_target_top" type="radio" name="link_target" value="_top" <?=( isset( $link->link_target ) && ($link->link_target == '_top') ? 'checked="checked"' : '');?> />
-<?php _e('<code>_top</code> &mdash; current window or tab, with no frames.');?></label></p>
+<input id="link_target_top" type="radio" name="link_target" value="_top" <?php echo ( isset( $link->link_target ) && ($link->link_target == '_top') ? 'checked="checked"' : ''); ?> />
+<?php _e('<code>_top</code> &mdash; current window or tab, with no frames.'); ?></label></p>
 <p><label for="link_target_none" class="selectit">
-<input id="link_target_none" type="radio" name="link_target" value="" <?=( isset( $link->link_target ) && ($link->link_target == '') ? 'checked="checked"' : '');?> />
-<?php _e('<code>_none</code> &mdash; same window or tab.');?></label></p>
+<input id="link_target_none" type="radio" name="link_target" value="" <?php echo ( isset( $link->link_target ) && ($link->link_target == '') ? 'checked="checked"' : ''); ?> />
+<?php _e('<code>_none</code> &mdash; same window or tab.'); ?></label></p>
 </fieldset>
-<p><?php _e('Choose the target frame for your link.');?></p>
+<p><?php _e('Choose the target frame for your link.'); ?></p>
 <?php
 }
 
@@ -755,7 +755,7 @@ function link_xfn_meta_box($link) {
 <table class="editform" style="width: 100%;" cellspacing="2" cellpadding="5">
 	<tr>
 		<th style="width: 20%;" scope="row"><label for="link_rel"><?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('rel:') ?></label></th>
-		<td style="width: 80%;"><input type="text" name="link_rel" id="link_rel" size="50" value="<?=( isset( $link->link_rel ) ? esc_attr($link->link_rel) : '');?>" /></td>
+		<td style="width: 80%;"><input type="text" name="link_rel" id="link_rel" size="50" value="<?php echo ( isset( $link->link_rel ) ? esc_attr($link->link_rel) : ''); ?>" /></td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -764,7 +764,7 @@ function link_xfn_meta_box($link) {
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('identity') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('identity') ?> </span></legend>
 						<label for="me">
-						<input type="checkbox" name="identity" value="me" id="me" <?php xfn_check('identity', 'me');?> />
+						<input type="checkbox" name="identity" value="me" id="me" <?php xfn_check('identity', 'me'); ?> />
 						<?php _e('another web address of mine') ?></label>
 					</fieldset></td>
 				</tr>
@@ -772,20 +772,20 @@ function link_xfn_meta_box($link) {
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('friendship') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('friendship') ?> </span></legend>
 						<label for="contact">
-						<input class="valinp" type="radio" name="friendship" value="contact" id="contact" <?php xfn_check('friendship', 'contact');?> /> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('contact') ?></label>
+						<input class="valinp" type="radio" name="friendship" value="contact" id="contact" <?php xfn_check('friendship', 'contact'); ?> /> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('contact') ?></label>
 						<label for="acquaintance">
-						<input class="valinp" type="radio" name="friendship" value="acquaintance" id="acquaintance" <?php xfn_check('friendship', 'acquaintance');?> />  <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('acquaintance') ?></label>
+						<input class="valinp" type="radio" name="friendship" value="acquaintance" id="acquaintance" <?php xfn_check('friendship', 'acquaintance'); ?> />  <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('acquaintance') ?></label>
 						<label for="friend">
-						<input class="valinp" type="radio" name="friendship" value="friend" id="friend" <?php xfn_check('friendship', 'friend');?> /> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('friend') ?></label>
+						<input class="valinp" type="radio" name="friendship" value="friend" id="friend" <?php xfn_check('friendship', 'friend'); ?> /> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('friend') ?></label>
 						<label for="friendship">
-						<input name="friendship" type="radio" class="valinp" value="" id="friendship" <?php xfn_check('friendship');?> /> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('none') ?></label>
+						<input name="friendship" type="radio" class="valinp" value="" id="friendship" <?php xfn_check('friendship'); ?> /> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('none') ?></label>
 					</fieldset></td>
 				</tr>
 				<tr>
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('physical') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('physical') ?> </span></legend>
 						<label for="met">
-						<input class="valinp" type="checkbox" name="physical" value="met" id="met" <?php xfn_check('physical', 'met');?> />
+						<input class="valinp" type="checkbox" name="physical" value="met" id="met" <?php xfn_check('physical', 'met'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('met') ?></label>
 					</fieldset></td>
 				</tr>
@@ -793,10 +793,10 @@ function link_xfn_meta_box($link) {
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('professional') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('professional') ?> </span></legend>
 						<label for="co-worker">
-						<input class="valinp" type="checkbox" name="professional" value="co-worker" id="co-worker" <?php xfn_check('professional', 'co-worker');?> />
+						<input class="valinp" type="checkbox" name="professional" value="co-worker" id="co-worker" <?php xfn_check('professional', 'co-worker'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('co-worker') ?></label>
 						<label for="colleague">
-						<input class="valinp" type="checkbox" name="professional" value="colleague" id="colleague" <?php xfn_check('professional', 'colleague');?> />
+						<input class="valinp" type="checkbox" name="professional" value="colleague" id="colleague" <?php xfn_check('professional', 'colleague'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('colleague') ?></label>
 					</fieldset></td>
 				</tr>
@@ -804,13 +804,13 @@ function link_xfn_meta_box($link) {
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('geographical') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('geographical') ?> </span></legend>
 						<label for="co-resident">
-						<input class="valinp" type="radio" name="geographical" value="co-resident" id="co-resident" <?php xfn_check('geographical', 'co-resident');?> />
+						<input class="valinp" type="radio" name="geographical" value="co-resident" id="co-resident" <?php xfn_check('geographical', 'co-resident'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('co-resident') ?></label>
 						<label for="neighbor">
-						<input class="valinp" type="radio" name="geographical" value="neighbor" id="neighbor" <?php xfn_check('geographical', 'neighbor');?> />
+						<input class="valinp" type="radio" name="geographical" value="neighbor" id="neighbor" <?php xfn_check('geographical', 'neighbor'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('neighbor') ?></label>
 						<label for="geographical">
-						<input class="valinp" type="radio" name="geographical" value="" id="geographical" <?php xfn_check('geographical');?> />
+						<input class="valinp" type="radio" name="geographical" value="" id="geographical" <?php xfn_check('geographical'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('none') ?></label>
 					</fieldset></td>
 				</tr>
@@ -818,22 +818,22 @@ function link_xfn_meta_box($link) {
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('family') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('family') ?> </span></legend>
 						<label for="child">
-						<input class="valinp" type="radio" name="family" value="child" id="child" <?php xfn_check('family', 'child');?>  />
+						<input class="valinp" type="radio" name="family" value="child" id="child" <?php xfn_check('family', 'child'); ?>  />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('child') ?></label>
 						<label for="kin">
-						<input class="valinp" type="radio" name="family" value="kin" id="kin" <?php xfn_check('family', 'kin');?>  />
+						<input class="valinp" type="radio" name="family" value="kin" id="kin" <?php xfn_check('family', 'kin'); ?>  />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('kin') ?></label>
 						<label for="parent">
-						<input class="valinp" type="radio" name="family" value="parent" id="parent" <?php xfn_check('family', 'parent');?> />
+						<input class="valinp" type="radio" name="family" value="parent" id="parent" <?php xfn_check('family', 'parent'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('parent') ?></label>
 						<label for="sibling">
-						<input class="valinp" type="radio" name="family" value="sibling" id="sibling" <?php xfn_check('family', 'sibling');?> />
+						<input class="valinp" type="radio" name="family" value="sibling" id="sibling" <?php xfn_check('family', 'sibling'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('sibling') ?></label>
 						<label for="spouse">
-						<input class="valinp" type="radio" name="family" value="spouse" id="spouse" <?php xfn_check('family', 'spouse');?> />
+						<input class="valinp" type="radio" name="family" value="spouse" id="spouse" <?php xfn_check('family', 'spouse'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('spouse') ?></label>
 						<label for="family">
-						<input class="valinp" type="radio" name="family" value="" id="family" <?php xfn_check('family');?> />
+						<input class="valinp" type="radio" name="family" value="" id="family" <?php xfn_check('family'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('none') ?></label>
 					</fieldset></td>
 				</tr>
@@ -841,16 +841,16 @@ function link_xfn_meta_box($link) {
 					<th scope="row"> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('romantic') ?> </th>
 					<td><fieldset><legend class="screen-reader-text"><span> <?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('romantic') ?> </span></legend>
 						<label for="muse">
-						<input class="valinp" type="checkbox" name="romantic" value="muse" id="muse" <?php xfn_check('romantic', 'muse');?> />
+						<input class="valinp" type="checkbox" name="romantic" value="muse" id="muse" <?php xfn_check('romantic', 'muse'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('muse') ?></label>
 						<label for="crush">
-						<input class="valinp" type="checkbox" name="romantic" value="crush" id="crush" <?php xfn_check('romantic', 'crush');?> />
+						<input class="valinp" type="checkbox" name="romantic" value="crush" id="crush" <?php xfn_check('romantic', 'crush'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('crush') ?></label>
 						<label for="date">
-						<input class="valinp" type="checkbox" name="romantic" value="date" id="date" <?php xfn_check('romantic', 'date');?> />
+						<input class="valinp" type="checkbox" name="romantic" value="date" id="date" <?php xfn_check('romantic', 'date'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('date') ?></label>
 						<label for="romantic">
-						<input class="valinp" type="checkbox" name="romantic" value="sweetheart" id="romantic" <?php xfn_check('romantic', 'sweetheart');?> />
+						<input class="valinp" type="checkbox" name="romantic" value="sweetheart" id="romantic" <?php xfn_check('romantic', 'sweetheart'); ?> />
 						<?php /* translators: xfn: http://gmpg.org/xfn/ */ _e('sweetheart') ?></label>
 					</fieldset></td>
 				</tr>
@@ -858,7 +858,7 @@ function link_xfn_meta_box($link) {
 		</td>
 	</tr>
 </table>
-<p><?php _e('If the link is to a person, you can specify your relationship with them using the above form. If you would like to learn more about the idea check out <a href="http://gmpg.org/xfn/">XFN</a>.');?></p>
+<p><?php _e('If the link is to a person, you can specify your relationship with them using the above form. If you would like to learn more about the idea check out <a href="http://gmpg.org/xfn/">XFN</a>.'); ?></p>
 <?php
 }
 
@@ -875,15 +875,15 @@ function link_advanced_meta_box($link) {
 <table class="form-table" style="width: 100%;" cellspacing="2" cellpadding="5">
 	<tr class="form-field">
 		<th valign="top"  scope="row"><label for="link_image"><?php _e('Image Address') ?></label></th>
-		<td><input type="text" name="link_image" class="code" id="link_image" size="50" value="<?=( isset( $link->link_image ) ? esc_attr($link->link_image) : '');?>" style="width: 95%" /></td>
+		<td><input type="text" name="link_image" class="code" id="link_image" size="50" value="<?php echo ( isset( $link->link_image ) ? esc_attr($link->link_image) : ''); ?>" style="width: 95%" /></td>
 	</tr>
 	<tr class="form-field">
 		<th valign="top"  scope="row"><label for="rss_uri"><?php _e('RSS Address') ?></label></th>
-		<td><input name="link_rss" class="code" type="text" id="rss_uri" value="<?= ( isset( $link->link_rss ) ? esc_attr($link->link_rss) : '');?>" size="50" style="width: 95%" /></td>
+		<td><input name="link_rss" class="code" type="text" id="rss_uri" value="<?php echo  ( isset( $link->link_rss ) ? esc_attr($link->link_rss) : ''); ?>" size="50" style="width: 95%" /></td>
 	</tr>
 	<tr class="form-field">
 		<th valign="top"  scope="row"><label for="link_notes"><?php _e('Notes') ?></label></th>
-		<td><textarea name="link_notes" id="link_notes" cols="50" rows="10" style="width: 95%"><?=( isset( $link->link_notes ) ? $link->link_notes : ''); // textarea_escaped ?></textarea></td>
+		<td><textarea name="link_notes" id="link_notes" cols="50" rows="10" style="width: 95%"><?php echo ( isset( $link->link_notes ) ? $link->link_notes : ''); // textarea_escaped ?></textarea></td>
 	</tr>
 	<tr class="form-field">
 		<th valign="top"  scope="row"><label for="link_rating"><?php _e('Rating') ?></label></th>

@@ -12,7 +12,7 @@
  * @since Twenty Ten 1.0
  */
 
-get_header();?>
+get_header(); ?>
 
 <!-- Start Content -->
 <div class="SC" role="main">
@@ -33,14 +33,14 @@ get_header();?>
 
 			<h1 class="page-title">
 <?php if ( is_day() ) : ?>
-				<?php printf( __( 'Daily Archives: <span>%s</span>', 'twentyten' ), get_the_date() );?>
+				<?php printf( __( 'Daily Archives: <span>%s</span>', 'twentyten' ), get_the_date() ); ?>
 <?php elseif ( is_month() ) : ?>
-				<?php printf( __( 'Monthly Archives: <span>%s</span>', 'twentyten' ), get_the_date('F Y') );?>
+				<?php printf( __( 'Monthly Archives: <span>%s</span>', 'twentyten' ), get_the_date('F Y') ); ?>
 <?php elseif ( is_year() ) : ?>
-				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'twentyten' ), get_the_date('Y') );?>
+				<?php printf( __( 'Yearly Archives: <span>%s</span>', 'twentyten' ), get_the_date('Y') ); ?>
 <?php else : ?>
-				<?php _e( 'Blog Archives', 'twentyten' );?>
-<?php endif;?>
+				<?php _e( 'Blog Archives', 'twentyten' ); ?>
+<?php endif; ?>
 			</h1>
 
 <?php
@@ -62,11 +62,11 @@ get_header();?>
 
 <!-- Start - Side Right -->
 <div class="SR">
- <?php get_sidebar();?>
+ <?php get_sidebar(); ?>
 </div>
 <!-- End - Side Right -->
 
 </div>
 <!-- End - SC -->
 
-<?php get_footer();?>
+<?php get_footer(); ?>

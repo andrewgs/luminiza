@@ -16,7 +16,7 @@ if ( !defined('ABSPATH') )
 <div class="clear"></div></div><!-- wpcontent -->
 
 <div id="footer">
-<?php do_action( 'in_admin_footer' );?>
+<?php do_action( 'in_admin_footer' ); ?>
 <p id="footer-left" class="alignleft"><?php
 $upgrade = apply_filters( 'update_footer', '' );
 $footer_text = array(
@@ -29,7 +29,7 @@ $footer_text = array(
 echo apply_filters( 'admin_footer_text', implode( ' &bull; ', $footer_text ) );
 unset( $footer_text );
 ?></p>
-<p id="footer-upgrade" class="alignright"><?=$upgrade;?></p>
+<p id="footer-upgrade" class="alignright"><?php echo $upgrade; ?></p>
 <div class="clear"></div>
 </div>
 <?php

@@ -28,15 +28,15 @@ function theme_options_do_page() {
 
 	?>
 	<div class="wrap">
-		<?php screen_icon(); echo "<h2>" . get_current_theme() . " Theme Options" . "</h2>";?>
+		<?php screen_icon(); echo "<h2>" . get_current_theme() . " Theme Options" . "</h2>"; ?>
 
 		<?php if ( false !== $_REQUEST['settings-updated'] ) : ?>
-		<div class="updated fade"><p><strong><?='Options saved';?></strong></p></div>
-		<?php endif;?>
+		<div class="updated fade"><p><strong><?php echo 'Options saved'; ?></strong></p></div>
+		<?php endif; ?>
 
 		<form method="post" action="options.php">
-			<?php settings_fields( 'wuwei_options' );?>
-			<?php $options = get_option( 'wuwei_theme_options' );?>
+			<?php settings_fields( 'wuwei_options' ); ?>
+			<?php $options = get_option( 'wuwei_theme_options' ); ?>
 
 			<table class="form-table">
 
@@ -45,17 +45,17 @@ function theme_options_do_page() {
 				 * Color scheme option
 				 */
 				?>
-				<tr valign="top"><th scope="row"><?='Dark color scheme';?></th>
+				<tr valign="top"><th scope="row"><?php echo 'Dark color scheme'; ?></th>
 					<td>
-						<input id="wuwei_theme_options[colorscheme]" name="wuwei_theme_options[colorscheme]" type="checkbox" value="1" <?php checked( '1', $options['colorscheme'] );?> />
-						<label class="description" for="wuwei_theme_options[colorscheme]"><?='I&rsquo;d like to use the dark color scheme!';?></label>
+						<input id="wuwei_theme_options[colorscheme]" name="wuwei_theme_options[colorscheme]" type="checkbox" value="1" <?php checked( '1', $options['colorscheme'] ); ?> />
+						<label class="description" for="wuwei_theme_options[colorscheme]"><?php echo 'I&rsquo;d like to use the dark color scheme!'; ?></label>
 					</td>
 				</tr>
 
 			</table>
 
 			<p class="submit">
-				<input type="submit" class="button-primary" value="<?='Save Options';?>" />
+				<input type="submit" class="button-primary" value="<?php echo 'Save Options'; ?>" />
 			</p>
 		</form>
 	</div>

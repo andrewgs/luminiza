@@ -58,10 +58,10 @@ if ( ! current_user_can('manage_links') )
 ?>
 
 <div class="wrap nosubsub">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?> <a href="link-add.php" class="add-new-h2"><?=esc_html_x('Add New', 'link');?></a> <?php
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?> <a href="link-add.php" class="add-new-h2"><?php echo esc_html_x('Add New', 'link'); ?></a> <?php
 if ( !empty($_REQUEST['s']) )
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( stripslashes($_REQUEST['s']) ) );?>
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( stripslashes($_REQUEST['s']) ) ); ?>
 </h2>
 
 <?php
@@ -76,9 +76,9 @@ if ( isset($_REQUEST['deleted']) ) {
 
 <form id="posts-filter" action="" method="get">
 
-<?php $wp_list_table->search_box( __( 'Search Links' ), 'link' );?>
+<?php $wp_list_table->search_box( __( 'Search Links' ), 'link' ); ?>
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 
 <div id="ajax-response"></div>
 </form>

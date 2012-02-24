@@ -185,17 +185,17 @@ add_screen_option( 'per_page', array('label' => $title, 'default' => 20) );
 require_once('./admin-header.php');
 ?>
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $post_type_object->labels->name );?> <a href="<?=$post_new_file ?>" class="add-new-h2"><?=esc_html($post_type_object->labels->add_new);?></a> <?php
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $post_type_object->labels->name ); ?> <a href="<?php echo $post_new_file ?>" class="add-new-h2"><?php echo esc_html($post_type_object->labels->add_new); ?></a> <?php
 if ( isset($_REQUEST['s']) && $_REQUEST['s'] )
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', get_search_query() );?>
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', get_search_query() ); ?>
 </h2>
 
 <?php
-if ( isset($_REQUEST['posted']) && $_REQUEST['posted'] ) : $_REQUEST['posted'] = (int) $_REQUEST['posted'];?>
-<div id="message" class="updated"><p><strong><?php _e('This has been saved.');?></strong> <a href="<?=get_permalink( $_REQUEST['posted'] );?>"><?php _e('View Post');?></a> | <a href="<?=get_edit_post_link( $_REQUEST['posted'] );?>"><?php _e('Edit Post');?></a></p></div>
+if ( isset($_REQUEST['posted']) && $_REQUEST['posted'] ) : $_REQUEST['posted'] = (int) $_REQUEST['posted']; ?>
+<div id="message" class="updated"><p><strong><?php _e('This has been saved.'); ?></strong> <a href="<?php echo get_permalink( $_REQUEST['posted'] ); ?>"><?php _e('View Post'); ?></a> | <a href="<?php echo get_edit_post_link( $_REQUEST['posted'] ); ?>"><?php _e('Edit Post'); ?></a></p></div>
 <?php $_SERVER['REQUEST_URI'] = remove_query_arg(array('posted'), $_SERVER['REQUEST_URI']);
-endif;?>
+endif; ?>
 
 <?php if ( isset($_REQUEST['locked']) || isset($_REQUEST['skipped']) || isset($_REQUEST['updated']) || isset($_REQUEST['deleted']) || isset($_REQUEST['trashed']) || isset($_REQUEST['untrashed']) ) { ?>
 <div id="message" class="updated"><p>
@@ -234,19 +234,19 @@ $_SERVER['REQUEST_URI'] = remove_query_arg( array('locked', 'skipped', 'updated'
 </p></div>
 <?php } ?>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form id="posts-filter" action="" method="get">
 
-<?php $wp_list_table->search_box( $post_type_object->labels->search_items, 'post' );?>
+<?php $wp_list_table->search_box( $post_type_object->labels->search_items, 'post' ); ?>
 
-<input type="hidden" name="post_status" class="post_status_page" value="<?=!empty($_REQUEST['post_status']) ? esc_attr($_REQUEST['post_status']) : 'all';?>" />
-<input type="hidden" name="post_type" class="post_type_page" value="<?=$post_type;?>" />
+<input type="hidden" name="post_status" class="post_status_page" value="<?php echo !empty($_REQUEST['post_status']) ? esc_attr($_REQUEST['post_status']) : 'all'; ?>" />
+<input type="hidden" name="post_type" class="post_type_page" value="<?php echo $post_type; ?>" />
 <?php if ( ! empty( $_REQUEST['show_sticky'] ) ) { ?>
 <input type="hidden" name="show_sticky" value="1" />
 <?php } ?>
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 
 </form>
 

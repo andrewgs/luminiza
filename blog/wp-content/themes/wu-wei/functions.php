@@ -92,13 +92,13 @@ function wuwei_header_style() {
 // Has the text been hidden?
 if ( 'blank' == get_header_textcolor() && get_header_image() != '' ) { ?>
 	#header img {
-		margin: -<?=HEADER_IMAGE_HEIGHT;?>px 0 0 0;
+		margin: -<?php echo HEADER_IMAGE_HEIGHT; ?>px 0 0 0;
 	}	
 	.blog-name a {
 		display: block;
 		text-indent: -9000px;
-		width: <?=HEADER_IMAGE_WIDTH;?>px;
-		height: <?=HEADER_IMAGE_HEIGHT;?>px;
+		width: <?php echo HEADER_IMAGE_WIDTH; ?>px;
+		height: <?php echo HEADER_IMAGE_HEIGHT; ?>px;
 	}
 	.description {
 		position: absolute;
@@ -115,7 +115,7 @@ if ( 'blank' == get_header_textcolor() && get_header_image() != '' ) { ?>
 // If the user has set a custom color for the text use that
 ?>
 .blog-name a:link, .blog-name a:visited, .description {
-	color: #<?=header_textcolor();?>
+	color: #<?php echo header_textcolor(); ?>
 }
 <?php } ?>
 </style>
@@ -128,7 +128,7 @@ function wuwei_admin_header_style() {
 #headimg {
 	font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
 	<?php if ( 'blank' != get_header_textcolor() ) : ?>
-	<?php endif;?>
+	<?php endif; ?>
 	border: none;
 }
 .appearance_page_custom-header #headimg {
@@ -154,7 +154,7 @@ function wuwei_admin_header_style() {
 	display: none;
 }
 #header, #header h1 a {
-	color: <?=HEADER_TEXTCOLOR ?>;
+	color: <?php echo HEADER_TEXTCOLOR ?>;
 }
 <?php } ?>
 </style>
@@ -162,16 +162,16 @@ function wuwei_admin_header_style() {
 }
 
 function wuwei_admin_header_image() { ?>
-	<div id="headimg" style="max-width:<?=HEADER_IMAGE_WIDTH;?>px;">
+	<div id="headimg" style="max-width:<?php echo HEADER_IMAGE_WIDTH; ?>px;">
 		<?php
 		if ( 'blank' == get_theme_mod('header_textcolor', HEADER_TEXTCOLOR) || '' == get_theme_mod('header_textcolor', HEADER_TEXTCOLOR) )
 			$style = ' style="display:none;"';
 		else
 			$style = ' style="color:#' . get_theme_mod( 'header_textcolor', HEADER_TEXTCOLOR ) . ';"';
 		?>
-		<h1><a id="name"<?=$style;?> onclick="return false;" href="<?=home_url();?>"><?php bloginfo( 'name' );?></a></h1>
-		<div id="desc"<?=$style;?>><?php bloginfo( 'description' );?></div>
-		<img src="<?php esc_url ( header_image() );?>" width="<?=HEADER_IMAGE_WIDTH;?>" height="<?=HEADER_IMAGE_HEIGHT;?>" alt="" />
+		<h1><a id="name"<?php echo $style; ?> onclick="return false;" href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+		<div id="desc"<?php echo $style; ?>><?php bloginfo( 'description' ); ?></div>
+		<img src="<?php esc_url ( header_image() ); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="" />
 	</div>
 <?php }
 

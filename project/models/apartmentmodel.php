@@ -123,6 +123,7 @@ class Apartmentmodel extends CI_Model{
 		else
 			$this->db->where('apnt_flag',1);
 		$this->db->or_where('apnt_flag',2);
+		$this->db->order_by('apnt_date', 'DESC');
 		if($sortby):
 			if($sortby == 1)
 				$this->db->order_by("apnt_price","ASC");

@@ -7,7 +7,7 @@ $location = $options_page; // Form Action URI
 	<p>Use these field below to adjust the settings for the Slider. You can choose which Post/Page to show in the Slider while editing the Post/Page (Set "Feature in Featured Content Slider and then save).</p>
 	
     <div style="margin-left:0px;">
-    <form method="post" action="options.php"><?php wp_nonce_field('update-options');?>        
+    <form method="post" action="options.php"><?php wp_nonce_field('update-options'); ?>        
         <div class="inside">
 		<table class="form-table">
 			<tr>

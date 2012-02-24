@@ -177,10 +177,10 @@ function wp_popular_terms_checklist( $taxonomy, $default = 0, $number = 10, $ech
 		$checked = in_array( $term->term_id, $checked_terms ) ? 'checked="checked"' : '';
 		?>
 
-		<li id="<?=$id;?>" class="popular-category">
+		<li id="<?php echo $id; ?>" class="popular-category">
 			<label class="selectit">
-			<input id="in-<?=$id;?>" type="checkbox" <?=$checked;?> value="<?=(int) $term->term_id;?>" <?=$disabled ?>/>
-				<?=esc_html( apply_filters( 'the_category', $term->name ) );?>
+			<input id="in-<?php echo $id; ?>" type="checkbox" <?php echo $checked; ?> value="<?php echo (int) $term->term_id; ?>" <?php echo $disabled ?>/>
+				<?php echo esc_html( apply_filters( 'the_category', $term->name ) ); ?>
 			</label>
 		</li>
 
@@ -340,11 +340,11 @@ function wp_comment_reply($position = '1', $checkbox = false, $mode = 'single', 
 ?>
 <form method="get" action="">
 <?php if ( $table_row ) : ?>
-<table style="display:none;"><tbody id="com-reply"><tr id="replyrow" style="display:none;"><td colspan="<?=$wp_list_table->get_column_count();?>" class="colspanchange">
+<table style="display:none;"><tbody id="com-reply"><tr id="replyrow" style="display:none;"><td colspan="<?php echo $wp_list_table->get_column_count(); ?>" class="colspanchange">
 <?php else : ?>
 <div id="com-reply" style="display:none;"><div id="replyrow" style="display:none;">
-<?php endif;?>
-	<div id="replyhead" style="display:none;"><?php _e('Reply to Comment');?></div>
+<?php endif; ?>
+	<div id="replyhead" style="display:none;"><?php _e('Reply to Comment'); ?></div>
 
 	<div id="edithead" style="display:none;">
 		<div class="inside">
@@ -367,30 +367,30 @@ function wp_comment_reply($position = '1', $checkbox = false, $mode = 'single', 
 	<div id="replycontainer"><textarea rows="8" cols="40" name="replycontent" tabindex="104" id="replycontent"></textarea></div>
 
 	<p id="replysubmit" class="submit">
-	<a href="#comments-form" class="cancel button-secondary alignleft" tabindex="106"><?php _e('Cancel');?></a>
+	<a href="#comments-form" class="cancel button-secondary alignleft" tabindex="106"><?php _e('Cancel'); ?></a>
 	<a href="#comments-form" class="save button-primary alignright" tabindex="104">
-	<span id="savebtn" style="display:none;"><?php _e('Update Comment');?></span>
-	<span id="replybtn" style="display:none;"><?php _e('Submit Reply');?></span></a>
-	<img class="waiting" style="display:none;" src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" alt="" />
+	<span id="savebtn" style="display:none;"><?php _e('Update Comment'); ?></span>
+	<span id="replybtn" style="display:none;"><?php _e('Submit Reply'); ?></span></a>
+	<img class="waiting" style="display:none;" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="" />
 	<span class="error" style="display:none;"></span>
 	<br class="clear" />
 	</p>
 
-	<input type="hidden" name="user_ID" id="user_ID" value="<?=get_current_user_id();?>" />
+	<input type="hidden" name="user_ID" id="user_ID" value="<?php echo get_current_user_id(); ?>" />
 	<input type="hidden" name="action" id="action" value="" />
 	<input type="hidden" name="comment_ID" id="comment_ID" value="" />
 	<input type="hidden" name="comment_post_ID" id="comment_post_ID" value="" />
 	<input type="hidden" name="status" id="status" value="" />
-	<input type="hidden" name="position" id="position" value="<?=$position;?>" />
-	<input type="hidden" name="checkbox" id="checkbox" value="<?=$checkbox ? 1 : 0;?>" />
-	<input type="hidden" name="mode" id="mode" value="<?=esc_attr($mode);?>" />
-	<?php wp_nonce_field( 'replyto-comment', '_ajax_nonce-replyto-comment', false );?>
-	<?php wp_comment_form_unfiltered_html_nonce();?>
+	<input type="hidden" name="position" id="position" value="<?php echo $position; ?>" />
+	<input type="hidden" name="checkbox" id="checkbox" value="<?php echo $checkbox ? 1 : 0; ?>" />
+	<input type="hidden" name="mode" id="mode" value="<?php echo esc_attr($mode); ?>" />
+	<?php wp_nonce_field( 'replyto-comment', '_ajax_nonce-replyto-comment', false ); ?>
+	<?php wp_comment_form_unfiltered_html_nonce(); ?>
 <?php if ( $table_row ) : ?>
 </td></tr></tbody></table>
 <?php else : ?>
 </div></div>
-<?php endif;?>
+<?php endif; ?>
 </form>
 <?php
 }
@@ -403,10 +403,10 @@ function wp_comment_reply($position = '1', $checkbox = false, $mode = 'single', 
 function wp_comment_trashnotice() {
 ?>
 <div class="hidden" id="trash-undo-holder">
-	<div class="trash-undo-inside"><?php printf(__('Comment by %s moved to the trash.'), '<strong></strong>');?> <span class="undo untrash"><a href="#"><?php _e('Undo');?></a></span></div>
+	<div class="trash-undo-inside"><?php printf(__('Comment by %s moved to the trash.'), '<strong></strong>'); ?> <span class="undo untrash"><a href="#"><?php _e('Undo'); ?></a></span></div>
 </div>
 <div class="hidden" id="spam-undo-holder">
-	<div class="spam-undo-inside"><?php printf(__('Comment by %s marked as spam.'), '<strong></strong>');?> <span class="undo unspam"><a href="#"><?php _e('Undo');?></a></span></div>
+	<div class="spam-undo-inside"><?php printf(__('Comment by %s marked as spam.'), '<strong></strong>'); ?> <span class="undo unspam"><a href="#"><?php _e('Undo'); ?></a></span></div>
 </div>
 <?php
 }
@@ -545,7 +545,7 @@ function meta_form() {
 <td id="newmetaleft" class="left">
 <?php if ( $keys ) { ?>
 <select id="metakeyselect" name="metakeyselect" tabindex="7">
-<option value="#NONE#"><?php _e( '&mdash; Select &mdash;' );?></option>
+<option value="#NONE#"><?php _e( '&mdash; Select &mdash;' ); ?></option>
 <?php
 
 	foreach ( $keys as $key ) {
@@ -555,8 +555,8 @@ function meta_form() {
 </select>
 <input class="hide-if-js" type="text" id="metakeyinput" name="metakeyinput" tabindex="7" value="" />
 <a href="#postcustomstuff" class="hide-if-no-js" onclick="jQuery('#metakeyinput, #metakeyselect, #enternew, #cancelnew').toggle();return false;">
-<span id="enternew"><?php _e('Enter new');?></span>
-<span id="cancelnew" class="hidden"><?php _e('Cancel');?></span></a>
+<span id="enternew"><?php _e('Enter new'); ?></span>
+<span id="cancelnew" class="hidden"><?php _e('Cancel'); ?></span></a>
 <?php } else { ?>
 <input type="text" id="metakeyinput" name="metakeyinput" tabindex="7" value="" />
 <?php } ?>
@@ -565,8 +565,8 @@ function meta_form() {
 </tr>
 
 <tr><td colspan="2" class="submit">
-<?php submit_button( __( 'Add Custom Field' ), 'add:the-list:newmeta', 'addmeta', false, array( 'id' => 'addmetasub', 'tabindex' => '9' ) );?>
-<?php wp_nonce_field( 'add-meta', '_ajax_nonce-add-meta', false );?>
+<?php submit_button( __( 'Add Custom Field' ), 'add:the-list:newmeta', 'addmeta', false, array( 'id' => 'addmetasub', 'tabindex' => '9' ) ); ?>
+<?php wp_nonce_field( 'add-meta', '_ajax_nonce-add-meta', false ); ?>
 </td></tr>
 </tbody>
 </table>
@@ -642,8 +642,8 @@ function touch_time( $edit = 1, $for_post = 1, $tab_index = 0, $multi = 0 ) {
 ?>
 
 <p>
-<a href="#edit_timestamp" class="save-timestamp hide-if-no-js button"><?php _e('OK');?></a>
-<a href="#edit_timestamp" class="cancel-timestamp hide-if-no-js"><?php _e('Cancel');?></a>
+<a href="#edit_timestamp" class="save-timestamp hide-if-no-js button"><?php _e('OK'); ?></a>
+<a href="#edit_timestamp" class="cancel-timestamp hide-if-no-js"><?php _e('Cancel'); ?></a>
 </p>
 <?php
 }
@@ -728,27 +728,27 @@ function the_attachment_links( $id = false ) {
 	<col class="widefat" />
 	<tr>
 		<th scope="row"><?php _e( 'URL' ) ?></th>
-		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><?=esc_textarea( wp_get_attachment_url() );?></textarea></td>
+		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><?php echo esc_textarea( wp_get_attachment_url() ); ?></textarea></td>
 	</tr>
 <?php if ( $icon ) : ?>
 	<tr>
-		<th scope="row"><?php $thumb ? _e( 'Thumbnail linked to file' ) : _e( 'Image linked to file' );?></th>
-		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?=wp_get_attachment_url();?>"><?=$icon ?></a></textarea></td>
+		<th scope="row"><?php $thumb ? _e( 'Thumbnail linked to file' ) : _e( 'Image linked to file' ); ?></th>
+		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?php echo wp_get_attachment_url(); ?>"><?php echo $icon ?></a></textarea></td>
 	</tr>
 	<tr>
-		<th scope="row"><?php $thumb ? _e( 'Thumbnail linked to page' ) : _e( 'Image linked to page' );?></th>
-		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?=get_attachment_link( $post->ID ) ?>" rel="attachment wp-att-<?=$post->ID;?>"><?=$icon ?></a></textarea></td>
+		<th scope="row"><?php $thumb ? _e( 'Thumbnail linked to page' ) : _e( 'Image linked to page' ); ?></th>
+		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?php echo get_attachment_link( $post->ID ) ?>" rel="attachment wp-att-<?php echo $post->ID; ?>"><?php echo $icon ?></a></textarea></td>
 	</tr>
 <?php else : ?>
 	<tr>
 		<th scope="row"><?php _e( 'Link to file' ) ?></th>
-		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?=wp_get_attachment_url();?>" class="attachmentlink"><?=basename( wp_get_attachment_url() );?></a></textarea></td>
+		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?php echo wp_get_attachment_url(); ?>" class="attachmentlink"><?php echo basename( wp_get_attachment_url() ); ?></a></textarea></td>
 	</tr>
 	<tr>
 		<th scope="row"><?php _e( 'Link to page' ) ?></th>
-		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?=get_attachment_link( $post->ID ) ?>" rel="attachment wp-att-<?=$post->ID ?>"><?php the_title();?></a></textarea></td>
+		<td><textarea rows="1" cols="40" type="text" class="attachmentlinks" readonly="readonly"><a href="<?php echo get_attachment_link( $post->ID ) ?>" rel="attachment wp-att-<?php echo $post->ID ?>"><?php the_title(); ?></a></textarea></td>
 	</tr>
-<?php endif;?>
+<?php endif; ?>
 </table>
 </form>
 <?php
@@ -840,18 +840,18 @@ function wp_import_upload_form( $action ) {
 	$size = wp_convert_bytes_to_hr( $bytes );
 	$upload_dir = wp_upload_dir();
 	if ( ! empty( $upload_dir['error'] ) ) :
-		?><div class="error"><p><?php _e('Before you can upload your import file, you will need to fix the following error:');?></p>
-		<p><strong><?=$upload_dir['error'];?></strong></p></div><?php
+		?><div class="error"><p><?php _e('Before you can upload your import file, you will need to fix the following error:'); ?></p>
+		<p><strong><?php echo $upload_dir['error']; ?></strong></p></div><?php
 	else :
 ?>
-<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?=esc_attr(wp_nonce_url($action, 'import-upload'));?>">
+<form enctype="multipart/form-data" id="import-upload-form" method="post" action="<?php echo esc_attr(wp_nonce_url($action, 'import-upload')); ?>">
 <p>
-<label for="upload"><?php _e( 'Choose a file from your computer:' );?></label> (<?php printf( __('Maximum size: %s' ), $size );?>)
+<label for="upload"><?php _e( 'Choose a file from your computer:' ); ?></label> (<?php printf( __('Maximum size: %s' ), $size ); ?>)
 <input type="file" id="upload" name="import" size="25" />
 <input type="hidden" name="action" value="save" />
-<input type="hidden" name="max_file_size" value="<?=$bytes;?>" />
+<input type="hidden" name="max_file_size" value="<?php echo $bytes; ?>" />
 </p>
-<?php submit_button( __('Upload file and import'), 'button' );?>
+<?php submit_button( __('Upload file and import'), 'button' ); ?>
 </form>
 <?php
 	endif;
@@ -1346,18 +1346,18 @@ function settings_errors( $setting = '', $sanitize = FALSE, $hide_on_update = FA
 function find_posts_div($found_action = '') {
 ?>
 	<div id="find-posts" class="find-box" style="display:none;">
-		<div id="find-posts-head" class="find-box-head"><?php _e('Find Posts or Pages');?></div>
+		<div id="find-posts-head" class="find-box-head"><?php _e('Find Posts or Pages'); ?></div>
 		<div class="find-box-inside">
 			<div class="find-box-search">
 				<?php if ( $found_action ) { ?>
-					<input type="hidden" name="found_action" value="<?=esc_attr($found_action);?>" />
+					<input type="hidden" name="found_action" value="<?php echo esc_attr($found_action); ?>" />
 				<?php } ?>
 
 				<input type="hidden" name="affected" id="affected" value="" />
-				<?php wp_nonce_field( 'find-posts', '_ajax_nonce', false );?>
-				<label class="screen-reader-text" for="find-posts-input"><?php _e( 'Search' );?></label>
+				<?php wp_nonce_field( 'find-posts', '_ajax_nonce', false ); ?>
+				<label class="screen-reader-text" for="find-posts-input"><?php _e( 'Search' ); ?></label>
 				<input type="text" id="find-posts-input" name="ps" value="" />
-				<input type="button" id="find-posts-search" value="<?php esc_attr_e( 'Search' );?>" class="button" /><br />
+				<input type="button" id="find-posts-search" value="<?php esc_attr_e( 'Search' ); ?>" class="button" /><br />
 
 				<?php
 				$post_types = get_post_types( array('public' => true), 'objects' );
@@ -1365,16 +1365,16 @@ function find_posts_div($found_action = '') {
 					if ( 'attachment' == $post->name )
 						continue;
 				?>
-				<input type="radio" name="find-posts-what" id="find-posts-<?=esc_attr($post->name);?>" value="<?=esc_attr($post->name);?>" <?php checked($post->name,  'post');?> />
-				<label for="find-posts-<?=esc_attr($post->name);?>"><?=$post->label;?></label>
+				<input type="radio" name="find-posts-what" id="find-posts-<?php echo esc_attr($post->name); ?>" value="<?php echo esc_attr($post->name); ?>" <?php checked($post->name,  'post'); ?> />
+				<label for="find-posts-<?php echo esc_attr($post->name); ?>"><?php echo $post->label; ?></label>
 				<?php
 				} ?>
 			</div>
 			<div id="find-posts-response"></div>
 		</div>
 		<div class="find-box-buttons">
-			<input id="find-posts-close" type="button" class="button alignleft" value="<?php esc_attr_e('Close');?>" />
-			<?php submit_button( __( 'Select' ), 'button-primary alignright', 'find-posts-submit', false );?>
+			<input id="find-posts-close" type="button" class="button alignleft" value="<?php esc_attr_e('Close'); ?>" />
+			<?php submit_button( __( 'Select' ), 'button-primary alignright', 'find-posts-submit', false ); ?>
 		</div>
 	</div>
 <?php
@@ -1552,10 +1552,10 @@ function iframe_header( $title = '', $limit_styles = false ) {
 	$admin_body_class .= ' iframe';
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php do_action('admin_xml_ns');?> <?php language_attributes();?>>
+<html xmlns="http://www.w3.org/1999/xhtml" <?php do_action('admin_xml_ns'); ?> <?php language_attributes(); ?>>
 <head>
-<meta http-equiv="Content-Type" content="<?php bloginfo('html_type');?>; charset=<?=get_option('blog_charset');?>" />
-<title><?php bloginfo('name') ?> &rsaquo; <?=$title ?> &#8212; <?php _e('WordPress');?></title>
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_option('blog_charset'); ?>" />
+<title><?php bloginfo('name') ?> &rsaquo; <?php echo $title ?> &#8212; <?php _e('WordPress'); ?></title>
 <?php
 wp_enqueue_style( 'global' );
 if ( ! $limit_styles )
@@ -1567,17 +1567,17 @@ wp_enqueue_style( 'colors' );
 addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
 function tb_close(){var win=window.dialogArguments||opener||parent||top;win.tb_remove();}
 var userSettings = {
-		'url': '<?=SITECOOKIEPATH;?>',
-		'uid': '<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID;?>',
-		'time':'<?=time() ?>'
+		'url': '<?php echo SITECOOKIEPATH; ?>',
+		'uid': '<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID; ?>',
+		'time':'<?php echo time() ?>'
 	},
-	ajaxurl = '<?=admin_url('admin-ajax.php');?>',
-	pagenow = '<?=$current_screen->id;?>',
-	typenow = '<?php if ( isset($current_screen->post_type) ) echo $current_screen->post_type;?>',
-	adminpage = '<?=$admin_body_class;?>',
-	thousandsSeparator = '<?=addslashes( $wp_locale->number_format['thousands_sep'] );?>',
-	decimalPoint = '<?=addslashes( $wp_locale->number_format['decimal_point'] );?>',
-	isRtl = <?=(int) is_rtl();?>;
+	ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>',
+	pagenow = '<?php echo $current_screen->id; ?>',
+	typenow = '<?php if ( isset($current_screen->post_type) ) echo $current_screen->post_type; ?>',
+	adminpage = '<?php echo $admin_body_class; ?>',
+	thousandsSeparator = '<?php echo addslashes( $wp_locale->number_format['thousands_sep'] ); ?>',
+	decimalPoint = '<?php echo addslashes( $wp_locale->number_format['decimal_point'] ); ?>',
+	isRtl = <?php echo (int) is_rtl(); ?>;
 //]]>
 </script>
 <?php
@@ -1590,7 +1590,7 @@ do_action("admin_head-$hook_suffix");
 do_action('admin_head');
 ?>
 </head>
-<body<?php if ( isset($GLOBALS['body_id']) ) echo ' id="' . $GLOBALS['body_id'] . '"';?>  class="no-js <?=$admin_body_class;?>">
+<body<?php if ( isset($GLOBALS['body_id']) ) echo ' id="' . $GLOBALS['body_id'] . '"'; ?>  class="no-js <?php echo $admin_body_class; ?>">
 <script type="text/javascript">
 //<![CDATA[
 (function(){
@@ -1614,7 +1614,7 @@ function iframe_footer() {
 	<div class="hidden">
 <?php
 	do_action('admin_footer', '');
-	do_action('admin_print_footer_scripts');?>
+	do_action('admin_print_footer_scripts'); ?>
 	</div>
 <script type="text/javascript">if(typeof wpOnload=="function")wpOnload();</script>
 </body>
@@ -1760,12 +1760,12 @@ function screen_meta($screen) {
 	<?php if ( isset($wp_meta_boxes[$screen->id]) ) : ?>
 		<h5><?php _ex('Show on screen', 'Metaboxes') ?></h5>
 		<div class="metabox-prefs">
-			<?php meta_box_prefs($screen);?>
+			<?php meta_box_prefs($screen); ?>
 			<br class="clear" />
 		</div>
 		<?php endif;
 		if ( ! empty($columns) ) : ?>
-		<h5><?=( isset( $columns['_title'] ) ?  $columns['_title'] :  _x('Show on screen', 'Columns') ) ?></h5>
+		<h5><?php echo ( isset( $columns['_title'] ) ?  $columns['_title'] :  _x('Show on screen', 'Columns') ) ?></h5>
 		<div class="metabox-prefs">
 <?php
 	$special = array('_title', 'cb', 'comment', 'media', 'name', 'title', 'username', 'blogname');
@@ -1797,8 +1797,8 @@ function screen_meta($screen) {
 	}
 
 	echo $screen_options;
-	echo $settings;?>
-<div><?php wp_nonce_field( 'screen-options-nonce', 'screenoptionnonce', false );?></div>
+	echo $settings; ?>
+<div><?php wp_nonce_field( 'screen-options-nonce', 'screenoptionnonce', false ); ?></div>
 </form>
 </div>
 

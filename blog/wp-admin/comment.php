@@ -108,8 +108,8 @@ case 'spam'    :
 
 <div class="narrow">
 
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 
 <?php
 switch ( $action ) {
@@ -148,45 +148,45 @@ if ( $comment->comment_approved != '0' ) { // if not unapproved
 		echo '<div class="updated"><p>' . $message . '</p></div>';
 }
 ?>
-<p><strong><?php _e('Caution:');?></strong> <?=$caution_msg;?></p>
+<p><strong><?php _e('Caution:'); ?></strong> <?php echo $caution_msg; ?></p>
 
 <table class="form-table comment-ays">
 <tr class="alt">
-<th scope="row"><?php _e('Author');?></th>
-<td><?=$comment->comment_author;?></td>
+<th scope="row"><?php _e('Author'); ?></th>
+<td><?php echo $comment->comment_author; ?></td>
 </tr>
 <?php if ( $comment->comment_author_email ) { ?>
 <tr>
-<th scope="row"><?php _e('E-mail');?></th>
-<td><?=$comment->comment_author_email;?></td>
+<th scope="row"><?php _e('E-mail'); ?></th>
+<td><?php echo $comment->comment_author_email; ?></td>
 </tr>
 <?php } ?>
 <?php if ( $comment->comment_author_url ) { ?>
 <tr>
-<th scope="row"><?php _e('URL');?></th>
-<td><a href="<?=$comment->comment_author_url;?>"><?=$comment->comment_author_url;?></a></td>
+<th scope="row"><?php _e('URL'); ?></th>
+<td><a href="<?php echo $comment->comment_author_url; ?>"><?php echo $comment->comment_author_url; ?></a></td>
 </tr>
 <?php } ?>
 <tr>
-<th scope="row" valign="top"><?php /* translators: field name in comment form */ _ex('Comment', 'noun');?></th>
-<td><?=$comment->comment_content;?></td>
+<th scope="row" valign="top"><?php /* translators: field name in comment form */ _ex('Comment', 'noun'); ?></th>
+<td><?php echo $comment->comment_content; ?></td>
 </tr>
 </table>
 
-<p><?php _e('Are you sure you want to do this?');?></p>
+<p><?php _e('Are you sure you want to do this?'); ?></p>
 
 <form action='comment.php' method='get'>
 
 <table width="100%">
 <tr>
-<td><a class="button" href="<?=admin_url('edit-comments.php');?>"><?php esc_attr_e('No');?></a></td>
-<td class="textright"><?php submit_button( $button, 'button' );?></td>
+<td><a class="button" href="<?php echo admin_url('edit-comments.php'); ?>"><?php esc_attr_e('No'); ?></a></td>
+<td class="textright"><?php submit_button( $button, 'button' ); ?></td>
 </tr>
 </table>
 
-<?php wp_nonce_field( $nonce_action );?>
-<input type='hidden' name='action' value='<?=esc_attr($formaction);?>' />
-<input type='hidden' name='c' value='<?=esc_attr($comment->comment_ID);?>' />
+<?php wp_nonce_field( $nonce_action ); ?>
+<input type='hidden' name='action' value='<?php echo esc_attr($formaction); ?>' />
+<input type='hidden' name='c' value='<?php echo esc_attr($comment->comment_ID); ?>' />
 <input type='hidden' name='noredir' value='1' />
 </form>
 

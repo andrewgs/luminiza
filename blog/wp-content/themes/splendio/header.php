@@ -3,26 +3,26 @@
  * The Header for our theme.
  */
 ?><!DOCTYPE html>
-<!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes();?>> <!--<![endif]-->
-<html <?php language_attributes();?>>
+<!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
+<html <?php language_attributes(); ?>>
 <head>
-<meta charset="<?php bloginfo( 'charset' );?>" />
+<meta charset="<?php bloginfo( 'charset' ); ?>" />
 <title>
 <?php global $page, $paged;	wp_title( '|', true, 'right' );	bloginfo( 'name' );	$site_description = get_bloginfo( 'description', 'display' );	if ( $site_description && ( is_home() || is_front_page() ) ) echo " | $site_description";	if ( $paged >= 2 || $page >= 2 ) echo ' | ' . sprintf( __( 'Page %s', 'twentyten' ), max( $paged, $page ) );	?>
 </title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' );?>" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url');?>/style-print.css"  />
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'template_url'); ?>/style-print.css"  />
 <link  href="http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold" rel="stylesheet" type="text/css" >
-<link rel="shortcut icon" href="<?php bloginfo( 'template_url');?>/images/favicon.ico" type="image/x-icon" />
-<script type='text/javascript' src="<?php bloginfo('template_url');?>/js/jquery-1.4.1.min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_url');?>/js/jquery.color.js"></script>
+<link rel="shortcut icon" href="<?php bloginfo( 'template_url'); ?>/images/favicon.ico" type="image/x-icon" />
+<script type='text/javascript' src="<?php bloginfo('template_url'); ?>/js/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/jquery.color.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         if(!$.browser.msie) $("ul li").hover(function() {$(this).siblings().stop().fadeTo(400,0.4);}, function() { $(this).siblings().stop().fadeTo(400,1); });
     });
 </script>
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' );?>" />
+<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php
 	/* We add some JavaScript to pages with the comment form
 	 * to support sites with threaded comments (when in use).
@@ -38,25 +38,25 @@
 	wp_head();
 ?>
 </head>
-<body <?php body_class();?>>
+<body <?php body_class(); ?>>
 <!-- Start - Wrapper -->
 <div id="wrapper">
 <!-- Start header -->
 <div id="header">    
  <div class="header-left">
    <div class="logo">
-  <?php $heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div';?>				
-  <<?=$heading_tag;?> class="site-title">
-  <span><a href="<?=home_url( '/' );?>" title="<?=esc_attr( get_bloginfo( 'name', 'display' ) );?>" rel="home"><?php bloginfo( 'name' );?></a></span>
-  </<?=$heading_tag;?>>
-  <div class="site-desc"><?php bloginfo( 'description' );?></div>  
+  <?php $heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div'; ?>				
+  <<?php echo $heading_tag; ?> class="site-title">
+  <span><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></span>
+  </<?php echo $heading_tag; ?>>
+  <div class="site-desc"><?php bloginfo( 'description' ); ?></div>  
   </div>    
   <!-- Start access -->
   <div id="access" role="navigation">
   <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
-  <div class="skip-link screen-reader-text"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentyten' );?>"><?php _e( 'Skip to content', 'twentyten' );?></a></div>
+  <div class="skip-link screen-reader-text"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a></div>
   <?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
-  <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) );?>
+  <?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
   </div>
  <!-- End access -->   
 </div> 
@@ -79,7 +79,7 @@
  </div>
 </div>    
 <div class="header-image" role="banner">
- <img src="<?php header_image();?>" alt="" />
+ <img src="<?php header_image(); ?>" alt="" />
 </div>             
 </div>
 <!-- End header -->

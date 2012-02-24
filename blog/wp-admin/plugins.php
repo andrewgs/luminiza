@@ -247,9 +247,9 @@ if ( $action ) {
 					echo '<h2>' . _n( 'Delete Plugin', 'Delete Plugins', $plugins_to_delete ) . '</h2>';
 				?>
 				<?php if ( $have_non_network_plugins && is_network_admin() ) : ?>
-				<div class="error"><p><strong><?php _e( 'Caution:' );?></strong> <?=_n( 'This plugin may be active on other sites in the network.', 'These plugins may be active on other sites in the network.', $plugins_to_delete );?></p></div>
-				<?php endif;?>
-				<p><?=_n( 'You are about to remove the following plugin:', 'You are about to remove the following plugins:', $plugins_to_delete );?></p>
+				<div class="error"><p><strong><?php _e( 'Caution:' ); ?></strong> <?php echo _n( 'This plugin may be active on other sites in the network.', 'These plugins may be active on other sites in the network.', $plugins_to_delete ); ?></p></div>
+				<?php endif; ?>
+				<p><?php echo _n( 'You are about to remove the following plugin:', 'You are about to remove the following plugins:', $plugins_to_delete ); ?></p>
 					<ul class="ul-disc">
 						<?php
 						$data_to_delete = false;
@@ -271,7 +271,7 @@ if ( $action ) {
 				else
 					_e('Are you sure you wish to delete these files?');
 				?></p>
-				<form method="post" action="<?=esc_url($_SERVER['REQUEST_URI']);?>" style="display:inline;">
+				<form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php
@@ -279,13 +279,13 @@ if ( $action ) {
 							echo '<input type="hidden" name="checked[]" value="' . esc_attr($plugin) . '" />';
 					?>
 					<?php wp_nonce_field('bulk-plugins') ?>
-					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data' ) : __( 'Yes, Delete these files' ), 'button', 'submit', false );?>
+					<?php submit_button( $data_to_delete ? __( 'Yes, Delete these files and data' ) : __( 'Yes, Delete these files' ), 'button', 'submit', false ); ?>
 				</form>
-				<form method="post" action="<?=esc_url(wp_get_referer());?>" style="display:inline;">
-					<?php submit_button( __( 'No, Return me to the plugin list' ), 'button', 'submit', false );?>
+				<form method="post" action="<?php echo esc_url(wp_get_referer()); ?>" style="display:inline;">
+					<?php submit_button( __( 'No, Return me to the plugin list' ), 'button', 'submit', false ); ?>
 				</form>
 
-				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php _e('Click to view entire list of files which will be deleted');?></a></p>
+				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php _e('Click to view entire list of files which will be deleted'); ?></a></p>
 				<div id="files-list" style="display:none;">
 					<ul class="code">
 					<?php
@@ -348,10 +348,10 @@ if ( !empty($invalid) )
 	else
 		$errmsg = __('Plugin could not be activated because it triggered a <strong>fatal error</strong>.');
 	?>
-	<div id="message" class="updated"><p><?=$errmsg;?></p>
+	<div id="message" class="updated"><p><?php echo $errmsg; ?></p>
 	<?php
 		if ( !isset( $_GET['main'] ) && !isset($_GET['charsout']) && wp_verify_nonce($_GET['_error_nonce'], 'plugin-activation-error_' . $plugin) ) { ?>
-	<iframe style="border:0" width="100%" height="70px" src="<?='plugins.php?action=error_scrape&amp;plugin=' . esc_attr($plugin) . '&amp;_wpnonce=' . esc_attr($_GET['_error_nonce']);?>"></iframe>
+	<iframe style="border:0" width="100%" height="70px" src="<?php echo 'plugins.php?action=error_scrape&amp;plugin=' . esc_attr($plugin) . '&amp;_wpnonce=' . esc_attr($_GET['_error_nonce']); ?>"></iframe>
 	<?php
 		}
 	?>
@@ -361,44 +361,44 @@ if ( !empty($invalid) )
 		delete_transient('plugins_delete_result'); //Delete it once we're done.
 
 		if ( is_wp_error($delete_result) ) : ?>
-		<div id="message" class="updated"><p><?php printf( __('Plugin could not be deleted due to an error: %s'), $delete_result->get_error_message() );?></p></div>
+		<div id="message" class="updated"><p><?php printf( __('Plugin could not be deleted due to an error: %s'), $delete_result->get_error_message() ); ?></p></div>
 		<?php else : ?>
-		<div id="message" class="updated"><p><?php _e('The selected plugins have been <strong>deleted</strong>.');?></p></div>
-		<?php endif;?>
+		<div id="message" class="updated"><p><?php _e('The selected plugins have been <strong>deleted</strong>.'); ?></p></div>
+		<?php endif; ?>
 <?php elseif ( isset($_GET['activate']) ) : ?>
 	<div id="message" class="updated"><p><?php _e('Plugin <strong>activated</strong>.') ?></p></div>
 <?php elseif (isset($_GET['activate-multi'])) : ?>
-	<div id="message" class="updated"><p><?php _e('Selected plugins <strong>activated</strong>.');?></p></div>
+	<div id="message" class="updated"><p><?php _e('Selected plugins <strong>activated</strong>.'); ?></p></div>
 <?php elseif ( isset($_GET['deactivate']) ) : ?>
 	<div id="message" class="updated"><p><?php _e('Plugin <strong>deactivated</strong>.') ?></p></div>
 <?php elseif (isset($_GET['deactivate-multi'])) : ?>
-	<div id="message" class="updated"><p><?php _e('Selected plugins <strong>deactivated</strong>.');?></p></div>
+	<div id="message" class="updated"><p><?php _e('Selected plugins <strong>deactivated</strong>.'); ?></p></div>
 <?php elseif ( 'update-selected' == $action ) : ?>
-	<div id="message" class="updated"><p><?php _e('No out of date plugins were selected.');?></p></div>
-<?php endif;?>
+	<div id="message" class="updated"><p><?php _e('No out of date plugins were selected.'); ?></p></div>
+<?php endif; ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title );
 if ( ( ! is_multisite() || is_network_admin() ) && current_user_can('install_plugins') ) { ?>
-<a href="<?=self_admin_url( 'plugin-install.php' );?>" class="add-new-h2"><?=esc_html_x('Add New', 'plugin');?></a>
+<a href="<?php echo self_admin_url( 'plugin-install.php' ); ?>" class="add-new-h2"><?php echo esc_html_x('Add New', 'plugin'); ?></a>
 <?php }
 if ( $s )
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $s ) );?>
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $s ) ); ?>
 </h2>
 
 <?php do_action( 'pre_current_active_plugins', $plugins['all'] ) ?>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form method="post" action="">
 
-<?php $wp_list_table->search_box( __( 'Search Installed Plugins' ), 'plugin' );?>
+<?php $wp_list_table->search_box( __( 'Search Installed Plugins' ), 'plugin' ); ?>
 
-<input type="hidden" name="plugin_status" value="<?=esc_attr($status) ?>" />
-<input type="hidden" name="paged" value="<?=esc_attr($page) ?>" />
+<input type="hidden" name="plugin_status" value="<?php echo esc_attr($status) ?>" />
+<input type="hidden" name="paged" value="<?php echo esc_attr($page) ?>" />
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 </form>
 
 </div>

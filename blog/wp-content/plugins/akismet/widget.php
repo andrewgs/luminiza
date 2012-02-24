@@ -10,10 +10,10 @@ function widget_akismet_register() {
 		$options = get_option('widget_akismet');
 		$count = get_option('akismet_spam_count');
 		?>
-			<?=$before_widget;?>
-				<?=$before_title . $options['title'] . $after_title;?>
-                <div id="akismetwrap"><div id="akismetstats"><a id="aka" href="http://akismet.com" title=""><?php printf( _n( '%1$s%2$s%3$s %4$sspam comment%5$s %6$sblocked by%7$s<br />%8$sAkismet%9$s', '%1$s%2$s%3$s %4$sspam comments%5$s %6$sblocked by%7$s<br />%8$sAkismet%9$s', $count ), '<span id="akismet1"><span id="akismetcount">', number_format_i18n( $count ), '</span>', '<span id="akismetsc">', '</span></span>', '<span id="akismet2"><span id="akismetbb">', '</span>', '<span id="akismeta">', '</span></span>' );?></a></div></div> 
-			<?=$after_widget;?>
+			<?php echo $before_widget; ?>
+				<?php echo $before_title . $options['title'] . $after_title; ?>
+                <div id="akismetwrap"><div id="akismetstats"><a id="aka" href="http://akismet.com" title=""><?php printf( _n( '%1$s%2$s%3$s %4$sspam comment%5$s %6$sblocked by%7$s<br />%8$sAkismet%9$s', '%1$s%2$s%3$s %4$sspam comments%5$s %6$sblocked by%7$s<br />%8$sAkismet%9$s', $count ), '<span id="akismet1"><span id="akismetcount">', number_format_i18n( $count ), '</span>', '<span id="akismetsc">', '</span></span>', '<span id="akismet2"><span id="akismetbb">', '</span>', '<span id="akismeta">', '</span></span>' ); ?></a></div></div> 
+			<?php echo $after_widget; ?>
 	<?php
 	}
 
@@ -31,7 +31,7 @@ function widget_akismet_register() {
 #akismet2{display:none;padding-top:2px}
 #akismeta{font-size:16px;font-weight:bold;line-height:18px;text-decoration:none}
 #akismetcount{display:block;font:15px Verdana,Arial,Sans-Serif;font-weight:bold;text-decoration:none}
-#akismetwrap #akismetstats{background:url(<?=get_option('siteurl'), $plugin_dir;?>/akismet/akismet.gif) no-repeat top left;border:none;color:#fff;font:11px 'Trebuchet MS','Myriad Pro',sans-serif;height:40px;line-height:100%;overflow:hidden;padding:8px 0 0;text-align:center;width:120px}
+#akismetwrap #akismetstats{background:url(<?php echo get_option('siteurl'), $plugin_dir; ?>/akismet/akismet.gif) no-repeat top left;border:none;color:#fff;font:11px 'Trebuchet MS','Myriad Pro',sans-serif;height:40px;line-height:100%;overflow:hidden;padding:8px 0 0;text-align:center;width:120px}
 </style>
 		<?php
 	}
@@ -48,7 +48,7 @@ function widget_akismet_register() {
 		}
 		$title = htmlspecialchars($options['title'], ENT_QUOTES);
 	?>
-				<p><label for="akismet-title"><?php _e('Title:');?> <input style="width: 250px;" id="akismet-title" name="akismet-title" type="text" value="<?=$title;?>" /></label></p>
+				<p><label for="akismet-title"><?php _e('Title:'); ?> <input style="width: 250px;" id="akismet-title" name="akismet-title" type="text" value="<?php echo $title; ?>" /></label></p>
 				<input type="hidden" id="akismet-submit" name="akismet-submit" value="1" />
 	<?php
 	}
@@ -82,7 +82,7 @@ function akismet_counter() {
 #akismet2{display:none;padding-top:2px}
 #akismeta{font-size:16px;font-weight:bold;line-height:18px;text-decoration:none}
 #akismetcount{display:block;font:15px Verdana,Arial,Sans-Serif;font-weight:bold;text-decoration:none}
-#akismetwrap #akismetstats{background:url(<?=get_option('siteurl'), $plugin_dir;?>/akismet/akismet.gif) no-repeat top left;border:none;color:#fff;font:11px 'Trebuchet MS','Myriad Pro',sans-serif;height:40px;line-height:100%;overflow:hidden;padding:8px 0 0;text-align:center;width:120px}
+#akismetwrap #akismetstats{background:url(<?php echo get_option('siteurl'), $plugin_dir; ?>/akismet/akismet.gif) no-repeat top left;border:none;color:#fff;font:11px 'Trebuchet MS','Myriad Pro',sans-serif;height:40px;line-height:100%;overflow:hidden;padding:8px 0 0;text-align:center;width:120px}
 </style>
 <?php
 $count = get_option('akismet_spam_count');

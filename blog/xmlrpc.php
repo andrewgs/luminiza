@@ -31,18 +31,18 @@ include('./wp-load.php');
 if ( isset( $_GET['rsd'] ) ) { // http://archipelago.phrasewise.com/rsd
 header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);
 ?>
-<?='<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';?>
+<?php echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
 <rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd">
   <service>
     <engineName>WordPress</engineName>
     <engineLink>http://wordpress.org/</engineLink>
     <homePageLink><?php bloginfo_rss('url') ?></homePageLink>
     <apis>
-      <api name="WordPress" blogID="1" preferred="true" apiLink="<?=site_url('xmlrpc.php', 'rpc') ?>" />
-      <api name="Movable Type" blogID="1" preferred="false" apiLink="<?=site_url('xmlrpc.php', 'rpc') ?>" />
-      <api name="MetaWeblog" blogID="1" preferred="false" apiLink="<?=site_url('xmlrpc.php', 'rpc') ?>" />
-      <api name="Blogger" blogID="1" preferred="false" apiLink="<?=site_url('xmlrpc.php', 'rpc') ?>" />
-      <api name="Atom" blogID="" preferred="false" apiLink="<?=site_url('wp-app.php/service', 'rpc') ?>" />
+      <api name="WordPress" blogID="1" preferred="true" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
+      <api name="Movable Type" blogID="1" preferred="false" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
+      <api name="MetaWeblog" blogID="1" preferred="false" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
+      <api name="Blogger" blogID="1" preferred="false" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />
+      <api name="Atom" blogID="" preferred="false" apiLink="<?php echo site_url('wp-app.php/service', 'rpc') ?>" />
     </apis>
   </service>
 </rsd>

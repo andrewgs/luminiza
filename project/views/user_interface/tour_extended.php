@@ -81,7 +81,7 @@
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Контакная форма'});
 		<?php endif;?>
-		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
+		$("#date").datepicker({minDate: 0});
 		
 		$("#send").click(function(event){
 			var err = false;

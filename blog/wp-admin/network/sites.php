@@ -92,12 +92,12 @@ require_once( '../admin-header.php' );
 ?>
 
 <div class="wrap">
-<?php screen_icon('ms-admin');?>
+<?php screen_icon('ms-admin'); ?>
 <h2><?php _e('Sites') ?>
-<?=$msg;?>
+<?php echo $msg; ?>
 <?php if ( current_user_can( 'create_sites') ) : ?>
-        <a href="<?=network_admin_url('site-new.php');?>" class="add-new-h2"><?=esc_html_x( 'Add New', 'site' );?></a>
-<?php endif;?>
+        <a href="<?php echo network_admin_url('site-new.php'); ?>" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'site' ); ?></a>
+<?php endif; ?>
 
 <?php if ( isset( $_REQUEST['s'] ) && $_REQUEST['s'] ) {
 	printf( '<span class="subtitle">' . __( 'Search results for &#8220;%s&#8221;' ) . '</span>', esc_html( $s ) );
@@ -105,14 +105,14 @@ require_once( '../admin-header.php' );
 </h2>
 
 <form action="" method="get" id="ms-search">
-<?php $wp_list_table->search_box( __( 'Search Sites' ), 'site' );?>
+<?php $wp_list_table->search_box( __( 'Search Sites' ), 'site' ); ?>
 <input type="hidden" name="action" value="blogs" />
 </form>
 
 <form id="form-site-list" action="edit.php?action=allblogs" method="post">
-	<?php $wp_list_table->display();?>
+	<?php $wp_list_table->display(); ?>
 </form>
 </div>
 <?php
 
-require_once( '../admin-footer.php' );?>
+require_once( '../admin-footer.php' ); ?>

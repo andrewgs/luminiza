@@ -20,9 +20,9 @@ $direct_path =  get_bloginfo('wpurl')."/wp-content/plugins/wp-featured-content-s
 #featured_slider .content_left { float: left; color: #<?php $text_color = get_option('text_color'); if(!empty($text_color)) {echo $text_color;} else {echo "333";}?>; width: <?php $text_width = get_option('text_width'); if(!empty($text_width)) {echo $text_width;} else {echo "598";}?>px; } 
 #featured_slider .content_left p { color: #<?php $text_color = get_option('text_color'); if(!empty($text_color)) {echo $text_color;} else {echo "996633";}?>; line-height: 18px; }
 #featured_slider .content_left h2 { font: bold 28px/30px 'Droid Sans', 'Trebuchet MS', sans-serif; letter-spacing: -1px; !important; margin-bottom: 10px; }
-#featured_slider .feat_prev { background: transparent url(<?=$direct_path;?>/images/prev.png) no-repeat top; width: 25px; height: 25px; z-index: 10; position: absolute; left: 0px; cursor: pointer; bottom: 30px; float: left; }
+#featured_slider .feat_prev { background: transparent url(<?php echo $direct_path;?>/images/prev.png) no-repeat top; width: 25px; height: 25px; z-index: 10; position: absolute; left: 0px; cursor: pointer; bottom: 30px; float: left; }
 #featured_slider .feat_prev:hover { background-position: bottom; }
-#featured_slider .feat_next { background: transparent url(<?=$direct_path;?>/images/next.png) no-repeat top; width: 25px; height: 25px; z-index: 10; position: absolute; left: 35px; bottom: 30px; cursor: pointer; float: left; }
+#featured_slider .feat_next { background: transparent url(<?php echo $direct_path;?>/images/next.png) no-repeat top; width: 25px; height: 25px; z-index: 10; position: absolute; left: 35px; bottom: 30px; cursor: pointer; float: left; }
 #featured_slider .feat_next:hover { background-position: bottom; }
 </style>
 
@@ -38,15 +38,15 @@ $direct_path =  get_bloginfo('wpurl')."/wp-content/plugins/wp-featured-content-s
 			AND wpostmeta.meta_value = '1' 
 			AND wposts.post_status = 'publish' 
 			AND (wposts.post_type = 'post' OR wposts.post_type = 'page')";		
-		$pageposts = $wpdb->get_results($querystr, OBJECT);?>		
+		$pageposts = $wpdb->get_results($querystr, OBJECT); ?>		
 		<?php if ($pageposts): ?>			
-			<?php global $post;?>			
+			<?php global $post; ?>			
 			<?php foreach ($pageposts as $post): ?>			
 			<?php setup_postdata($post);			
-			$custom = get_post_custom($post->ID);?>		
-		<div class="slide"><div class="content_left"><?php if ( has_post_thumbnail()) : ?><div class="img_right"><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>" ><?php the_post_thumbnail(array( 180,180 ));?></a></div><?php endif;?><h2><a href="<?php the_permalink();?>"><?php the_title();?></a></h2><?php the_excerpt();?></div></div>		
-		<?php endforeach;?>		
-		<?php endif;?>	
+			$custom = get_post_custom($post->ID); ?>		
+		<div class="slide"><div class="content_left"><?php if ( has_post_thumbnail()) : ?><div class="img_right"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>" ><?php the_post_thumbnail(array( 180,180 )); ?></a></div><?php endif; ?><h2><a href="<?php the_permalink();?>"><?php the_title();?></a></h2><?php the_excerpt();?></div></div>		
+		<?php endforeach; ?>		
+		<?php endif; ?>	
 	</ul>	
    	<div class="feat_prev"></div>	
 	<div class="feat_next"></div>

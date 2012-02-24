@@ -1,26 +1,26 @@
-<?php get_header();?>
+<?php get_header(); ?>
 
-	<?php if (have_posts()) : while (have_posts()) : the_post();?>
+	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-		<div <?php post_class() ?> id="post-<?php the_ID();?>">
+		<div <?php post_class() ?> id="post-<?php the_ID(); ?>">
 
 			<div class="post-info">
 
-				<p class="page-title"><a href="<?=get_permalink( $post->post_parent );?>" title="<?php esc_attr( printf('Return to %s', get_the_title( $post->post_parent ) ) );?>" rel="gallery"><?php
+				<p class="page-title"><a href="<?php echo get_permalink( $post->post_parent ); ?>" title="<?php esc_attr( printf('Return to %s', get_the_title( $post->post_parent ) ) ); ?>" rel="gallery"><?php
 					/* translators: %s - title of parent post */
 					printf('&laquo; %s', get_the_title( $post->post_parent ) );
 				?></a></p>
 				
-				<h1><?php the_title();?></h1>
+				<h1><?php the_title(); ?></h1>
 				
-				<?php $metadata = wp_get_attachment_metadata();?>
-				<div class="timestamp"><?php the_time( get_option( 'date_format' ) );?>  //<br />
-					<a href="<?=wp_get_attachment_url();?>" title="<?='Permalink to full-size image';?>"><?=$metadata['width'];?> &times; <?=$metadata['height'];?></a>
+				<?php $metadata = wp_get_attachment_metadata(); ?>
+				<div class="timestamp"><?php the_time( get_option( 'date_format' ) ); ?>  //<br />
+					<a href="<?php echo wp_get_attachment_url(); ?>" title="<?php echo 'Permalink to full-size image'; ?>"><?php echo $metadata['width']; ?> &times; <?php echo $metadata['height']; ?></a>
 				</div> 
-				<?php if ( comments_open() ) : ?><div class="comment-bubble"><a href="#comments"><?php comments_number('0', '1', '%');?></a></div><?php endif;?>
+				<?php if ( comments_open() ) : ?><div class="comment-bubble"><a href="#comments"><?php comments_number('0', '1', '%'); ?></a></div><?php endif; ?>
 				<div class="clearboth"><!-- --></div>
 
-				<?php edit_post_link('Edit this entry', '<p>', '</p>' );?>
+				<?php edit_post_link('Edit this entry', '<p>', '</p>' ); ?>
 
 			</div>
 
@@ -51,23 +51,23 @@
 	}
 ?>
 				<div class="attachment">
-					<p><a href="<?=$next_attachment_url;  ?>">
-						<?=wp_get_attachment_image( $post->ID, array( 460, 9999 ) );?>
+					<p><a href="<?php echo $next_attachment_url;  ?>">
+						<?php echo wp_get_attachment_image( $post->ID, array( 460, 9999 ) ); ?>
 					</a></p>
 				</div>
 				
 				<?php if ( !empty( $post->post_excerpt ) ) : ?>
 				<div class="entry-caption">
-					<?php the_excerpt();?>
+					<?php the_excerpt(); ?>
 				</div>
-				<?php endif;?>
+				<?php endif; ?>
 								
-				<?php the_content();?>
+				<?php the_content(); ?>
 
-				<?php wp_link_pages( array('before' => '<p><strong>' . 'Pages:' . '</strong> ', 'after' => '</p>', 'next_or_number' => 'number'));?>
+				<?php wp_link_pages( array('before' => '<p><strong>' . 'Pages:' . '</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
 				<div class="navigation">
-					<div class="alignleft"><?php previous_image_link(false, 'Previous');?></div>
-					<div class="alignright"><?php next_image_link( false, 'Next');?></div>
+					<div class="alignleft"><?php previous_image_link(false, 'Previous'); ?></div>
+					<div class="alignright"><?php next_image_link( false, 'Next'); ?></div>
 					<div class="clearboth"><!-- --></div>
 				</div>				
 
@@ -77,16 +77,16 @@
 
 		</div>
 
-	<?php comments_template();?>
+	<?php comments_template(); ?>
 
-	<!-- <?php trackback_rdf();?> -->
+	<!-- <?php trackback_rdf(); ?> -->
 
 	<?php endwhile; else: ?>
 
 		<p>Sorry, no posts matched your criteria.</p>
 
-<?php endif;?>
+<?php endif; ?>
 
-<?php get_sidebar();?>
+<?php get_sidebar(); ?>
 
-<?php get_footer();?>
+<?php get_footer(); ?>

@@ -115,92 +115,92 @@ function export_date_options() {
 ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 
-<p><?php _e('When you click the button below WordPress will create an XML file for you to save to your computer.');?></p>
-<p><?php _e('This format, which we call WordPress eXtended RSS or WXR, will contain your posts, pages, comments, custom fields, categories, and tags.');?></p>
-<p><?php _e('Once you&#8217;ve saved the download file, you can use the Import function in another WordPress installation to import this site.');?></p>
+<p><?php _e('When you click the button below WordPress will create an XML file for you to save to your computer.'); ?></p>
+<p><?php _e('This format, which we call WordPress eXtended RSS or WXR, will contain your posts, pages, comments, custom fields, categories, and tags.'); ?></p>
+<p><?php _e('Once you&#8217;ve saved the download file, you can use the Import function in another WordPress installation to import this site.'); ?></p>
 
-<h3><?php _e( 'Choose what to export' );?></h3>
+<h3><?php _e( 'Choose what to export' ); ?></h3>
 <form action="" method="get" id="export-filters">
 <input type="hidden" name="download" value="true" />
-<p><label><input type="radio" name="content" value="all" checked="checked" /> <?php _e( 'All content' );?></label>
-<span class="description"><?php _e( 'This will contain all of your posts, pages, comments, custom fields, terms, navigation menus and custom posts.' );?></span></p>
+<p><label><input type="radio" name="content" value="all" checked="checked" /> <?php _e( 'All content' ); ?></label>
+<span class="description"><?php _e( 'This will contain all of your posts, pages, comments, custom fields, terms, navigation menus and custom posts.' ); ?></span></p>
 
-<p><label><input type="radio" name="content" value="posts" /> <?php _e( 'Posts' );?></label></p>
+<p><label><input type="radio" name="content" value="posts" /> <?php _e( 'Posts' ); ?></label></p>
 <ul id="post-filters" class="export-filters">
 	<li>
-		<label><?php _e( 'Categories:' );?></label>
-		<?php wp_dropdown_categories( array( 'show_option_all' => __('All') ) );?>
+		<label><?php _e( 'Categories:' ); ?></label>
+		<?php wp_dropdown_categories( array( 'show_option_all' => __('All') ) ); ?>
 	</li>
 	<li>
-		<label><?php _e( 'Authors:' );?></label>
+		<label><?php _e( 'Authors:' ); ?></label>
 <?php
 		$authors = $wpdb->get_col( "SELECT DISTINCT post_author FROM {$wpdb->posts} WHERE post_type = 'post'" );
 		wp_dropdown_users( array( 'include' => $authors, 'name' => 'post_author', 'multi' => true, 'show_option_all' => __('All') ) );
 ?>
 	</li>
 	<li>
-		<label><?php _e( 'Date range:' );?></label>
+		<label><?php _e( 'Date range:' ); ?></label>
 		<select name="post_start_date">
-			<option value="0"><?php _e( 'Start Date' );?></option>
-			<?php export_date_options();?>
+			<option value="0"><?php _e( 'Start Date' ); ?></option>
+			<?php export_date_options(); ?>
 		</select>
 		<select name="post_end_date">
-			<option value="0"><?php _e( 'End Date' );?></option>
-			<?php export_date_options();?>
+			<option value="0"><?php _e( 'End Date' ); ?></option>
+			<?php export_date_options(); ?>
 		</select>
 	</li>
 	<li>
-		<label><?php _e( 'Status:' );?></label>
+		<label><?php _e( 'Status:' ); ?></label>
 		<select name="post_status">
-			<option value="0"><?php _e( 'All' );?></option>
+			<option value="0"><?php _e( 'All' ); ?></option>
 			<?php $post_stati = get_post_stati( array( 'internal' => false ), 'objects' );
 			foreach ( $post_stati as $status ) : ?>
-			<option value="<?=esc_attr( $status->name );?>"><?=esc_html( $status->label );?></option>
-			<?php endforeach;?>
+			<option value="<?php echo esc_attr( $status->name ); ?>"><?php echo esc_html( $status->label ); ?></option>
+			<?php endforeach; ?>
 		</select>
 	</li>
 </ul>
 
-<p><label><input type="radio" name="content" value="pages" /> <?php _e( 'Pages' );?></label></p>
+<p><label><input type="radio" name="content" value="pages" /> <?php _e( 'Pages' ); ?></label></p>
 <ul id="page-filters" class="export-filters">
 	<li>
-		<label><?php _e( 'Authors:' );?></label>
+		<label><?php _e( 'Authors:' ); ?></label>
 <?php
 		$authors = $wpdb->get_col( "SELECT DISTINCT post_author FROM {$wpdb->posts} WHERE post_type = 'page'" );
 		wp_dropdown_users( array( 'include' => $authors, 'name' => 'page_author', 'multi' => true, 'show_option_all' => __('All') ) );
 ?>
 	</li>
 	<li>
-		<label><?php _e( 'Date range:' );?></label>
+		<label><?php _e( 'Date range:' ); ?></label>
 		<select name="page_start_date">
-			<option value="0"><?php _e( 'Start Date' );?></option>
-			<?php export_date_options();?>
+			<option value="0"><?php _e( 'Start Date' ); ?></option>
+			<?php export_date_options(); ?>
 		</select>
 		<select name="page_end_date">
-			<option value="0"><?php _e( 'End Date' );?></option>
-			<?php export_date_options();?>
+			<option value="0"><?php _e( 'End Date' ); ?></option>
+			<?php export_date_options(); ?>
 		</select>
 	</li>
 	<li>
-		<label><?php _e( 'Status:' );?></label>
+		<label><?php _e( 'Status:' ); ?></label>
 		<select name="page_status">
-			<option value="0"><?php _e( 'All' );?></option>
+			<option value="0"><?php _e( 'All' ); ?></option>
 			<?php foreach ( $post_stati as $status ) : ?>
-			<option value="<?=esc_attr( $status->name );?>"><?=esc_html( $status->label );?></option>
-			<?php endforeach;?>
+			<option value="<?php echo esc_attr( $status->name ); ?>"><?php echo esc_html( $status->label ); ?></option>
+			<?php endforeach; ?>
 		</select>
 	</li>
 </ul>
 
 <?php foreach ( get_post_types( array( '_builtin' => false, 'can_export' => true ), 'objects' ) as $post_type ) : ?>
-<p><label><input type="radio" name="content" value="<?=esc_attr( $post_type->name );?>" /> <?=esc_html( $post_type->label );?></label></p>
-<?php endforeach;?>
+<p><label><input type="radio" name="content" value="<?php echo esc_attr( $post_type->name ); ?>" /> <?php echo esc_html( $post_type->label ); ?></label></p>
+<?php endforeach; ?>
 
-<?php submit_button( __('Download Export File'), 'secondary' );?>
+<?php submit_button( __('Download Export File'), 'secondary' ); ?>
 </form>
 </div>
 
-<?php include('admin-footer.php');?>
+<?php include('admin-footer.php'); ?>

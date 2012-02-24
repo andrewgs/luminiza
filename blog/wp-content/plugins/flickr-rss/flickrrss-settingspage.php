@@ -8,7 +8,7 @@
 				<td>
 					<select name="flickrRSS_num_items" id="flickrRSS_num_items">
 						<?php for ($i=1; $i<=20; $i++) { ?>
-							<option <?php if ($settings['num_items'] == $i) { echo 'selected'; } ?> value="<?=$i;?>"><?=$i;?></option>	
+							<option <?php if ($settings['num_items'] == $i) { echo 'selected'; } ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>	
 						<?php } ?>
 					</select>
 					<select name="flickrRSS_type" id="flickrRSS_type">
@@ -23,16 +23,16 @@
 			</tr>
 			<tr valign="top" id="userid">
 				<th scope="row" id="userid_label">User or Group ID</th>
-				<td><input name="flickrRSS_id" type="text" id="flickrRSS_id" value="<?=$settings['id'];?>" size="20" />
+				<td><input name="flickrRSS_id" type="text" id="flickrRSS_id" value="<?php echo $settings['id']; ?>" size="20" />
 					<a href="#" id="idgetter">Find your id</a></td>
 			</tr>
 			<tr valign="top" id="set">
 				<th scope="row">Set ID</th>
-				<td><input name="flickrRSS_set" type="text" id="flickrRSS_set" value="<?=$settings['set'];?>" size="40" /> Use number from the set url</p>
+				<td><input name="flickrRSS_set" type="text" id="flickrRSS_set" value="<?php echo $settings['set']; ?>" size="40" /> Use number from the set url</p>
 			</tr>
 			<tr valign="top" id="tags">
 				<th scope="row">Tags (optional)</th>
-				<td><input name="flickrRSS_tags" type="text" id="flickrRSS_tags" value="<?=$settings['tags'];?>" size="40" /> Comma separated, no spaces</p>
+				<td><input name="flickrRSS_tags" type="text" id="flickrRSS_tags" value="<?php echo $settings['tags']; ?>" size="40" /> Comma separated, no spaces</p>
 			</tr>
 			<tr valign="top">
 				<th scope="row">HTML Builder</th>
@@ -40,12 +40,12 @@
 					<table style="margin-left: -10px">
 						<tr>
 							<td colspan="2" valign="top" style="border-width: 0px;">
-								<label for="flickrRSS_before_list">Before List:</label><br/><input name="flickrRSS_before_list" type="text" id="flickrRSS_before_list" value="<?=htmlspecialchars(stripslashes($settings['before_list']));?>" style="width:400px;" />
+								<label for="flickrRSS_before_list">Before List:</label><br/><input name="flickrRSS_before_list" type="text" id="flickrRSS_before_list" value="<?php echo htmlspecialchars(stripslashes($settings['before_list'])); ?>" style="width:400px;" />
 							</td>
 						</tr>
 						<tr>
 							<td valign="top" style="border-width: 0px;">
-								<label for="flickrRSS_html">Item HTML:</label><br/> <textarea name="flickrRSS_html" type="text" id="flickrRSS_html" style="width:400px;" rows="10"><?=htmlspecialchars(stripslashes($settings['html']));?></textarea>
+								<label for="flickrRSS_html">Item HTML:</label><br/> <textarea name="flickrRSS_html" type="text" id="flickrRSS_html" style="width:400px;" rows="10"><?php echo htmlspecialchars(stripslashes($settings['html'])); ?></textarea>
 							</td>
 							<td valign="top" style="border-width: 0px;">
 								<div>
@@ -64,7 +64,7 @@
 						</tr>
 						<tr>
 							<td valign="top" colspan="2" style="border-width: 0px;">
-								<label for="flickrRSS_after_list">After List:</label><br/> <input name="flickrRSS_after_list" type="text" id="flickrRSS_after_list" value="<?=htmlspecialchars(stripslashes($settings['after_list']));?>" style="width:400px;" />
+								<label for="flickrRSS_after_list">After List:</label><br/> <input name="flickrRSS_after_list" type="text" id="flickrRSS_after_list" value="<?php echo htmlspecialchars(stripslashes($settings['after_list'])); ?>" style="width:400px;" />
 							</td>
 						</tr>
 					</table>
@@ -95,13 +95,13 @@
 			</tr>
 			<tr valign="top" class="cachesettings">
 				<th scope="row">URL</th>
-				<td><input name="flickrRSS_cache_uri" type="text" id="flickrRSS_cache_uri" value="<?=$settings['cache_uri'];?>" size="50" /><br/>
-					Could be <code><?=trailingslashit(get_option('siteurl'));?>wp-content/cache/</code> ?</td>
+				<td><input name="flickrRSS_cache_uri" type="text" id="flickrRSS_cache_uri" value="<?php echo $settings['cache_uri']; ?>" size="50" /><br/>
+					Could be <code><?php echo trailingslashit(get_option('siteurl')); ?>wp-content/cache/</code> ?</td>
 			</tr>
 			<tr valign="top" class="cachesettings">
 				<th scope="row">Full Path</th>
-				<td><input name="flickrRSS_cache_path" type="text" id="flickrRSS_cache_path" value="<?=$settings['cache_path'];?>" size="50" /><br/>
-					Could be <code><?=trailingslashit(realpath("../wp-content/cache"));?></code> ?</td>
+				<td><input name="flickrRSS_cache_path" type="text" id="flickrRSS_cache_path" value="<?php echo $settings['cache_path']; ?>" size="50" /><br/>
+					Could be <code><?php echo trailingslashit(realpath("../wp-content/cache")); ?></code> ?</td>
 			</tr>
 		</table>
 		<div class="submit">

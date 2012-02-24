@@ -10,9 +10,9 @@ require_once('../../../wp-load.php');
 header('Content-Type: text/html; charset=' . get_bloginfo('charset'));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes();?>>
+<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 <head>
-<meta http-equiv="Content-Type" content="<?php bloginfo('html_type');?>; charset=<?=get_option('blog_charset');?>" />
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_option('blog_charset'); ?>" />
 <title><?php _e('Rich Editor Help') ?></title>
 <script type="text/javascript" src="tiny_mce_popup.js?ver=342"></script>
 <?php
@@ -155,7 +155,7 @@ wp_admin_css( 'wp-admin', true );
 	.keys .right { text-align: left; }
 	td b { font-family: Tahoma, "Times New Roman", Times, serif }
 </style>
-<?php endif;?>
+<?php endif; ?>
 <script type="text/javascript">
 	function d(id) { return document.getElementById(id); }
 
@@ -257,7 +257,7 @@ wp_admin_css( 'wp-admin', true );
 		<tr><th>p</th><td><?php _e('Insert Page Break tag') ?></td><th>h</th><td><?php _e('Help') ?></td></tr>
 		<tr><th>e</th><td colspan="3"><?php _e('Switch to HTML mode') ?></td></tr>
 
-		<tr><th colspan="4" style="font-weight: normal;padding: 15px 10px 10px;"><?php _e('Editor width in Distraction-free writing mode:');?></th></tr>
+		<tr><th colspan="4" style="font-weight: normal;padding: 15px 10px 10px;"><?php _e('Editor width in Distraction-free writing mode:'); ?></th></tr>
 		<tr><th><span class="win">Alt +</span><span class="mac">Ctrl +</span></th><td><?php _e('Wider') ?></td>
 			<th><span class="win">Alt -</span><span class="mac">Ctrl -</span></th><td><?php _e('Narrower') ?></td></tr>
 		<tr><th><span class="win">Alt 0</span><span class="mac">Ctrl 0</span></th><td><?php _e('Default width') ?></td><th></th><td></td></tr>
@@ -265,9 +265,9 @@ wp_admin_css( 'wp-admin', true );
 </div>
 
 <div id="content4" class="hidden">
-	<h2><?php _e('About TinyMCE');?></h2>
+	<h2><?php _e('About TinyMCE'); ?></h2>
 
-    <p><?php _e('Version:');?> <span id="version"></span> (<span id="date"></span>)</p>
+    <p><?php _e('Version:'); ?> <span id="version"></span> (<span id="date"></span>)</p>
 	<p><?php printf(__('TinyMCE is a platform independent web based Javascript HTML WYSIWYG editor released as Open Source under %sLGPL</a>	by Moxiecode Systems AB. It has the ability to convert HTML TEXTAREA fields or other HTML elements to editor instances.'), '<a href="'.home_url('/wp-includes/js/tinymce/license.txt').'" target="_blank" title="'.esc_attr__('GNU Library General Public Licence').'">') ?></p>
 	<p><?php _e('Copyright &copy; 2003-2011, <a href="http://www.moxiecode.com" target="_blank">Moxiecode Systems AB</a>, All rights reserved.') ?></p>
 	<p><?php _e('For more information about this software visit the <a href="http://tinymce.moxiecode.com" target="_blank">TinyMCE website</a>.') ?></p>
@@ -281,7 +281,7 @@ wp_admin_css( 'wp-admin', true );
 
 <div class="mceActionPanel">
 	<div style="margin: 8px auto; text-align: center;padding-bottom: 10px;">
-		<input type="button" id="cancel" name="cancel" value="<?php _e('Close');?>" title="<?php _e('Close');?>" onclick="tinyMCEPopup.close();" />
+		<input type="button" id="cancel" name="cancel" value="<?php _e('Close'); ?>" title="<?php _e('Close'); ?>" onclick="tinyMCEPopup.close();" />
 	</div>
 </div>
 

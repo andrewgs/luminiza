@@ -35,8 +35,8 @@ function CheckAuthentication()
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
 // fully functional, in demo mode.
-$config['LicenseName'] = $_SERVER['HTTP_HOST'];
-$config['LicenseKey'] = 'C1234567A89BC';
+$config['LicenseName'] = '';
+$config['LicenseKey'] = '';
 
 /*
  Uncomment lines below to enable PHP error reporting and displaying PHP errors.
@@ -60,7 +60,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = '/images/download/';
+$baseUrl = 'http://realitygroup.ru/dev/stroikov/ckfinder/userfiles/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -104,8 +104,8 @@ Set the maximum size of uploaded images. If an uploaded image is larger, it
 gets scaled down proportionally. Set to 0 to disable this feature.
 */
 $config['Images'] = Array(
-		'maxWidth' => 640,
-		'maxHeight' => 480,
+		'maxWidth' => 1600,
+		'maxHeight' => 1200,
 		'quality' => 80);
 
 /*

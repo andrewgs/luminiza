@@ -71,7 +71,7 @@ function show_blog_form($blogname = '', $blog_title = '', $errors = '') {
 		echo '<label for="blogname">' . __('Site Domain:') . '</label>';
 
 	if ( $errmsg = $errors->get_error_message('blogname') ) { ?>
-		<p class="error"><?=$errmsg ?></p>
+		<p class="error"><?php echo $errmsg ?></p>
 	<?php }
 
 	if ( !is_subdomain_install() )
@@ -91,7 +91,7 @@ function show_blog_form($blogname = '', $blog_title = '', $errors = '') {
 	?>
 	<label for="blog_title"><?php _e('Site Title:') ?></label>
 	<?php if ( $errmsg = $errors->get_error_message('blog_title') ) { ?>
-		<p class="error"><?=$errmsg ?></p>
+		<p class="error"><?php echo $errmsg ?></p>
 	<?php }
 	echo '<input name="blog_title" type="text" id="blog_title" value="'.esc_attr($blog_title).'" />';
 	?>
@@ -99,15 +99,15 @@ function show_blog_form($blogname = '', $blog_title = '', $errors = '') {
 	<div id="privacy">
         <p class="privacy-intro">
             <label for="blog_public_on"><?php _e('Privacy:') ?></label>
-            <?php _e('Allow my site to appear in search engines like Google, Technorati, and in public listings around this network.');?>
+            <?php _e('Allow my site to appear in search engines like Google, Technorati, and in public listings around this network.'); ?>
             <br style="clear:both" />
             <label class="checkbox" for="blog_public_on">
                 <input type="radio" id="blog_public_on" name="blog_public" value="1" <?php if ( !isset( $_POST['blog_public'] ) || $_POST['blog_public'] == '1' ) { ?>checked="checked"<?php } ?> />
-                <strong><?php _e( 'Yes' );?></strong>
+                <strong><?php _e( 'Yes' ); ?></strong>
             </label>
             <label class="checkbox" for="blog_public_off">
                 <input type="radio" id="blog_public_off" name="blog_public" value="0" <?php if ( isset( $_POST['blog_public'] ) && $_POST['blog_public'] == '0' ) { ?>checked="checked"<?php } ?> />
-                <strong><?php _e( 'No' );?></strong>
+                <strong><?php _e( 'No' ); ?></strong>
             </label>
         </p>
 	</div>
@@ -136,7 +136,7 @@ function show_user_form($user_name = '', $user_email = '', $errors = '') {
 
 	<label for="user_email"><?php _e( 'Email&nbsp;Address:' ) ?></label>
 	<?php if ( $errmsg = $errors->get_error_message('user_email') ) { ?>
-		<p class="error"><?=$errmsg ?></p>
+		<p class="error"><?php echo $errmsg ?></p>
 	<?php } ?>
 	<input name="user_email" type="text" id="user_email" value="<?php  echo esc_attr($user_email) ?>" maxlength="200" /><br /><?php _e('We send your registration email to this address. (Double-check your email address before continuing.)') ?>
 	<?php
@@ -188,8 +188,8 @@ function signup_another_blog($blogname = '', $blog_title = '', $errors = '') {
 	<p><?php _e( 'If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!' ) ?></p>
 	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="gimmeanotherblog" />
-		<?php do_action( 'signup_hidden_fields' );?>
-		<?php show_blog_form($blogname, $blog_title, $errors);?>
+		<?php do_action( 'signup_hidden_fields' ); ?>
+		<?php show_blog_form($blogname, $blog_title, $errors); ?>
 		<p class="submit"><input type="submit" name="submit" class="submit" value="<?php esc_attr_e( 'Create Site' ) ?>" /></p>
 	</form>
 	<?php
@@ -252,8 +252,8 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 	<h2><?php printf( __( 'Get your own %s account in seconds' ), $current_site->site_name ) ?></h2>
 	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="validate-user-signup" />
-		<?php do_action( 'signup_hidden_fields' );?>
-		<?php show_user_form($user_name, $user_email, $errors);?>
+		<?php do_action( 'signup_hidden_fields' ); ?>
+		<?php show_user_form($user_name, $user_email, $errors); ?>
 
 		<p>
 		<?php if ( $active_signup == 'blog' ) { ?>
@@ -261,10 +261,10 @@ function signup_user($user_name = '', $user_email = '', $errors = '') {
 		<?php } elseif ( $active_signup == 'user' ) { ?>
 			<input id="signupblog" type="hidden" name="signup_for" value="user" />
 		<?php } else { ?>
-			<input id="signupblog" type="radio" name="signup_for" value="blog" <?=$signup['blog'];?> />
+			<input id="signupblog" type="radio" name="signup_for" value="blog" <?php echo $signup['blog'] ?> />
 			<label class="checkbox" for="signupblog"><?php _e('Gimme a site!') ?></label>
 			<br />
-			<input id="signupuser" type="radio" name="signup_for" value="user" <?=$signup['user'];?> />
+			<input id="signupuser" type="radio" name="signup_for" value="user" <?php echo $signup['user'] ?> />
 			<label class="checkbox" for="signupuser"><?php _e('Just a username, please.') ?></label>
 		<?php } ?>
 		</p>
@@ -299,7 +299,7 @@ function confirm_user_signup($user_name, $user_email) {
 	<h2><?php printf( __( '%s is your new username' ), $user_name) ?></h2>
 	<p><?php _e( 'But, before you can start using your new username, <strong>you must activate it</strong>.' ) ?></p>
 	<p><?php printf(__( 'Check your inbox at <strong>%1$s</strong> and click the link given.' ),  $user_email) ?></p>
-	<p><?php _e( 'If you do not activate your username within two days, you will have to sign up again.' );?></p>
+	<p><?php _e( 'If you do not activate your username within two days, you will have to sign up again.' ); ?></p>
 	<?php
 	do_action( 'signup_finished' );
 }
@@ -321,10 +321,10 @@ function signup_blog($user_name = '', $user_email = '', $blogname = '', $blog_ti
 	?>
 	<form id="setupform" method="post" action="wp-signup.php">
 		<input type="hidden" name="stage" value="validate-blog-signup" />
-		<input type="hidden" name="user_name" value="<?=esc_attr($user_name) ?>" />
-		<input type="hidden" name="user_email" value="<?=esc_attr($user_email) ?>" />
-		<?php do_action( 'signup_hidden_fields' );?>
-		<?php show_blog_form($blogname, $blog_title, $errors);?>
+		<input type="hidden" name="user_name" value="<?php echo esc_attr($user_name) ?>" />
+		<input type="hidden" name="user_email" value="<?php echo esc_attr($user_email) ?>" />
+		<?php do_action( 'signup_hidden_fields' ); ?>
+		<?php show_blog_form($blogname, $blog_title, $errors); ?>
 		<p class="submit"><input type="submit" name="submit" class="submit" value="<?php esc_attr_e('Signup') ?>" /></p>
 	</form>
 	<?php
@@ -363,8 +363,8 @@ function confirm_blog_signup($domain, $path, $blog_title, $user_name = '', $user
 
 	<p><?php _e( 'But, before you can start using your site, <strong>you must activate it</strong>.' ) ?></p>
 	<p><?php printf( __( 'Check your inbox at <strong>%s</strong> and click the link given.' ),  $user_email) ?></p>
-	<p><?php _e( 'If you do not activate your site within two days, you will have to sign up again.' );?></p>
-	<h2><?php _e( 'Still waiting for your email?' );?></h2>
+	<p><?php _e( 'If you do not activate your site within two days, you will have to sign up again.' ); ?></p>
+	<h2><?php _e( 'Still waiting for your email?' ); ?></h2>
 	<p>
 		<?php _e( 'If you haven&#8217;t received your email yet, there are a number of things you can do:' ) ?>
 		<ul id="noemail-tips">
@@ -450,6 +450,6 @@ if ( $active_signup == 'none' ) {
 ?>
 </div>
 </div>
-<?php do_action( 'after_signup_form' );?>
+<?php do_action( 'after_signup_form' ); ?>
 
-<?php get_footer();?>
+<?php get_footer(); ?>

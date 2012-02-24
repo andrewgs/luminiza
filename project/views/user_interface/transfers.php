@@ -73,7 +73,7 @@
 		var people = parseFloat($("#adults").val());
 		$("#TotalPrice").html(pricing($("#place").val(),people)+'.00');
 		$("#price").val(pricing($("#place").val(),people));
-		$("#date").datepicker({minDate: 0,maxDate: "+1M"});
+		$("#date").datepicker({minDate: 0});
 		<?php if($msg):?>
 			$.jGrowl("<?=$msg;?>",{header:'Форма заказа'});
 		<?php endif;?>

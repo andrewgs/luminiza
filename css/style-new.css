@@ -100,7 +100,7 @@ nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; backgr
 .main-nav { list-style: none; margin: 0; padding: 0; }
 .main-nav.left li { float: left; }
 .main-nav.right li { float: right; }
-.main-nav li a { border-right: 1px solid rgba(75, 68, 68, 0.25); color: #4B4444; display: inline-block; font: 14px/21px trebuchet MS,sans-serif; letter-spacing: 0.1px; margin: 13px 9px 0 0; padding-right: 8px; text-decoration: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35); }
+.main-nav li a { border-right: 1px solid rgba(75, 68, 68, 0.25); color: #4B4444; display: inline-block; font: 14px/21px trebuchet MS,sans-serif; letter-spacing: 0.1px; margin: 13px 9px 0 0; padding-right: 8px; text-decoration: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35); text-transform: uppercase; }
 .main-nav li.last a { border: 0 none; }
 .main-nav li a:hover { text-decoration: underline; }
 .main-nav.right li a { margin: 13px 0 0 9px; }
@@ -118,7 +118,7 @@ nav { height: 50px; border: 1px solid #ae8911;  border-style: solid none; backgr
 #mailchimp-form .input { background: #eee; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #A6A6A6; display: inline-block; font-size: 12px; margin: 0 5px 0 20px; padding: 4px 6px; }
 #mailchimp-form .button { background: #e5e0dd; border: 1px solid #C9B8B8; border-radius: 3px; box-shadow: 1px 1px 3px #999; color: #4b4444; display: inline-block; font-size: 12px; padding: 3px 6px; }
 
-#main {	padding: 25px 0; }
+#main {	padding: 15px 0; }
 p { margin-bottom: 10px; }
 h1 { color: #4b4444; font-size: 22px; line-height: 27px; margin-bottom: 10px; position: relative; }
 h2 { color: #383333; font-size: 18px; line-height: 21px; text-decoration: underline; margin: 0 0 12px; }
@@ -143,6 +143,7 @@ a { color: #0477a2; text-decoration: underline; }
 /* Retail Page */
 .sidebar { background: #E0E0E0; border-radius: 0 0 7px 7px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); padding: 20px 10px 15px 15px; }
 	.sidebar h2 { color: #4B4444; font-size: 16px; margin: 0 0 10px; text-decoration: none; }
+	.sidebar h3 { font-size: 13px; margin: 0 0 2px; }
 	.sidebar select { width: 190px; padding: 2px; }
 	.sidebar p { font-size: 13px; line-height: 19px; margin-bottom: 10px; }
 	.sidebar strong { }
@@ -187,9 +188,9 @@ p.confirm-title { border-bottom: 1px solid rgba(0, 0, 0, 0.15); display: inline-
 	.notmargin { margin-top: 0 !important; }
 
 .ml10 { display: inline-block; font-size: 13px; margin: 0 10px 0 0; }
-#photo-slider { float: left; margin: 2px 7px 0 0; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); }
+#photo-slider { float: left; margin: 2px 7px 0 0; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075); width: 520px; height: 390px; overflow: hidden; }
 #photo-slider img { /*display: none;*/ }
-.photo-wrapper { margin: 10px 0 2px; }
+.photo-wrapper { margin: 15px 0 2px; }
 img.print-preview { border-radius: 5px; display: block; margin: 10px 0 0; }
 .print-link { display: block; position: absolute; right: 0; top: 15px; } 
 
@@ -223,7 +224,7 @@ a.thumbnail:hover { border-color: #0088cc; -webkit-box-shadow: 0 1px 4px rgba(0,
 /* General styles for all pages from old css files */
 .main_image, .row_image { border: 8px solid #E0E0E0; border-radius: 3px; display: inline; float: left; margin: 5px 20px 15px 0; }
 .row_image { margin: 0 5px 5px 0; }
-.thumb { width: 30px; border: 2px solid #e0e0e0; border-radius: 2px; }
+.thumb { width: 30px; border: 2px solid #e0e0e0; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .retail-preview { float: left; width: 520px; margin: 2px 7px 0 0; }
 
 .side_nav { margin: 0 0 16px; padding: 0; width: 100%; }

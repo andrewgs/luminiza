@@ -462,8 +462,8 @@ add_contextual_help($current_screen, $help);
 require_once( './admin-header.php' );
 ?>
 <div class="wrap">
-	<?php screen_icon();?>
-	<h2><?php esc_html_e('Menus');?></h2>
+	<?php screen_icon(); ?>
+	<h2><?php esc_html_e('Menus'); ?></h2>
 	<?php
 	foreach( $messages as $message ) :
 		echo $message . "\n";
@@ -472,11 +472,11 @@ require_once( './admin-header.php' );
 	<div id="nav-menus-frame">
 	<div id="menu-settings-column" class="metabox-holder<?php if ( !$nav_menu_selected_id ) { echo ' metabox-holder-disabled'; } ?>">
 
-		<form id="nav-menu-meta" action="<?=admin_url( 'nav-menus.php' );?>" class="nav-menu-meta" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="menu" id="nav-menu-meta-object-id" value="<?=esc_attr( $nav_menu_selected_id );?>" />
+		<form id="nav-menu-meta" action="<?php echo admin_url( 'nav-menus.php' ); ?>" class="nav-menu-meta" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="menu" id="nav-menu-meta-object-id" value="<?php echo esc_attr( $nav_menu_selected_id ); ?>" />
 			<input type="hidden" name="action" value="add-menu-item" />
-			<?php wp_nonce_field( 'add-menu_item', 'menu-settings-column-nonce' );?>
-			<?php do_meta_boxes( 'nav-menus', 'side', null );?>
+			<?php wp_nonce_field( 'add-menu_item', 'menu-settings-column-nonce' ); ?>
+			<?php do_meta_boxes( 'nav-menus', 'side', null ); ?>
 		</form>
 
 	</div><!-- /#menu-settings-column -->
@@ -484,17 +484,17 @@ require_once( './admin-header.php' );
 		<div id="menu-management">
 			<div id="select-nav-menu-container" class="hide-if-js">
 				<form id="select-nav-menu" action="">
-					<strong><label for="select-nav-menu"><?php esc_html_e( 'Select Menu:' );?></label></strong>
+					<strong><label for="select-nav-menu"><?php esc_html_e( 'Select Menu:' ); ?></label></strong>
 					<select class="select-nav-menu" name="menu">
 						<?php foreach( (array) $nav_menus as $_nav_menu ) : ?>
-							<option value="<?=esc_attr($_nav_menu->term_id) ?>" <?php selected($nav_menu_selected_id, $_nav_menu->term_id);?>>
-								<?=esc_html( $_nav_menu->truncated_name );?>
+							<option value="<?php echo esc_attr($_nav_menu->term_id) ?>" <?php selected($nav_menu_selected_id, $_nav_menu->term_id); ?>>
+								<?php echo esc_html( $_nav_menu->truncated_name ); ?>
 							</option>
-						<?php endforeach;?>
-						<option value="0"><?php esc_html_e('Add New Menu');?></option>
+						<?php endforeach; ?>
+						<option value="0"><?php esc_html_e('Add New Menu'); ?></option>
 					</select>
 					<input type="hidden" name="action" value="edit" />
-					<?php submit_button( __( 'Select' ), 'secondary', 'select_menu', false );?>
+					<?php submit_button( __( 'Select' ), 'secondary', 'select_menu', false ); ?>
 				</form>
 			</div>
 			<div class="nav-tabs-wrapper">
@@ -502,7 +502,7 @@ require_once( './admin-header.php' );
 				<?php
 				foreach( (array) $nav_menus as $_nav_menu ) :
 					if ( $nav_menu_selected_id == $_nav_menu->term_id ) : ?><span class="nav-tab nav-tab-active">
-							<?=esc_html( $_nav_menu->truncated_name );?>
+							<?php echo esc_html( $_nav_menu->truncated_name ); ?>
 						</span><?php else : ?><a href="<?php
 							echo esc_url(add_query_arg(
 								array(
@@ -512,11 +512,11 @@ require_once( './admin-header.php' );
 								admin_url( 'nav-menus.php' )
 							));
 						?>" class="nav-tab hide-if-no-js">
-							<?=esc_html( $_nav_menu->truncated_name );?>
+							<?php echo esc_html( $_nav_menu->truncated_name ); ?>
 						</a><?php endif;
 				endforeach;
 				if ( 0 == $nav_menu_selected_id ) : ?><span class="nav-tab menu-add-new nav-tab-active">
-					<?php printf( '<abbr title="%s">+</abbr>', esc_html__( 'Add menu' ) );?>
+					<?php printf( '<abbr title="%s">+</abbr>', esc_html__( 'Add menu' ) ); ?>
 				</span><?php else : ?><a href="<?php
 					echo esc_url(add_query_arg(
 						array(
@@ -526,18 +526,18 @@ require_once( './admin-header.php' );
 						admin_url( 'nav-menus.php' )
 					));
 				?>" class="nav-tab menu-add-new">
-					<?php printf( '<abbr title="%s">+</abbr>', esc_html__( 'Add menu' ) );?>
-				</a><?php endif;?>
+					<?php printf( '<abbr title="%s">+</abbr>', esc_html__( 'Add menu' ) ); ?>
+				</a><?php endif; ?>
 			</div>
 			</div>
 			<div class="menu-edit">
-				<form id="update-nav-menu" action="<?=admin_url( 'nav-menus.php' );?>" method="post" enctype="multipart/form-data">
+				<form id="update-nav-menu" action="<?php echo admin_url( 'nav-menus.php' ); ?>" method="post" enctype="multipart/form-data">
 					<div id="nav-menu-header">
 						<div id="submitpost" class="submitbox">
 							<div class="major-publishing-actions">
 								<label class="menu-name-label howto open-label" for="menu-name">
-									<span><?php _e('Menu Name');?></span>
-									<input name="menu-name" id="menu-name" type="text" class="menu-name regular-text menu-item-textbox input-with-default-title" title="<?php esc_attr_e('Enter menu name here');?>" value="<?=esc_attr( $nav_menu_selected_title  );?>" />
+									<span><?php _e('Menu Name'); ?></span>
+									<input name="menu-name" id="menu-name" type="text" class="menu-name regular-text menu-item-textbox input-with-default-title" title="<?php esc_attr_e('Enter menu name here'); ?>" value="<?php echo esc_attr( $nav_menu_selected_title  ); ?>" />
 								</label>
 								<?php if ( !empty( $nav_menu_selected_id ) ) :
 									if ( ! isset( $auto_add ) ) {
@@ -551,19 +551,19 @@ require_once( './admin-header.php' );
 									}
 								?>
 								<div class="auto-add-pages">
-									<label class="howto"><input type="checkbox"<?php checked( $auto_add );?> name="auto-add-pages" value="1" /> <?php printf( __('Automatically add new top-level pages' ), esc_url( admin_url( 'edit.php?post_type=page' ) ) );?></label>
+									<label class="howto"><input type="checkbox"<?php checked( $auto_add ); ?> name="auto-add-pages" value="1" /> <?php printf( __('Automatically add new top-level pages' ), esc_url( admin_url( 'edit.php?post_type=page' ) ) ); ?></label>
 								</div>
-								<?php endif;?>
+								<?php endif; ?>
 								<br class="clear" />
 								<div class="publishing-action">
-									<?php submit_button( empty( $nav_menu_selected_id ) ? __( 'Create Menu' ) : __( 'Save Menu' ), 'button-primary menu-save', 'save_menu', false, array( 'id' => 'save_menu_header' ) );?>
+									<?php submit_button( empty( $nav_menu_selected_id ) ? __( 'Create Menu' ) : __( 'Save Menu' ), 'button-primary menu-save', 'save_menu', false, array( 'id' => 'save_menu_header' ) ); ?>
 								</div><!-- END .publishing-action -->
 
 								<?php if ( ! empty( $nav_menu_selected_id ) ) : ?>
 								<div class="delete-action">
-									<a class="submitdelete deletion menu-delete" href="<?=esc_url( wp_nonce_url( admin_url('nav-menus.php?action=delete&amp;menu=' . $nav_menu_selected_id), 'delete-nav_menu-' . $nav_menu_selected_id ) );?>"><?php _e('Delete Menu');?></a>
+									<a class="submitdelete deletion menu-delete" href="<?php echo esc_url( wp_nonce_url( admin_url('nav-menus.php?action=delete&amp;menu=' . $nav_menu_selected_id), 'delete-nav_menu-' . $nav_menu_selected_id ) ); ?>"><?php _e('Delete Menu'); ?></a>
 								</div><!-- END .delete-action -->
-								<?php endif;?>
+								<?php endif; ?>
 							</div><!-- END .major-publishing-actions -->
 						</div><!-- END #submitpost .submitbox -->
 						<?php
@@ -572,7 +572,7 @@ require_once( './admin-header.php' );
 						wp_nonce_field( 'update-nav_menu', 'update-nav-menu-nonce' );
 						?>
 						<input type="hidden" name="action" value="update" />
-						<input type="hidden" name="menu" id="menu" value="<?=esc_attr( $nav_menu_selected_id );?>" />
+						<input type="hidden" name="menu" id="menu" value="<?php echo esc_attr( $nav_menu_selected_id ); ?>" />
 					</div><!-- END #nav-menu-header -->
 					<div id="post-body">
 						<div id="post-body-content">
@@ -608,4 +608,4 @@ require_once( './admin-header.php' );
 </div><!-- /.wrap-->
 
 
-<?php include( './admin-footer.php' );?>
+<?php include( './admin-footer.php' ); ?>

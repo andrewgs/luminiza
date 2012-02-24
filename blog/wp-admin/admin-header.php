@@ -31,10 +31,10 @@ wp_user_settings();
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php do_action('admin_xml_ns');?> <?php language_attributes();?>>
+<html xmlns="http://www.w3.org/1999/xhtml" <?php do_action('admin_xml_ns'); ?> <?php language_attributes(); ?>>
 <head>
-<meta http-equiv="Content-Type" content="<?php bloginfo('html_type');?>; charset=<?=get_option('blog_charset');?>" />
-<title><?=$admin_title;?></title>
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_option('blog_charset'); ?>" />
+<title><?php echo $admin_title; ?></title>
 <?php
 
 wp_admin_css( 'global' );
@@ -51,17 +51,17 @@ $admin_body_class = preg_replace('/[^a-z0-9_-]+/i', '-', $hook_suffix);
 //<![CDATA[
 addLoadEvent = function(func){if(typeof jQuery!="undefined")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};
 var userSettings = {
-		'url': '<?=SITECOOKIEPATH;?>',
-		'uid': '<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID;?>',
-		'time':'<?=time() ?>'
+		'url': '<?php echo SITECOOKIEPATH; ?>',
+		'uid': '<?php if ( ! isset($current_user) ) $current_user = wp_get_current_user(); echo $current_user->ID; ?>',
+		'time':'<?php echo time() ?>'
 	},
-	ajaxurl = '<?=admin_url('admin-ajax.php');?>',
-	pagenow = '<?=$current_screen->id;?>',
-	typenow = '<?php if ( isset($current_screen->post_type) ) echo $current_screen->post_type;?>',
-	adminpage = '<?=$admin_body_class;?>',
-	thousandsSeparator = '<?=addslashes( $wp_locale->number_format['thousands_sep'] );?>',
-	decimalPoint = '<?=addslashes( $wp_locale->number_format['decimal_point'] );?>',
-	isRtl = <?=(int) is_rtl();?>;
+	ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>',
+	pagenow = '<?php echo $current_screen->id; ?>',
+	typenow = '<?php if ( isset($current_screen->post_type) ) echo $current_screen->post_type; ?>',
+	adminpage = '<?php echo $admin_body_class; ?>',
+	thousandsSeparator = '<?php echo addslashes( $wp_locale->number_format['thousands_sep'] ); ?>',
+	decimalPoint = '<?php echo addslashes( $wp_locale->number_format['decimal_point'] ); ?>',
+	isRtl = <?php echo (int) is_rtl(); ?>;
 //]]>
 </script>
 <?php
@@ -95,7 +95,7 @@ if ( $is_iphone ) { ?>
 <style type="text/css">.row-actions{visibility:visible;}</style>
 <?php } ?>
 </head>
-<body class="wp-admin no-js <?=apply_filters( 'admin_body_class', '' ) . " $admin_body_class";?>">
+<body class="wp-admin no-js <?php echo apply_filters( 'admin_body_class', '' ) . " $admin_body_class"; ?>">
 <script type="text/javascript">
 //<![CDATA[
 (function(){
@@ -107,7 +107,7 @@ document.body.className = c;
 </script>
 
 <div id="wpwrap">
-<?php require(ABSPATH . 'wp-admin/menu-header.php');?>
+<?php require(ABSPATH . 'wp-admin/menu-header.php'); ?>
 <div id="wpcontent">
 <div id="wphead">
 <?php
@@ -137,10 +137,10 @@ if ( function_exists('mb_strlen') ) {
 }
 ?>
 
-<img id="header-logo" src="<?=esc_url( includes_url( 'images/blank.gif' ) );?>" alt="" width="16" height="16" />
-<h1 id="site-heading" <?=$title_class ?>>
-	<a href="<?=trailingslashit( get_bloginfo( 'url' ) );?>" title="<?php esc_attr_e('Visit Site') ?>">
-		<span id="site-title"><?=$blog_name ?></span>
+<img id="header-logo" src="<?php echo esc_url( includes_url( 'images/blank.gif' ) ); ?>" alt="" width="16" height="16" />
+<h1 id="site-heading" <?php echo $title_class ?>>
+	<a href="<?php echo trailingslashit( get_bloginfo( 'url' ) ); ?>" title="<?php esc_attr_e('Visit Site') ?>">
+		<span id="site-title"><?php echo $blog_name ?></span>
 	</a>
 </h1>
 
@@ -179,13 +179,13 @@ $links_js = '<li>' . implode( '</li><li>', $links ) . '</li>';
 
 <div id="wphead-info">
 <div id="user_info">
-	<p class="hide-if-js"><?="$howdy | $links_no_js";?></p>
+	<p class="hide-if-js"><?php echo "$howdy | $links_no_js"; ?></p>
 
 	<div class="hide-if-no-js">
-		<p><?=$howdy;?></p>
+		<p><?php echo $howdy; ?></p>
 		<div id="user_info_arrow"></div>
 		<div id="user_info_links_wrap"><div id="user_info_links">
-			<ul><?=$links_js;?></ul>
+			<ul><?php echo $links_js; ?></ul>
 		</div></div>
 	</div>
 </div>

@@ -150,7 +150,7 @@ else
 $count = get_option( 'akismet_spam_count' );
 if ( $count ) {
 ?>
-<p><?php printf(__('Akismet has caught <strong>%1$s spam</strong> for you since you first installed it.'), number_format_i18n($count) );?></p>
+<p><?php printf(__('Akismet has caught <strong>%1$s spam</strong> for you since you first installed it.'), number_format_i18n($count) ); ?></p>
 <?php
 }
 
@@ -163,19 +163,19 @@ if ( 0 == $spam_count ) {
 	echo '<p>'.__('You can delete all of the spam from your database with a single click. This operation cannot be undone, so you may wish to check to ensure that no legitimate comments got through first. Spam is automatically deleted after 15 days, so don&#8217;t sweat it.').'</p>';
 ?>
 <?php if ( !isset( $_POST['s'] ) ) { ?>
-<form method="post" action="<?=attribute_escape( add_query_arg( 'noheader', 'true' ) );?>">
+<form method="post" action="<?php echo attribute_escape( add_query_arg( 'noheader', 'true' ) ); ?>">
 <?php akismet_nonce_field($akismet_nonce) ?>
 <input type="hidden" name="action" value="delete" />
-<?php printf(__('There are currently %1$s comments identified as spam.'), $spam_count);?>&nbsp; &nbsp; <input type="submit" class="button delete" name="Submit" value="<?php _e('Delete all');?>" />
-<input type="hidden" name="display_time" value="<?=current_time('mysql', 1);?>" />
+<?php printf(__('There are currently %1$s comments identified as spam.'), $spam_count); ?>&nbsp; &nbsp; <input type="submit" class="button delete" name="Submit" value="<?php _e('Delete all'); ?>" />
+<input type="hidden" name="display_time" value="<?php echo current_time('mysql', 1); ?>" />
 </form>
 <?php } ?>
 </div>
 <div class="wrap">
 <?php if ( isset( $_POST['s'] ) ) { ?>
-<h2><?php _e('Search');?></h2>
+<h2><?php _e('Search'); ?></h2>
 <?php } else { ?>
-<?='<p>'.__('These are the latest comments identified as spam by Akismet. If you see any mistakes, simply mark the comment as "not spam" and Akismet will learn from the submission. If you wish to recover a comment from spam, simply select the comment, and click Not Spam. After 15 days we clean out the junk for you.').'</p>';?>
+<?php echo '<p>'.__('These are the latest comments identified as spam by Akismet. If you see any mistakes, simply mark the comment as "not spam" and Akismet will learn from the submission. If you wish to recover a comment from spam, simply select the comment, and click Not Spam. After 15 days we clean out the junk for you.').'</p>'; ?>
 <?php } ?>
 <?php
 if ( isset( $_POST['s'] ) ) {
@@ -206,7 +206,7 @@ if ( isset( $_POST['s'] ) ) {
 	$totals = akismet_spam_totals();
 ?>
 <ul class="akismet-tabs">
-<li <?php if ( !isset( $_GET['ctype'] ) ) echo ' class="active"';?>><a href="edit-comments.php?page=akismet-admin"><?php _e('All');?></a></li>
+<li <?php if ( !isset( $_GET['ctype'] ) ) echo ' class="active"'; ?>><a href="edit-comments.php?page=akismet-admin"><?php _e('All'); ?></a></li>
 <?php
 foreach ( $totals as $type => $type_count ) {
 	if ( 'comment' == $type ) {
@@ -227,9 +227,9 @@ do_action( 'akismet_tabs' ); // so plugins can add more tabs easily
 
 if ($comments) {
 ?>
-<form method="post" action="<?=attribute_escape("$link?page=akismet-admin");?>" id="akismetsearch">
-<p>  <input type="text" name="s" value="<?php if (isset($_POST['s'])) echo attribute_escape($_POST['s']);?>" size="17" />
-  <input type="submit" class="button" name="submit" value="<?=attribute_escape(__('Search Spam &raquo;')) ?>"  />  </p>
+<form method="post" action="<?php echo attribute_escape("$link?page=akismet-admin"); ?>" id="akismetsearch">
+<p>  <input type="text" name="s" value="<?php if (isset($_POST['s'])) echo attribute_escape($_POST['s']); ?>" size="17" />
+  <input type="submit" class="button" name="submit" value="<?php echo attribute_escape(__('Search Spam &raquo;')) ?>"  />  </p>
 </form>
 <?php if ( $total > 50 ) {
 $total_pages = ceil( $total / 50 );
@@ -263,7 +263,7 @@ echo "<p>$r</p>";
 ?>
 
 <?php } ?>
-<form style="clear: both;" method="post" action="<?=attribute_escape( add_query_arg( 'noheader', 'true' ) );?>">
+<form style="clear: both;" method="post" action="<?php echo attribute_escape( add_query_arg( 'noheader', 'true' ) ); ?>">
 <?php akismet_nonce_field($akismet_nonce) ?>
 <input type="hidden" name="action" value="recover" />
 <ul id="spam-list" class="commentlist" style="list-style: none; margin: 0; padding: 0;">
@@ -283,15 +283,15 @@ foreach($comments as $comment) {
 
 <?php comment_text() ?>
 
-<p><label for="spam-<?=$comment->comment_ID;?>">
-<input type="checkbox" id="spam-<?=$comment->comment_ID;?>" name="not_spam[]" value="<?=$comment->comment_ID;?>" />
+<p><label for="spam-<?php echo $comment->comment_ID; ?>">
+<input type="checkbox" id="spam-<?php echo $comment->comment_ID; ?>" name="not_spam[]" value="<?php echo $comment->comment_ID; ?>" />
 <?php _e('Not Spam') ?></label> &#8212; <?php comment_date('M j, g:i A');  ?> &#8212; [
 <?php
 $post = get_post($comment->comment_post_ID);
 $post_title = wp_specialchars( $post->post_title, 'double' );
 $post_title = ('' == $post_title) ? "# $comment->comment_post_ID" : $post_title;
 ?>
- <a href="<?=get_permalink($comment->comment_post_ID);?>" title="<?=$post_title;?>"><?php _e('View Post') ?></a> ] </p>
+ <a href="<?php echo get_permalink($comment->comment_post_ID); ?>" title="<?php echo $post_title; ?>"><?php _e('View Post') ?></a> ] </p>
 
 
 <?php
@@ -330,22 +330,22 @@ echo "<p>$r</p>";
 }
 ?>
 <p class="submit">
-<input type="submit" name="submit" value="<?=attribute_escape(__('De-spam marked comments &raquo;'));?>" />
+<input type="submit" name="submit" value="<?php echo attribute_escape(__('De-spam marked comments &raquo;')); ?>" />
 </p>
-<p><?php _e('Comments you de-spam will be submitted to Akismet as mistakes so it can learn and get better.');?></p>
+<p><?php _e('Comments you de-spam will be submitted to Akismet as mistakes so it can learn and get better.'); ?></p>
 </form>
 <?php
 } else {
 ?>
-<p><?php _e('No results found.');?></p>
+<p><?php _e('No results found.'); ?></p>
 <?php } ?>
 
 <?php if ( !isset( $_POST['s'] ) ) { ?>
-<form method="post" action="<?=attribute_escape( add_query_arg( 'noheader', 'true' ) );?>">
+<form method="post" action="<?php echo attribute_escape( add_query_arg( 'noheader', 'true' ) ); ?>">
 <?php akismet_nonce_field($akismet_nonce) ?>
 <p><input type="hidden" name="action" value="delete" />
-<?php printf(__('There are currently %1$s comments identified as spam.'), $spam_count);?>&nbsp; &nbsp; <input type="submit" name="Submit" class="button" value="<?=attribute_escape(__('Delete all'));?>" />
-<input type="hidden" name="display_time" value="<?=current_time('mysql', 1);?>" /></p>
+<?php printf(__('There are currently %1$s comments identified as spam.'), $spam_count); ?>&nbsp; &nbsp; <input type="submit" name="Submit" class="button" value="<?php echo attribute_escape(__('Delete all')); ?>" />
+<input type="hidden" name="display_time" value="<?php echo current_time('mysql', 1); ?>" /></p>
 </form>
 <?php } ?>
 </div>

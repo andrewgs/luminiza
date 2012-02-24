@@ -416,7 +416,7 @@ function display_space_usage() {
 		$space .= __( 'MB' );
 	}
 	?>
-	<strong><?php printf( __( 'Used: %1s%% of %2s' ), number_format( $percentused ), $space );?></strong>
+	<strong><?php printf( __( 'Used: %1s%% of %2s' ), number_format( $percentused ), $space ); ?></strong>
 	<?php
 }
 
@@ -428,8 +428,8 @@ function upload_space_setting( $id ) {
 
 	?>
 	<tr>
-		<th><?php _e( 'Site Upload Space Quota ');?></th>
-		<td><input type="text" size="3" name="option[blog_upload_space]" value="<?=$quota;?>" /> <?php _e( 'MB (Leave blank for network default)' );?></td>
+		<th><?php _e( 'Site Upload Space Quota '); ?></th>
+		<td><input type="text" size="3" name="option[blog_upload_space]" value="<?php echo $quota; ?>" /> <?php _e( 'MB (Leave blank for network default)' ); ?></td>
 	</tr>
 	<?php
 }
@@ -630,7 +630,7 @@ function choose_primary_blog() {
 	<table class="form-table">
 	<tr>
 	<?php /* translators: My sites label */ ?>
-		<th scope="row"><?php _e( 'Primary Site' );?></th>
+		<th scope="row"><?php _e( 'Primary Site' ); ?></th>
 		<td>
 		<?php
 		$all_blogs = get_blogs_of_user( get_current_user_id() );
@@ -642,7 +642,7 @@ function choose_primary_blog() {
 				<?php foreach( (array) $all_blogs as $blog ) {
 					if ( $primary_blog == $blog->userblog_id )
 						$found = true;
-					?><option value="<?=$blog->userblog_id ?>"<?php selected( $primary_blog,  $blog->userblog_id );?>><?=esc_url( get_home_url( $blog->userblog_id ) ) ?></option><?php
+					?><option value="<?php echo $blog->userblog_id ?>"<?php selected( $primary_blog,  $blog->userblog_id ); ?>><?php echo esc_url( get_home_url( $blog->userblog_id ) ) ?></option><?php
 				} ?>
 			</select>
 			<?php
@@ -664,10 +664,10 @@ function choose_primary_blog() {
 	<?php if ( in_array( get_site_option( 'registration' ), array( 'all', 'blog' ) ) ) : ?>
 		<tr>
 			<th scope="row" colspan="2" class="th-full">
-				<a href="<?=apply_filters( 'wp_signup_location', network_home_url( 'wp-signup.php' ) );?>"><?php _e( 'Create a New Site' );?></a>
+				<a href="<?php echo apply_filters( 'wp_signup_location', network_home_url( 'wp-signup.php' ) ); ?>"><?php _e( 'Create a New Site' ); ?></a>
 			</th>
 		</tr>
-	<?php endif;?>
+	<?php endif; ?>
 	</table>
 	<?php
 }

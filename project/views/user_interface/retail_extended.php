@@ -101,7 +101,7 @@
 							<div class="caption_">
 							  <h5>Студия в Los Cristianos</h5>
 							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 71.000 €</p>
-							  <a href="http://lum-tenerife.ru/retail/apartment/68" class="btn primary">Подробнее</a>
+							  <a href="http://lum-tenerife.ru/retail/apartment/157" class="btn primary">Подробнее</a>
 							</div>
 						  </div>
 						</li>
@@ -131,7 +131,7 @@
 							<div class="caption_">
 							  <h5>Студия в Las Americas</h5>
 							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 95.000 €</p>
-							  <a href="http://lum-tenerife.ru/retail/apartment/68" class="btn primary">Подробнее</a>
+							  <a href="http://lum-tenerife.ru/retail/apartment/156" class="btn primary">Подробнее</a>
 							</div>
 						  </div>
 						</li>

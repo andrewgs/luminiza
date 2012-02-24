@@ -47,16 +47,16 @@ require_once( '../admin-header.php' );
 ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 
 <div id="dashboard-widgets-wrap">
 
-<?php wp_dashboard();?>
+<?php wp_dashboard(); ?>
 
 <div class="clear"></div>
 </div><!-- dashboard-widgets-wrap -->
 
 </div><!-- wrap -->
 
-<?php include( '../admin-footer.php' );?>
+<?php include( '../admin-footer.php' ); ?>

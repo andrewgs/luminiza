@@ -113,7 +113,7 @@ class WP_Links_List_Table extends WP_List_Table {
 
 			$edit_link = get_edit_bookmark_link( $link );
 ?>
-		<tr id="link-<?=$link->link_id;?>" valign="middle" <?=$style;?>>
+		<tr id="link-<?php echo $link->link_id; ?>" valign="middle" <?php echo $style; ?>>
 <?php
 
 			list( $columns, $hidden ) = $this->get_column_info();
@@ -146,7 +146,7 @@ class WP_Links_List_Table extends WP_List_Table {
 						echo "<td $attributes><a href='$link->link_url' title='". esc_attr( sprintf( __( 'Visit %s' ), $link->link_name ) )."'>$short_url</a></td>";
 						break;
 					case 'categories':
-						?><td <?=$attributes ?>><?php
+						?><td <?php echo $attributes ?>><?php
 						$cat_names = array();
 						foreach ( $link->link_category as $category ) {
 							$cat = get_term( $category, 'link_category', OBJECT, 'display' );
@@ -161,17 +161,17 @@ class WP_Links_List_Table extends WP_List_Table {
 						?></td><?php
 						break;
 					case 'rel':
-						?><td <?=$attributes ?>><?=empty( $link->link_rel ) ? '<br />' : $link->link_rel;?></td><?php
+						?><td <?php echo $attributes ?>><?php echo empty( $link->link_rel ) ? '<br />' : $link->link_rel; ?></td><?php
 						break;
 					case 'visible':
-						?><td <?=$attributes ?>><?=$visible;?></td><?php
+						?><td <?php echo $attributes ?>><?php echo $visible; ?></td><?php
 						break;
 					case 'rating':
-	 					?><td <?=$attributes ?>><?=$rating;?></td><?php
+	 					?><td <?php echo $attributes ?>><?php echo $rating; ?></td><?php
 						break;
 					default:
 						?>
-						<td <?=$attributes ?>><?php do_action( 'manage_link_custom_column', $column_name, $link->link_id );?></td>
+						<td <?php echo $attributes ?>><?php do_action( 'manage_link_custom_column', $column_name, $link->link_id ); ?></td>
 						<?php
 						break;
 				}

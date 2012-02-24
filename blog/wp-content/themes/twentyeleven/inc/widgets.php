@@ -83,14 +83,14 @@ class Twenty_Eleven_Ephemera_Widget extends WP_Widget {
 
 		?>
 		<ol>
-		<?php while ( $ephemera->have_posts() ) : $ephemera->the_post();?>
+		<?php while ( $ephemera->have_posts() ) : $ephemera->the_post(); ?>
 
 			<?php if ( 'link' != get_post_format() ) : ?>
 
 			<li class="widget-entry-title">
-				<a href="<?=esc_url( get_permalink() );?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'twentyeleven' ), the_title_attribute( 'echo=0' ) );?>" rel="bookmark"><?php the_title();?></a>
+				<a href="<?php echo esc_url( get_permalink() ); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'twentyeleven' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 				<span class="comments-link">
-					<?php comments_popup_link( __( '0 <span class="reply">comments &rarr;</span>', 'twentyeleven' ), __( '1 <span class="reply">comment &rarr;</span>', 'twentyeleven' ), __( '% <span class="reply">comments &rarr;</span>', 'twentyeleven' ) );?>
+					<?php comments_popup_link( __( '0 <span class="reply">comments &rarr;</span>', 'twentyeleven' ), __( '1 <span class="reply">comment &rarr;</span>', 'twentyeleven' ), __( '% <span class="reply">comments &rarr;</span>', 'twentyeleven' ) ); ?>
 				</span>
 			</li>
 
@@ -104,15 +104,15 @@ class Twenty_Eleven_Ephemera_Widget extends WP_Widget {
 					if ( empty( $link_url ) )
 						$link_url = get_permalink();
 				?>
-				<a href="<?=esc_url( $link_url );?>" title="<?php printf( esc_attr__( 'Link to %s', 'twentyeleven' ), the_title_attribute( 'echo=0' ) );?>" rel="bookmark"><?php the_title();?>&nbsp;<span>&rarr;</span></a>
+				<a href="<?php echo esc_url( $link_url ); ?>" title="<?php printf( esc_attr__( 'Link to %s', 'twentyeleven' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?>&nbsp;<span>&rarr;</span></a>
 				<span class="comments-link">
-					<?php comments_popup_link( __( '0 <span class="reply">comments &rarr;</span>', 'twentyeleven' ), __( '1 <span class="reply">comment &rarr;</span>', 'twentyeleven' ), __( '% <span class="reply">comments &rarr;</span>', 'twentyeleven' ) );?>
+					<?php comments_popup_link( __( '0 <span class="reply">comments &rarr;</span>', 'twentyeleven' ), __( '1 <span class="reply">comment &rarr;</span>', 'twentyeleven' ), __( '% <span class="reply">comments &rarr;</span>', 'twentyeleven' ) ); ?>
 				</span>
 			</li>
 
-			<?php endif;?>
+			<?php endif; ?>
 
-		<?php endwhile;?>
+		<?php endwhile; ?>
 		</ol>
 		<?php
 
@@ -156,11 +156,11 @@ class Twenty_Eleven_Ephemera_Widget extends WP_Widget {
 		$title = isset( $instance['title']) ? esc_attr( $instance['title'] ) : '';
 		$number = isset( $instance['number'] ) ? absint( $instance['number'] ) : 10;
 ?>
-			<p><label for="<?=esc_attr( $this->get_field_id( 'title' ) );?>"><?php _e( 'Title:', 'twentyeleven' );?></label>
-			<input class="widefat" id="<?=esc_attr( $this->get_field_id( 'title' ) );?>" name="<?=esc_attr( $this->get_field_name( 'title' ) );?>" type="text" value="<?=esc_attr( $title );?>" /></p>
+			<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php _e( 'Title:', 'twentyeleven' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 
-			<p><label for="<?=esc_attr( $this->get_field_id( 'number' ) );?>"><?php _e( 'Number of posts to show:', 'twentyeleven' );?></label>
-			<input id="<?=esc_attr( $this->get_field_id( 'number' ) );?>" name="<?=esc_attr( $this->get_field_name( 'number' ) );?>" type="text" value="<?=esc_attr( $number );?>" size="3" /></p>
+			<p><label for="<?php echo esc_attr( $this->get_field_id( 'number' ) ); ?>"><?php _e( 'Number of posts to show:', 'twentyeleven' ); ?></label>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'number' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number' ) ); ?>" type="text" value="<?php echo esc_attr( $number ); ?>" size="3" /></p>
 		<?php
 	}
 }
