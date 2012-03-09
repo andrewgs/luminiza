@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Confirm plugin 1.3
  *
  * Copyright (c) 2007 Nadia Alramli (http://nadiana.com/)

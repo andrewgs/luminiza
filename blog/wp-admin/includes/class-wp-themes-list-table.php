@@ -92,9 +92,9 @@ class WP_Themes_List_Table extends WP_List_Table {
 		if ( $this->get_pagination_arg( 'total_pages' ) <= 1 )
 			return;
 		?>
-		<div class="tablenav <?=$which;?>">
-			<?php $this->pagination( $which );?>
-		   <img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading list-ajax-loading" alt="" />
+		<div class="tablenav <?php echo $which; ?>">
+			<?php $this->pagination( $which ); ?>
+		   <img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading list-ajax-loading" alt="" />
 		  <br class="clear" />
 		</div>
 		<?php
@@ -103,15 +103,15 @@ class WP_Themes_List_Table extends WP_List_Table {
 	function display() {
 		// wp_nonce_field( "fetch-list-" . get_class( $this ), '_ajax_fetch_list_nonce' );
 ?>
-		<?php $this->tablenav( 'top' );?>
+		<?php $this->tablenav( 'top' ); ?>
 
 		<table id="availablethemes" cellspacing="0" cellpadding="0">
 			<tbody id="the-list" class="list:themes">
-				<?php $this->display_rows_or_placeholder();?>
+				<?php $this->display_rows_or_placeholder(); ?>
 			</tbody>
 		</table>
 
-		<?php $this->tablenav( 'bottom' );?>
+		<?php $this->tablenav( 'bottom' ); ?>
 <?php
 	}
 
@@ -141,7 +141,7 @@ foreach ( $cols as $col => $theme_name ) {
 	if ( $row == $rows ) $class[] = 'bottom';
 	if ( $col == 3 ) $class[] = 'right';
 ?>
-	<td class="<?=join( ' ', $class );?>">
+	<td class="<?php echo join( ' ', $class ); ?>">
 <?php if ( !empty( $theme_name ) ) :
 	$template = $themes[$theme_name]['Template'];
 	$stylesheet = $themes[$theme_name]['Stylesheet'];
@@ -173,26 +173,26 @@ foreach ( $cols as $col => $theme_name ) {
 
 	$actions = implode ( ' | ', $actions );
 ?>
-		<a href="<?=$preview_link;?>" class="<?=$thickbox_class;?> screenshot">
+		<a href="<?php echo $preview_link; ?>" class="<?php echo $thickbox_class; ?> screenshot">
 <?php if ( $screenshot ) : ?>
-			<img src="<?=$theme_root_uri . '/' . $stylesheet . '/' . $screenshot;?>" alt="" />
-<?php endif;?>
+			<img src="<?php echo $theme_root_uri . '/' . $stylesheet . '/' . $screenshot; ?>" alt="" />
+<?php endif; ?>
 		</a>
 <h3><?php
 	/* translators: 1: theme title, 2: theme version, 3: theme author */
-	printf( __( '%1$s %2$s by %3$s' ), $title, $version, $author ) ;?></h3>
-<p class="description"><?=$description;?></p>
-<span class='action-links'><?=$actions ?></span>
+	printf( __( '%1$s %2$s by %3$s' ), $title, $version, $author ) ; ?></h3>
+<p class="description"><?php echo $description; ?></p>
+<span class='action-links'><?php echo $actions ?></span>
 	<?php if ( current_user_can( 'edit_themes' ) && $parent_theme ) {
 	/* translators: 1: theme title, 2:  template dir, 3: stylesheet_dir, 4: theme title, 5: parent_theme */ ?>
-	<p><?php printf( __( 'The template files are located in <code>%2$s</code>. The stylesheet files are located in <code>%3$s</code>. <strong>%4$s</strong> uses templates from <strong>%5$s</strong>. Changes made to the templates will affect both themes.' ), $title, str_replace( WP_CONTENT_DIR, '', $template_dir ), str_replace( WP_CONTENT_DIR, '', $stylesheet_dir ), $title, $parent_theme );?></p>
+	<p><?php printf( __( 'The template files are located in <code>%2$s</code>. The stylesheet files are located in <code>%3$s</code>. <strong>%4$s</strong> uses templates from <strong>%5$s</strong>. Changes made to the templates will affect both themes.' ), $title, str_replace( WP_CONTENT_DIR, '', $template_dir ), str_replace( WP_CONTENT_DIR, '', $stylesheet_dir ), $title, $parent_theme ); ?></p>
 <?php } else { ?>
-	<p><?php printf( __( 'All of this theme&#8217;s files are located in <code>%2$s</code>.' ), $title, str_replace( WP_CONTENT_DIR, '', $template_dir ), str_replace( WP_CONTENT_DIR, '', $stylesheet_dir ) );?></p>
+	<p><?php printf( __( 'All of this theme&#8217;s files are located in <code>%2$s</code>.' ), $title, str_replace( WP_CONTENT_DIR, '', $template_dir ), str_replace( WP_CONTENT_DIR, '', $stylesheet_dir ) ); ?></p>
 <?php } ?>
 <?php if ( $tags ) : ?>
-<p><?php _e( 'Tags:' );?> <?=join( ', ', $tags );?></p>
-<?php endif;?>
-		<?php theme_update_available( $themes[$theme_name] );?>
+<p><?php _e( 'Tags:' ); ?> <?php echo join( ', ', $tags ); ?></p>
+<?php endif; ?>
+		<?php theme_update_available( $themes[$theme_name] ); ?>
 <?php endif; // end if not empty theme_name ?>
 	</td>
 <?php } // end foreach $cols ?>

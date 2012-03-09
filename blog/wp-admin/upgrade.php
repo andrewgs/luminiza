@@ -43,10 +43,10 @@ $mysql_compat   = version_compare( $mysql_version, $required_mysql_version, '>='
 @header( 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' ) );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes();?>>
+<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 <head>
-	<meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' );?>; charset=<?=get_option( 'blog_charset' );?>" />
-	<title><?php _e( 'WordPress &rsaquo; Update' );?></title>
+	<meta http-equiv="Content-Type" content="<?php bloginfo( 'html_type' ); ?>; charset=<?php echo get_option( 'blog_charset' ); ?>" />
+	<title><?php _e( 'WordPress &rsaquo; Update' ); ?></title>
 	<?php
 	wp_admin_css( 'install', true );
 	wp_admin_css( 'ie', true );
@@ -57,9 +57,9 @@ $mysql_compat   = version_compare( $mysql_version, $required_mysql_version, '>='
 
 <?php if ( get_option( 'db_version' ) == $wp_db_version || !is_blog_installed() ) : ?>
 
-<h2><?php _e( 'No Update Required' );?></h2>
-<p><?php _e( 'Your WordPress database is already up-to-date!' );?></p>
-<p class="step"><a class="button" href="<?=get_option( 'home' );?>/"><?php _e( 'Continue' );?></a></p>
+<h2><?php _e( 'No Update Required' ); ?></h2>
+<p><?php _e( 'Your WordPress database is already up-to-date!' ); ?></p>
+<p class="step"><a class="button" href="<?php echo get_option( 'home' ); ?>/"><?php _e( 'Continue' ); ?></a></p>
 
 <?php elseif ( !$php_compat || !$mysql_compat ) :
 	if ( !$mysql_compat && !$php_compat )
@@ -76,10 +76,10 @@ switch ( $step ) :
 		$goback = esc_url_raw( $goback );
 		$goback = urlencode( $goback );
 ?>
-<h2><?php _e( 'Database Update Required' );?></h2>
-<p><?php _e( 'WordPress has been updated! Before we send you on your way, we have to update your database to the newest version.' );?></p>
-<p><?php _e( 'The update process may take a little while, so please be patient.' );?></p>
-<p class="step"><a class="button" href="upgrade.php?step=1&amp;backto=<?=$goback;?>"><?php _e( 'Update WordPress Database' );?></a></p>
+<h2><?php _e( 'Database Update Required' ); ?></h2>
+<p><?php _e( 'WordPress has been updated! Before we send you on your way, we have to update your database to the newest version.' ); ?></p>
+<p><?php _e( 'The update process may take a little while, so please be patient.' ); ?></p>
+<p class="step"><a class="button" href="upgrade.php?step=1&amp;backto=<?php echo $goback; ?>"><?php _e( 'Update WordPress Database' ); ?></a></p>
 <?php
 		break;
 	case 1:
@@ -89,15 +89,15 @@ switch ( $step ) :
 			$backto = esc_url( $backto );
 			$backto = wp_validate_redirect($backto, __get_option( 'home' ) . '/');
 ?>
-<h2><?php _e( 'Update Complete' );?></h2>
-	<p><?php _e( 'Your WordPress database has been successfully updated!' );?></p>
-	<p class="step"><a class="button" href="<?=$backto;?>"><?php _e( 'Continue' );?></a></p>
+<h2><?php _e( 'Update Complete' ); ?></h2>
+	<p><?php _e( 'Your WordPress database has been successfully updated!' ); ?></p>
+	<p class="step"><a class="button" href="<?php echo $backto; ?>"><?php _e( 'Continue' ); ?></a></p>
 
 <!--
 <pre>
-<?php printf( __( '%s queries' ), $wpdb->num_queries );?>
+<?php printf( __( '%s queries' ), $wpdb->num_queries ); ?>
 
-<?php printf( __( '%s seconds' ), timer_stop( 0 ) );?>
+<?php printf( __( '%s seconds' ), timer_stop( 0 ) ); ?>
 </pre>
 -->
 

@@ -26,7 +26,7 @@ Check out the <a href="http://preview.wp-themix.org/plugins/featured-content-sli
 
 1. Upload /wp-featured-content-slider/ to your Plugin directory (wp-content/plugins/)
 2. Go to the 'Plugins' Page of your Administration Area and activate the Plugin.
-3. Place `<?php include (ABSPATH . '/wp-content/plugins/wp-featured-content-slider/content-slider.php');?>` in your template or use [featslider] as placeholder on a page/post to show the Slidehsow.
+3. Place `<?php include (ABSPATH . '/wp-content/plugins/wp-featured-content-slider/content-slider.php'); ?>` in your template or use [featslider] as placeholder on a page/post to show the Slidehsow.
 4. Edit a post or a page and choose "Feature in WP-Featured Content Slider, right beneath your Editor
 5. Set an image as "Featured Image" (Wordpress Post-Thumbnail Support)
 6. Edit Layout & Settings in WP-Admin (Settings - WP-Featured Content Slider)

@@ -1346,20 +1346,20 @@ class Walker_Comment extends Walker {
 			$add_below = 'div-comment';
 		}
 ?>
-		<<?=$tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
+		<<?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
 		<?php if ( 'div' != $args['style'] ) : ?>
 		<div id="div-comment-<?php comment_ID() ?>" class="comment-body">
-		<?php endif;?>
+		<?php endif; ?>
 		<div class="comment-author vcard">
-		<?php if ($args['avatar_size'] != 0) echo get_avatar( $comment, $args['avatar_size'] );?>
+		<?php if ($args['avatar_size'] != 0) echo get_avatar( $comment, $args['avatar_size'] ); ?>
 		<?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link()) ?>
 		</div>
 <?php if ($comment->comment_approved == '0') : ?>
 		<em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
 		<br />
-<?php endif;?>
+<?php endif; ?>
 
-		<div class="comment-meta commentmetadata"><a href="<?=htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>">
+		<div class="comment-meta commentmetadata"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>">
 			<?php
 				/* translators: 1: date, 2: time */
 				printf( __('%1$s at %2$s'), get_comment_date(),  get_comment_time()) ?></a><?php edit_comment_link(__('(Edit)'),'&nbsp;&nbsp;','' );
@@ -1373,7 +1373,7 @@ class Walker_Comment extends Walker {
 		</div>
 		<?php if ( 'div' != $args['style'] ) : ?>
 		</div>
-		<?php endif;?>
+		<?php endif; ?>
 <?php
 	}
 
@@ -1548,20 +1548,20 @@ function comment_form( $args = array(), $post_id = null ) {
 
 	?>
 		<?php if ( comments_open() ) : ?>
-			<?php do_action( 'comment_form_before' );?>
+			<?php do_action( 'comment_form_before' ); ?>
 			<div id="respond">
-				<h3 id="reply-title"><?php comment_form_title( $args['title_reply'], $args['title_reply_to'] );?> <small><?php cancel_comment_reply_link( $args['cancel_reply_link'] );?></small></h3>
+				<h3 id="reply-title"><?php comment_form_title( $args['title_reply'], $args['title_reply_to'] ); ?> <small><?php cancel_comment_reply_link( $args['cancel_reply_link'] ); ?></small></h3>
 				<?php if ( get_option( 'comment_registration' ) && !is_user_logged_in() ) : ?>
-					<?=$args['must_log_in'];?>
-					<?php do_action( 'comment_form_must_log_in_after' );?>
+					<?php echo $args['must_log_in']; ?>
+					<?php do_action( 'comment_form_must_log_in_after' ); ?>
 				<?php else : ?>
-					<form action="<?=site_url( '/wp-comments-post.php' );?>" method="post" id="<?=esc_attr( $args['id_form'] );?>">
-						<?php do_action( 'comment_form_top' );?>
+					<form action="<?php echo site_url( '/wp-comments-post.php' ); ?>" method="post" id="<?php echo esc_attr( $args['id_form'] ); ?>">
+						<?php do_action( 'comment_form_top' ); ?>
 						<?php if ( is_user_logged_in() ) : ?>
-							<?=apply_filters( 'comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity );?>
-							<?php do_action( 'comment_form_logged_in_after', $commenter, $user_identity );?>
+							<?php echo apply_filters( 'comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity ); ?>
+							<?php do_action( 'comment_form_logged_in_after', $commenter, $user_identity ); ?>
 						<?php else : ?>
-							<?=$args['comment_notes_before'];?>
+							<?php echo $args['comment_notes_before']; ?>
 							<?php
 							do_action( 'comment_form_before_fields' );
 							foreach ( (array) $args['fields'] as $name => $field ) {
@@ -1569,21 +1569,21 @@ function comment_form( $args = array(), $post_id = null ) {
 							}
 							do_action( 'comment_form_after_fields' );
 							?>
-						<?php endif;?>
-						<?=apply_filters( 'comment_form_field_comment', $args['comment_field'] );?>
-						<?=$args['comment_notes_after'];?>
+						<?php endif; ?>
+						<?php echo apply_filters( 'comment_form_field_comment', $args['comment_field'] ); ?>
+						<?php echo $args['comment_notes_after']; ?>
 						<p class="form-submit">
-							<input name="submit" type="submit" id="<?=esc_attr( $args['id_submit'] );?>" value="<?=esc_attr( $args['label_submit'] );?>" />
-							<?php comment_id_fields( $post_id );?>
+							<input name="submit" type="submit" id="<?php echo esc_attr( $args['id_submit'] ); ?>" value="<?php echo esc_attr( $args['label_submit'] ); ?>" />
+							<?php comment_id_fields( $post_id ); ?>
 						</p>
-						<?php do_action( 'comment_form', $post_id );?>
+						<?php do_action( 'comment_form', $post_id ); ?>
 					</form>
-				<?php endif;?>
+				<?php endif; ?>
 			</div><!-- #respond -->
-			<?php do_action( 'comment_form_after' );?>
+			<?php do_action( 'comment_form_after' ); ?>
 		<?php else : ?>
-			<?php do_action( 'comment_form_comments_closed' );?>
-		<?php endif;?>
+			<?php do_action( 'comment_form_comments_closed' ); ?>
+		<?php endif; ?>
 	<?php
 }
 

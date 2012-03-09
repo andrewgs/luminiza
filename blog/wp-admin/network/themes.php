@@ -124,14 +124,14 @@ if ( $action ) {
 					screen_icon();
 					echo '<h2>' . _n( 'Delete Theme', 'Delete Themes', $themes_to_delete ) . '</h2>';
 				?>
-				<div class="error"><p><strong><?php _e( 'Caution:' );?></strong> <?=_n( 'This theme may be active on other sites in the network.', 'These themes may be active on other sites in the network.', $themes_to_delete );?></p></div>
-				<p><?=_n( 'You are about to remove the following theme:', 'You are about to remove the following themes:', $themes_to_delete );?></p>
+				<div class="error"><p><strong><?php _e( 'Caution:' ); ?></strong> <?php echo _n( 'This theme may be active on other sites in the network.', 'These themes may be active on other sites in the network.', $themes_to_delete ); ?></p></div>
+				<p><?php echo _n( 'You are about to remove the following theme:', 'You are about to remove the following themes:', $themes_to_delete ); ?></p>
 					<ul class="ul-disc">
 						<?php foreach ( $theme_info as $theme )
 							echo '<li>', sprintf( __('<strong>%1$s</strong> by <em>%2$s</em>' ), esc_html( $theme['Name'] ), esc_html( $theme['AuthorName'] ) ), '</li>'; /* translators: 1: theme name, 2: theme author */ ?>
 					</ul>
-				<p><?php _e('Are you sure you wish to delete these themes?');?></p>
-				<form method="post" action="<?=esc_url($_SERVER['REQUEST_URI']);?>" style="display:inline;">
+				<p><?php _e('Are you sure you wish to delete these themes?'); ?></p>
+				<form method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" style="display:inline;">
 					<input type="hidden" name="verify-delete" value="1" />
 					<input type="hidden" name="action" value="delete-selected" />
 					<?php
@@ -139,13 +139,13 @@ if ( $action ) {
 							echo '<input type="hidden" name="checked[]" value="' . esc_attr($theme) . '" />';
 					?>
 					<?php wp_nonce_field('bulk-themes') ?>
-					<?php submit_button( _n( 'Yes, Delete this theme', 'Yes, Delete these themes', $themes_to_delete ), 'button', 'submit', false );?>
+					<?php submit_button( _n( 'Yes, Delete this theme', 'Yes, Delete these themes', $themes_to_delete ), 'button', 'submit', false ); ?>
 				</form>
-				<form method="post" action="<?=esc_url(wp_get_referer());?>" style="display:inline;">
-					<?php submit_button( __( 'No, Return me to the theme list' ), 'button', 'submit', false );?>
+				<form method="post" action="<?php echo esc_url(wp_get_referer()); ?>" style="display:inline;">
+					<?php submit_button( __( 'No, Return me to the theme list' ), 'button', 'submit', false ); ?>
 				</form>
 
-				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php _e('Click to view entire list of files which will be deleted');?></a></p>
+				<p><a href="#" onclick="jQuery('#files-list').toggle(); return false;"><?php _e('Click to view entire list of files which will be deleted'); ?></a></p>
 				<div id="files-list" style="display:none;">
 					<ul class="code">
 					<?php
@@ -192,10 +192,10 @@ require_once(ABSPATH . 'wp-admin/admin-header.php');
 ?>
 
 <div class="wrap">
-<?php screen_icon('themes');?>
-<h2><?=esc_html( $title ); if ( current_user_can('install_themes') ) { ?> <a href="theme-install.php" class="add-new-h2"><?=esc_html_x('Add New', 'theme');?></a><?php }
+<?php screen_icon('themes'); ?>
+<h2><?php echo esc_html( $title ); if ( current_user_can('install_themes') ) { ?> <a href="theme-install.php" class="add-new-h2"><?php echo esc_html_x('Add New', 'theme'); ?></a><?php }
 if ( $s ) 
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $s ) );?> 
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $s ) ); ?> 
 </h2>
 
 <?php
@@ -217,16 +217,16 @@ if ( isset( $_GET['enabled'] ) ) {
 ?>
 
 <form method="get" action="">
-<?php $wp_list_table->search_box( __( 'Search Installed Themes' ), 'theme' );?>
+<?php $wp_list_table->search_box( __( 'Search Installed Themes' ), 'theme' ); ?>
 </form>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form method="post" action="">
-<input type="hidden" name="theme_status" value="<?=esc_attr($status) ?>" />
-<input type="hidden" name="paged" value="<?=esc_attr($page) ?>" />
+<input type="hidden" name="theme_status" value="<?php echo esc_attr($status) ?>" />
+<input type="hidden" name="paged" value="<?php echo esc_attr($page) ?>" />
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 </form>
 
 </div>

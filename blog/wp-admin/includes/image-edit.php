@@ -33,60 +33,60 @@ function wp_image_editor($post_id, $msg = false) {
 
 	?>
 	<div class="imgedit-wrap">
-	<?=$note;?>
-	<table id="imgedit-panel-<?=$post_id;?>"><tbody>
+	<?php echo $note; ?>
+	<table id="imgedit-panel-<?php echo $post_id; ?>"><tbody>
 	<tr><td>
 	<div class="imgedit-menu">
-		<div onclick="imageEdit.crop(<?="$post_id, '$nonce'";?>, this)" class="imgedit-crop disabled" title="<?php esc_attr_e( 'Crop' );?>"></div><?php
+		<div onclick="imageEdit.crop(<?php echo "$post_id, '$nonce'"; ?>, this)" class="imgedit-crop disabled" title="<?php esc_attr_e( 'Crop' ); ?>"></div><?php
 
 	// On some setups GD library does not provide imagerotate() - Ticket #11536
 	if ( function_exists('imagerotate') ) { ?>
-		<div class="imgedit-rleft"  onclick="imageEdit.rotate( 90, <?="$post_id, '$nonce'";?>, this)" title="<?php esc_attr_e( 'Rotate counter-clockwise' );?>"></div>
-		<div class="imgedit-rright" onclick="imageEdit.rotate(-90, <?="$post_id, '$nonce'";?>, this)" title="<?php esc_attr_e( 'Rotate clockwise' );?>"></div>
+		<div class="imgedit-rleft"  onclick="imageEdit.rotate( 90, <?php echo "$post_id, '$nonce'"; ?>, this)" title="<?php esc_attr_e( 'Rotate counter-clockwise' ); ?>"></div>
+		<div class="imgedit-rright" onclick="imageEdit.rotate(-90, <?php echo "$post_id, '$nonce'"; ?>, this)" title="<?php esc_attr_e( 'Rotate clockwise' ); ?>"></div>
 <?php } else {
 		$note_gdlib = esc_attr__('Image rotation is not supported by your web host (function imagerotate() is missing)');
 ?>
-	    <div class="imgedit-rleft disabled"  title="<?=$note_gdlib;?>"></div>
-	    <div class="imgedit-rright disabled" title="<?=$note_gdlib;?>"></div>
+	    <div class="imgedit-rleft disabled"  title="<?php echo $note_gdlib; ?>"></div>
+	    <div class="imgedit-rright disabled" title="<?php echo $note_gdlib; ?>"></div>
 <?php } ?>
 
-		<div onclick="imageEdit.flip(1, <?="$post_id, '$nonce'";?>, this)" class="imgedit-flipv" title="<?php esc_attr_e( 'Flip vertically' );?>"></div>
-		<div onclick="imageEdit.flip(2, <?="$post_id, '$nonce'";?>, this)" class="imgedit-fliph" title="<?php esc_attr_e( 'Flip horizontally' );?>"></div>
+		<div onclick="imageEdit.flip(1, <?php echo "$post_id, '$nonce'"; ?>, this)" class="imgedit-flipv" title="<?php esc_attr_e( 'Flip vertically' ); ?>"></div>
+		<div onclick="imageEdit.flip(2, <?php echo "$post_id, '$nonce'"; ?>, this)" class="imgedit-fliph" title="<?php esc_attr_e( 'Flip horizontally' ); ?>"></div>
 
-		<div id="image-undo-<?=$post_id;?>" onclick="imageEdit.undo(<?="$post_id, '$nonce'";?>, this)" class="imgedit-undo disabled" title="<?php esc_attr_e( 'Undo' );?>"></div>
-		<div id="image-redo-<?=$post_id;?>" onclick="imageEdit.redo(<?="$post_id, '$nonce'";?>, this)" class="imgedit-redo disabled" title="<?php esc_attr_e( 'Redo' );?>"></div>
+		<div id="image-undo-<?php echo $post_id; ?>" onclick="imageEdit.undo(<?php echo "$post_id, '$nonce'"; ?>, this)" class="imgedit-undo disabled" title="<?php esc_attr_e( 'Undo' ); ?>"></div>
+		<div id="image-redo-<?php echo $post_id; ?>" onclick="imageEdit.redo(<?php echo "$post_id, '$nonce'"; ?>, this)" class="imgedit-redo disabled" title="<?php esc_attr_e( 'Redo' ); ?>"></div>
 		<br class="clear" />
 	</div>
 
-	<input type="hidden" id="imgedit-sizer-<?=$post_id;?>" value="<?=$sizer;?>" />
-	<input type="hidden" id="imgedit-minthumb-<?=$post_id;?>" value="<?=( get_option('thumbnail_size_w') . ':' . get_option('thumbnail_size_h') );?>" />
-	<input type="hidden" id="imgedit-history-<?=$post_id;?>" value="" />
-	<input type="hidden" id="imgedit-undone-<?=$post_id;?>" value="0" />
-	<input type="hidden" id="imgedit-selection-<?=$post_id;?>" value="" />
-	<input type="hidden" id="imgedit-x-<?=$post_id;?>" value="<?=$meta['width'];?>" />
-	<input type="hidden" id="imgedit-y-<?=$post_id;?>" value="<?=$meta['height'];?>" />
+	<input type="hidden" id="imgedit-sizer-<?php echo $post_id; ?>" value="<?php echo $sizer; ?>" />
+	<input type="hidden" id="imgedit-minthumb-<?php echo $post_id; ?>" value="<?php echo ( get_option('thumbnail_size_w') . ':' . get_option('thumbnail_size_h') ); ?>" />
+	<input type="hidden" id="imgedit-history-<?php echo $post_id; ?>" value="" />
+	<input type="hidden" id="imgedit-undone-<?php echo $post_id; ?>" value="0" />
+	<input type="hidden" id="imgedit-selection-<?php echo $post_id; ?>" value="" />
+	<input type="hidden" id="imgedit-x-<?php echo $post_id; ?>" value="<?php echo $meta['width']; ?>" />
+	<input type="hidden" id="imgedit-y-<?php echo $post_id; ?>" value="<?php echo $meta['height']; ?>" />
 
-	<div id="imgedit-crop-<?=$post_id;?>" class="imgedit-crop-wrap">
-	<img id="image-preview-<?=$post_id;?>" onload="imageEdit.imgLoaded('<?=$post_id;?>')" src="<?=admin_url('admin-ajax.php');?>?action=imgedit-preview&amp;_ajax_nonce=<?=$nonce;?>&amp;postid=<?=$post_id;?>&amp;rand=<?=rand(1, 99999);?>" />
+	<div id="imgedit-crop-<?php echo $post_id; ?>" class="imgedit-crop-wrap">
+	<img id="image-preview-<?php echo $post_id; ?>" onload="imageEdit.imgLoaded('<?php echo $post_id; ?>')" src="<?php echo admin_url('admin-ajax.php'); ?>?action=imgedit-preview&amp;_ajax_nonce=<?php echo $nonce; ?>&amp;postid=<?php echo $post_id; ?>&amp;rand=<?php echo rand(1, 99999); ?>" />
 	</div>
 
 	<div class="imgedit-submit">
-		<input type="button" onclick="imageEdit.close(<?=$post_id;?>, 1)" class="button" value="<?php esc_attr_e( 'Cancel' );?>" />
-		<input type="button" onclick="imageEdit.save(<?="$post_id, '$nonce'";?>)" disabled="disabled" class="button-primary imgedit-submit-btn" value="<?php esc_attr_e( 'Save' );?>" />
+		<input type="button" onclick="imageEdit.close(<?php echo $post_id; ?>, 1)" class="button" value="<?php esc_attr_e( 'Cancel' ); ?>" />
+		<input type="button" onclick="imageEdit.save(<?php echo "$post_id, '$nonce'"; ?>)" disabled="disabled" class="button-primary imgedit-submit-btn" value="<?php esc_attr_e( 'Save' ); ?>" />
 	</div>
 	</td>
 
 	<td class="imgedit-settings">
 	<div class="imgedit-group">
 	<div class="imgedit-group-top">
-		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><strong><?php _e('Scale Image');?></strong></a>
+		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><strong><?php _e('Scale Image'); ?></strong></a>
 		<div class="imgedit-help">
-		<p><?php _e('You can proportionally scale the original image. For best results the scaling should be done before performing any other operations on it like crop, rotate, etc. Note that if you make the image larger it may become fuzzy.');?></p>
-		<p><?php printf( __('Original dimensions %s'), $meta['width'] . '&times;' . $meta['height'] );?></p>
+		<p><?php _e('You can proportionally scale the original image. For best results the scaling should be done before performing any other operations on it like crop, rotate, etc. Note that if you make the image larger it may become fuzzy.'); ?></p>
+		<p><?php printf( __('Original dimensions %s'), $meta['width'] . '&times;' . $meta['height'] ); ?></p>
 		<div class="imgedit-submit">
-		<span class="nowrap"><input type="text" id="imgedit-scale-width-<?=$post_id;?>" onkeyup="imageEdit.scaleChanged(<?=$post_id;?>, 1)" onblur="imageEdit.scaleChanged(<?=$post_id;?>, 1)" style="width:4em;" value="<?=$meta['width'];?>" />&times;<input type="text" id="imgedit-scale-height-<?=$post_id;?>" onkeyup="imageEdit.scaleChanged(<?=$post_id;?>, 0)" onblur="imageEdit.scaleChanged(<?=$post_id;?>, 0)" style="width:4em;" value="<?=$meta['height'];?>" />
-		<span class="imgedit-scale-warn" id="imgedit-scale-warn-<?=$post_id;?>">!</span></span>
-		<input type="button" onclick="imageEdit.action(<?="$post_id, '$nonce'";?>, 'scale')" class="button-primary" value="<?php esc_attr_e( 'Scale' );?>" />
+		<span class="nowrap"><input type="text" id="imgedit-scale-width-<?php echo $post_id; ?>" onkeyup="imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)" onblur="imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)" style="width:4em;" value="<?php echo $meta['width']; ?>" />&times;<input type="text" id="imgedit-scale-height-<?php echo $post_id; ?>" onkeyup="imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)" onblur="imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)" style="width:4em;" value="<?php echo $meta['height']; ?>" />
+		<span class="imgedit-scale-warn" id="imgedit-scale-warn-<?php echo $post_id; ?>">!</span></span>
+		<input type="button" onclick="imageEdit.action(<?php echo "$post_id, '$nonce'"; ?>, 'scale')" class="button-primary" value="<?php esc_attr_e( 'Scale' ); ?>" />
 		</div>
 		</div>
 	</div>
@@ -94,7 +94,7 @@ function wp_image_editor($post_id, $msg = false) {
 <?php if ( $can_restore ) { ?>
 
 	<div class="imgedit-group-top">
-		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><strong><?php _e('Restore Original Image');?></strong></a>
+		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><strong><?php _e('Restore Original Image'); ?></strong></a>
 		<div class="imgedit-help">
 		<p><?php _e('Discard any changes and restore the original image.');
 
@@ -103,7 +103,7 @@ function wp_image_editor($post_id, $msg = false) {
 
 		?></p>
 		<div class="imgedit-submit">
-		<input type="button" onclick="imageEdit.action(<?="$post_id, '$nonce'";?>, 'restore')" class="button-primary" value="<?php esc_attr_e( 'Restore image' );?>" <?=$can_restore;?> />
+		<input type="button" onclick="imageEdit.action(<?php echo "$post_id, '$nonce'"; ?>, 'restore')" class="button-primary" value="<?php esc_attr_e( 'Restore image' ); ?>" <?php echo $can_restore; ?> />
 		</div>
 		</div>
 	</div>
@@ -114,42 +114,42 @@ function wp_image_editor($post_id, $msg = false) {
 
 	<div class="imgedit-group">
 	<div class="imgedit-group-top">
-		<strong><?php _e('Image Crop');?></strong>
-		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><?php _e('(help)');?></a>
+		<strong><?php _e('Image Crop'); ?></strong>
+		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><?php _e('(help)'); ?></a>
 		<div class="imgedit-help">
-		<p><?php _e('The image can be cropped by clicking on it and dragging to select the desired part. While dragging the dimensions of the selection are displayed below.');?></p>
-		<strong><?php _e('Keyboard Shortcuts');?></strong>
+		<p><?php _e('The image can be cropped by clicking on it and dragging to select the desired part. While dragging the dimensions of the selection are displayed below.'); ?></p>
+		<strong><?php _e('Keyboard Shortcuts'); ?></strong>
 		<ul>
-		<li><?php _e('Arrow: move by 10px');?></li>
-		<li><?php _e('Shift + arrow: move by 1px');?></li>
-		<li><?php _e('Ctrl + arrow: resize by 10px');?></li>
-		<li><?php _e('Ctrl + Shift + arrow: resize by 1px');?></li>
-		<li><?php _e('Shift + drag: lock aspect ratio');?></li>
+		<li><?php _e('Arrow: move by 10px'); ?></li>
+		<li><?php _e('Shift + arrow: move by 1px'); ?></li>
+		<li><?php _e('Ctrl + arrow: resize by 10px'); ?></li>
+		<li><?php _e('Ctrl + Shift + arrow: resize by 1px'); ?></li>
+		<li><?php _e('Shift + drag: lock aspect ratio'); ?></li>
 		</ul>
 
-		<p><strong><?php _e('Crop Aspect Ratio');?></strong><br />
-		<?php _e('You can specify the crop selection aspect ratio then hold down the Shift key while dragging to lock it. The values can be 1:1 (square), 4:3, 16:9, etc. If there is a selection, specifying aspect ratio will set it immediately.');?></p>
+		<p><strong><?php _e('Crop Aspect Ratio'); ?></strong><br />
+		<?php _e('You can specify the crop selection aspect ratio then hold down the Shift key while dragging to lock it. The values can be 1:1 (square), 4:3, 16:9, etc. If there is a selection, specifying aspect ratio will set it immediately.'); ?></p>
 
-		<p><strong><?php _e('Crop Selection');?></strong><br />
-		<?php _e('Once started, the selection can be adjusted by entering new values (in pixels). Note that these values are scaled to approximately match the original image dimensions. The minimum selection size equals the thumbnail size as set in the Media settings.');?></p>
+		<p><strong><?php _e('Crop Selection'); ?></strong><br />
+		<?php _e('Once started, the selection can be adjusted by entering new values (in pixels). Note that these values are scaled to approximately match the original image dimensions. The minimum selection size equals the thumbnail size as set in the Media settings.'); ?></p>
 		</div>
 	</div>
 
 	<p>
-		<?php _e('Aspect ratio:');?>
+		<?php _e('Aspect ratio:'); ?>
 		<span  class="nowrap">
-		<input type="text" id="imgedit-crop-width-<?=$post_id;?>" onkeyup="imageEdit.setRatioSelection(<?=$post_id;?>, 0, this)" style="width:3em;" />
+		<input type="text" id="imgedit-crop-width-<?php echo $post_id; ?>" onkeyup="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 0, this)" style="width:3em;" />
 		:
-		<input type="text" id="imgedit-crop-height-<?=$post_id;?>" onkeyup="imageEdit.setRatioSelection(<?=$post_id;?>, 1, this)" style="width:3em;" />
+		<input type="text" id="imgedit-crop-height-<?php echo $post_id; ?>" onkeyup="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 1, this)" style="width:3em;" />
 		</span>
 	</p>
 
-	<p id="imgedit-crop-sel-<?=$post_id;?>">
-		<?php _e('Selection:');?>
+	<p id="imgedit-crop-sel-<?php echo $post_id; ?>">
+		<?php _e('Selection:'); ?>
 		<span  class="nowrap">
-		<input type="text" id="imgedit-sel-width-<?=$post_id;?>" onkeyup="imageEdit.setNumSelection(<?=$post_id;?>)" style="width:4em;" />
+		<input type="text" id="imgedit-sel-width-<?php echo $post_id; ?>" onkeyup="imageEdit.setNumSelection(<?php echo $post_id; ?>)" style="width:4em;" />
 		:
-		<input type="text" id="imgedit-sel-height-<?=$post_id;?>" onkeyup="imageEdit.setNumSelection(<?=$post_id;?>)" style="width:4em;" />
+		<input type="text" id="imgedit-sel-height-<?php echo $post_id; ?>" onkeyup="imageEdit.setNumSelection(<?php echo $post_id; ?>)" style="width:4em;" />
 		</span>
 	</p>
 	</div>
@@ -160,29 +160,29 @@ function wp_image_editor($post_id, $msg = false) {
 
 	<div class="imgedit-group imgedit-applyto">
 	<div class="imgedit-group-top">
-		<strong><?php _e('Thumbnail Settings');?></strong>
-		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><?php _e('(help)');?></a>
-		<p class="imgedit-help"><?php _e('The thumbnail image can be cropped differently. For example it can be square or contain only a portion of the original image to showcase it better. Here you can select whether to apply changes to all image sizes or make the thumbnail different.');?></p>
+		<strong><?php _e('Thumbnail Settings'); ?></strong>
+		<a class="imgedit-help-toggle" onclick="imageEdit.toggleHelp(this);return false;" href="#"><?php _e('(help)'); ?></a>
+		<p class="imgedit-help"><?php _e('The thumbnail image can be cropped differently. For example it can be square or contain only a portion of the original image to showcase it better. Here you can select whether to apply changes to all image sizes or make the thumbnail different.'); ?></p>
 	</div>
 
 	<p>
-		<img src="<?=$thumb['url'];?>" width="<?=$thumb_img[0];?>" height="<?=$thumb_img[1];?>" class="imgedit-size-preview" alt="" /><br /><?php _e('Current thumbnail');?>
+		<img src="<?php echo $thumb['url']; ?>" width="<?php echo $thumb_img[0]; ?>" height="<?php echo $thumb_img[1]; ?>" class="imgedit-size-preview" alt="" /><br /><?php _e('Current thumbnail'); ?>
 	</p>
 
-	<p id="imgedit-save-target-<?=$post_id;?>">
-		<strong><?php _e('Apply changes to:');?></strong><br />
+	<p id="imgedit-save-target-<?php echo $post_id; ?>">
+		<strong><?php _e('Apply changes to:'); ?></strong><br />
 
 		<label class="imgedit-label">
-		<input type="radio" name="imgedit-target-<?=$post_id;?>" value="all" checked="checked" />
-		<?php _e('All image sizes');?></label>
+		<input type="radio" name="imgedit-target-<?php echo $post_id; ?>" value="all" checked="checked" />
+		<?php _e('All image sizes'); ?></label>
 
 		<label class="imgedit-label">
-		<input type="radio" name="imgedit-target-<?=$post_id;?>" value="thumbnail" />
-		<?php _e('Thumbnail');?></label>
+		<input type="radio" name="imgedit-target-<?php echo $post_id; ?>" value="thumbnail" />
+		<?php _e('Thumbnail'); ?></label>
 
 		<label class="imgedit-label">
-		<input type="radio" name="imgedit-target-<?=$post_id;?>" value="nothumb" />
-		<?php _e('All sizes except thumbnail');?></label>
+		<input type="radio" name="imgedit-target-<?php echo $post_id; ?>" value="nothumb" />
+		<?php _e('All sizes except thumbnail'); ?></label>
 	</p>
 	</div>
 
@@ -190,9 +190,9 @@ function wp_image_editor($post_id, $msg = false) {
 
 	</td></tr>
 	</tbody></table>
-	<div class="imgedit-wait" id="imgedit-wait-<?=$post_id;?>"></div>
-	<script type="text/javascript">imageEdit.init(<?=$post_id;?>);</script>
-	<div class="hidden" id="imgedit-leaving-<?=$post_id;?>"><?php _e("There are unsaved changes that will be lost.  'OK' to continue, 'Cancel' to return to the Image Editor.");?></div>
+	<div class="imgedit-wait" id="imgedit-wait-<?php echo $post_id; ?>"></div>
+	<script type="text/javascript">imageEdit.init(<?php echo $post_id; ?>);</script>
+	<div class="hidden" id="imgedit-leaving-<?php echo $post_id; ?>"><?php _e("There are unsaved changes that will be lost.  'OK' to continue, 'Cancel' to return to the Image Editor."); ?></div>
 	</div>
 <?php
 }

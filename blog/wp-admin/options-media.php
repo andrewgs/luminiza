@@ -30,49 +30,49 @@ include('./admin-header.php');
 ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 
 <form action="options.php" method="post">
-<?php settings_fields('media');?>
+<?php settings_fields('media'); ?>
 
 <h3><?php _e('Image sizes') ?></h3>
-<p><?php _e('The sizes listed below determine the maximum dimensions in pixels to use when inserting an image into the body of a post.');?></p>
+<p><?php _e('The sizes listed below determine the maximum dimensions in pixels to use when inserting an image into the body of a post.'); ?></p>
 
 <table class="form-table">
 <tr valign="top">
 <th scope="row"><?php _e('Thumbnail size') ?></th>
 <td>
-<label for="thumbnail_size_w"><?php _e('Width');?></label>
-<input name="thumbnail_size_w" type="text" id="thumbnail_size_w" value="<?php form_option('thumbnail_size_w');?>" class="small-text" />
-<label for="thumbnail_size_h"><?php _e('Height');?></label>
-<input name="thumbnail_size_h" type="text" id="thumbnail_size_h" value="<?php form_option('thumbnail_size_h');?>" class="small-text" /><br />
-<input name="thumbnail_crop" type="checkbox" id="thumbnail_crop" value="1" <?php checked('1', get_option('thumbnail_crop'));?>/>
-<label for="thumbnail_crop"><?php _e('Crop thumbnail to exact dimensions (normally thumbnails are proportional)');?></label>
+<label for="thumbnail_size_w"><?php _e('Width'); ?></label>
+<input name="thumbnail_size_w" type="text" id="thumbnail_size_w" value="<?php form_option('thumbnail_size_w'); ?>" class="small-text" />
+<label for="thumbnail_size_h"><?php _e('Height'); ?></label>
+<input name="thumbnail_size_h" type="text" id="thumbnail_size_h" value="<?php form_option('thumbnail_size_h'); ?>" class="small-text" /><br />
+<input name="thumbnail_crop" type="checkbox" id="thumbnail_crop" value="1" <?php checked('1', get_option('thumbnail_crop')); ?>/>
+<label for="thumbnail_crop"><?php _e('Crop thumbnail to exact dimensions (normally thumbnails are proportional)'); ?></label>
 </td>
 </tr>
 
 <tr valign="top">
 <th scope="row"><?php _e('Medium size') ?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e('Medium size');?></span></legend>
-<label for="medium_size_w"><?php _e('Max Width');?></label>
-<input name="medium_size_w" type="text" id="medium_size_w" value="<?php form_option('medium_size_w');?>" class="small-text" />
-<label for="medium_size_h"><?php _e('Max Height');?></label>
-<input name="medium_size_h" type="text" id="medium_size_h" value="<?php form_option('medium_size_h');?>" class="small-text" />
+<td><fieldset><legend class="screen-reader-text"><span><?php _e('Medium size'); ?></span></legend>
+<label for="medium_size_w"><?php _e('Max Width'); ?></label>
+<input name="medium_size_w" type="text" id="medium_size_w" value="<?php form_option('medium_size_w'); ?>" class="small-text" />
+<label for="medium_size_h"><?php _e('Max Height'); ?></label>
+<input name="medium_size_h" type="text" id="medium_size_h" value="<?php form_option('medium_size_h'); ?>" class="small-text" />
 </fieldset></td>
 </tr>
 
 <tr valign="top">
 <th scope="row"><?php _e('Large size') ?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e('Large size');?></span></legend>
-<label for="large_size_w"><?php _e('Max Width');?></label>
-<input name="large_size_w" type="text" id="large_size_w" value="<?php form_option('large_size_w');?>" class="small-text" />
-<label for="large_size_h"><?php _e('Max Height');?></label>
-<input name="large_size_h" type="text" id="large_size_h" value="<?php form_option('large_size_h');?>" class="small-text" />
+<td><fieldset><legend class="screen-reader-text"><span><?php _e('Large size'); ?></span></legend>
+<label for="large_size_w"><?php _e('Max Width'); ?></label>
+<input name="large_size_w" type="text" id="large_size_w" value="<?php form_option('large_size_w'); ?>" class="small-text" />
+<label for="large_size_h"><?php _e('Max Height'); ?></label>
+<input name="large_size_h" type="text" id="large_size_h" value="<?php form_option('large_size_h'); ?>" class="small-text" />
 </fieldset></td>
 </tr>
 
-<?php do_settings_fields('media', 'default');?>
+<?php do_settings_fields('media', 'default'); ?>
 </table>
 
 <h3><?php _e('Embeds') ?></h3>
@@ -80,62 +80,62 @@ include('./admin-header.php');
 <table class="form-table">
 
 <tr valign="top">
-<th scope="row"><?php _e('Auto-embeds');?></th>
-<td><fieldset><legend class="screen-reader-text"><span><?php _e('When possible, embed the media content from a URL directly onto the page. For example: links to Flickr and YouTube.');?></span></legend>
-<label for="embed_autourls"><input name="embed_autourls" type="checkbox" id="embed_autourls" value="1" <?php checked( '1', get_option('embed_autourls') );?>/> <?php _e('When possible, embed the media content from a URL directly onto the page. For example: links to Flickr and YouTube.');?></label>
+<th scope="row"><?php _e('Auto-embeds'); ?></th>
+<td><fieldset><legend class="screen-reader-text"><span><?php _e('When possible, embed the media content from a URL directly onto the page. For example: links to Flickr and YouTube.'); ?></span></legend>
+<label for="embed_autourls"><input name="embed_autourls" type="checkbox" id="embed_autourls" value="1" <?php checked( '1', get_option('embed_autourls') ); ?>/> <?php _e('When possible, embed the media content from a URL directly onto the page. For example: links to Flickr and YouTube.'); ?></label>
 </fieldset></td>
 </tr>
 
 <tr valign="top">
 <th scope="row"><?php _e('Maximum embed size') ?></th>
 <td>
-<label for="embed_size_w"><?php _e('Width');?></label>
-<input name="embed_size_w" type="text" id="embed_size_w" value="<?php form_option('embed_size_w');?>" class="small-text" />
-<label for="embed_size_h"><?php _e('Height');?></label>
-<input name="embed_size_h" type="text" id="embed_size_h" value="<?php form_option('embed_size_h');?>" class="small-text" />
-<?php if ( !empty($content_width) ) echo '<br />' . __("If the width value is left blank, embeds will default to the max width of your theme.");?>
+<label for="embed_size_w"><?php _e('Width'); ?></label>
+<input name="embed_size_w" type="text" id="embed_size_w" value="<?php form_option('embed_size_w'); ?>" class="small-text" />
+<label for="embed_size_h"><?php _e('Height'); ?></label>
+<input name="embed_size_h" type="text" id="embed_size_h" value="<?php form_option('embed_size_h'); ?>" class="small-text" />
+<?php if ( !empty($content_width) ) echo '<br />' . __("If the width value is left blank, embeds will default to the max width of your theme."); ?>
 </td>
 </tr>
 
-<?php do_settings_fields('media', 'embeds');?>
+<?php do_settings_fields('media', 'embeds'); ?>
 </table>
 
 <?php if ( !is_multisite() ) : ?>
-<h3><?php _e('Uploading Files');?></h3>
+<h3><?php _e('Uploading Files'); ?></h3>
 <table class="form-table">
 <tr valign="top">
-<th scope="row"><label for="upload_path"><?php _e('Store uploads in this folder');?></label></th>
-<td><input name="upload_path" type="text" id="upload_path" value="<?=esc_attr(get_option('upload_path'));?>" class="regular-text code" />
-<span class="description"><?php _e('Default is <code>wp-content/uploads</code>');?></span>
+<th scope="row"><label for="upload_path"><?php _e('Store uploads in this folder'); ?></label></th>
+<td><input name="upload_path" type="text" id="upload_path" value="<?php echo esc_attr(get_option('upload_path')); ?>" class="regular-text code" />
+<span class="description"><?php _e('Default is <code>wp-content/uploads</code>'); ?></span>
 </td>
 </tr>
 
 <tr valign="top">
-<th scope="row"><label for="upload_url_path"><?php _e('Full URL path to files');?></label></th>
-<td><input name="upload_url_path" type="text" id="upload_url_path" value="<?=esc_attr( get_option('upload_url_path'));?>" class="regular-text code" />
-<span class="description"><?php _e('Configuring this is optional. By default, it should be blank.');?></span>
+<th scope="row"><label for="upload_url_path"><?php _e('Full URL path to files'); ?></label></th>
+<td><input name="upload_url_path" type="text" id="upload_url_path" value="<?php echo esc_attr( get_option('upload_url_path')); ?>" class="regular-text code" />
+<span class="description"><?php _e('Configuring this is optional. By default, it should be blank.'); ?></span>
 </td>
 </tr>
 
 <tr>
 <th scope="row" colspan="2" class="th-full">
 <label for="uploads_use_yearmonth_folders">
-<input name="uploads_use_yearmonth_folders" type="checkbox" id="uploads_use_yearmonth_folders" value="1"<?php checked('1', get_option('uploads_use_yearmonth_folders'));?> />
-<?php _e('Organize my uploads into month- and year-based folders');?>
+<input name="uploads_use_yearmonth_folders" type="checkbox" id="uploads_use_yearmonth_folders" value="1"<?php checked('1', get_option('uploads_use_yearmonth_folders')); ?> />
+<?php _e('Organize my uploads into month- and year-based folders'); ?>
 </label>
 </th>
 </tr>
 
-<?php do_settings_fields('media', 'uploads');?>
+<?php do_settings_fields('media', 'uploads'); ?>
 </table>
-<?php endif;?>
+<?php endif; ?>
 
-<?php do_settings_sections('media');?>
+<?php do_settings_sections('media'); ?>
 
-<?php submit_button();?>
+<?php submit_button(); ?>
 
 </form>
 
 </div>
 
-<?php include('./admin-footer.php');?>
+<?php include('./admin-footer.php'); ?>

@@ -54,17 +54,17 @@ include(ABSPATH . 'wp-admin/admin-header.php');
 screen_icon();
 
 if ( is_network_admin() ) : ?>
-<h2><?=esc_html( $title );?></h2>
+<h2><?php echo esc_html( $title ); ?></h2>
 <?php else : ?>
-<h2 class="nav-tab-wrapper"><a href="themes.php" class="nav-tab"><?=esc_html_x('Manage Themes', 'theme');?></a><a href="theme-install.php" class="nav-tab nav-tab-active"><?=esc_html( $title );?></a></h2>
+<h2 class="nav-tab-wrapper"><a href="themes.php" class="nav-tab"><?php echo esc_html_x('Manage Themes', 'theme'); ?></a><a href="theme-install.php" class="nav-tab nav-tab-active"><?php echo esc_html( $title ); ?></a></h2>
 
 <?php
 endif;
 
-$wp_list_table->views();?>
+$wp_list_table->views(); ?>
 
 <br class="clear" />
-<?php do_action('install_themes_' . $tab, $paged);?>
+<?php do_action('install_themes_' . $tab, $paged); ?>
 </div>
 <?php
 include(ABSPATH . 'wp-admin/admin-footer.php');

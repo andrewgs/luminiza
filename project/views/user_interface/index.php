@@ -57,11 +57,12 @@
 	  		</div>
 	  		<div class="grid_4">
 		  		<h2>Справочная служба</h2>
-					<div class="side-phone"><span>Москва</span>8 (909) 836-36-66</div>
-					<div class="side-phone"><span>Тенерифе (Испания)</span>8 10 34 678-283-024</div>
-					<div class="side-phone"><span>Электронная почта</span>info@lum-tenerife.com</div>
+					<div class="side-phone"><span>Москва</span>+7 (909) 836-36-66</div>
+					<div class="side-phone"><span>Тенерифе (Испания)</span>+34 678-283-024</div>
+					<div class="side-phone"><span>Электронная почта</span><a class="text-link" href="/" onclick="popup('<?=$baseurl;?>contacts_popup'); return false;">info@lum-tenerife.com</a></div>
+					<div class="side-phone"><span>Skype</span><a class="text-link" href="#">lum-tenerife</a></div>
 					<ul id="social-links">
-						<li><a target="_blank" class="skype" href="#">lum-tenerife</a></li>
+						<!--li><a target="_blank" class="skype" href="#">lum-tenerife</a></li-->
 						<li><a target="_blank" class="facebook" href="http://www.facebook.com/pages/Luminiza-Property-Tur-SL/279976642024849">Facebook</a></li>
 						<li><a target="_blank" class="vkontakte" href="http://vkontakte.ru/public31290203">Вконтакте</a></li>
 						<li><a target="_blank" class="twitter" href="https://twitter.com/lumtenerife_ru">Twitter</a></li>
@@ -84,7 +85,7 @@
 						Оценка и определение рыночной стоимости недвижимости любого класса. Юридическое сопровождение сделок.<br/>
 	  			</div> 
 				<div class="chapter">
-					<?=anchor('services-provided','Узнайте о всех предоставляемых услугах');?>
+					<?= anchor('services-provided','Узнайте о всех предоставляемых услугах'); ?>
 				</div>
 	  		</div>
 	  		<div class="grid_4">
@@ -102,7 +103,7 @@
 	  			<div class="author"><?=$feedback['fbk_fio'];?></div>
 	  			<div class="city"><?=$feedback['fbk_region'];?></div>
 					<?=$feedback['fbk_note'];?>
-				<div><?=anchor('feedbacks','Посмотреть еще отзывы');?></div>
+				<div><?= anchor('feedbacks','Посмотреть еще отзывы'); ?></div>
 	  		</div>
 		<?php endif;?>
 		</div>
@@ -116,12 +117,42 @@
 	  			<h2>Полезные материалы</h2>
 	  		</div>
 	  		<div class="clear"></div>
-	  		<div class="grid_4">
-	  			<a class="featured-link" href="#"><img alt="" src="<?=$baseurl;?>img/featured-1.png"></a>
+	  		<!--
+			<div class="grid_4">
+	  			<a class="featured-link" href="#"><img alt="" src="<?= $baseurl; ?>img/featured-1.png"></a>
 	  		</div>
 	  		<div class="grid_4">
-	  			<a class="featured-link" href="#"><img alt="" src="<?=$baseurl;?>img/featured-2.png"></a>
+	  			<a class="featured-link" href="#"><img alt="" src="<?= $baseurl; ?>img/featured-2.png"></a>
 	  		</div>
+			-->
+			<div class="grid_8">
+				<ul class="thumbnails">
+					<? foreach ($apartment as $apt) : ?>
+					<li class="span3">
+					  <div class="thumbnail">
+						<!--img alt="" src="http://placehold.it/180x120"-->
+						<div class="preview">
+							<a href="<?= base_url(); ?>retail/apartment/<?= $apt['apnt_id'] ?>">
+								<img alt="<?=$apt['img_title'];?>" title="<?=$apt['img_title'];?>" src="<?=$baseurl;?>viewimage/<?=$apt['img_id'];?>">
+							</a>
+						</div>
+						<div class="caption_">
+						  <h5><?= preg_replace("/Ref.*?:.*?\d+\s?/i", "", $apt['apnt_title']); ?></h5>
+						  <!--p><?= mb_substr(strip_tags($apt['apnt_extended']),0,150,'UTF-8'); ?> ...</p-->
+						  <p>
+							<strong>Объект:</strong> <nobr><?= $apt['apnt_object']; ?></nobr><br>
+							<strong>Местонахождение:</strong> <nobr><?= $apt['apnt_location']; ?></nobr><br>
+							<strong>Район:</strong> <nobr><?= $apt['apnt_region']; ?></nobr><br>
+							<strong>Количество комнат:</strong> <nobr><?= $apt['apnt_count']; ?></nobr><br>
+						  </p>
+						  <p class="price"><img src="<?= base_url(); ?>images/price-label.png"> <?= $apt['apnt_price']; ?> &euro;</p>
+						  <a class="btn primary" href="<?= base_url(); ?>retail/apartment/<?= $apt['apnt_id'] ?>">Подробнее</a>
+						</div>
+					  </div>
+					</li>
+					<? endforeach; ?>
+				</ul>
+			</div>
 	  		<div id="usefull-links" class="grid_4">
 	  			<ul>
 	  				<li><a href="#">FAQ по покупке недвижимости</a></li>

@@ -209,9 +209,9 @@ function twentyeleven_get_theme_options() {
 function twentyeleven_theme_options_render_page() {
 	?>
 	<div class="wrap">
-		<?php screen_icon();?>
-		<h2><?php printf( __( '%s Theme Options', 'twentyeleven' ), get_current_theme() );?></h2>
-		<?php settings_errors();?>
+		<?php screen_icon(); ?>
+		<h2><?php printf( __( '%s Theme Options', 'twentyeleven' ), get_current_theme() ); ?></h2>
+		<?php settings_errors(); ?>
 
 		<form method="post" action="options.php">
 			<?php
@@ -222,19 +222,19 @@ function twentyeleven_theme_options_render_page() {
 
 			<table class="form-table">
 
-				<tr valign="top" class="image-radio-option color-scheme"><th scope="row"><?php _e( 'Color Scheme', 'twentyeleven' );?></th>
+				<tr valign="top" class="image-radio-option color-scheme"><th scope="row"><?php _e( 'Color Scheme', 'twentyeleven' ); ?></th>
 					<td>
-						<fieldset><legend class="screen-reader-text"><span><?php _e( 'Color Scheme', 'twentyeleven' );?></span></legend>
+						<fieldset><legend class="screen-reader-text"><span><?php _e( 'Color Scheme', 'twentyeleven' ); ?></span></legend>
 						<?php
 							foreach ( twentyeleven_color_schemes() as $scheme ) {
 								?>
 								<div class="layout">
 								<label class="description">
-									<input type="radio" name="twentyeleven_theme_options[color_scheme]" value="<?=esc_attr( $scheme['value'] );?>" <?php checked( $options['color_scheme'], $scheme['value'] );?> />
-									<input type="hidden" id="default-color-<?=esc_attr( $scheme['value'] );?>" value="<?=esc_attr( $scheme['default_link_color'] );?>" />
+									<input type="radio" name="twentyeleven_theme_options[color_scheme]" value="<?php echo esc_attr( $scheme['value'] ); ?>" <?php checked( $options['color_scheme'], $scheme['value'] ); ?> />
+									<input type="hidden" id="default-color-<?php echo esc_attr( $scheme['value'] ); ?>" value="<?php echo esc_attr( $scheme['default_link_color'] ); ?>" />
 									<span>
-										<img src="<?=esc_url( $scheme['thumbnail'] );?>" width="136" height="122" alt="" />
-										<?=$scheme['label'];?>
+										<img src="<?php echo esc_url( $scheme['thumbnail'] ); ?>" width="136" height="122" alt="" />
+										<?php echo $scheme['label']; ?>
 									</span>
 								</label>
 								</div>
@@ -245,31 +245,31 @@ function twentyeleven_theme_options_render_page() {
 					</td>
 				</tr>
 
-				<tr valign="top"><th scope="row"><?php _e( 'Link Color', 'twentyeleven' );?></th>
+				<tr valign="top"><th scope="row"><?php _e( 'Link Color', 'twentyeleven' ); ?></th>
 					<td>
-						<fieldset><legend class="screen-reader-text"><span><?php _e( 'Link Color', 'twentyeleven' );?></span></legend>
-							<input type="text" name="twentyeleven_theme_options[link_color]" id="link-color" value="<?=esc_attr( $options['link_color'] );?>" />
+						<fieldset><legend class="screen-reader-text"><span><?php _e( 'Link Color', 'twentyeleven' ); ?></span></legend>
+							<input type="text" name="twentyeleven_theme_options[link_color]" id="link-color" value="<?php echo esc_attr( $options['link_color'] ); ?>" />
 							<a href="#" class="pickcolor hide-if-no-js" id="link-color-example"></a>
-							<input type="button" class="pickcolor button hide-if-no-js" value="<?php esc_attr_e( 'Select a Color', 'twentyeleven' );?>" />
+							<input type="button" class="pickcolor button hide-if-no-js" value="<?php esc_attr_e( 'Select a Color', 'twentyeleven' ); ?>" />
 							<div id="colorPickerDiv" style="z-index: 100; background:#eee; border:1px solid #ccc; position:absolute; display:none;"></div>
 							<br />
-							<span><?php printf( __( 'Default color: %s', 'twentyeleven' ), '<span id="default-color">' . twentyeleven_get_default_link_color( $options['color_scheme'] ) . '</span>' );?></span>
+							<span><?php printf( __( 'Default color: %s', 'twentyeleven' ), '<span id="default-color">' . twentyeleven_get_default_link_color( $options['color_scheme'] ) . '</span>' ); ?></span>
 						</fieldset>
 					</td>
 				</tr>
 
-				<tr valign="top" class="image-radio-option theme-layout"><th scope="row"><?php _e( 'Default Layout', 'twentyeleven' );?></th>
+				<tr valign="top" class="image-radio-option theme-layout"><th scope="row"><?php _e( 'Default Layout', 'twentyeleven' ); ?></th>
 					<td>
-						<fieldset><legend class="screen-reader-text"><span><?php _e( 'Color Scheme', 'twentyeleven' );?></span></legend>
+						<fieldset><legend class="screen-reader-text"><span><?php _e( 'Color Scheme', 'twentyeleven' ); ?></span></legend>
 						<?php
 							foreach ( twentyeleven_layouts() as $layout ) {
 								?>
 								<div class="layout">
 								<label class="description">
-									<input type="radio" name="twentyeleven_theme_options[theme_layout]" value="<?=esc_attr( $layout['value'] );?>" <?php checked( $options['theme_layout'], $layout['value'] );?> />
+									<input type="radio" name="twentyeleven_theme_options[theme_layout]" value="<?php echo esc_attr( $layout['value'] ); ?>" <?php checked( $options['theme_layout'], $layout['value'] ); ?> />
 									<span>
-										<img src="<?=esc_url( $layout['thumbnail'] );?>" width="136" height="122" alt="" />
-										<?=$layout['label'];?>
+										<img src="<?php echo esc_url( $layout['thumbnail'] ); ?>" width="136" height="122" alt="" />
+										<?php echo $layout['label']; ?>
 									</span>
 								</label>
 								</div>
@@ -281,7 +281,7 @@ function twentyeleven_theme_options_render_page() {
 				</tr>
 			</table>
 
-			<?php submit_button();?>
+			<?php submit_button(); ?>
 		</form>
 	</div>
 	<?php
@@ -363,17 +363,17 @@ function twentyeleven_print_link_color_style() {
 		section.recent-posts .other-recent-posts .comments-link a:hover,
 		.format-image footer.entry-meta a:hover,
 		#site-generator a:hover {
-			color: <?=$link_color;?>;
+			color: <?php echo $link_color; ?>;
 		}
 		section.recent-posts .other-recent-posts .comments-link a:hover {
-			border-color: <?=$link_color;?>;
+			border-color: <?php echo $link_color; ?>;
 		}
 		article.feature-image.small .entry-summary p a:hover,
 		.entry-header .comments-link a:hover,
 		.entry-header .comments-link a:focus,
 		.entry-header .comments-link a:active,
 		.feature-slider a.active {
-			background-color: <?=$link_color;?>;
+			background-color: <?php echo $link_color; ?>;
 		}
 	</style>
 <?php

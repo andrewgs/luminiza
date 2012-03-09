@@ -1076,22 +1076,22 @@ EOD;
 		$prev_page = ($page - 1) < 1 ? NULL : $page - 1;
 		$last_page = ((int)$last_page == 1 || (int)$last_page == 0) ? NULL : (int) $last_page;
 		$self_page = $page > 1 ? $page : NULL;
-?><feed xmlns="<?=$this->ATOM_NS ?>" xmlns:app="<?=$this->ATOMPUB_NS ?>" xml:lang="<?=get_option('rss_language');?>" <?php do_action('app_ns');?> >
+?><feed xmlns="<?php echo $this->ATOM_NS ?>" xmlns:app="<?php echo $this->ATOMPUB_NS ?>" xml:lang="<?php echo get_option('rss_language'); ?>" <?php do_action('app_ns'); ?> >
 <id><?php $this->the_entries_url() ?></id>
-<updated><?=mysql2date('Y-m-d\TH:i:s\Z', get_lastpostmodified('GMT'), false);?></updated>
+<updated><?php echo mysql2date('Y-m-d\TH:i:s\Z', get_lastpostmodified('GMT'), false); ?></updated>
 <title type="text"><?php bloginfo_rss('name') ?></title>
 <subtitle type="text"><?php bloginfo_rss("description") ?></subtitle>
-<link rel="first" type="<?=$this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url() ?>" />
+<link rel="first" type="<?php echo $this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url() ?>" />
 <?php if (isset($prev_page)): ?>
-<link rel="previous" type="<?=$this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($prev_page) ?>" />
-<?php endif;?>
+<link rel="previous" type="<?php echo $this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($prev_page) ?>" />
+<?php endif; ?>
 <?php if (isset($next_page)): ?>
-<link rel="next" type="<?=$this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($next_page) ?>" />
-<?php endif;?>
-<link rel="last" type="<?=$this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($last_page) ?>" />
-<link rel="self" type="<?=$this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($self_page) ?>" />
-<rights type="text">Copyright <?=date('Y');?></rights>
-<?php do_action('app_head');?>
+<link rel="next" type="<?php echo $this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($next_page) ?>" />
+<?php endif; ?>
+<link rel="last" type="<?php echo $this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($last_page) ?>" />
+<link rel="self" type="<?php echo $this->ATOM_CONTENT_TYPE ?>" href="<?php $this->the_entries_url($self_page) ?>" />
+<rights type="text">Copyright <?php echo date('Y'); ?></rights>
+<?php do_action('app_head'); ?>
 <?php if ( have_posts() ) {
 			while ( have_posts() ) {
 				the_post();
@@ -1148,16 +1148,16 @@ EOD;
 	 * @since 2.3.0
 	 */
 	function echo_entry() { ?>
-<entry xmlns="<?=$this->ATOM_NS ?>"
-       xmlns:app="<?=$this->ATOMPUB_NS ?>" xml:lang="<?=get_option('rss_language');?>">
-	<id><?php the_guid( $GLOBALS['post']->ID );?></id>
-<?php list($content_type, $content) = prep_atom_text_construct(get_the_title());?>
-	<title type="<?=$content_type ?>"><?=$content ?></title>
-	<updated><?=get_post_modified_time('Y-m-d\TH:i:s\Z', true);?></updated>
-	<published><?=get_post_time('Y-m-d\TH:i:s\Z', true);?></published>
-	<app:edited><?=get_post_modified_time('Y-m-d\TH:i:s\Z', true);?></app:edited>
+<entry xmlns="<?php echo $this->ATOM_NS ?>"
+       xmlns:app="<?php echo $this->ATOMPUB_NS ?>" xml:lang="<?php echo get_option('rss_language'); ?>">
+	<id><?php the_guid( $GLOBALS['post']->ID ); ?></id>
+<?php list($content_type, $content) = prep_atom_text_construct(get_the_title()); ?>
+	<title type="<?php echo $content_type ?>"><?php echo $content ?></title>
+	<updated><?php echo get_post_modified_time('Y-m-d\TH:i:s\Z', true); ?></updated>
+	<published><?php echo get_post_time('Y-m-d\TH:i:s\Z', true); ?></published>
+	<app:edited><?php echo get_post_modified_time('Y-m-d\TH:i:s\Z', true); ?></app:edited>
 	<app:control>
-		<app:draft><?=($GLOBALS['post']->post_status == 'draft' ? 'yes' : 'no') ?></app:draft>
+		<app:draft><?php echo ($GLOBALS['post']->post_status == 'draft' ? 'yes' : 'no') ?></app:draft>
 	</app:control>
 	<author>
 		<name><?php the_author()?></name>
@@ -1167,19 +1167,19 @@ EOD;
 	</author>
 <?php if ($GLOBALS['post']->post_type == 'attachment') { ?>
 	<link rel="edit-media" href="<?php $this->the_media_url() ?>" />
-	<content type="<?=$GLOBALS['post']->post_mime_type ?>" src="<?php the_guid() ;?>"/>
+	<content type="<?php echo $GLOBALS['post']->post_mime_type ?>" src="<?php the_guid() ; ?>"/>
 <?php } else { ?>
 	<link href="<?php the_permalink_rss() ?>" />
 <?php if ( strlen( $GLOBALS['post']->post_content ) ) :
-list($content_type, $content) = prep_atom_text_construct(get_the_content());?>
-	<content type="<?=$content_type ?>"><?=$content ?></content>
-<?php endif;?>
+list($content_type, $content) = prep_atom_text_construct(get_the_content()); ?>
+	<content type="<?php echo $content_type ?>"><?php echo $content ?></content>
+<?php endif; ?>
 <?php } ?>
 	<link rel="edit" href="<?php $this->the_entry_url() ?>" />
-	<?php the_category_rss( 'atom' );?>
-<?php list($content_type, $content) = prep_atom_text_construct(get_the_excerpt());?>
-	<summary type="<?=$content_type ?>"><?=$content ?></summary>
-	<?php do_action('app_entry');?>
+	<?php the_category_rss( 'atom' ); ?>
+<?php list($content_type, $content) = prep_atom_text_construct(get_the_excerpt()); ?>
+	<summary type="<?php echo $content_type ?>"><?php echo $content ?></summary>
+	<?php do_action('app_entry'); ?>
 </entry>
 <?php }
 

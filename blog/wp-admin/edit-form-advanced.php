@@ -194,23 +194,23 @@ require_once('./admin-header.php');
 ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?><?php if ( isset( $post_new_file ) ) : ?> <a href="<?=esc_url( $post_new_file ) ?>" class="add-new-h2"><?=esc_html($post_type_object->labels->add_new);?></a><?php endif;?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?><?php if ( isset( $post_new_file ) ) : ?> <a href="<?php echo esc_url( $post_new_file ) ?>" class="add-new-h2"><?php echo esc_html($post_type_object->labels->add_new); ?></a><?php endif; ?></h2>
 <?php if ( $notice ) : ?>
-<div id="notice" class="error"><p><?=$notice ?></p></div>
-<?php endif;?>
+<div id="notice" class="error"><p><?php echo $notice ?></p></div>
+<?php endif; ?>
 <?php if ( $message ) : ?>
-<div id="message" class="updated"><p><?=$message;?></p></div>
-<?php endif;?>
-<form name="post" action="post.php" method="post" id="post"<?php do_action('post_edit_form_tag');?>>
-<?php wp_nonce_field($nonce_action);?>
-<input type="hidden" id="user-id" name="user_ID" value="<?=(int) $user_ID ?>" />
-<input type="hidden" id="hiddenaction" name="action" value="<?=esc_attr( $form_action ) ?>" />
-<input type="hidden" id="originalaction" name="originalaction" value="<?=esc_attr( $form_action ) ?>" />
-<input type="hidden" id="post_author" name="post_author" value="<?=esc_attr( $post->post_author );?>" />
-<input type="hidden" id="post_type" name="post_type" value="<?=esc_attr( $post_type ) ?>" />
-<input type="hidden" id="original_post_status" name="original_post_status" value="<?=esc_attr( $post->post_status) ?>" />
-<input type="hidden" id="referredby" name="referredby" value="<?=esc_url(stripslashes(wp_get_referer()));?>" />
+<div id="message" class="updated"><p><?php echo $message; ?></p></div>
+<?php endif; ?>
+<form name="post" action="post.php" method="post" id="post"<?php do_action('post_edit_form_tag'); ?>>
+<?php wp_nonce_field($nonce_action); ?>
+<input type="hidden" id="user-id" name="user_ID" value="<?php echo (int) $user_ID ?>" />
+<input type="hidden" id="hiddenaction" name="action" value="<?php echo esc_attr( $form_action ) ?>" />
+<input type="hidden" id="originalaction" name="originalaction" value="<?php echo esc_attr( $form_action ) ?>" />
+<input type="hidden" id="post_author" name="post_author" value="<?php echo esc_attr( $post->post_author ); ?>" />
+<input type="hidden" id="post_type" name="post_type" value="<?php echo esc_attr( $post_type ) ?>" />
+<input type="hidden" id="original_post_status" name="original_post_status" value="<?php echo esc_attr( $post->post_status) ?>" />
+<input type="hidden" id="referredby" name="referredby" value="<?php echo esc_url(stripslashes(wp_get_referer())); ?>" />
 <?php
 if ( 'draft' != $post->post_status )
 	wp_original_referer_field(true, 'previous');
@@ -222,7 +222,7 @@ wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
 wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
 ?>
 
-<div id="poststuff" class="metabox-holder<?=2 == $screen_layout_columns ? ' has-right-sidebar' : '';?>">
+<div id="poststuff" class="metabox-holder<?php echo 2 == $screen_layout_columns ? ' has-right-sidebar' : ''; ?>">
 <div id="side-info-column" class="inner-sidebar">
 
 <?php
@@ -236,8 +236,8 @@ $side_meta_boxes = do_meta_boxes($post_type, 'side', $post);
 <?php if ( post_type_supports($post_type, 'title') ) { ?>
 <div id="titlediv">
 <div id="titlewrap">
-	<label class="hide-if-no-js" style="visibility:hidden" id="title-prompt-text" for="title"><?=apply_filters( 'enter_title_here', __( 'Enter title here' ), $post );?></label>
-	<input type="text" name="post_title" size="30" tabindex="1" value="<?=esc_attr( htmlspecialchars( $post->post_title ) );?>" id="title" autocomplete="off" />
+	<label class="hide-if-no-js" style="visibility:hidden" id="title-prompt-text" for="title"><?php echo apply_filters( 'enter_title_here', __( 'Enter title here' ), $post ); ?></label>
+	<input type="text" name="post_title" size="30" tabindex="1" value="<?php echo esc_attr( htmlspecialchars( $post->post_title ) ); ?>" id="title" autocomplete="off" />
 </div>
 <div class="inside">
 <?php
@@ -264,12 +264,12 @@ wp_nonce_field( 'samplepermalink', 'samplepermalinknonce', false );
 <?php } ?>
 
 <?php if ( post_type_supports($post_type, 'editor') ) { ?>
-<div id="<?=user_can_richedit() ? 'postdivrich' : 'postdiv';?>" class="postarea">
+<div id="<?php echo user_can_richedit() ? 'postdivrich' : 'postdiv'; ?>" class="postarea">
 
-<?php the_editor($post->post_content);?>
+<?php the_editor($post->post_content); ?>
 
 <table id="post-status-info" cellspacing="0"><tbody><tr>
-	<td id="wp-word-count"><?php printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );?></td>
+	<td id="wp-word-count"><?php printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' ); ?></td>
 	<td class="autosave-info">
 	<span class="autosave-message">&nbsp;</span>
 <?php
@@ -297,7 +297,7 @@ do_meta_boxes($post_type, 'normal', $post);
 
 do_meta_boxes($post_type, 'advanced', $post);
 
-do_action('dbx_post_sidebar');?>
+do_action('dbx_post_sidebar'); ?>
 
 </div>
 </div>
@@ -306,10 +306,10 @@ do_action('dbx_post_sidebar');?>
 </form>
 </div>
 
-<?php wp_comment_reply();?>
+<?php wp_comment_reply(); ?>
 
 <?php if ((isset($post->post_title) && '' == $post->post_title) || (isset($_GET['message']) && 2 > $_GET['message'])) : ?>
 <script type="text/javascript">
 try{document.post.title.focus();}catch(e){}
 </script>
-<?php endif;?>
+<?php endif; ?>

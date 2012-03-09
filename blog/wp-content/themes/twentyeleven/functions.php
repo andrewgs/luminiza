@@ -225,9 +225,9 @@ function twentyeleven_header_style() {
 	?>
 		#site-title a,
 		#site-description {
-			color: #<?=get_header_textcolor();?> !important;
+			color: #<?php echo get_header_textcolor(); ?> !important;
 		}
-	<?php endif;?>
+	<?php endif; ?>
 	</style>
 	<?php
 }
@@ -270,9 +270,9 @@ function twentyeleven_admin_header_style() {
 	?>
 		#site-title a,
 		#site-description {
-			color: #<?=get_header_textcolor();?>;
+			color: #<?php echo get_header_textcolor(); ?>;
 		}
-	<?php endif;?>
+	<?php endif; ?>
 	#headimg img {
 		max-width: 1000px;
 		height: auto;
@@ -299,12 +299,12 @@ function twentyeleven_admin_header_image() { ?>
 		else
 			$style = ' style="color:#' . get_theme_mod( 'header_textcolor', HEADER_TEXTCOLOR ) . ';"';
 		?>
-		<h1><a id="name"<?=$style;?> onclick="return false;" href="<?=esc_url( home_url( '/' ) );?>"><?php bloginfo( 'name' );?></a></h1>
-		<div id="desc"<?=$style;?>><?php bloginfo( 'description' );?></div>
+		<h1><a id="name"<?php echo $style; ?> onclick="return false;" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+		<div id="desc"<?php echo $style; ?>><?php bloginfo( 'description' ); ?></div>
 		<?php $header_image = get_header_image();
 		if ( ! empty( $header_image ) ) : ?>
-			<img src="<?=esc_url( $header_image );?>" alt="" />
-		<?php endif;?>
+			<img src="<?php echo esc_url( $header_image ); ?>" alt="" />
+		<?php endif; ?>
 	</div>
 <?php }
 endif; // twentyeleven_admin_header_image
@@ -428,10 +428,10 @@ function twentyeleven_content_nav( $nav_id ) {
 	global $wp_query;
 
 	if ( $wp_query->max_num_pages > 1 ) : ?>
-		<nav id="<?=$nav_id;?>">
-			<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentyeleven' );?></h3>
-			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'twentyeleven' ) );?></div>
-			<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'twentyeleven' ) );?></div>
+		<nav id="<?php echo $nav_id; ?>">
+			<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentyeleven' ); ?></h3>
+			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'twentyeleven' ) ); ?></div>
+			<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'twentyeleven' ) ); ?></div>
 		</nav><!-- #nav-above -->
 	<?php endif;
 }
@@ -500,13 +500,13 @@ function twentyeleven_comment( $comment, $args, $depth ) {
 		case 'trackback' :
 	?>
 	<li class="post pingback">
-		<p><?php _e( 'Pingback:', 'twentyeleven' );?> <?php comment_author_link();?><?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' );?></p>
+		<p><?php _e( 'Pingback:', 'twentyeleven' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?></p>
 	<?php
 			break;
 		default :
 	?>
-	<li <?php comment_class();?> id="li-comment-<?php comment_ID();?>">
-		<article id="comment-<?php comment_ID();?>" class="comment">
+	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
+		<article id="comment-<?php comment_ID(); ?>" class="comment">
 			<footer class="comment-meta">
 				<div class="comment-author vcard">
 					<?php
@@ -528,20 +528,20 @@ function twentyeleven_comment( $comment, $args, $depth ) {
 						);
 					?>
 
-					<?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' );?>
+					<?php edit_comment_link( __( 'Edit', 'twentyeleven' ), '<span class="edit-link">', '</span>' ); ?>
 				</div><!-- .comment-author .vcard -->
 
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'twentyeleven' );?></em>
+					<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'twentyeleven' ); ?></em>
 					<br />
-				<?php endif;?>
+				<?php endif; ?>
 
 			</footer>
 
-			<div class="comment-content"><?php comment_text();?></div>
+			<div class="comment-content"><?php comment_text(); ?></div>
 
 			<div class="reply">
-				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'twentyeleven' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) );?>
+				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply <span>&darr;</span>', 'twentyeleven' ), 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
 		</article><!-- #comment-## -->
 

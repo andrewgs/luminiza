@@ -41,7 +41,7 @@ get_header();
 	<?php if ( empty($_GET['key']) && empty($_POST['key']) ) { ?>
 
 		<h2><?php _e('Activation Key Required') ?></h2>
-		<form name="activateform" id="activateform" method="post" action="<?=network_site_url('wp-activate.php');?>">
+		<form name="activateform" id="activateform" method="post" action="<?php echo network_site_url('wp-activate.php'); ?>">
 			<p>
 			    <label for="key"><?php _e('Activation Key:') ?></label>
 			    <br /><input type="text" name="key" id="key" value="" size="50" />
@@ -59,7 +59,7 @@ get_header();
 			if ( 'already_active' == $result->get_error_code() || 'blog_taken' == $result->get_error_code() ) {
 			    $signup = $result->get_error_data();
 				?>
-				<h2><?php _e('Your account is now active!');?></h2>
+				<h2><?php _e('Your account is now active!'); ?></h2>
 				<?php
 				echo '<p class="lead-in">';
 				if ( $signup->domain . $signup->path == '' ) {
@@ -70,7 +70,7 @@ get_header();
 				echo '</p>';
 			} else {
 				?>
-				<h2><?php _e('An error occurred during the activation');?></h2>
+				<h2><?php _e('An error occurred during the activation'); ?></h2>
 				<?php
 			    echo '<p>'.$result->get_error_message().'</p>';
 			}
@@ -79,17 +79,17 @@ get_header();
 			$url = get_blogaddress_by_id( (int) $blog_id);
 			$user = new WP_User( (int) $user_id);
 			?>
-			<h2><?php _e('Your account is now active!');?></h2>
+			<h2><?php _e('Your account is now active!'); ?></h2>
 
 			<div id="signup-welcome">
-				<p><span class="h3"><?php _e('Username:');?></span> <?=$user->user_login ?></p>
-				<p><span class="h3"><?php _e('Password:');?></span> <?=$password;?></p>
+				<p><span class="h3"><?php _e('Username:'); ?></span> <?php echo $user->user_login ?></p>
+				<p><span class="h3"><?php _e('Password:'); ?></span> <?php echo $password; ?></p>
 			</div>
 
 			<?php if ( $url != network_home_url('', 'http') ) : ?>
-				<p class="view"><?php printf( __('Your account is now activated. <a href="%1$s">View your site</a> or <a href="%2$s">Log in</a>'), $url, $url . 'wp-login.php' );?></p>
+				<p class="view"><?php printf( __('Your account is now activated. <a href="%1$s">View your site</a> or <a href="%2$s">Log in</a>'), $url, $url . 'wp-login.php' ); ?></p>
 			<?php else: ?>
-				<p class="view"><?php printf( __('Your account is now activated. <a href="%1$s">Log in</a> or go back to the <a href="%2$s">homepage</a>.' ), network_site_url('wp-login.php', 'login'), network_home_url() );?></p>
+				<p class="view"><?php printf( __('Your account is now activated. <a href="%1$s">Log in</a> or go back to the <a href="%2$s">homepage</a>.' ), network_site_url('wp-login.php', 'login'), network_home_url() ); ?></p>
 			<?php endif;
 		}
 	}
@@ -99,4 +99,4 @@ get_header();
 	var key_input = document.getElementById('key');
 	key_input && key_input.focus();
 </script>
-<?php get_footer();?>
+<?php get_footer(); ?>

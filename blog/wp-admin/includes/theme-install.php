@@ -58,12 +58,12 @@ function install_theme_search_form() {
 <form id="search-themes" method="get" action="">
 	<input type="hidden" name="tab" value="search" />
 	<select	name="type" id="typeselector">
-	<option value="term" <?php selected('term', $type) ?>><?php _e('Term');?></option>
-	<option value="author" <?php selected('author', $type) ?>><?php _e('Author');?></option>
-	<option value="tag" <?php selected('tag', $type) ?>><?php _ex('Tag', 'Theme Installer');?></option>
+	<option value="term" <?php selected('term', $type) ?>><?php _e('Term'); ?></option>
+	<option value="author" <?php selected('author', $type) ?>><?php _e('Author'); ?></option>
+	<option value="tag" <?php selected('tag', $type) ?>><?php _ex('Tag', 'Theme Installer'); ?></option>
 	</select>
-	<input type="text" name="s" size="30" value="<?=esc_attr($term) ?>" />
-	<?php submit_button( __( 'Search' ), 'button', 'search', false );?>
+	<input type="text" name="s" size="30" value="<?php echo esc_attr($term) ?>" />
+	<?php submit_button( __( 'Search' ), 'button', 'search', false ); ?>
 </form>
 <?php
 }
@@ -77,7 +77,7 @@ function install_themes_dashboard() {
 	install_theme_search_form();
 ?>
 <h4><?php _e('Feature Filter') ?></h4>
-<form method="post" action="<?=self_admin_url( 'theme-install.php?tab=search' );?>">
+<form method="post" action="<?php echo self_admin_url( 'theme-install.php?tab=search' ); ?>">
 <p class="install-help"><?php _e('Find a theme based on specific features') ?></p>
 	<?php
 	$feature_list = get_theme_feature_list( );
@@ -94,8 +94,8 @@ function install_themes_dashboard() {
 ?>
 
 <li>
-	<input type="checkbox" name="features[<?=$feature;?>]" id="feature-id-<?=$feature;?>" value="<?=$feature;?>" />
-	<label for="feature-id-<?=$feature;?>"><?=$feature_name;?></label>
+	<input type="checkbox" name="features[<?php echo $feature; ?>]" id="feature-id-<?php echo $feature; ?>" value="<?php echo $feature; ?>" />
+	<label for="feature-id-<?php echo $feature; ?>"><?php echo $feature_name; ?></label>
 </li>
 
 <?php	} ?>
@@ -106,7 +106,7 @@ function install_themes_dashboard() {
 
 </div>
 <br class="clear" />
-<?php submit_button( __( 'Find Themes' ), 'button', 'search' );?>
+<?php submit_button( __( 'Find Themes' ), 'button', 'search' ); ?>
 </form>
 <?php
 }
@@ -116,10 +116,10 @@ function install_themes_upload($page = 1) {
 ?>
 <h4><?php _e('Install a theme in .zip format') ?></h4>
 <p class="install-help"><?php _e('If you have a theme in a .zip format, you may install it by uploading it here.') ?></p>
-<form method="post" enctype="multipart/form-data" action="<?=self_admin_url('update.php?action=upload-theme') ?>">
+<form method="post" enctype="multipart/form-data" action="<?php echo self_admin_url('update.php?action=upload-theme') ?>">
 	<?php wp_nonce_field( 'theme-upload') ?>
 	<input type="file" name="themezip" />
-	<?php submit_button( __( 'Install Now' ), 'button', 'install-theme-submit', false );?>
+	<?php submit_button( __( 'Install Now' ), 'button', 'install-theme-submit', false ); ?>
 </form>
 	<?php
 }
@@ -149,34 +149,34 @@ function display_theme($theme, $actions = null, $show_details = true) {
 	$actions = implode ( ' | ', $actions );
 	?>
 <a class='thickbox thickbox-preview screenshot'
-	href='<?=esc_url($preview_link);?>'
-	title='<?=esc_attr(sprintf(__('Preview &#8220;%s&#8221;'), $name));?>'>
-<img src='<?=esc_url($theme->screenshot_url);?>' width='150' />
+	href='<?php echo esc_url($preview_link); ?>'
+	title='<?php echo esc_attr(sprintf(__('Preview &#8220;%s&#8221;'), $name)); ?>'>
+<img src='<?php echo esc_url($theme->screenshot_url); ?>' width='150' />
 </a>
-<h3><?=$name ?></h3>
-<span class='action-links'><?=$actions ?></span>
-<p><?=$desc ?></p>
+<h3><?php echo $name ?></h3>
+<span class='action-links'><?php echo $actions ?></span>
+<p><?php echo $desc ?></p>
 <?php if ( $show_details ) { ?>
 <a href="#theme_detail" class="theme-detail hide-if-no-js" tabindex='4'><?php _e('Details') ?></a>
 <div class="themedetaildiv hide-if-js">
-<p><strong><?php _e('Version:') ?></strong> <?=wp_kses($theme->version, $themes_allowedtags) ?></p>
-<p><strong><?php _e('Author:') ?></strong> <?=wp_kses($theme->author, $themes_allowedtags) ?></p>
+<p><strong><?php _e('Version:') ?></strong> <?php echo wp_kses($theme->version, $themes_allowedtags) ?></p>
+<p><strong><?php _e('Author:') ?></strong> <?php echo wp_kses($theme->author, $themes_allowedtags) ?></p>
 <?php if ( ! empty($theme->last_updated) ) : ?>
-<p><strong><?php _e('Last Updated:') ?></strong> <span title="<?=$theme->last_updated ?>"><?php printf( __('%s ago'), human_time_diff(strtotime($theme->last_updated)) ) ?></span></p>
+<p><strong><?php _e('Last Updated:') ?></strong> <span title="<?php echo $theme->last_updated ?>"><?php printf( __('%s ago'), human_time_diff(strtotime($theme->last_updated)) ) ?></span></p>
 <?php endif; if ( ! empty($theme->requires) ) : ?>
 <p><strong><?php _e('Requires WordPress Version:') ?></strong> <?php printf(__('%s or higher'), $theme->requires) ?></p>
 <?php endif; if ( ! empty($theme->tested) ) : ?>
-<p><strong><?php _e('Compatible up to:') ?></strong> <?=$theme->tested ?></p>
+<p><strong><?php _e('Compatible up to:') ?></strong> <?php echo $theme->tested ?></p>
 <?php endif; if ( !empty($theme->downloaded) ) : ?>
 <p><strong><?php _e('Downloaded:') ?></strong> <?php printf(_n('%s time', '%s times', $theme->downloaded), number_format_i18n($theme->downloaded)) ?></p>
-<?php endif;?>
+<?php endif; ?>
 <div class="star-holder" title="<?php printf(_n('(based on %s rating)', '(based on %s ratings)', $theme->num_ratings), number_format_i18n($theme->num_ratings)) ?>">
-	<div class="star star-rating" style="width: <?=esc_attr($theme->rating) ?>px"></div>
-	<div class="star star5"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('5 stars') ?>" /></div>
-	<div class="star star4"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('4 stars') ?>" /></div>
-	<div class="star star3"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('3 stars') ?>" /></div>
-	<div class="star star2"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('2 stars') ?>" /></div>
-	<div class="star star1"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('1 star') ?>" /></div>
+	<div class="star star-rating" style="width: <?php echo esc_attr($theme->rating) ?>px"></div>
+	<div class="star star5"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('5 stars') ?>" /></div>
+	<div class="star star4"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('4 stars') ?>" /></div>
+	<div class="star star3"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('3 stars') ?>" /></div>
+	<div class="star star2"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('2 stars') ?>" /></div>
+	<div class="star star1"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('1 star') ?>" /></div>
 </div>
 </div>
 <?php }
@@ -276,10 +276,10 @@ function install_theme_information() {
 ?>
 
 <div class='available-theme'>
-<img src='<?=esc_url($api->screenshot_url) ?>' width='300' class="theme-preview-img" />
-<h3><?=$api->name;?></h3>
-<p><?php printf(__('by %s'), $api->author);?></p>
-<p><?php printf(__('Version: %s'), $api->version);?></p>
+<img src='<?php echo esc_url($api->screenshot_url) ?>' width='300' class="theme-preview-img" />
+<h3><?php echo $api->name; ?></h3>
+<p><?php printf(__('by %s'), $api->author); ?></p>
+<p><?php printf(__('Version: %s'), $api->version); ?></p>
 
 <?php
 $buttons = '<a class="button" id="cancel" href="#" onclick="tb_close();return false;">' . __('Cancel') . '</a> ';
@@ -298,12 +298,12 @@ case 'update_available':
 	break;
 case 'newer_installed':
 	if ( current_user_can('install_themes') || current_user_can('update_themes') ) :
-	?><p><?php printf(__('Newer version (%s) is installed.'), $newer_version);?></p><?php
+	?><p><?php printf(__('Newer version (%s) is installed.'), $newer_version); ?></p><?php
 	endif;
 	break;
 case 'latest_installed':
 	if ( current_user_can('install_themes') || current_user_can('update_themes') ) :
-	?><p><?php _e('This version is already installed.');?></p><?php
+	?><p><?php _e('This version is already installed.'); ?></p><?php
 	endif;
 	break;
 } ?>
@@ -311,7 +311,7 @@ case 'latest_installed':
 </div>
 
 <p class="action-button">
-<?=$buttons;?>
+<?php echo $buttons; ?>
 <br class="clear" />
 </p>
 

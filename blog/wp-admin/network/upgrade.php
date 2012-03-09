@@ -63,11 +63,11 @@ switch ( $action ) {
 			do_action( 'wpmu_upgrade_site', $details[ 'blog_id' ] );
 		}
 		echo "</ul>";
-		?><p><?php _e( 'If your browser doesn&#8217;t start loading the next page automatically, click this link:' );?> <a class="button" href="upgrade.php?action=upgrade&amp;n=<?=($n + 5) ?>"><?php _e("Next Sites");?></a></p>
+		?><p><?php _e( 'If your browser doesn&#8217;t start loading the next page automatically, click this link:' ); ?> <a class="button" href="upgrade.php?action=upgrade&amp;n=<?php echo ($n + 5) ?>"><?php _e("Next Sites"); ?></a></p>
 		<script type='text/javascript'>
 		<!--
 		function nextpage() {
-			location.href = "upgrade.php?action=upgrade&n=<?=($n + 5) ?>";
+			location.href = "upgrade.php?action=upgrade&n=<?php echo ($n + 5) ?>";
 		}
 		setTimeout( "nextpage()", 250 );
 		//-->
@@ -75,12 +75,12 @@ switch ( $action ) {
 	break;
 	case 'show':
 	default:
-		?><p><?php _e( 'You can update all the sites on your network through this page. It works by calling the update script of each site automatically. Hit the link below to update.' );?></p>
-		<p><a class="button" href="upgrade.php?action=upgrade"><?php _e("Update Network");?></a></p><?php
+		?><p><?php _e( 'You can update all the sites on your network through this page. It works by calling the update script of each site automatically. Hit the link below to update.' ); ?></p>
+		<p><a class="button" href="upgrade.php?action=upgrade"><?php _e("Update Network"); ?></a></p><?php
 		do_action( 'wpmu_upgrade_page' );
 	break;
 }
 ?>
 </div>
 
-<?php include('../admin-footer.php');?>
+<?php include('../admin-footer.php'); ?>

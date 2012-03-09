@@ -156,12 +156,12 @@ case 'delete':
 ?>
 <form action="" method="post" name="updateusers" id="updateusers">
 <?php wp_nonce_field('delete-users') ?>
-<?=$referer;?>
+<?php echo $referer; ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?php _e('Delete Users');?></h2>
-<p><?=_n( 'You have specified this user for deletion:', 'You have specified these users for deletion:', count( $userids ) );?></p>
+<?php screen_icon(); ?>
+<h2><?php _e('Delete Users'); ?></h2>
+<p><?php echo _n( 'You have specified this user for deletion:', 'You have specified these users for deletion:', count( $userids ) ); ?></p>
 <ul>
 <?php
 	$go_delete = 0;
@@ -178,19 +178,19 @@ case 'delete':
 	?>
 	</ul>
 <?php if ( $go_delete ) : ?>
-	<fieldset><p><legend><?=_n( 'What should be done with posts and links owned by this user?', 'What should be done with posts and links owned by these users?', $go_delete );?></legend></p>
+	<fieldset><p><legend><?php echo _n( 'What should be done with posts and links owned by this user?', 'What should be done with posts and links owned by these users?', $go_delete ); ?></legend></p>
 	<ul style="list-style:none;">
 		<li><label><input type="radio" id="delete_option0" name="delete_option" value="delete" checked="checked" />
-		<?php _e('Delete all posts and links.');?></label></li>
+		<?php _e('Delete all posts and links.'); ?></label></li>
 		<li><input type="radio" id="delete_option1" name="delete_option" value="reassign" />
-		<?='<label for="delete_option1">'.__('Attribute all posts and links to:').'</label>';
-		wp_dropdown_users( array( 'name' => 'reassign_user', 'exclude' => array_diff( $userids, array($current_user->ID) ) ) );?></li>
+		<?php echo '<label for="delete_option1">'.__('Attribute all posts and links to:').'</label>';
+		wp_dropdown_users( array( 'name' => 'reassign_user', 'exclude' => array_diff( $userids, array($current_user->ID) ) ) ); ?></li>
 	</ul></fieldset>
 	<input type="hidden" name="action" value="dodelete" />
-	<?php submit_button( __('Confirm Deletion'), 'secondary' );?>
+	<?php submit_button( __('Confirm Deletion'), 'secondary' ); ?>
 <?php else : ?>
-	<p><?php _e('There are no valid users selected for deletion.');?></p>
-<?php endif;?>
+	<p><?php _e('There are no valid users selected for deletion.'); ?></p>
+<?php endif; ?>
 </div>
 </form>
 <?php
@@ -257,12 +257,12 @@ case 'remove':
 ?>
 <form action="" method="post" name="updateusers" id="updateusers">
 <?php wp_nonce_field('remove-users') ?>
-<?=$referer;?>
+<?php echo $referer; ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?php _e('Remove Users from Site');?></h2>
-<p><?php _e('You have specified these users for removal:');?></p>
+<?php screen_icon(); ?>
+<h2><?php _e('Remove Users from Site'); ?></h2>
+<p><?php _e('You have specified these users for removal:'); ?></p>
 <ul>
 <?php
 	$go_remove = false;
@@ -281,10 +281,10 @@ case 'remove':
  	?>
 <?php if ( $go_remove ) : ?>
 		<input type="hidden" name="action" value="doremove" />
-		<?php submit_button( __('Confirm Removal'), 'secondary' );?>
+		<?php submit_button( __('Confirm Removal'), 'secondary' ); ?>
 <?php else : ?>
-	<p><?php _e('There are no valid users selected for removal.');?></p>
-<?php endif;?>
+	<p><?php _e('There are no valid users selected for removal.'); ?></p>
+<?php endif; ?>
 </div>
 </form>
 <?php
@@ -336,7 +336,7 @@ default:
 			$messages[] = '<div id="message" class="updated fade"><p>' . __('Other users have been removed.') . '</p></div>';
 			break;
 		}
-	endif;?>
+	endif; ?>
 
 <?php if ( isset($errors) && is_wp_error( $errors ) ) : ?>
 	<div class="error">
@@ -355,27 +355,27 @@ if ( ! empty($messages) ) {
 } ?>
 
 <div class="wrap">
-<?php screen_icon();?>
+<?php screen_icon(); ?>
 <h2>
 <?php
 echo esc_html( $title );
 if ( current_user_can( 'create_users' ) ) { ?>
-	<a href="user-new.php" class="add-new-h2"><?=esc_html_x( 'Add New', 'user' );?></a>
+	<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'user' ); ?></a>
 <?php } elseif ( is_multisite() && current_user_can( 'promote_users' ) ) { ?>
-	<a href="user-new.php" class="add-new-h2"><?=esc_html_x( 'Add Existing', 'user' );?></a>
+	<a href="user-new.php" class="add-new-h2"><?php echo esc_html_x( 'Add Existing', 'user' ); ?></a>
 <?php }
 
 if ( $usersearch )
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $usersearch ) );?>
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', esc_html( $usersearch ) ); ?>
 </h2>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form action="" method="get">
 
-<?php $wp_list_table->search_box( __( 'Search Users' ), 'user' );?>
+<?php $wp_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 </form>
 
 <br class="clear" />

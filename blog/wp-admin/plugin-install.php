@@ -49,13 +49,13 @@ add_contextual_help($current_screen,
 include(ABSPATH . 'wp-admin/admin-header.php');
 ?>
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?></h2>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <br class="clear" />
-<?php do_action('install_plugins_' . $tab, $paged);?>
+<?php do_action('install_plugins_' . $tab, $paged); ?>
 </div>
 <?php
 include(ABSPATH . 'wp-admin/admin-footer.php');

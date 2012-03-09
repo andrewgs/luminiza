@@ -109,7 +109,7 @@ abstract class scbBoxesPage extends scbAdminPage {
 			}
 		}
 ?>
-<div id='<?=$this->pagehook ?>-widgets' class='metabox-holder'>
+<div id='<?php echo $this->pagehook ?>-widgets' class='metabox-holder'>
 <?php
 	echo "\t<div class='postbox-container' style='$width'>\n";
 	do_meta_boxes( $this->pagehook, 'normal', '' );

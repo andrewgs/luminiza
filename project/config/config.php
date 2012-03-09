@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url'] = "http://luminiza/";
+$config['base_url'] = "http://lum-tenerife.ru/";
 
 /*
 |--------------------------------------------------------------------------

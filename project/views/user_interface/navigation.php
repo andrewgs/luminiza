@@ -2,7 +2,7 @@
 	<div class="container_12 clearfix">
 		<div class="grid_6">
 			<ul class="main-nav left">
-				<li><?=anchor('about','О Тенерифе', 'id="ref-about"');?></li>
+				<li><?=anchor('/','Главная', 'id="ref-index"');?></li>
 				<li><?=anchor('retail','Продажа', 'id="ref-sell"');?></li>
 				<li><?=anchor('rent/retail','Аренда', 'id="ref-rent"');?></li>
 				<li><?=anchor('rent/auto','Прокат авто', 'id="ref-rent-auto"');?></li>

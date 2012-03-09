@@ -94,14 +94,14 @@ class WP_Admin_Bar {
 				<ul>
 					<?php foreach ( (array) $this->menu as $id => $menu_item ) : ?>
 						<?php $this->recursive_render( $id, $menu_item ) ?>
-					<?php endforeach;?>
+					<?php endforeach; ?>
 				</ul>
 			</div>
 
 			<div id="adminbarsearch-wrap">
-				<form action="<?=home_url();?>" method="get" id="adminbarsearch">
+				<form action="<?php echo home_url(); ?>" method="get" id="adminbarsearch">
 					<input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" />
-					<input type="submit" class="adminbar-button" value="<?php _e('Search');?>"/>
+					<input type="submit" class="adminbar-button" value="<?php _e('Search'); ?>"/>
 				</form>
 			</div>
 		</div>
@@ -121,16 +121,16 @@ class WP_Admin_Bar {
 			$menuclass .= ' ' . $menu_item['meta']['class'];
 		?>
 
-		<li id="<?=esc_attr( "wp-admin-bar-$id" );?>" class="<?=esc_attr( $menuclass );?>">
-			<a href="<?=esc_url( $menu_item['href'] ) ?>"<?php
+		<li id="<?php echo esc_attr( "wp-admin-bar-$id" ); ?>" class="<?php echo esc_attr( $menuclass ); ?>">
+			<a href="<?php echo esc_url( $menu_item['href'] ) ?>"<?php
 				if ( ! empty( $menu_item['meta']['onclick'] ) ) :
-					?> onclick="<?=esc_js( $menu_item['meta']['onclick'] );?>"<?php
+					?> onclick="<?php echo esc_js( $menu_item['meta']['onclick'] ); ?>"<?php
 				endif;
 			if ( ! empty( $menu_item['meta']['target'] ) ) :
-				?> target="<?=esc_attr( $menu_item['meta']['target'] );?>"<?php
+				?> target="<?php echo esc_attr( $menu_item['meta']['target'] ); ?>"<?php
 			endif;
 			if ( ! empty( $menu_item['meta']['title'] ) ) :
-				?> title="<?=esc_attr( $menu_item['meta']['title'] );?>"<?php
+				?> title="<?php echo esc_attr( $menu_item['meta']['title'] ); ?>"<?php
 			endif;
 
 			?>><?php
@@ -150,14 +150,14 @@ class WP_Admin_Bar {
 			<?php if ( $is_parent ) : ?>
 			<ul>
 				<?php foreach ( $menu_item['children'] as $child_id => $child_menu_item ) : ?>
-					<?php $this->recursive_render( $child_id, $child_menu_item );?>
-				<?php endforeach;?>
+					<?php $this->recursive_render( $child_id, $child_menu_item ); ?>
+				<?php endforeach; ?>
 			</ul>
-			<?php endif;?>
+			<?php endif; ?>
 
 			<?php if ( ! empty( $menu_item['meta']['html'] ) ) : ?>
-				<?=$menu_item['meta']['html'];?>
-			<?php endif;?>
+				<?php echo $menu_item['meta']['html']; ?>
+			<?php endif; ?>
 		</li><?php
 	}
 

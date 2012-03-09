@@ -1,24 +1,24 @@
 <?=form_open($this->uri->uri_string(),array('id'=>'frmRent'));?>
 	<?=form_error('email').'<div class="clear"></div>'; ?>
-		<label for="email">E-Mail <em class="bright">*</em></label>
+		<label for="email">Укажите адрес вашей электронной почты <em class="bright">*</em></label>
 		<div class="dd">
 			<input type="text" size="45" maxlength="50" class="email inpval" id="email" value="" name="email">
 		</div>
 		<div class="clear"></div>
 	<?=form_error('name').'<div class="clear"></div>'; ?>
-		<label for="name">Контактное лицо <em class="bright">*</em></label>
+		<label for="name">Укажите ваше имя <em class="bright">*</em></label>
 		<div class="dd">
 			<input type="text" size="45" maxlength="50" class="name inpval" id="name" value="" name="name">
 		</div>
 		<div class="clear"></div>
 		<?=form_error('phone').'<div class="clear"></div>'; ?>
-		<label for="phone">Номер телефона <em class="bright">*</em></label>
+		<label for="phone">Ваш номер телефона <em class="bright">*</em></label>
 		<div class="dd">
 			<input type="text" size="45" maxlength="50" class="phone inpval" id="phone" value="" name="phone">
 		</div>
 		<div class="clear"></div>
 		<?=form_error('max_budget').'<div class="clear"></div>'; ?>
-		<label for="max_budget">Макс. бюджет <em class="bright">*</em></label>
+		<label for="max_budget">Максимально возможный бюджет <em class="bright">*</em></label>
 		<div class="dd">
 		<input type="text" size="45" maxlength="50" class="max_budget inpval" id="max_budget" value="" name="max_budget">
 		</div>

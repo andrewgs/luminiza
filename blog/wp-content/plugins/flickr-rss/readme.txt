@@ -19,7 +19,7 @@ This plugin allows you to easily display Flickr photos on your site. It supports
 2. If you want to cache images, create a directory and make it writable
 3. Activate the plugin
 4. Configure your settings via the panel in Options
-5. Add `<?php get_flickrRSS();?>` somewhere in your templates
+5. Add `<?php get_flickrRSS(); ?>` somewhere in your templates
 
 
 == Frequently Asked Questions ==
@@ -72,13 +72,13 @@ The plugin also supports a number of parameters, allowing you to have multiple i
 
 **Example 1**
 
-`<?php get_flickrRSS(array('num_items' => 10, 'type' => 'public', 'tags' => 'london,people'));?>`
+`<?php get_flickrRSS(array('num_items' => 10, 'type' => 'public', 'tags' => 'london,people')); ?>`
 This would show the 10 most recent community photos tagged with london and people. It won't
 show photos with only one of the tags.
 
 **Example 2**
 
-`<?php get_flickrRSS(array('set' => '72157601681097311', 'num_items' => 20, 'type' => 'set', 'id' => '44124462494@N01'));?>`
+`<?php get_flickrRSS(array('set' => '72157601681097311', 'num_items' => 20, 'type' => 'set', 'id' => '44124462494@N01')); ?>`
 
 This would show the 20 most recent thumbnail sized photos from the specified user's set.
 

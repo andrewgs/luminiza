@@ -78,8 +78,8 @@ function _wp_credits_build_object_link( &$data ) {
 include( './admin-header.php' );
 ?>
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?php _e( 'WordPress Credits' );?></h2>
+<?php screen_icon(); ?>
+<h2><?php _e( 'WordPress Credits' ); ?></h2>
 
 <?php
 
@@ -146,7 +146,7 @@ foreach ( $credits['groups'] as $group_slug => $group_data ) {
 ?>
 <p class="clear"><?php printf( __( 'Want to see your name in lights on this page? <a href="%s">Get involved in WordPress</a>.' ),
 	/* translators: Url to the codex documentation on contributing to WordPress used on the credits page */
-	__( 'http://codex.wordpress.org/Contributing_to_WordPress' ) );?></p>
+	__( 'http://codex.wordpress.org/Contributing_to_WordPress' ) ); ?></p>
 
 </div>
 <?php

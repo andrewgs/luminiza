@@ -11,7 +11,7 @@
 <div class="widget-special">
 <h3>Recent Comments</h3>
  <ul>
- <?php mdv_recent_comments();?>
+ <?php mdv_recent_comments(); ?>
  </ul>
 </div>
 <?php } ?>
@@ -25,9 +25,9 @@
 	 */
 if ( ! dynamic_sidebar( 'sidebar-widget-area' ) ) : ?>
  <div class="widget widget-archives">
-  <h3 class="widget-title"><?php _e( 'Tagcloud', 'twentyten' );?></h3>
+  <h3 class="widget-title"><?php _e( 'Tagcloud', 'twentyten' ); ?></h3>
    <div>
-    <?php wp_tag_cloud ();?>
+    <?php wp_tag_cloud (); ?>
   </div>
  </div>
 <?php endif; // end primary widget area ?>

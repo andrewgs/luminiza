@@ -42,7 +42,7 @@ Yahoo! Inc. under the BSD (revised) open source license
     <textarea id="code" cols="120" rows="30">
 The "root" parser is XML in HTML mode.
 Next, we can switch into PHP mode, for example. This is
-<?='text output by';
+<?php echo 'text output by';
 ?>
 PHP. </b>
 On the line above, we just had an XML syntax error due to the </b> tag not being opened.
@@ -254,7 +254,7 @@ EOSTRING
   <?php echo; ?>
     <body>
 
-<?="<html>
+<?php echo "<html>
   <head>
     <script>
     var foo = 'bar';

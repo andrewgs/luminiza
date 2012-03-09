@@ -912,7 +912,7 @@ class Snoopy
 
 		// check if there is a a redirect meta tag
 
-		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\'];?>'i",$results,$match))
+		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
 
 		{
 			$this->_redirectaddr = $this->_expandlinks($match[1],$URI);
@@ -1059,7 +1059,7 @@ class Snoopy
 
 		// check if there is a a redirect meta tag
 
-		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\'];?>'i",$results,$match))
+		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
 		{
 			$this->_redirectaddr = $this->_expandlinks($match[1],$URI);
 		}

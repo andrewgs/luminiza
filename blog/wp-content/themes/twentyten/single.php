@@ -7,7 +7,7 @@
  * @since Twenty Ten 1.0
  */
 
-get_header();?>
+get_header(); ?>
 
 		<div id="container">
 			<div id="content" role="main">
@@ -23,5 +23,5 @@ get_header();?>
 			</div><!-- #content -->
 		</div><!-- #container -->
 
-<?php get_sidebar();?>
-<?php get_footer();?>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>

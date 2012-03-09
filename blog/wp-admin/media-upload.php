@@ -70,14 +70,14 @@ if ( isset($_GET['inline']) ) {
 		'<p>' . __('<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 
-	require_once('./admin-header.php');?>
+	require_once('./admin-header.php'); ?>
 	<div class="wrap">
-	<?php screen_icon();?>
-	<h2><?=esc_html( $title );?></h2>
+	<?php screen_icon(); ?>
+	<h2><?php echo esc_html( $title ); ?></h2>
 
-	<form enctype="multipart/form-data" method="post" action="<?=admin_url('media-upload.php?inline=&amp;upload-page-form=');?>" class="media-upload-form type-form validate" id="file-form">
+	<form enctype="multipart/form-data" method="post" action="<?php echo admin_url('media-upload.php?inline=&amp;upload-page-form='); ?>" class="media-upload-form type-form validate" id="file-form">
 
-	<?php media_upload_form();?>
+	<?php media_upload_form(); ?>
 
 	<script type="text/javascript">
 	jQuery(function($){
@@ -91,9 +91,9 @@ if ( isset($_GET['inline']) ) {
 	});
 	</script>
 	<input type="hidden" name="post_id" id="post_id" value="0" />
-	<?php wp_nonce_field('media-form');?>
+	<?php wp_nonce_field('media-form'); ?>
 	<div id="media-items" class="hide-if-no-js"> </div>
-	<?php submit_button( __( 'Save all changes' ), 'button savebutton hide-if-no-js', 'save' );?>
+	<?php submit_button( __( 'Save all changes' ), 'button savebutton hide-if-no-js', 'save' ); ?>
 	</form>
 	</div>
 

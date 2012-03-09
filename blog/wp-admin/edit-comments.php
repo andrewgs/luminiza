@@ -127,7 +127,7 @@ require_once('./admin-header.php');
 ?>
 
 <div class="wrap">
-<?php screen_icon();?>
+<?php screen_icon(); ?>
 <h2><?php
 if ( $post_id )
 	echo sprintf(__('Comments on &#8220;%s&#8221;'),
@@ -140,7 +140,7 @@ else
 	echo __('Comments');
 
 if ( isset($_REQUEST['s']) && $_REQUEST['s'] )
-	printf( '<span class="subtitle">' . sprintf( __( 'Search results for &#8220;%s&#8221;' ), wp_html_excerpt( esc_html( stripslashes( $_REQUEST['s'] ) ), 50 ) ) . '</span>' );?>
+	printf( '<span class="subtitle">' . sprintf( __( 'Search results for &#8220;%s&#8221;' ), wp_html_excerpt( esc_html( stripslashes( $_REQUEST['s'] ) ), 50 ) ) . '</span>' ); ?>
 </h2>
 
 <?php
@@ -210,27 +210,27 @@ if ( isset($_REQUEST['approved']) || isset($_REQUEST['deleted']) || isset($_REQU
 }
 ?>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form id="comments-form" action="" method="get">
 
-<?php $wp_list_table->search_box( __( 'Search Comments' ), 'comment' );?>
+<?php $wp_list_table->search_box( __( 'Search Comments' ), 'comment' ); ?>
 
 <?php if ( $post_id ) : ?>
-<input type="hidden" name="p" value="<?=esc_attr( intval( $post_id ) );?>" />
-<?php endif;?>
-<input type="hidden" name="comment_status" value="<?=esc_attr($comment_status);?>" />
-<input type="hidden" name="pagegen_timestamp" value="<?=esc_attr(current_time('mysql', 1));?>" />
+<input type="hidden" name="p" value="<?php echo esc_attr( intval( $post_id ) ); ?>" />
+<?php endif; ?>
+<input type="hidden" name="comment_status" value="<?php echo esc_attr($comment_status); ?>" />
+<input type="hidden" name="pagegen_timestamp" value="<?php echo esc_attr(current_time('mysql', 1)); ?>" />
 
-<input type="hidden" name="_total" value="<?=esc_attr( $wp_list_table->get_pagination_arg('total_items') );?>" />
-<input type="hidden" name="_per_page" value="<?=esc_attr( $wp_list_table->get_pagination_arg('per_page') );?>" />
-<input type="hidden" name="_page" value="<?=esc_attr( $wp_list_table->get_pagination_arg('page') );?>" />
+<input type="hidden" name="_total" value="<?php echo esc_attr( $wp_list_table->get_pagination_arg('total_items') ); ?>" />
+<input type="hidden" name="_per_page" value="<?php echo esc_attr( $wp_list_table->get_pagination_arg('per_page') ); ?>" />
+<input type="hidden" name="_page" value="<?php echo esc_attr( $wp_list_table->get_pagination_arg('page') ); ?>" />
 
 <?php if ( isset($_REQUEST['paged']) ) { ?>
-	<input type="hidden" name="paged" value="<?=esc_attr( absint( $_REQUEST['paged'] ) );?>" />
+	<input type="hidden" name="paged" value="<?php echo esc_attr( absint( $_REQUEST['paged'] ) ); ?>" />
 <?php } ?>
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 </form>
 </div>
 
@@ -239,4 +239,4 @@ if ( isset($_REQUEST['approved']) || isset($_REQUEST['deleted']) || isset($_REQU
 <?php
 wp_comment_reply('-1', true, 'detail');
 wp_comment_trashnotice();
-include('./admin-footer.php');?>
+include('./admin-footer.php'); ?>

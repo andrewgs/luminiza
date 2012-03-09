@@ -839,7 +839,7 @@ var tokenizePHP = (function() {
 
     function readSingleLineComment() {
       // read until the end of the line or until ?>, which terminates single-line comments
-      // `<?=1; // comment ?> foo` will display "1 foo"
+      // `<?php echo 1; // comment ?> foo` will display "1 foo"
       while(!source.lookAhead("?>") && !source.endOfLine())
         source.next();
       return {type: "comment", style: "php-comment"};

@@ -46,6 +46,7 @@ $route['tour/extended/:num']			= "users_interface/tour_extended";
 $route['transfers'] 					= "users_interface/transfers";
 $route['service'] 						= "users_interface/service";
 $route['contacts'] 						= "users_interface/contacts";
+$route['contacts_popup'] 				= "users_interface/contacts_popup";
 
 $route['retail/search'] 				= "users_interface/search";
 $route['rent/search'] 					= "users_interface/search";

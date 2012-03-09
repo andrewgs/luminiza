@@ -85,7 +85,7 @@ function install_dashboard() {
 
 	<h4><?php _e('Search') ?></h4>
 	<p class="install-help"><?php _e('Search for plugins by keyword, author, or tag.') ?></p>
-	<?php install_search_form();?>
+	<?php install_search_form(); ?>
 
 	<h4><?php _e('Popular tags') ?></h4>
 	<p class="install-help"><?php _e('You may also browse based on the most popular tags in the Plugin Directory:') ?></p>
@@ -123,13 +123,13 @@ function install_search_form(){
 	?><form id="search-plugins" method="get" action="">
 		<input type="hidden" name="tab" value="search" />
 		<select name="type" id="typeselector">
-			<option value="term"<?php selected('term', $type) ?>><?php _e('Term');?></option>
-			<option value="author"<?php selected('author', $type) ?>><?php _e('Author');?></option>
-			<option value="tag"<?php selected('tag', $type) ?>><?php _ex('Tag', 'Plugin Installer');?></option>
+			<option value="term"<?php selected('term', $type) ?>><?php _e('Term'); ?></option>
+			<option value="author"<?php selected('author', $type) ?>><?php _e('Author'); ?></option>
+			<option value="tag"<?php selected('tag', $type) ?>><?php _ex('Tag', 'Plugin Installer'); ?></option>
 		</select>
-		<input type="text" name="s" value="<?=esc_attr($term) ?>" />
-		<label class="screen-reader-text" for="plugin-search-input"><?php _e('Search Plugins');?></label>
-		<?php submit_button( __( 'Search Plugins' ), 'button', 'plugin-search-input', false );?>
+		<input type="text" name="s" value="<?php echo esc_attr($term) ?>" />
+		<label class="screen-reader-text" for="plugin-search-input"><?php _e('Search Plugins'); ?></label>
+		<?php submit_button( __( 'Search Plugins' ), 'button', 'plugin-search-input', false ); ?>
 	</form><?php
 }
 
@@ -143,9 +143,9 @@ function install_plugins_upload( $page = 1 ) {
 ?>
 	<h4><?php _e('Install a plugin in .zip format') ?></h4>
 	<p class="install-help"><?php _e('If you have a plugin in a .zip format, you may install it by uploading it here.') ?></p>
-	<form method="post" enctype="multipart/form-data" action="<?=self_admin_url('update.php?action=upload-plugin') ?>">
+	<form method="post" enctype="multipart/form-data" action="<?php echo self_admin_url('update.php?action=upload-plugin') ?>">
 		<?php wp_nonce_field( 'plugin-upload') ?>
-		<label class="screen-reader-text" for="pluginzip"><?php _e('Plugin zip file');?></label>
+		<label class="screen-reader-text" for="pluginzip"><?php _e('Plugin zip file'); ?></label>
 		<input type="file" id="pluginzip" name="pluginzip" />
 		<input type="submit" class="button" value="<?php esc_attr_e('Install Now') ?>" />
 	</form>
@@ -301,40 +301,40 @@ function install_plugin_information() {
 		}
 		?>
 		</p>
-		<?php endif;?>
+		<?php endif; ?>
 		<h2 class="mainheader"><?php /* translators: For Your Information */ _e('FYI') ?></h2>
 		<ul>
 <?php if ( ! empty($api->version) ) : ?>
-			<li><strong><?php _e('Version:') ?></strong> <?=$api->version ?></li>
+			<li><strong><?php _e('Version:') ?></strong> <?php echo $api->version ?></li>
 <?php endif; if ( ! empty($api->author) ) : ?>
-			<li><strong><?php _e('Author:') ?></strong> <?=links_add_target($api->author, '_blank') ?></li>
+			<li><strong><?php _e('Author:') ?></strong> <?php echo links_add_target($api->author, '_blank') ?></li>
 <?php endif; if ( ! empty($api->last_updated) ) : ?>
-			<li><strong><?php _e('Last Updated:') ?></strong> <span title="<?=$api->last_updated ?>"><?php
+			<li><strong><?php _e('Last Updated:') ?></strong> <span title="<?php echo $api->last_updated ?>"><?php
 							printf( __('%s ago'), human_time_diff(strtotime($api->last_updated)) ) ?></span></li>
 <?php endif; if ( ! empty($api->requires) ) : ?>
 			<li><strong><?php _e('Requires WordPress Version:') ?></strong> <?php printf(__('%s or higher'), $api->requires) ?></li>
 <?php endif; if ( ! empty($api->tested) ) : ?>
-			<li><strong><?php _e('Compatible up to:') ?></strong> <?=$api->tested ?></li>
+			<li><strong><?php _e('Compatible up to:') ?></strong> <?php echo $api->tested ?></li>
 <?php endif; if ( ! empty($api->downloaded) ) : ?>
 			<li><strong><?php _e('Downloaded:') ?></strong> <?php printf(_n('%s time', '%s times', $api->downloaded), number_format_i18n($api->downloaded)) ?></li>
 <?php endif; if ( ! empty($api->slug) && empty($api->external) ) : ?>
-			<li><a target="_blank" href="http://wordpress.org/extend/plugins/<?=$api->slug ?>/"><?php _e('WordPress.org Plugin Page &#187;') ?></a></li>
+			<li><a target="_blank" href="http://wordpress.org/extend/plugins/<?php echo $api->slug ?>/"><?php _e('WordPress.org Plugin Page &#187;') ?></a></li>
 <?php endif; if ( ! empty($api->homepage) ) : ?>
-			<li><a target="_blank" href="<?=$api->homepage ?>"><?php _e('Plugin Homepage  &#187;') ?></a></li>
-<?php endif;?>
+			<li><a target="_blank" href="<?php echo $api->homepage ?>"><?php _e('Plugin Homepage  &#187;') ?></a></li>
+<?php endif; ?>
 		</ul>
 		<?php if ( ! empty($api->rating) ) : ?>
 		<h2><?php _e('Average Rating') ?></h2>
-		<div class="star-holder" title="<?php printf(_n('(based on %s rating)', '(based on %s ratings)', $api->num_ratings), number_format_i18n($api->num_ratings));?>">
-			<div class="star star-rating" style="width: <?=esc_attr($api->rating) ?>px"></div>
-			<div class="star star5"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('5 stars') ?>" /></div>
-			<div class="star star4"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('4 stars') ?>" /></div>
-			<div class="star star3"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('3 stars') ?>" /></div>
-			<div class="star star2"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('2 stars') ?>" /></div>
-			<div class="star star1"><img src="<?=admin_url('images/star.png?v=20110615');?>" alt="<?php _e('1 star') ?>" /></div>
+		<div class="star-holder" title="<?php printf(_n('(based on %s rating)', '(based on %s ratings)', $api->num_ratings), number_format_i18n($api->num_ratings)); ?>">
+			<div class="star star-rating" style="width: <?php echo esc_attr($api->rating) ?>px"></div>
+			<div class="star star5"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('5 stars') ?>" /></div>
+			<div class="star star4"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('4 stars') ?>" /></div>
+			<div class="star star3"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('3 stars') ?>" /></div>
+			<div class="star star2"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('2 stars') ?>" /></div>
+			<div class="star star1"><img src="<?php echo admin_url('images/star.png?v=20110615'); ?>" alt="<?php _e('1 star') ?>" /></div>
 		</div>
-		<small><?php printf(_n('(based on %s rating)', '(based on %s ratings)', $api->num_ratings), number_format_i18n($api->num_ratings));?></small>
-		<?php endif;?>
+		<small><?php printf(_n('(based on %s rating)', '(based on %s ratings)', $api->num_ratings), number_format_i18n($api->num_ratings)); ?></small>
+		<?php endif; ?>
 	</div>
 	<div id="section-holder" class="wrap">
 	<?php

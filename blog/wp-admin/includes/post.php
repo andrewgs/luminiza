@@ -1686,15 +1686,15 @@ function wp_tiny_mce( $teeny = false, $settings = false ) {
 
 	$mce_options = rtrim( trim($mce_options), '\n\r,' );
 
-	do_action('before_wp_tiny_mce', $initArray);?>
+	do_action('before_wp_tiny_mce', $initArray); ?>
 
 <script type="text/javascript">
 /* <![CDATA[ */
 tinyMCEPreInit = {
-	base : "<?=$baseurl;?>",
+	base : "<?php echo $baseurl; ?>",
 	suffix : "",
-	query : "<?=$version;?>",
-	mceInit : {<?=$mce_options;?>},
+	query : "<?php echo $version; ?>",
+	mceInit : {<?php echo $mce_options; ?>},
 	load_ext : function(url,lang){var sl=tinymce.ScriptLoader;sl.markDone(url+'/langs/'+lang+'.js');sl.markDone(url+'/langs/'+lang+'_dlg.js');}
 };
 /* ]]> */
@@ -1741,7 +1741,7 @@ function wp_preload_dialogs($init) {
 
 	if ( in_array( 'wplink', $plugins, true ) ) {
 		require_once ABSPATH . 'wp-admin/includes/internal-linking.php';
-		?><div style="display:none;"><?php wp_link_dialog();?></div><?php
+		?><div style="display:none;"><?php wp_link_dialog(); ?></div><?php
 		wp_print_scripts('wplink');
 		wp_print_styles('wplink');
 	}
@@ -1781,12 +1781,12 @@ function wp_fullscreen_html() {
 <div id="wp-fullscreen-body">
 <div id="fullscreen-topbar">
 	<div id="wp-fullscreen-toolbar">
-		<div id="wp-fullscreen-close"><a href="#" onclick="fullscreen.off();return false;"><?php _e('Exit fullscreen');?></a></div>
-		<div id="wp-fullscreen-central-toolbar" style="width:<?=$width;?>px;">
+		<div id="wp-fullscreen-close"><a href="#" onclick="fullscreen.off();return false;"><?php _e('Exit fullscreen'); ?></a></div>
+		<div id="wp-fullscreen-central-toolbar" style="width:<?php echo $width; ?>px;">
 
 		<div id="wp-fullscreen-mode-bar"><div id="wp-fullscreen-modes">
-			<a href="#" onclick="fullscreen.switchmode('tinymce');return false;"><?php _e('Visual');?></a>
-			<a href="#" onclick="fullscreen.switchmode('html');return false;"><?php _e('HTML');?></a>
+			<a href="#" onclick="fullscreen.switchmode('tinymce');return false;"><?php _e('Visual'); ?></a>
+			<a href="#" onclick="fullscreen.switchmode('html');return false;"><?php _e('HTML'); ?></a>
 		</div></div>
 
 		<div id="wp-fullscreen-button-bar"><div id="wp-fullscreen-buttons" class="wp_themeSkin">
@@ -1822,8 +1822,8 @@ function wp_fullscreen_html() {
 		} ?>
 
 		<div<?php if ( $args['both'] ) { ?> class="wp-fullscreen-both"<?php } ?>>
-		<a title="<?=$args['title'];?>" onclick="<?=$args['onclick'];?>return false;" class="mceButton mceButtonEnabled mce_<?=$button;?>" href="#" id="wp_fs_<?=$button;?>" role="button" aria-pressed="false">
-		<span class="mceIcon mce_<?=$button;?>"></span>
+		<a title="<?php echo $args['title']; ?>" onclick="<?php echo $args['onclick']; ?>return false;" class="mceButton mceButtonEnabled mce_<?php echo $button; ?>" href="#" id="wp_fs_<?php echo $button; ?>" role="button" aria-pressed="false">
+		<span class="mceIcon mce_<?php echo $button; ?>"></span>
 		</a>
 		</div>
 <?php
@@ -1832,17 +1832,17 @@ function wp_fullscreen_html() {
 		</div></div>
 
 		<div id="wp-fullscreen-save">
-			<span><?php if ( $post->post_status == 'publish' ) _e('Updated.'); else _e('Saved.');?></span>
+			<span><?php if ( $post->post_status == 'publish' ) _e('Updated.'); else _e('Saved.'); ?></span>
 			<img src="images/wpspin_light.gif" alt="" />
-			<input type="button" class="button-primary" value="<?=$save;?>" onclick="fullscreen.save();" />
+			<input type="button" class="button-primary" value="<?php echo $save; ?>" onclick="fullscreen.save();" />
 		</div>
 
 		</div>
 	</div>
 </div>
 
-<div id="wp-fullscreen-wrap" style="width:<?=$dfw_width;?>px;">
-	<label id="wp-fullscreen-title-prompt-text" for="wp-fullscreen-title"><?=apply_filters( 'enter_title_here', __( 'Enter title here' ), $post );?></label>
+<div id="wp-fullscreen-wrap" style="width:<?php echo $dfw_width; ?>px;">
+	<label id="wp-fullscreen-title-prompt-text" for="wp-fullscreen-title"><?php echo apply_filters( 'enter_title_here', __( 'Enter title here' ), $post ); ?></label>
 	<input type="text" id="wp-fullscreen-title" value="" autocomplete="off" />
 
 	<div id="wp-fullscreen-container">
@@ -1850,8 +1850,8 @@ function wp_fullscreen_html() {
 	</div>
 
 	<div id="wp-fullscreen-status">
-		<div id="wp-fullscreen-count"><?php printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' );?></div>
-		<div id="wp-fullscreen-tagline"><?php _e('Just write.');?></div>
+		<div id="wp-fullscreen-count"><?php printf( __( 'Word count: %s' ), '<span class="word-count">0</span>' ); ?></div>
+		<div id="wp-fullscreen-tagline"><?php _e('Just write.'); ?></div>
 	</div>
 </div>
 </div>

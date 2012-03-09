@@ -339,7 +339,7 @@ class WP_Upgrader {
 		if ( $enable ) {
 			$this->skin->feedback('maintenance_start');
 			// Create maintenance file to signal that we are upgrading
-			$maintenance_string = '<?php $upgrading = ' . time() . ';?>';
+			$maintenance_string = '<?php $upgrading = ' . time() . '; ?>';
 			$wp_filesystem->delete($file);
 			$wp_filesystem->put_contents($file, $maintenance_string, FS_CHMOD_FILE);
 		} else if ( !$enable && $wp_filesystem->exists($file) ) {

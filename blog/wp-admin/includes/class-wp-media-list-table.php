@@ -172,7 +172,7 @@ class WP_Media_List_Table extends WP_List_Table {
 			$post_owner = ( get_current_user_id() == $post->post_author ) ? 'self' : 'other';
 			$att_title = _draft_or_post_title();
 ?>
-	<tr id='post-<?=$id;?>' class='<?=trim( $alt . ' author-' . $post_owner . ' status-' . $post->post_status );?>' valign="top">
+	<tr id='post-<?php echo $id; ?>' class='<?php echo trim( $alt . ' author-' . $post_owner . ' status-' . $post->post_status ); ?>' valign="top">
 <?php
 
 list( $columns, $hidden ) = $this->get_column_info();
@@ -189,21 +189,21 @@ foreach ( $columns as $column_name => $column_display_name ) {
 
 	case 'cb':
 ?>
-		<th scope="row" class="check-column"><?php if ( current_user_can( 'edit_post', $post->ID ) ) { ?><input type="checkbox" name="media[]" value="<?php the_ID();?>" /><?php } ?></th>
+		<th scope="row" class="check-column"><?php if ( current_user_can( 'edit_post', $post->ID ) ) { ?><input type="checkbox" name="media[]" value="<?php the_ID(); ?>" /><?php } ?></th>
 <?php
 		break;
 
 	case 'icon':
 		$attributes = 'class="column-icon media-icon"' . $style;
 ?>
-		<td <?=$attributes ?>><?php
+		<td <?php echo $attributes ?>><?php
 			if ( $thumb = wp_get_attachment_image( $post->ID, array( 80, 60 ), true ) ) {
 				if ( $this->is_trash ) {
 					echo $thumb;
 				} else {
 ?>
-				<a href="<?=get_edit_post_link( $post->ID, true );?>" title="<?=esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $att_title ) );?>">
-					<?=$thumb;?>
+				<a href="<?php echo get_edit_post_link( $post->ID, true ); ?>" title="<?php echo esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $att_title ) ); ?>">
+					<?php echo $thumb; ?>
 				</a>
 
 <?php			}
@@ -215,7 +215,7 @@ foreach ( $columns as $column_name => $column_display_name ) {
 
 	case 'title':
 ?>
-		<td <?=$attributes ?>><strong><?php if ( $this->is_trash ) echo $att_title; else { ?><a href="<?=get_edit_post_link( $post->ID, true );?>" title="<?=esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $att_title ) );?>"><?=$att_title;?></a><?php }; _media_states( $post );?></strong>
+		<td <?php echo $attributes ?>><strong><?php if ( $this->is_trash ) echo $att_title; else { ?><a href="<?php echo get_edit_post_link( $post->ID, true ); ?>" title="<?php echo esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $att_title ) ); ?>"><?php echo $att_title; ?></a><?php }; _media_states( $post ); ?></strong>
 			<p>
 <?php
 			if ( preg_match( '/^.*?\.(\w+)$/', get_attached_file( $post->ID ), $matches ) )
@@ -233,13 +233,13 @@ foreach ( $columns as $column_name => $column_display_name ) {
 
 	case 'author':
 ?>
-		<td <?=$attributes ?>><?php the_author() ?></td>
+		<td <?php echo $attributes ?>><?php the_author() ?></td>
 <?php
 		break;
 
 	case 'tags':
 ?>
-		<td <?=$attributes ?>><?php
+		<td <?php echo $attributes ?>><?php
 		$tags = get_the_tags();
 		if ( !empty( $tags ) ) {
 			$out = array();
@@ -256,7 +256,7 @@ foreach ( $columns as $column_name => $column_display_name ) {
 
 	case 'desc':
 ?>
-		<td <?=$attributes ?>><?=has_excerpt() ? $post->post_excerpt : '';?></td>
+		<td <?php echo $attributes ?>><?php echo has_excerpt() ? $post->post_excerpt : ''; ?></td>
 <?php
 		break;
 
@@ -277,7 +277,7 @@ foreach ( $columns as $column_name => $column_display_name ) {
 			}
 		}
 ?>
-		<td <?=$attributes ?>><?=$h_time ?></td>
+		<td <?php echo $attributes ?>><?php echo $h_time ?></td>
 <?php
 		break;
 
@@ -287,15 +287,15 @@ foreach ( $columns as $column_name => $column_display_name ) {
 				$title =_draft_or_post_title( $post->post_parent );
 			}
 ?>
-			<td <?=$attributes ?>>
-				<strong><a href="<?=get_edit_post_link( $post->post_parent );?>"><?=$title ?></a></strong>,
-				<?=get_the_time( __( 'Y/m/d' ) );?>
+			<td <?php echo $attributes ?>>
+				<strong><a href="<?php echo get_edit_post_link( $post->post_parent ); ?>"><?php echo $title ?></a></strong>,
+				<?php echo get_the_time( __( 'Y/m/d' ) ); ?>
 			</td>
 <?php
 		} else {
 ?>
-			<td <?=$attributes ?>><?php _e( '(Unattached)' );?><br />
-			<a class="hide-if-no-js" onclick="findPosts.open( 'media[]','<?=$post->ID ?>' );return false;" href="#the-list"><?php _e( 'Attach' );?></a></td>
+			<td <?php echo $attributes ?>><?php _e( '(Unattached)' ); ?><br />
+			<a class="hide-if-no-js" onclick="findPosts.open( 'media[]','<?php echo $post->ID ?>' );return false;" href="#the-list"><?php _e( 'Attach' ); ?></a></td>
 <?php
 		}
 		break;
@@ -303,7 +303,7 @@ foreach ( $columns as $column_name => $column_display_name ) {
 	case 'comments':
 		$attributes = 'class="comments column-comments num"' . $style;
 ?>
-		<td <?=$attributes ?>>
+		<td <?php echo $attributes ?>>
 			<div class="post-com-count-wrapper">
 <?php
 		$pending_comments = get_pending_comments_num( $post->ID );
@@ -317,8 +317,8 @@ foreach ( $columns as $column_name => $column_display_name ) {
 
 	default:
 ?>
-		<td <?=$attributes ?>>
-			<?php do_action( 'manage_media_custom_column', $column_name, $id );?>
+		<td <?php echo $attributes ?>>
+			<?php do_action( 'manage_media_custom_column', $column_name, $id ); ?>
 		</td>
 <?php
 		break;

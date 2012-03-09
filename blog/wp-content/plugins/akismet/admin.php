@@ -132,41 +132,41 @@ function akismet_conf() {
 ?>
 <?php if ( !empty($_POST['submit'] ) ) : ?>
 <div id="message" class="updated fade"><p><strong><?php _e('Options saved.') ?></strong></p></div>
-<?php endif;?>
+<?php endif; ?>
 <div class="wrap">
-<h2><?php _e('Akismet Configuration');?></h2>
+<h2><?php _e('Akismet Configuration'); ?></h2>
 <?php if (isset($_GET['message']) && $_GET['message'] == 'success') { ?>
-	<div class="updated below-h2" id="message"><p><?php _e( '<strong>Sign up success!</strong> Please check your email for your Akismet API Key and enter it below.' );?></p></div>
+	<div class="updated below-h2" id="message"><p><?php _e( '<strong>Sign up success!</strong> Please check your email for your Akismet API Key and enter it below.' ); ?></p></div>
 <?php } ?>
 <div class="narrow">
 <form action="" method="post" id="akismet-conf" style="margin: auto; width: 400px; ">
 <?php if ( !$wpcom_api_key ) { ?>
-	<p><?php printf(__('For many people, <a href="%1$s">Akismet</a> will greatly reduce or even completely eliminate the comment and trackback spam you get on your site. If one does happen to get through, simply mark it as "spam" on the moderation screen and Akismet will learn from the mistakes. If you don\'t have an API key yet, you can get one at <a href="%2$s">Akismet.com</a>.'), 'http://akismet.com/', 'http://akismet.com/get/');?></p>
+	<p><?php printf(__('For many people, <a href="%1$s">Akismet</a> will greatly reduce or even completely eliminate the comment and trackback spam you get on your site. If one does happen to get through, simply mark it as "spam" on the moderation screen and Akismet will learn from the mistakes. If you don\'t have an API key yet, you can get one at <a href="%2$s">Akismet.com</a>.'), 'http://akismet.com/', 'http://akismet.com/get/'); ?></p>
 
-<h3><label for="key"><?php _e('Akismet API Key');?></label></h3>
+<h3><label for="key"><?php _e('Akismet API Key'); ?></label></h3>
 <?php foreach ( $ms as $m ) : ?>
-	<p style="padding: .5em; background-color: #<?=$messages[$m]['color'];?>; color: #fff; font-weight: bold;"><?=$messages[$m]['text'];?></p>
-<?php endforeach;?>
-<p><input id="key" name="key" type="text" size="15" maxlength="12" value="<?=get_option('wordpress_api_key');?>" style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" /> (<?php _e('<a href="http://akismet.com/get/">What is this?</a>');?>)</p>
+	<p style="padding: .5em; background-color: #<?php echo $messages[$m]['color']; ?>; color: #fff; font-weight: bold;"><?php echo $messages[$m]['text']; ?></p>
+<?php endforeach; ?>
+<p><input id="key" name="key" type="text" size="15" maxlength="12" value="<?php echo get_option('wordpress_api_key'); ?>" style="font-family: 'Courier New', Courier, mono; font-size: 1.5em;" /> (<?php _e('<a href="http://akismet.com/get/">What is this?</a>'); ?>)</p>
 <?php if ( isset( $invalid_key) && $invalid_key ) { ?>
-<h3><?php _e('Why might my key be invalid?');?></h3>
-<p><?php _e('This can mean one of two things, either you copied the key wrong or that the plugin is unable to reach the Akismet servers, which is most often caused by an issue with your web host around firewalls or similar.');?></p>
+<h3><?php _e('Why might my key be invalid?'); ?></h3>
+<p><?php _e('This can mean one of two things, either you copied the key wrong or that the plugin is unable to reach the Akismet servers, which is most often caused by an issue with your web host around firewalls or similar.'); ?></p>
 <?php } ?>
 <?php } ?>
 <?php akismet_nonce_field($akismet_nonce) ?>
-<p><label><input name="akismet_discard_month" id="akismet_discard_month" value="true" type="checkbox" <?php if ( get_option('akismet_discard_month') == 'true' ) echo ' checked="checked" ';?> /> <?php _e('Auto-delete spam submitted on posts more than a month old.');?></label></p>
-<p><label><input name="akismet_show_user_comments_approved" id="akismet_show_user_comments_approved" value="true" type="checkbox" <?php if ( get_option('akismet_show_user_comments_approved') == 'true' ) echo ' checked="checked" ';?> /> <?php _e('Show the number of comments you\'ve approved beside each comment author.');?></label></p>
-	<p class="submit"><input type="submit" name="submit" value="<?php _e('Update options &raquo;');?>" /></p>
+<p><label><input name="akismet_discard_month" id="akismet_discard_month" value="true" type="checkbox" <?php if ( get_option('akismet_discard_month') == 'true' ) echo ' checked="checked" '; ?> /> <?php _e('Auto-delete spam submitted on posts more than a month old.'); ?></label></p>
+<p><label><input name="akismet_show_user_comments_approved" id="akismet_show_user_comments_approved" value="true" type="checkbox" <?php if ( get_option('akismet_show_user_comments_approved') == 'true' ) echo ' checked="checked" '; ?> /> <?php _e('Show the number of comments you\'ve approved beside each comment author.'); ?></label></p>
+	<p class="submit"><input type="submit" name="submit" value="<?php _e('Update options &raquo;'); ?>" /></p>
 </form>
 
 <form action="" method="post" id="akismet-connectivity" style="margin: auto; width: 400px; ">
 
-<h3><?php _e('Server Connectivity');?></h3>
+<h3><?php _e('Server Connectivity'); ?></h3>
 <?php
 	if ( !function_exists('fsockopen') || !function_exists('gethostbynamel') ) {
 		?>
-			<p style="padding: .5em; background-color: #888; color: #fff; font-weight:bold;"><?php _e('Network functions are disabled.');?></p>
-			<p><?=sprintf( __('Your web host or server administrator has disabled PHP\'s <code>fsockopen</code> or <code>gethostbynamel</code> functions.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet\'s system requirements</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/');?></p>
+			<p style="padding: .5em; background-color: #888; color: #fff; font-weight:bold;"><?php _e('Network functions are disabled.'); ?></p>
+			<p><?php echo sprintf( __('Your web host or server administrator has disabled PHP\'s <code>fsockopen</code> or <code>gethostbynamel</code> functions.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet\'s system requirements</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/'); ?></p>
 		<?php
 	} else {
 		$servers = akismet_get_server_connectivity();
@@ -174,24 +174,24 @@ function akismet_conf() {
 		if ( is_array($servers) && count($servers) > 0 ) {
 			// some connections work, some fail
 			if ( $fail_count > 0 && $fail_count < count($servers) ) { ?>
-				<p style="padding: .5em; background-color: #aa0; color: #fff; font-weight:bold;"><?php _e('Unable to reach some Akismet servers.');?></p>
-				<p><?=sprintf( __('A network problem or firewall is blocking some connections from your web server to Akismet.com.  Akismet is working but this may cause problems during times of network congestion.  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet and firewalls</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/');?></p>
+				<p style="padding: .5em; background-color: #aa0; color: #fff; font-weight:bold;"><?php _e('Unable to reach some Akismet servers.'); ?></p>
+				<p><?php echo sprintf( __('A network problem or firewall is blocking some connections from your web server to Akismet.com.  Akismet is working but this may cause problems during times of network congestion.  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet and firewalls</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/'); ?></p>
 			<?php
 			// all connections fail
 			} elseif ( $fail_count > 0 ) { ?>
-				<p style="padding: .5em; background-color: #888; color: #fff; font-weight:bold;"><?php _e('Unable to reach any Akismet servers.');?></p>
-				<p><?=sprintf( __('A network problem or firewall is blocking all connections from your web server to Akismet.com.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet and firewalls</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/');?></p>
+				<p style="padding: .5em; background-color: #888; color: #fff; font-weight:bold;"><?php _e('Unable to reach any Akismet servers.'); ?></p>
+				<p><?php echo sprintf( __('A network problem or firewall is blocking all connections from your web server to Akismet.com.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet and firewalls</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/'); ?></p>
 			<?php
 			// all connections work
 			} else { ?>
-				<p style="padding: .5em; background-color: #4AB915; color: #fff; font-weight:bold;"><?php  _e('All Akismet servers are available.');?></p>
-				<p><?php _e('Akismet is working correctly.  All servers are accessible.');?></p>
+				<p style="padding: .5em; background-color: #4AB915; color: #fff; font-weight:bold;"><?php  _e('All Akismet servers are available.'); ?></p>
+				<p><?php _e('Akismet is working correctly.  All servers are accessible.'); ?></p>
 			<?php
 			}
 		} else {
 			?>
-				<p style="padding: .5em; background-color: #888; color: #fff; font-weight:bold;"><?php _e('Unable to find Akismet servers.');?></p>
-				<p><?=sprintf( __('A DNS problem or firewall is preventing all access from your web server to Akismet.com.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet and firewalls</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/');?></p>
+				<p style="padding: .5em; background-color: #888; color: #fff; font-weight:bold;"><?php _e('Unable to find Akismet servers.'); ?></p>
+				<p><?php echo sprintf( __('A DNS problem or firewall is preventing all access from your web server to Akismet.com.  <strong>Akismet cannot work correctly until this is fixed.</strong>  Please contact your web host or firewall administrator and give them <a href="%s" target="_blank">this information about Akismet and firewalls</a>.'), 'http://blog.akismet.com/akismet-hosting-faq/'); ?></p>
 			<?php
 		}
 	}
@@ -199,7 +199,7 @@ function akismet_conf() {
 	if ( !empty($servers) ) {
 ?>
 <table style="width: 100%;">
-<thead><th><?php _e('Akismet server');?></th><th><?php _e('Network Status');?></th></thead>
+<thead><th><?php _e('Akismet server'); ?></th><th><?php _e('Network Status'); ?></th></thead>
 <tbody>
 <?php
 		asort($servers);
@@ -207,8 +207,8 @@ function akismet_conf() {
 			$color = ( $status ? '#4AB915' : '#888');
 	?>
 		<tr>
-		<td><?=htmlspecialchars($ip);?></td>
-		<td style="padding: 0 .5em; font-weight:bold; color: #fff; background-color: <?=$color;?>"><?=($status ? __('Accessible') : __('Re-trying') );?></td>
+		<td><?php echo htmlspecialchars($ip); ?></td>
+		<td style="padding: 0 .5em; font-weight:bold; color: #fff; background-color: <?php echo $color; ?>"><?php echo ($status ? __('Accessible') : __('Re-trying') ); ?></td>
 		
 	<?php
 		}
@@ -216,9 +216,9 @@ function akismet_conf() {
 ?>
 </tbody>
 </table>
-	<p><?php if ( get_option('akismet_connectivity_time') ) echo sprintf( __('Last checked %s ago.'), human_time_diff( get_option('akismet_connectivity_time') ) );?></p>
-	<p class="submit"><input type="submit" name="check" value="<?php _e('Check network status &raquo;');?>" /></p>
-	<p><?php printf( __('<a href="%s" target="_blank">Click here</a> to confirm that <a href="%s" target="_blank">Akismet.com is up</a>.'), 'http://status.automattic.com/9931/136079/Akismet-API', 'http://status.automattic.com/9931/136079/Akismet-API' );?></p>
+	<p><?php if ( get_option('akismet_connectivity_time') ) echo sprintf( __('Last checked %s ago.'), human_time_diff( get_option('akismet_connectivity_time') ) ); ?></p>
+	<p class="submit"><input type="submit" name="check" value="<?php _e('Check network status &raquo;'); ?>" /></p>
+	<p><?php printf( __('<a href="%s" target="_blank">Click here</a> to confirm that <a href="%s" target="_blank">Akismet.com is up</a>.'), 'http://status.automattic.com/9931/136079/Akismet-API', 'http://status.automattic.com/9931/136079/Akismet-API' ); ?></p>
 </form>
 
 </div>
@@ -261,7 +261,7 @@ function akismet_stats_display() {
 	$url .= "?blog={$blog}&api_key=" . akismet_get_key();
 	?>
 	<div class="wrap">
-	<iframe src="<?=$url;?>" width="100%" height="100%" frameborder="0" id="akismet-stats-frame"></iframe>
+	<iframe src="<?php echo $url; ?>" width="100%" height="100%" frameborder="0" id="akismet-stats-frame"></iframe>
 	</div>
 	<?php
 }

@@ -103,21 +103,21 @@ require('../admin-header.php');
 ?>
 
 <div class="wrap">
-<?php screen_icon('ms-admin');?>
+<?php screen_icon('ms-admin'); ?>
 <h2 id="add-new-site"><?php _e('Add New Site') ?></h2>
 <?php
 if ( ! empty( $messages ) ) {
 	foreach ( $messages as $msg )
 		echo '<div id="message" class="updated"><p>' . $msg . '</p></div>';
 } ?>
-<form method="post" action="<?=network_admin_url('site-new.php?action=add-site');?>">
+<form method="post" action="<?php echo network_admin_url('site-new.php?action=add-site'); ?>">
 <?php wp_nonce_field( 'add-blog', '_wpnonce_add-blog' ) ?>
 	<table class="form-table">
 		<tr class="form-field form-required">
 			<th scope="row"><?php _e( 'Site Address' ) ?></th>
 			<td>
 			<?php if ( is_subdomain_install() ) { ?>
-				<input name="blog[domain]" type="text" class="regular-text" title="<?php _e( 'Domain' ) ?>"/>.<?=preg_replace( '|^www\.|', '', $current_site->domain );?>
+				<input name="blog[domain]" type="text" class="regular-text" title="<?php _e( 'Domain' ) ?>"/>.<?php echo preg_replace( '|^www\.|', '', $current_site->domain );?>
 			<?php } else {
 				echo $current_site->domain . $current_site->path ?><input name="blog[domain]" class="regular-text" type="text" title="<?php _e( 'Domain' ) ?>"/>
 			<?php }
@@ -137,7 +137,7 @@ if ( ! empty( $messages ) ) {
 			<td colspan="2"><?php _e( 'A new user will be created if the above email address is not in the database.' ) ?><br /><?php _e( 'The username and password will be mailed to this email address.' ) ?></td>
 		</tr>
 	</table>
-	<?php submit_button( __('Add Site'), 'primary', 'add-site' );?>
+	<?php submit_button( __('Add Site'), 'primary', 'add-site' ); ?>
 	</form>
 </div>
 <?php

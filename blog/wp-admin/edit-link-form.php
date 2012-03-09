@@ -52,12 +52,12 @@ require_once ('admin-header.php');
 
 ?>
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?>  <a href="link-add.php" class="add-new-h2"><?=esc_html_x('Add New', 'link');?></a></h2>
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?>  <a href="link-add.php" class="add-new-h2"><?php echo esc_html_x('Add New', 'link'); ?></a></h2>
 
 <?php if ( isset( $_GET['added'] ) ) : ?>
-<div id="message" class="updated"><p><?php _e('Link added.');?></p></div>
-<?php endif;?>
+<div id="message" class="updated"><p><?php _e('Link added.'); ?></p></div>
+<?php endif; ?>
 
 <?php
 if ( !empty($form) )
@@ -67,9 +67,9 @@ if ( !empty($link_added) )
 
 wp_nonce_field( $nonce_action );
 wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
-wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );?>
+wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
-<div id="poststuff" class="metabox-holder<?=2 == $screen_layout_columns ? ' has-right-sidebar' : '';?>">
+<div id="poststuff" class="metabox-holder<?php echo 2 == $screen_layout_columns ? ' has-right-sidebar' : ''; ?>">
 
 <div id="side-info-column" class="inner-sidebar">
 <?php
@@ -85,24 +85,24 @@ $side_meta_boxes = do_meta_boxes( 'link', 'side', $link );
 <div id="namediv" class="stuffbox">
 <h3><label for="link_name"><?php _ex('Name', 'link name') ?></label></h3>
 <div class="inside">
-	<input type="text" name="link_name" size="30" tabindex="1" value="<?=esc_attr($link->link_name);?>" id="link_name" />
-    <p><?php _e('Example: Nifty blogging software');?></p>
+	<input type="text" name="link_name" size="30" tabindex="1" value="<?php echo esc_attr($link->link_name); ?>" id="link_name" />
+    <p><?php _e('Example: Nifty blogging software'); ?></p>
 </div>
 </div>
 
 <div id="addressdiv" class="stuffbox">
 <h3><label for="link_url"><?php _e('Web Address') ?></label></h3>
 <div class="inside">
-	<input type="text" name="link_url" size="30" class="code" tabindex="1" value="<?=esc_attr($link->link_url);?>" id="link_url" />
-    <p><?php _e('Example: <code>http://wordpress.org/</code> &#8212; don&#8217;t forget the <code>http://</code>');?></p>
+	<input type="text" name="link_url" size="30" class="code" tabindex="1" value="<?php echo esc_attr($link->link_url); ?>" id="link_url" />
+    <p><?php _e('Example: <code>http://wordpress.org/</code> &#8212; don&#8217;t forget the <code>http://</code>'); ?></p>
 </div>
 </div>
 
 <div id="descriptiondiv" class="stuffbox">
 <h3><label for="link_description"><?php _e('Description') ?></label></h3>
 <div class="inside">
-	<input type="text" name="link_description" size="30" tabindex="1" value="<?=isset($link->link_description) ? esc_attr($link->link_description) : '';?>" id="link_description" />
-    <p><?php _e('This will be shown when someone hovers over the link in the blogroll, or optionally below the link.');?></p>
+	<input type="text" name="link_description" size="30" tabindex="1" value="<?php echo isset($link->link_description) ? esc_attr($link->link_description) : ''; ?>" id="link_description" />
+    <p><?php _e('This will be shown when someone hovers over the link in the blogroll, or optionally below the link.'); ?></p>
 </div>
 </div>
 
@@ -114,12 +114,12 @@ do_meta_boxes('link', 'advanced', $link);
 
 if ( $link_id ) : ?>
 <input type="hidden" name="action" value="save" />
-<input type="hidden" name="link_id" value="<?=(int) $link_id;?>" />
-<input type="hidden" name="order_by" value="<?=esc_attr($order_by);?>" />
-<input type="hidden" name="cat_id" value="<?=(int) $cat_id ?>" />
+<input type="hidden" name="link_id" value="<?php echo (int) $link_id; ?>" />
+<input type="hidden" name="order_by" value="<?php echo esc_attr($order_by); ?>" />
+<input type="hidden" name="cat_id" value="<?php echo (int) $cat_id ?>" />
 <?php else: ?>
 <input type="hidden" name="action" value="add" />
-<?php endif;?>
+<?php endif; ?>
 
 </div>
 </div>

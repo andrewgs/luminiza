@@ -404,7 +404,7 @@ abstract class scbAdminPage {
 ?>
 <script type="text/javascript">
 jQuery( document ).ready( function( $ ){
-	var $spinner = $( new Image() ).attr( 'src', '<?=admin_url( "images/wpspin_light.gif" );?>' );
+	var $spinner = $( new Image() ).attr( 'src', '<?php echo admin_url( "images/wpspin_light.gif" ); ?>' );
 
 	$( ':submit' ).click( function( ev ){
 		var $submit = $( this );
@@ -419,7 +419,7 @@ jQuery( document ).ready( function( $ ){
 
 		var data = $form.serializeArray();
 		data.push( {name: $submit.attr( 'name' ), value: $submit.val()} );
-		data.push( {name: '_ajax_submit', value: '<?=$this->pagehook;?>'} );
+		data.push( {name: '_ajax_submit', value: '<?php echo $this->pagehook; ?>'} );
 
 		$.post( location.href, data, function( response ){
 			var $prev = $( '.wrap > .updated, .wrap > .error' );

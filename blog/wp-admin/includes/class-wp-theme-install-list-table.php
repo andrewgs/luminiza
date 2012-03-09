@@ -132,22 +132,22 @@ class WP_Theme_Install_List_Table extends WP_List_Table {
 ?>
 		<div class="tablenav top">
 			<div class="alignleft actions">
-				<?php do_action( 'install_themes_table_header' );?>
+				<?php do_action( 'install_themes_table_header' ); ?>
 			</div>
-			<?php $this->pagination( 'top' );?>
-			<img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading list-ajax-loading" alt="" />
+			<?php $this->pagination( 'top' ); ?>
+			<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading list-ajax-loading" alt="" />
 			<br class="clear" />
 		</div>
 
 		<table id="availablethemes" cellspacing="0" cellpadding="0">
 			<tbody id="the-list" class="list:themes">
-				<?php $this->display_rows_or_placeholder();?>
+				<?php $this->display_rows_or_placeholder(); ?>
 			</tbody>
 		</table>
 
 		<div class="tablenav bottom">
-			<?php $this->pagination( 'bottom' );?>
-			<img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading list-ajax-loading" alt="" />
+			<?php $this->pagination( 'bottom' ); ?>
+			<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading list-ajax-loading" alt="" />
 			<br class="clear" />
 		</div>
 <?php
@@ -172,7 +172,7 @@ class WP_Theme_Install_List_Table extends WP_List_Table {
 				if ( $row == $rows ) $class[] = 'bottom';
 				if ( $col == 3 ) $class[] = 'right';
 				?>
-				<td class="<?=join( ' ', $class );?>"><?php
+				<td class="<?php echo join( ' ', $class ); ?>"><?php
 					if ( isset( $themes[$theme_index] ) )
 						display_theme( $themes[$theme_index] );
 				?></td>

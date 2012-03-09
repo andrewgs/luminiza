@@ -24,7 +24,6 @@
 						<li><?=anchor('commercial','Коммерческая недвижимость');?></li>
 						<li><?=anchor('ipoteka','Ипотечный калькулятор');?></li>
 					</ul>
-					<h3>Информация</h3>
 					<?=$text['sidebar']['sbt_extended'] ?>
 					<div class="miniature">
 						<img title="Picasso Miniature" alt="Picasso Miniature" src="<?=$baseurl;?>images/extended_miniature.png"/>
@@ -40,23 +39,16 @@
 							else:
 								echo '<h1>'.$retail['title'].' ('.$retail['price'].' &euro;)</h1>';
 							endif;
+								echo anchor('retail/apartment/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'print-link','target'=>'_blank'));
 								$attr = array('class'=>'lnk-mortage');
 								echo anchor('ipoteka/'.str_replace(".", "", $retail['price']),'Рассчет ипотеки &raquo;',$attr);
 								echo '<div class="sell-date">Дата выставления на продажу: '.
 									$retail['date'].'</div>
 									<div>'.$retail['extended'].'</div>'
 							?>
-							<br class="clear"/>
-							<div>
-								<div class="car_preferences">
-									<?=$retail['properties']['object'].'<br/>'; ?>
-									<?=$retail['properties']['location'].'<br/>'; ?>
-									<?=$retail['properties']['region'].'<br/>'; ?>
-									<?=$retail['properties']['rooms'].'<br/>'; ?>
-								</div>
-							</div>
 						</div>
 					</div>
+										
 				<?php if($admin): ?>
 					<div class="admin-change">
 						<?php $link = 'edit/apartment/'.$retail['id'].'/retail'; ?>
@@ -72,40 +64,81 @@
 					</div>
 				<?php endif; ?>
 					<div class="clear"></div>
-					<?
-					/*
-						if(isset($retail['img_id'])):
-							echo '<img class="retail-preview" alt="'.$retail['img_title'].'"title="'.$retail['img_title'].'" src="'.$baseurl.'viewslideshow/'.$retail['img_id'].'">';
-						endif;
-					 */ 
-					?>
+
 					<div class="photo-wrapper">
 						<div id="photo-slider">
 							<?php for($i = 0; $i < count($images); $i++) : ?>
 								<img alt="<?= $images[$i]['img_title'] ?>" width="520px" height="390px" title="<?= $images[$i]['img_title'] ?>" src="<?= $baseurl.'viewslideshow/'.$images[$i]['img_id'] ?>">
 							<?php endfor; ?>
 						</div>
-						<div id="photo-thumbs">
-						<?
-						/*
-						echo '<img class="retail-preview" alt="'.$images[0]['img_title'].'"title="'.$images[0]['img_title'].'" src="'.$baseurl.'viewslideshow/'.$images[0]['img_id'].'">';
-						for($i = 1; $i < count($images); $i++) {
-							if(isset($images[$i]['img_id'])):			
-								$text = '<img class="row_image thumb" alt="'.$images[$i]['img_title'].'" title="'.$images[$i]['img_title'].'" src="'.$baseurl.'viewimage/'.$images[$i]['img_id'].'">';
-								$link = $baseurl.'viewslideshow/'.$images[$i]['img_id'];
-								$attr = array('class'=>'pirobox_retail','title'=>$images[$i]['img_title']);
-								echo anchor($link,$text,$attr);	
-							endif;
-							// if(($i+1) % 3 == 0)	echo '<br class="clear"/>';
-							if(($i+1) == count($images)) echo '<br class="clear"/>';
-						} 
-						*/
-						?>
-						</div>
+						<div id="photo-thumbs"> </div>
 						<div class="clear"></div>
 					</div>
+					
+					<div class="missions_right_panel extended">
+						<div>
+							<div class="car_preferences">
+								<?=$retail['properties']['object'].'<br/>'; ?>
+								<?=$retail['properties']['location'].'<br/>'; ?>
+								<?=$retail['properties']['region'].'<br/>'; ?>
+								<?=$retail['properties']['rooms'].'<br/>'; ?>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<a class="btn order" onclick="popup('http://lum-tenerife.ru/contacts_popup'); return false;" href="/" class="email">Получить подробную информацию</a>
+					</div>
+
+					<h3>Похожие предложения</h3>
+					<ul class="thumbnails">
+						<li class="span3">
+						  <div class="thumbnail">
+							<!--img alt="" src="http://placehold.it/180x120"-->
+							<div class="preview">
+								<a href="http://lum-tenerife.ru/retail/apartment/157">
+									<img src="http://lum-tenerife.ru/viewimage/1570" title="Ref: 011Студия в Los Cristianos" alt="Ref: 011Студия в Los Cristianos">
+								</a>
+							</div>
+							<div class="caption_">
+							  <h5>Студия в Los Cristianos</h5>
+							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 71.000 €</p>
+							  <a href="http://lum-tenerife.ru/retail/apartment/157" class="btn primary">Подробнее</a>
+							</div>
+						  </div>
+						</li>
+						<li class="span3">
+						  <div class="thumbnail">
+							<!--img alt="" src="http://placehold.it/180x120"-->
+							<div class="preview">
+								<a href="http://lum-tenerife.ru/retail/apartment/68">
+									<img src="http://lum-tenerife.ru/viewimage/534" title="Гостинная" alt="Гостинная">
+								</a>
+							</div>
+							<div class="caption_">
+							  <h5>Апартаменты в Las Americas</h5>
+							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 80.000 €</p>
+							  <a href="http://lum-tenerife.ru/retail/apartment/68" class="btn primary">Подробнее</a>
+							</div>
+						  </div>
+						</li>
+						<li class="span3">
+						  <div class="thumbnail">
+							<!--img alt="" src="http://placehold.it/180x120"-->
+							<div class="preview">
+								<a href="http://lum-tenerife.ru/retail/apartment/156">
+									<img src="http://lum-tenerife.ru/viewimage/1562" title="Ref: 010 Студия в Las Americas" alt="Ref: 010 Студия в Las Americas">
+								</a>
+							</div>
+							<div class="caption_">
+							  <h5>Студия в Las Americas</h5>
+							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 95.000 €</p>
+							  <a href="http://lum-tenerife.ru/retail/apartment/156" class="btn primary">Подробнее</a>
+							</div>
+						  </div>
+						</li>
+					</ul>
+					<h3>Есть вопросы? Свяжитесь с нами!</h3>
 				<div>
-			<?=anchor('retail/apartment/'.$retail['id'].'/print-view','Версия для печати',array('class'=>'retail_link','target'=>'_blank'));?>
+			
 			<?php if(isset($ficha) && $admin):?>
 				<?=anchor($ficha,'Ficha',array('class'=>'retail_link','id'=>'FichaView'));?>
 				<div id="FichaPassForm" style="display:none;">
@@ -120,14 +153,13 @@
 				</div>
 					<?php if($this->uri->segment(1) == 'retail'):?>
 					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами и заказать понравившиеся апартаменты<br><br></p>
 						<?php $this->load->view('forms/formsendapart');?>
 					</div>
 					<?php endif;?>
-				</div>
-			</div>
-			<div class="clear"></div>
 		</div>
+	</div>
+	<div class="clear"></div>
+	</div>
   </div>
 <?php $this->load->view('user_interface/footer'); ?>
  	</div>

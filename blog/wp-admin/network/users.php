@@ -71,10 +71,10 @@ if ( isset( $_REQUEST['updated'] ) && $_REQUEST['updated'] == 'true' && ! empty(
 }
 	?>
 <div class="wrap">
-	<?php screen_icon();?>
+	<?php screen_icon(); ?>
 	<h2><?php esc_html_e( 'Users' );
 	if ( current_user_can( 'create_users') ) : ?>
-		<a href="<?=network_admin_url('user-new.php');?>" class="add-new-h2"><?=esc_html_x( 'Add New', 'user' );?></a><?php
+		<a href="<?php echo network_admin_url('user-new.php'); ?>" class="add-new-h2"><?php echo esc_html_x( 'Add New', 'user' ); ?></a><?php
 	endif;
 	
 	if ( !empty( $usersearch ) )
@@ -82,15 +82,15 @@ if ( isset( $_REQUEST['updated'] ) && $_REQUEST['updated'] == 'true' && ! empty(
 	?>
 	</h2>
 
-	<?php $wp_list_table->views();?>
+	<?php $wp_list_table->views(); ?>
 
 	<form action="" method="get" class="search-form">
-		<?php $wp_list_table->search_box( __( 'Search Users' ), 'user' );?>
+		<?php $wp_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
 	</form>
 
 	<form id="form-user-list" action='edit.php?action=allusers' method='post'>
-		<?php $wp_list_table->display();?>
+		<?php $wp_list_table->display(); ?>
 	</form>
 </div>
 
-<?php require_once( '../admin-footer.php' );?>
+<?php require_once( '../admin-footer.php' ); ?>

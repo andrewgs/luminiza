@@ -208,9 +208,9 @@ class WP_List_Table {
 			echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
 ?>
 <p class="search-box">
-	<label class="screen-reader-text" for="<?=$input_id ?>"><?=$text;?>:</label>
-	<input type="text" id="<?=$input_id ?>" name="s" value="<?php _admin_search_query();?>" />
-	<?php submit_button( $text, 'button', false, false, array('id' => 'search-submit') );?>
+	<label class="screen-reader-text" for="<?php echo $input_id ?>"><?php echo $text; ?>:</label>
+	<input type="text" id="<?php echo $input_id ?>" name="s" value="<?php _admin_search_query(); ?>" />
+	<?php submit_button( $text, 'button', false, false, array('id' => 'search-submit') ); ?>
 </p>
 <?php
 	}
@@ -371,7 +371,7 @@ class WP_List_Table {
 		$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
 ?>
 		<select name='m'>
-			<option<?php selected( $m, 0 );?> value='0'><?php _e( 'Show all dates' );?></option>
+			<option<?php selected( $m, 0 ); ?> value='0'><?php _e( 'Show all dates' ); ?></option>
 <?php
 		foreach ( $months as $arc_row ) {
 			if ( 0 == $arc_row->year )
@@ -404,7 +404,7 @@ class WP_List_Table {
 		);
 
 ?>
-		<input type="hidden" name="mode" value="<?=esc_attr( $current_mode );?>" />
+		<input type="hidden" name="mode" value="<?php echo esc_attr( $current_mode ); ?>" />
 		<div class="view-switch">
 <?php
 			foreach ( $modes as $mode => $title ) {
@@ -709,21 +709,21 @@ class WP_List_Table {
 		$this->display_tablenav( 'top' );
 
 ?>
-<table class="wp-list-table <?=implode( ' ', $this->get_table_classes() );?>" cellspacing="0">
+<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>" cellspacing="0">
 	<thead>
 	<tr>
-		<?php $this->print_column_headers();?>
+		<?php $this->print_column_headers(); ?>
 	</tr>
 	</thead>
 
 	<tfoot>
 	<tr>
-		<?php $this->print_column_headers( false );?>
+		<?php $this->print_column_headers( false ); ?>
 	</tr>
 	</tfoot>
 
-	<tbody id="the-list"<?php if ( $singular ) echo " class='list:$singular'";?>>
-		<?php $this->display_rows_or_placeholder();?>
+	<tbody id="the-list"<?php if ( $singular ) echo " class='list:$singular'"; ?>>
+		<?php $this->display_rows_or_placeholder(); ?>
 	</tbody>
 </table>
 <?php
@@ -752,10 +752,10 @@ class WP_List_Table {
 		if ( 'top' == $which )
 			wp_nonce_field( 'bulk-' . $this->_args['plural'] );
 ?>
-	<div class="tablenav <?=esc_attr( $which );?>">
+	<div class="tablenav <?php echo esc_attr( $which ); ?>">
 
 		<div class="alignleft actions">
-			<?php $this->bulk_actions( $which );?>
+			<?php $this->bulk_actions( $which ); ?>
 		</div>
 <?php
 		$this->extra_tablenav( $which );

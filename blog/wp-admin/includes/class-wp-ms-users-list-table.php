@@ -147,7 +147,7 @@ class WP_MS_Users_List_Table extends WP_List_Table {
 			}
 
 			?>
-			<tr class="<?=$alt;?>">
+			<tr class="<?php echo $alt; ?>">
 			<?php
 
 			list( $columns, $hidden ) = $this->get_column_info();
@@ -165,7 +165,7 @@ class WP_MS_Users_List_Table extends WP_List_Table {
 				switch ( $column_name ) {
 					case 'cb': ?>
 						<th scope="row" class="check-column">
-							<input type="checkbox" id="blog_<?=$user->ID ?>" name="allusers[]" value="<?=esc_attr( $user->ID ) ?>" />
+							<input type="checkbox" id="blog_<?php echo $user->ID ?>" name="allusers[]" value="<?php echo esc_attr( $user->ID ) ?>" />
 						</th>
 					<?php
 					break;
@@ -178,8 +178,8 @@ class WP_MS_Users_List_Table extends WP_List_Table {
 							$edit_link = esc_url( network_admin_url( add_query_arg( 'wp_http_referer', urlencode( stripslashes( $_SERVER['REQUEST_URI'] ) ), 'user-edit.php?user_id=' . $user->ID ) ) );
 						}
 
-						echo "<td $attributes>";?>
-							<?=$avatar;?><strong><a href="<?=$edit_link;?>" class="edit"><?=stripslashes( $user->user_login );?></a><?php
+						echo "<td $attributes>"; ?>
+							<?php echo $avatar; ?><strong><a href="<?php echo $edit_link; ?>" class="edit"><?php echo stripslashes( $user->user_login ); ?></a><?php
 							if ( in_array( $user->user_login, $super_admins ) )
 								echo ' - ' . __( 'Super Admin' );
 							?></strong>

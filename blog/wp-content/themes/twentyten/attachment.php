@@ -7,7 +7,7 @@
  * @since Twenty Ten 1.0
  */
 
-get_header();?>
+get_header(); ?>
 
 		<div id="container" class="single-attachment">
 			<div id="content" role="main">
@@ -23,4 +23,4 @@ get_header();?>
 			</div><!-- #content -->
 		</div><!-- #container -->
 
-<?php get_footer();?>
+<?php get_footer(); ?>

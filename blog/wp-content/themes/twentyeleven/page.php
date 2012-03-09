@@ -12,18 +12,18 @@
  * @since Twenty Eleven 1.0
  */
 
-get_header();?>
+get_header(); ?>
 
 		<div id="primary">
 			<div id="content" role="main">
 
-				<?php the_post();?>
+				<?php the_post(); ?>
 
-				<?php get_template_part( 'content', 'page' );?>
+				<?php get_template_part( 'content', 'page' ); ?>
 
-				<?php comments_template( '', true );?>
+				<?php comments_template( '', true ); ?>
 
 			</div><!-- #content -->
 		</div><!-- #primary -->
 
-<?php get_footer();?>
+<?php get_footer(); ?>

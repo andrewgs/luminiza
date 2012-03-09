@@ -99,7 +99,7 @@ function dismissed_updates() {
 
 		jQuery(function($) {
 			$('dismissed-updates').show();
-			$('#show-dismissed').toggle(function(){$(this).text('<?=$hide_text;?>');}, function() {$(this).text('<?=$show_text;?>')});
+			$('#show-dismissed').toggle(function(){$(this).text('<?php echo $hide_text; ?>');}, function() {$(this).text('<?php echo $show_text; ?>')});
 			$('#show-dismissed').click(function() { $('#dismissed-updates').toggle('slow');});
 		});
 	</script>
@@ -128,8 +128,8 @@ function core_upgrade_preamble() {
 	$updates = get_core_updates();
 ?>
 	<div class="wrap">
-	<?php screen_icon('tools');?>
-	<h2><?php _e('WordPress Updates');?></h2>
+	<?php screen_icon('tools'); ?>
+	<h2><?php _e('WordPress Updates'); ?></h2>
 <?php
 	if ( $upgrade_error ) {
 		echo '<div class="error"><p>';
@@ -199,23 +199,23 @@ function list_plugin_updates() {
 	else
 		$core_update_version = $core_updates[0]->current;
 	?>
-<h3><?php _e( 'Plugins' );?></h3>
-<p><?php _e( 'The following plugins have new versions available. Check the ones you want to update and then click &#8220;Update Plugins&#8221;.' );?></p>
-<form method="post" action="<?=$form_action;?>" name="upgrade-plugins" class="upgrade">
-<?php wp_nonce_field('upgrade-core');?>
-<p><input id="upgrade-plugins" class="button" type="submit" value="<?php esc_attr_e('Update Plugins');?>" name="upgrade" /></p>
+<h3><?php _e( 'Plugins' ); ?></h3>
+<p><?php _e( 'The following plugins have new versions available. Check the ones you want to update and then click &#8220;Update Plugins&#8221;.' ); ?></p>
+<form method="post" action="<?php echo $form_action; ?>" name="upgrade-plugins" class="upgrade">
+<?php wp_nonce_field('upgrade-core'); ?>
+<p><input id="upgrade-plugins" class="button" type="submit" value="<?php esc_attr_e('Update Plugins'); ?>" name="upgrade" /></p>
 <table class="widefat" cellspacing="0" id="update-plugins-table">
 	<thead>
 	<tr>
 		<th scope="col" class="manage-column check-column"><input type="checkbox" id="plugins-select-all" /></th>
-		<th scope="col" class="manage-column"><label for="plugins-select-all"><?php _e('Select All');?></label></th>
+		<th scope="col" class="manage-column"><label for="plugins-select-all"><?php _e('Select All'); ?></label></th>
 	</tr>
 	</thead>
 
 	<tfoot>
 	<tr>
 		<th scope="col" class="manage-column check-column"><input type="checkbox" id="plugins-select-all-2" /></th>
-		<th scope="col" class="manage-column"><label for="plugins-select-all-2"><?php _e('Select All');?></label></th>
+		<th scope="col" class="manage-column"><label for="plugins-select-all-2"><?php _e('Select All'); ?></label></th>
 	</tr>
 	</tfoot>
 	<tbody class="plugins">
@@ -255,7 +255,7 @@ function list_plugin_updates() {
 ?>
 	</tbody>
 </table>
-<p><input id="upgrade-plugins-2" class="button" type="submit" value="<?php esc_attr_e('Update Plugins');?>" name="upgrade" /></p>
+<p><input id="upgrade-plugins-2" class="button" type="submit" value="<?php esc_attr_e('Update Plugins'); ?>" name="upgrade" /></p>
 </form>
 <?php
 }
@@ -271,24 +271,24 @@ function list_theme_updates() {
 	$form_action = 'update-core.php?action=do-theme-upgrade';
 
 ?>
-<h3><?php _e( 'Themes' );?></h3>
-<p><?php _e( 'The following themes have new versions available. Check the ones you want to update and then click &#8220;Update Themes&#8221;.' );?></p>
-<p><?php printf( __('<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href="%s">child themes</a> for modifications.'), _x('http://codex.wordpress.org/Child_Themes', 'Link used in suggestion to use child themes in GUU') );?></p>
-<form method="post" action="<?=$form_action;?>" name="upgrade-themes" class="upgrade">
-<?php wp_nonce_field('upgrade-core');?>
-<p><input id="upgrade-themes" class="button" type="submit" value="<?php esc_attr_e('Update Themes');?>" name="upgrade" /></p>
+<h3><?php _e( 'Themes' ); ?></h3>
+<p><?php _e( 'The following themes have new versions available. Check the ones you want to update and then click &#8220;Update Themes&#8221;.' ); ?></p>
+<p><?php printf( __('<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href="%s">child themes</a> for modifications.'), _x('http://codex.wordpress.org/Child_Themes', 'Link used in suggestion to use child themes in GUU') ); ?></p>
+<form method="post" action="<?php echo $form_action; ?>" name="upgrade-themes" class="upgrade">
+<?php wp_nonce_field('upgrade-core'); ?>
+<p><input id="upgrade-themes" class="button" type="submit" value="<?php esc_attr_e('Update Themes'); ?>" name="upgrade" /></p>
 <table class="widefat" cellspacing="0" id="update-themes-table">
 	<thead>
 	<tr>
 		<th scope="col" class="manage-column check-column"><input type="checkbox" id="themes-select-all" /></th>
-		<th scope="col" class="manage-column"><label for="themes-select-all"><?php _e('Select All');?></label></th>
+		<th scope="col" class="manage-column"><label for="themes-select-all"><?php _e('Select All'); ?></label></th>
 	</tr>
 	</thead>
 
 	<tfoot>
 	<tr>
 		<th scope="col" class="manage-column check-column"><input type="checkbox" id="themes-select-all-2" /></th>
-		<th scope="col" class="manage-column"><label for="themes-select-all-2"><?php _e('Select All');?></label></th>
+		<th scope="col" class="manage-column"><label for="themes-select-all-2"><?php _e('Select All'); ?></label></th>
 	</tr>
 	</tfoot>
 	<tbody class="plugins">
@@ -305,7 +305,7 @@ function list_theme_updates() {
 ?>
 	</tbody>
 </table>
-<p><input id="upgrade-themes-2" class="button" type="submit" value="<?php esc_attr_e('Update Themes');?>" name="upgrade" /></p>
+<p><input id="upgrade-themes-2" class="button" type="submit" value="<?php esc_attr_e('Update Themes'); ?>" name="upgrade" /></p>
 </form>
 <?php
 }
@@ -341,8 +341,8 @@ function do_core_upgrade( $reinstall = false ) {
 	}
 ?>
 	<div class="wrap">
-	<?php screen_icon('tools');?>
-	<h2><?php _e('Update WordPress');?></h2>
+	<?php screen_icon('tools'); ?>
+	<h2><?php _e('Update WordPress'); ?></h2>
 <?php
 	if ( $wp_filesystem->errors->get_error_code() ) {
 		foreach ( $wp_filesystem->errors->get_error_messages() as $message )

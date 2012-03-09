@@ -330,18 +330,18 @@ class WP_Terms_List_Table extends WP_List_Table {
 ?>
 
 	<form method="get" action=""><table style="display: none"><tbody id="inlineedit">
-		<tr id="inline-edit" class="inline-edit-row" style="display: none"><td colspan="<?=$this->get_column_count();?>" class="colspanchange">
+		<tr id="inline-edit" class="inline-edit-row" style="display: none"><td colspan="<?php echo $this->get_column_count(); ?>" class="colspanchange">
 
 			<fieldset><div class="inline-edit-col">
-				<h4><?php _e( 'Quick Edit' );?></h4>
+				<h4><?php _e( 'Quick Edit' ); ?></h4>
 
 				<label>
-					<span class="title"><?php _ex( 'Name', 'term name' );?></span>
+					<span class="title"><?php _ex( 'Name', 'term name' ); ?></span>
 					<span class="input-text-wrap"><input type="text" name="name" class="ptitle" value="" /></span>
 				</label>
 	<?php if ( !global_terms_enabled() ) { ?>
 				<label>
-					<span class="title"><?php _e( 'Slug' );?></span>
+					<span class="title"><?php _e( 'Slug' ); ?></span>
 					<span class="input-text-wrap"><input type="text" name="slug" class="ptitle" value="" /></span>
 				</label>
 	<?php } ?>
@@ -362,13 +362,13 @@ class WP_Terms_List_Table extends WP_List_Table {
 	?>
 
 		<p class="inline-edit-save submit">
-			<a accesskey="c" href="#inline-edit" title="<?php _e( 'Cancel' );?>" class="cancel button-secondary alignleft"><?php _e( 'Cancel' );?></a>
-			<?php $update_text = $tax->labels->update_item;?>
-			<a accesskey="s" href="#inline-edit" title="<?=esc_attr( $update_text );?>" class="save button-primary alignright"><?=$update_text;?></a>
-			<img class="waiting" style="display:none;" src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" alt="" />
+			<a accesskey="c" href="#inline-edit" title="<?php _e( 'Cancel' ); ?>" class="cancel button-secondary alignleft"><?php _e( 'Cancel' ); ?></a>
+			<?php $update_text = $tax->labels->update_item; ?>
+			<a accesskey="s" href="#inline-edit" title="<?php echo esc_attr( $update_text ); ?>" class="save button-primary alignright"><?php echo $update_text; ?></a>
+			<img class="waiting" style="display:none;" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="" />
 			<span class="error" style="display:none;"></span>
-			<?php wp_nonce_field( 'taxinlineeditnonce', '_inline_edit', false );?>
-			<input type="hidden" name="taxonomy" value="<?=esc_attr( $tax->name );?>" />
+			<?php wp_nonce_field( 'taxinlineeditnonce', '_inline_edit', false ); ?>
+			<input type="hidden" name="taxonomy" value="<?php echo esc_attr( $tax->name ); ?>" />
 			<br class="clear" />
 		</p>
 		</td></tr>

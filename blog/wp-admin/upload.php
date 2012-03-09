@@ -153,10 +153,10 @@ require_once('./admin-header.php');
 ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-<h2><?=esc_html( $title );?> <a href="media-new.php" class="add-new-h2"><?=esc_html_x('Add New', 'file');?></a> <?php
+<?php screen_icon(); ?>
+<h2><?php echo esc_html( $title ); ?> <a href="media-new.php" class="add-new-h2"><?php echo esc_html_x('Add New', 'file'); ?></a> <?php
 if ( isset($_REQUEST['s']) && $_REQUEST['s'] )
-	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', get_search_query() );?>
+	printf( '<span class="subtitle">' . __('Search results for &#8220;%s&#8221;') . '</span>', get_search_query() ); ?>
 </h2>
 
 <?php
@@ -200,19 +200,19 @@ if ( isset($_GET['message']) && (int) $_GET['message'] ) {
 }
 
 if ( !empty($message) ) { ?>
-<div id="message" class="updated"><p><?=$message;?></p></div>
+<div id="message" class="updated"><p><?php echo $message; ?></p></div>
 <?php } ?>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form id="posts-filter" action="" method="get">
 
-<?php $wp_list_table->search_box( __( 'Search Media' ), 'media' );?>
+<?php $wp_list_table->search_box( __( 'Search Media' ), 'media' ); ?>
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 
 <div id="ajax-response"></div>
-<?php find_posts_div();?>
+<?php find_posts_div(); ?>
 <br class="clear" />
 
 </form>

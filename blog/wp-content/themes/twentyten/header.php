@@ -9,9 +9,9 @@
  * @since Twenty Ten 1.0
  */
 ?><!DOCTYPE html>
-<html <?php language_attributes();?>>
+<html <?php language_attributes(); ?>>
 <head>
-<meta charset="<?php bloginfo( 'charset' );?>" />
+<meta charset="<?php bloginfo( 'charset' ); ?>" />
 <title><?php
 	/*
 	 * Print the <title> tag based on what is being viewed.
@@ -34,8 +34,8 @@
 
 	?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' );?>" />
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' );?>" />
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php
 	/* We add some JavaScript to pages with the comment form
 	 * to support sites with threaded comments (when in use).
@@ -52,18 +52,18 @@
 ?>
 </head>
 
-<body <?php body_class();?>>
+<body <?php body_class(); ?>>
 <div id="wrapper" class="hfeed">
 	<div id="header">
 		<div id="masthead">
 			<div id="branding" role="banner">
-				<?php $heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div';?>
-				<<?=$heading_tag;?> id="site-title">
+				<?php $heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div'; ?>
+				<<?php echo $heading_tag; ?> id="site-title">
 					<span>
-						<a href="<?=home_url( '/' );?>" title="<?=esc_attr( get_bloginfo( 'name', 'display' ) );?>" rel="home"><?php bloginfo( 'name' );?></a>
+						<a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
 					</span>
-				</<?=$heading_tag;?>>
-				<div id="site-description"><?php bloginfo( 'description' );?></div>
+				</<?php echo $heading_tag; ?>>
+				<div id="site-description"><?php bloginfo( 'description' ); ?></div>
 
 				<?php
 					// Check if this is a post or page, if it has a thumbnail, and if it's a big one
@@ -74,15 +74,15 @@
 						// Houston, we have a new header image!
 						echo get_the_post_thumbnail( $post->ID );
 					elseif ( get_header_image() ) : ?>
-						<img src="<?php header_image();?>" width="<?=HEADER_IMAGE_WIDTH;?>" height="<?=HEADER_IMAGE_HEIGHT;?>" alt="" />
-					<?php endif;?>
+						<img src="<?php header_image(); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="" />
+					<?php endif; ?>
 			</div><!-- #branding -->
 
 			<div id="access" role="navigation">
 			  <?php /*  Allow screen readers / text browsers to skip the navigation menu and get right to the good stuff */ ?>
-				<div class="skip-link screen-reader-text"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentyten' );?>"><?php _e( 'Skip to content', 'twentyten' );?></a></div>
+				<div class="skip-link screen-reader-text"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentyten' ); ?>"><?php _e( 'Skip to content', 'twentyten' ); ?></a></div>
 				<?php /* Our navigation menu.  If one isn't filled out, wp_nav_menu falls back to wp_page_menu.  The menu assiged to the primary position is the one used.  If none is assigned, the menu with the lowest ID is used.  */ ?>
-				<?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) );?>
+				<?php wp_nav_menu( array( 'container_class' => 'menu-header', 'theme_location' => 'primary' ) ); ?>
 			</div><!-- #access -->
 		</div><!-- #masthead -->
 	</div><!-- #header -->

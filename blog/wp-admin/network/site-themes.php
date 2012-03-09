@@ -131,11 +131,11 @@ $title = sprintf( __('Edit Site: %s'), $site_url_no_http );
 $parent_file = 'sites.php';
 $submenu_file = 'sites.php';
 
-require('../admin-header.php');?>
+require('../admin-header.php'); ?>
 
 <div class="wrap">
-<?php screen_icon('ms-admin');?>
-<h2 id="edit-site"><?=$title_site_url_linked ?></h2>
+<?php screen_icon('ms-admin'); ?>
+<h2 id="edit-site"><?php echo $title_site_url_linked ?></h2>
 <h3 class="nav-tab-wrapper">
 <?php
 $tabs = array(
@@ -164,19 +164,19 @@ if ( isset( $_GET['enabled'] ) ) {
 <p><?php _e( 'Network enabled themes are not shown on this screen.' ) ?></p>
 
 <form method="get" action="">
-<?php $wp_list_table->search_box( __( 'Search Installed Themes' ), 'theme' );?>
-<input type="hidden" name="id" value="<?=esc_attr( $id ) ?>" />
+<?php $wp_list_table->search_box( __( 'Search Installed Themes' ), 'theme' ); ?>
+<input type="hidden" name="id" value="<?php echo esc_attr( $id ) ?>" />
 </form>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form method="post" action="site-themes.php?action=update-site">
-	<?php wp_nonce_field( 'edit-site' );?>
-	<input type="hidden" name="id" value="<?=esc_attr( $id ) ?>" />
+	<?php wp_nonce_field( 'edit-site' ); ?>
+	<input type="hidden" name="id" value="<?php echo esc_attr( $id ) ?>" />
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 
 </form>
 
 </div>
-<?php include(ABSPATH . 'wp-admin/admin-footer.php');?>
+<?php include(ABSPATH . 'wp-admin/admin-footer.php'); ?>

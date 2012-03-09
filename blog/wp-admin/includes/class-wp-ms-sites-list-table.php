@@ -212,21 +212,21 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 				switch ( $column_name ) {
 					case 'cb': ?>
 						<th scope="row" class="check-column">
-							<input type="checkbox" id="blog_<?=$blog['blog_id'];?>" name="allblogs[]" value="<?=esc_attr( $blog['blog_id'] ) ?>" />
+							<input type="checkbox" id="blog_<?php echo $blog['blog_id'] ?>" name="allblogs[]" value="<?php echo esc_attr( $blog['blog_id'] ) ?>" />
 						</th>
 					<?php
 					break;
 
 					case 'id':?>
 						<th valign="top" scope="row">
-							<?=$blog['blog_id'];?>
+							<?php echo $blog['blog_id'] ?>
 						</th>
 					<?php
 					break;
 
 					case 'blogname':
-						echo "<td class='column-$column_name $column_name'$style>";?>
-							<a href="<?=esc_url( network_admin_url( 'site-info.php?id=' . $blog['blog_id'] ) );?>" class="edit"><?=$blogname . $blog_state;?></a>
+						echo "<td class='column-$column_name $column_name'$style>"; ?>
+							<a href="<?php echo esc_url( network_admin_url( 'site-info.php?id=' . $blog['blog_id'] ) ); ?>" class="edit"><?php echo $blogname . $blog_state; ?></a>
 							<?php
 							if ( 'list' != $mode )
 								echo '<p>' . sprintf( _x( '%1$s &#8211; <em>%2$s</em>', '%1$s: site name. %2$s: site tagline.' ), get_blog_option( $blog['blog_id'], 'blogname' ), get_blog_option( $blog['blog_id'], 'blogdescription ' ) ) . '</p>';
@@ -278,7 +278,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 								$date = 'Y/m/d';
 							else
 								$date = 'Y/m/d \<\b\r \/\> g:i:s a';
-							echo ( $blog['last_updated'] == '0000-00-00 00:00:00' ) ? __( 'Never' ) : mysql2date( $date, $blog['last_updated'] );?>
+							echo ( $blog['last_updated'] == '0000-00-00 00:00:00' ) ? __( 'Never' ) : mysql2date( $date, $blog['last_updated'] ); ?>
 						</td>
 					<?php
 					break;
@@ -318,7 +318,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 				case 'plugins': ?>
 					<?php if ( has_filter( 'wpmublogsaction' ) ) {
 					echo "<td valign='top' class='$column_name column-$column_name'$style>";
-						do_action( 'wpmublogsaction', $blog['blog_id'] );?>
+						do_action( 'wpmublogsaction', $blog['blog_id'] ); ?>
 					</td>
 					<?php }
 					break;

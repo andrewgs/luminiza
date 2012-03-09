@@ -32,7 +32,7 @@ You can either install it automatically from the WordPress admin, or do it manua
 = Usage =
 
 1. Open `wp-content/themes/your-theme-name/footer.php`
-2. Add anywhere: `<?php wp_pagenavi();?>`
+2. Add anywhere: `<?php wp_pagenavi(); ?>`
 3. Go to *WP-Admin -> Settings -> PageNavi* to configure WP-PageNavi.
 
 = Changing the CSS =
@@ -66,7 +66,7 @@ If you are running a multi-language plugin, you will probably want to ignore the
 
 You can do that like so:
 
-`<?php wp_pagenavi( array( 'options' => PageNavi_Core::$options->get_defaults() ) );?>`
+`<?php wp_pagenavi( array( 'options' => PageNavi_Core::$options->get_defaults() ) ); ?>`
 
 == Changelog ==
 

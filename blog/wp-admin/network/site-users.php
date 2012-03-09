@@ -164,11 +164,11 @@ $title = sprintf( __('Edit Site: %s'), $site_url_no_http );
 $parent_file = 'sites.php';
 $submenu_file = 'sites.php';
 
-require('../admin-header.php');?>
+require('../admin-header.php'); ?>
 
 <div class="wrap">
-<?php screen_icon('ms-admin');?>
-<h2 id="edit-site"><?=$title_site_url_linked ?></h2>
+<?php screen_icon('ms-admin'); ?>
+<h2 id="edit-site"><?php echo $title_site_url_linked ?></h2>
 <h3 class="nav-tab-wrapper">
 <?php
 $tabs = array(
@@ -217,20 +217,20 @@ if ( isset($_GET['update']) ) :
 		echo '<div id="message" class="error"><p>' . __( 'Duplicated username or email address.' ) . '</p></div>';
 		break;
 	}
-endif;?>
+endif; ?>
 
 <form class="search-form" action="" method="get">
-<?php $wp_list_table->search_box( __( 'Search Users' ), 'user' );?>
-<input type="hidden" name="id" value="<?=esc_attr( $id ) ?>" />
+<?php $wp_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
+<input type="hidden" name="id" value="<?php echo esc_attr( $id ) ?>" />
 </form>
 
-<?php $wp_list_table->views();?>
+<?php $wp_list_table->views(); ?>
 
 <form method="post" action="site-users.php?action=update-site">
-	<?php wp_nonce_field( 'edit-site' );?>
-	<input type="hidden" name="id" value="<?=esc_attr( $id ) ?>" />
+	<?php wp_nonce_field( 'edit-site' ); ?>
+	<input type="hidden" name="id" value="<?php echo esc_attr( $id ) ?>" />
 
-<?php $wp_list_table->display();?>
+<?php $wp_list_table->display(); ?>
 
 </form>
 
@@ -239,21 +239,21 @@ endif;?>
 <?php if ( current_user_can( 'promote_users' ) && apply_filters( 'show_network_site_users_add_existing_form', true ) ) : ?>
 <h4 id="add-user"><?php _e('Add User to This Site') ?></h4>
 	<?php if ( current_user_can( 'create_users' ) && apply_filters( 'show_network_site_users_add_new_form', true ) ) : ?>
-<p><?php _e( 'You may add from existing network users, or set up a new user to add to this site.' );?></p>
+<p><?php _e( 'You may add from existing network users, or set up a new user to add to this site.' ); ?></p>
 	<?php else : ?>
-<p><?php _e( 'You may add from existing network users to this site.' );?></p>
-	<?php endif;?>
+<p><?php _e( 'You may add from existing network users to this site.' ); ?></p>
+	<?php endif; ?>
 <h5 id="add-existing-user"><?php _e('Add Existing User') ?></h5>
 <form action="site-users.php?action=adduser" id="adduser" method="post">
-	<?php wp_nonce_field( 'edit-site' );?>
-	<input type="hidden" name="id" value="<?=esc_attr( $id ) ?>" />
+	<?php wp_nonce_field( 'edit-site' ); ?>
+	<input type="hidden" name="id" value="<?php echo esc_attr( $id ) ?>" />
 	<table class="form-table">
 		<tr>
-			<th scope="row"><?php _e( 'Username' );?></th>
+			<th scope="row"><?php _e( 'Username' ); ?></th>
 			<td><input type="text" class="regular-text" name="newuser" id="newuser" /></td>
 		</tr>
 		<tr>
-			<th scope="row"><?php _e( 'Role');?></th>
+			<th scope="row"><?php _e( 'Role'); ?></th>
 			<td><select name="new_role" id="new_role_0">
 			<?php
 			reset( $editblog_roles );
@@ -267,15 +267,15 @@ endif;?>
 		</tr>
 	</table>
 	<?php wp_nonce_field( 'add-user', '_wpnonce_add-user' ) ?>
-	<?php submit_button( __('Add User'), 'primary', 'add-user', false, array( 'id' => 'submit-add-existing-user' ) );?>
+	<?php submit_button( __('Add User'), 'primary', 'add-user', false, array( 'id' => 'submit-add-existing-user' ) ); ?>
 </form>
-<?php endif;?>
+<?php endif; ?>
 
 <?php if ( current_user_can( 'create_users' ) && apply_filters( 'show_network_site_users_add_new_form', true ) ) : ?>
 <h5 id="add-new-user"><?php _e('Add New User') ?></h5>
-<form action="<?=network_admin_url('site-users.php?action=newuser');?>" id="newuser" method="post">
-	<?php wp_nonce_field( 'edit-site' );?>
-	<input type="hidden" name="id" value="<?=esc_attr( $id ) ?>" />
+<form action="<?php echo network_admin_url('site-users.php?action=newuser'); ?>" id="newuser" method="post">
+	<?php wp_nonce_field( 'edit-site' ); ?>
+	<input type="hidden" name="id" value="<?php echo esc_attr( $id ) ?>" />
 	<table class="form-table">
 		<tr>
 			<th scope="row"><?php _e( 'Username' ) ?></th>
@@ -286,7 +286,7 @@ endif;?>
 			<td><input type="text" class="regular-text" name="user[email]" /></td>
 		</tr>
 		<tr>
-			<th scope="row"><?php _e( 'Role');?></th>
+			<th scope="row"><?php _e( 'Role'); ?></th>
 			<td><select name="new_role" id="new_role_0">
 			<?php
 			reset( $editblog_roles );
@@ -303,9 +303,9 @@ endif;?>
 		</tr>
 	</table>
 	<?php wp_nonce_field( 'add-user', '_wpnonce_add-new-user' ) ?>
-	<?php submit_button( __('Add New User'), 'primary', 'add-user', false, array( 'id' => 'submit-add-user' ) );?>
+	<?php submit_button( __('Add New User'), 'primary', 'add-user', false, array( 'id' => 'submit-add-user' ) ); ?>
 </form>
-<?php endif;?>
+<?php endif; ?>
 </div>
 <?php
 require('../admin-footer.php');

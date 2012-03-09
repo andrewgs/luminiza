@@ -61,10 +61,10 @@ if ( isset($_GET['update']) ) {
 $title = __('Add New User');
 $parent_file = 'users.php';
 
-require('../admin-header.php');?>
+require('../admin-header.php'); ?>
 
 <div class="wrap">
-<?php screen_icon();?>
+<?php screen_icon(); ?>
 <h2 id="add-new-user"><?php _e('Add New User') ?></h2>
 <?php
 if ( ! empty( $messages ) ) {
@@ -80,7 +80,7 @@ if ( isset( $add_user_errors ) && is_wp_error( $add_user_errors ) ) { ?>
 		?>
 	</div>
 <?php } ?>
-	<form action="<?=network_admin_url('user-new.php?action=add-user');?>" id="adduser" method="post">	
+	<form action="<?php echo network_admin_url('user-new.php?action=add-user'); ?>" id="adduser" method="post">	
 	<table class="form-table">
 		<tr class="form-field form-required">
 			<th scope="row"><?php _e( 'Username' ) ?></th>
@@ -95,7 +95,7 @@ if ( isset( $add_user_errors ) && is_wp_error( $add_user_errors ) ) { ?>
 		</tr>
 	</table>
 	<?php wp_nonce_field( 'add-user', '_wpnonce_add-user' ) ?>
-	<?php submit_button( __('Add User'), 'primary', 'add-user' );?>
+	<?php submit_button( __('Add User'), 'primary', 'add-user' ); ?>
 	</form>
 </div>
 <?php

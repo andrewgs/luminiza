@@ -166,11 +166,11 @@ if ( 'update' == $action ) {
 	exit;
 }
 
-include('./admin-header.php');?>
+include('./admin-header.php'); ?>
 
 <div class="wrap">
-<?php screen_icon();?>
-  <h2><?php esc_html_e('All Settings');?></h2>
+<?php screen_icon(); ?>
+  <h2><?php esc_html_e('All Settings'); ?></h2>
   <form name="form" action="options.php" method="post" id="all-options">
   <?php wp_nonce_field('options-options') ?>
   <input type="hidden" name="action" value="update" />
@@ -214,9 +214,9 @@ endforeach;
 ?>
   </table>
 
-<input type="hidden" name="page_options" value="<?=esc_attr( implode( ',', $options_to_update ) );?>" />
+<input type="hidden" name="page_options" value="<?php echo esc_attr( implode( ',', $options_to_update ) ); ?>" />
 
-<?php submit_button( __( 'Save Changes' ), 'primary', 'Update' );?>
+<?php submit_button( __( 'Save Changes' ), 'primary', 'Update' ); ?>
 
   </form>
 </div>

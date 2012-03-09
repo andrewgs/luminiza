@@ -455,20 +455,20 @@ function wp_network_dashboard_right_now() {
 ?>
 	<br class="clear" />
 
-	<p class="youhave"><?=$sentence;?></p>
-	<?php do_action( 'wpmuadminresult', '' );?>
+	<p class="youhave"><?php echo $sentence; ?></p>
+	<?php do_action( 'wpmuadminresult', '' ); ?>
 
-	<form name="searchform" action="<?=network_admin_url('users.php');?>" method="get">
+	<form name="searchform" action="<?php echo network_admin_url('users.php'); ?>" method="get">
 		<p>
 			<input type="text" name="s" value="" size="17" />
-			<?php submit_button( __( 'Search Users' ), 'button', 'submit', false, array( 'id' => 'submit_users' ) );?>
+			<?php submit_button( __( 'Search Users' ), 'button', 'submit', false, array( 'id' => 'submit_users' ) ); ?>
 		</p>
 	</form>
 
-	<form name="searchform" action="<?=network_admin_url('sites.php');?>" method="get">
+	<form name="searchform" action="<?php echo network_admin_url('sites.php'); ?>" method="get">
 		<p>
 			<input type="text" name="s" value="" size="17" />
-			<?php submit_button( __( 'Search Sites' ), 'button', 'submit', false, array( 'id' => 'submit_sites' ) );?>
+			<?php submit_button( __( 'Search Sites' ), 'button', 'submit', false, array( 'id' => 'submit_sites' ) ); ?>
 		</p>
 	</form>
 <?php
@@ -524,40 +524,40 @@ function wp_dashboard_quick_press() {
 	$post_ID = (int) $post->ID;
 ?>
 
-	<form name="post" action="<?=esc_url( admin_url( 'post.php' ) );?>" method="post" id="quick-press">
+	<form name="post" action="<?php echo esc_url( admin_url( 'post.php' ) ); ?>" method="post" id="quick-press">
 		<h4 id="quick-post-title"><label for="title"><?php _e('Title') ?></label></h4>
 		<div class="input-text-wrap">
-			<input type="text" name="post_title" id="title" tabindex="1" autocomplete="off" value="<?=esc_attr( $post->post_title );?>" />
+			<input type="text" name="post_title" id="title" tabindex="1" autocomplete="off" value="<?php echo esc_attr( $post->post_title ); ?>" />
 		</div>
 
 		<?php if ( current_user_can( 'upload_files' ) ) : ?>
 		<div id="media-buttons" class="hide-if-no-js">
-			<?php do_action( 'media_buttons' );?>
+			<?php do_action( 'media_buttons' ); ?>
 		</div>
-		<?php endif;?>
+		<?php endif; ?>
 
 		<h4 id="content-label"><label for="content"><?php _e('Content') ?></label></h4>
 		<div class="textarea-wrap">
-			<textarea name="content" id="content" class="mceEditor" rows="3" cols="15" tabindex="2"><?=esc_textarea( $post->post_content );?></textarea>
+			<textarea name="content" id="content" class="mceEditor" rows="3" cols="15" tabindex="2"><?php echo esc_textarea( $post->post_content ); ?></textarea>
 		</div>
 
 		<script type="text/javascript">edCanvas = document.getElementById('content');edInsertContent = null;</script>
 
 		<h4><label for="tags-input"><?php _e('Tags') ?></label></h4>
 		<div class="input-text-wrap">
-			<input type="text" name="tags_input" id="tags-input" tabindex="3" value="<?=get_tags_to_edit( $post->ID );?>" />
+			<input type="text" name="tags_input" id="tags-input" tabindex="3" value="<?php echo get_tags_to_edit( $post->ID ); ?>" />
 		</div>
 
 		<p class="submit">
 			<input type="hidden" name="action" id="quickpost-action" value="post-quickpress-save" />
-			<input type="hidden" name="quickpress_post_ID" value="<?=$post_ID;?>" />
+			<input type="hidden" name="quickpress_post_ID" value="<?php echo $post_ID; ?>" />
 			<input type="hidden" name="post_type" value="post" />
-			<?php wp_nonce_field('add-post');?>
-			<?php submit_button( __( 'Save Draft' ), 'button', 'save', false, array( 'id' => 'save-post', 'tabindex'=> 4 ) );?>
-			<input type="reset" value="<?php esc_attr_e( 'Reset' );?>" class="button" />
+			<?php wp_nonce_field('add-post'); ?>
+			<?php submit_button( __( 'Save Draft' ), 'button', 'save', false, array( 'id' => 'save-post', 'tabindex'=> 4 ) ); ?>
+			<input type="reset" value="<?php esc_attr_e( 'Reset' ); ?>" class="button" />
 			<span id="publishing-action">
-				<input type="submit" name="publish" id="publish" accesskey="p" tabindex="5" class="button-primary" value="<?php current_user_can('publish_posts') ? esc_attr_e('Publish') : esc_attr_e('Submit for Review');?>" />
-				<img class="waiting" src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" alt="" />
+				<input type="submit" name="publish" id="publish" accesskey="p" tabindex="5" class="button-primary" value="<?php current_user_can('publish_posts') ? esc_attr_e('Publish') : esc_attr_e('Submit for Review'); ?>" />
+				<img class="waiting" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" alt="" />
 			</span>
 			<br class="clear" />
 		</p>
@@ -594,9 +594,9 @@ function wp_dashboard_recent_drafts( $drafts = false ) {
 		}
 ?>
 	<ul>
-		<li><?=join( "</li>\n<li>", $list );?></li>
+		<li><?php echo join( "</li>\n<li>", $list ); ?></li>
 	</ul>
-	<p class="textright"><a href="edit.php?post_status=draft" ><?php _e('View all');?></a></p>
+	<p class="textright"><a href="edit.php?post_status=draft" ><?php _e('View all'); ?></a></p>
 <?php
 	} else {
 		_e('There are no drafts at the moment');
@@ -649,7 +649,7 @@ function wp_dashboard_recent_comments() {
 
 <?php
 		if ( current_user_can('edit_posts') ) { ?>
-			<?php _get_list_table('WP_Comments_List_Table')->views();?>
+			<?php _get_list_table('WP_Comments_List_Table')->views(); ?>
 <?php	}
 
 		wp_comment_reply( -1, false, 'dashboard', false );
@@ -658,7 +658,7 @@ function wp_dashboard_recent_comments() {
 	else :
 ?>
 
-	<p><?php _e( 'No comments yet.' );?></p>
+	<p><?php _e( 'No comments yet.' ); ?></p>
 
 <?php
 	endif; // $comments;
@@ -719,15 +719,15 @@ function _wp_dashboard_recent_comments_row( &$comment, $show_date = true ) {
 
 ?>
 
-		<div id="comment-<?=$comment->comment_ID;?>" <?php comment_class( array( 'comment-item', wp_get_comment_status($comment->comment_ID) ) );?>>
+		<div id="comment-<?php echo $comment->comment_ID; ?>" <?php comment_class( array( 'comment-item', wp_get_comment_status($comment->comment_ID) ) ); ?>>
 			<?php if ( !$comment->comment_type || 'comment' == $comment->comment_type ) : ?>
 
-			<?=get_avatar( $comment, 50 );?>
+			<?php echo get_avatar( $comment, 50 ); ?>
 
 			<div class="dashboard-comment-wrap">
 			<h4 class="comment-meta">
 				<?php printf( /* translators: 1: comment author, 2: post link, 3: notification if the comment is pending */__( 'From %1$s on %2$s%3$s' ),
-					'<cite class="comment-author">' . get_comment_author_link() . '</cite>', $comment_post_link.' '.$comment_link, ' <span class="approve">' . __( '[Pending]' ) . '</span>' );?>
+					'<cite class="comment-author">' . get_comment_author_link() . '</cite>', $comment_post_link.' '.$comment_link, ' <span class="approve">' . __( '[Pending]' ) . '</span>' ); ?>
 			</h4>
 
 			<?php
@@ -746,12 +746,12 @@ function _wp_dashboard_recent_comments_row( &$comment, $show_date = true ) {
 			?>
 			<div class="dashboard-comment-wrap">
 			<?php /* translators: %1$s is type of comment, %2$s is link to the post */ ?>
-			<h4 class="comment-meta"><?php printf( _x( '%1$s on %2$s', 'dashboard' ), "<strong>$type</strong>", $comment_post_link." ".$comment_link );?></h4>
-			<p class="comment-author"><?php comment_author_link();?></p>
+			<h4 class="comment-meta"><?php printf( _x( '%1$s on %2$s', 'dashboard' ), "<strong>$type</strong>", $comment_post_link." ".$comment_link ); ?></h4>
+			<p class="comment-author"><?php comment_author_link(); ?></p>
 
 			<?php endif; // comment_type ?>
-			<blockquote><p><?php comment_excerpt();?></p></blockquote>
-			<p class="row-actions"><?=$actions_string;?></p>
+			<blockquote><p><?php comment_excerpt(); ?></p></blockquote>
+			<p class="row-actions"><?php echo $actions_string; ?></p>
 			</div>
 		</div>
 <?php
@@ -1147,20 +1147,20 @@ function wp_dashboard_quota() {
 	$percentused = number_format( $percentused );
 
 	?>
-	<p class="sub musub"><?php _e( 'Storage Space' );?></p>
+	<p class="sub musub"><?php _e( 'Storage Space' ); ?></p>
 	<div class="table table_content musubtable">
 	<table>
 		<tr class="first">
-			<td class="first b b-posts"><?php printf( __( '<a href="%1$s" title="Manage Uploads" class="musublink">%2$sMB</a>' ), esc_url( admin_url( 'upload.php' ) ), $quota );?></td>
-			<td class="t posts"><?php _e( 'Space Allowed' );?></td>
+			<td class="first b b-posts"><?php printf( __( '<a href="%1$s" title="Manage Uploads" class="musublink">%2$sMB</a>' ), esc_url( admin_url( 'upload.php' ) ), $quota ); ?></td>
+			<td class="t posts"><?php _e( 'Space Allowed' ); ?></td>
 		</tr>
 	</table>
 	</div>
 	<div class="table table_discussion musubtable">
 	<table>
 		<tr class="first">
-			<td class="b b-comments"><?php printf( __( '<a href="%1$s" title="Manage Uploads" class="musublink">%2$sMB (%3$s%%)</a>' ), esc_url( admin_url( 'upload.php' ) ), $used, $percentused );?></td>
-			<td class="last t comments<?=$used_color;?>"><?php _e( 'Space Used' );?></td>
+			<td class="b b-comments"><?php printf( __( '<a href="%1$s" title="Manage Uploads" class="musublink">%2$sMB (%3$s%%)</a>' ), esc_url( admin_url( 'upload.php' ) ), $used, $percentused ); ?></td>
+			<td class="last t comments<?php echo $used_color;?>"><?php _e( 'Space Used' );?></td>
 		</tr>
 	</table>
 	</div>

@@ -67,7 +67,8 @@
 					<!--End mc_embed_signup-->
 					<?php if($this->uri->segment(1) == 'contacts'):?>
 					<div id="kontakt" class="formmailer">
-						<p>Используйте данную контакную форму, чтобы связаться с нами. Вы также можете написать нам напрямую по электронной почте. Для этого нажмите на ссылку: <?=safe_mailto('info@lum-tenerife.com','info@lum-tenerife.com'); ?><br><br></p>
+						<p>Используйте данную контакную форму, чтобы связаться с нами. Обратите внимание, что все поля обязательны для заполнения.</p>
+						<p>Вы также можете позвонить нам по телефонам <strong><nobr>+7 909 836-36-66</nobr></strong> или <strong><nobr>+34 678-283-024</nobr></strong><br><br></p>
 						<?php $this->load->view('forms/formsendcontact');?>
 					</div>
 				<?php endif;?>

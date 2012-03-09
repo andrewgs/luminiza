@@ -151,7 +151,7 @@ require_once( './admin-header.php' );
 
 <div class="wrap">
 
-<h2 class="long-header"><?=$h2;?></h2>
+<h2 class="long-header"><?php echo $h2; ?></h2>
 
 <table class="form-table ie-fixed">
 	<col class="th" />
@@ -159,8 +159,8 @@ require_once( './admin-header.php' );
 <tr id="revision">
 	<th scope="row"></th>
 	<th scope="col" class="th-full">
-		<span class="alignleft"><?php printf( __('Older: %s'), wp_post_revision_title( $left_revision ) );?></span>
-		<span class="alignright"><?php printf( __('Newer: %s'), wp_post_revision_title( $right_revision ) );?></span>
+		<span class="alignleft"><?php printf( __('Older: %s'), wp_post_revision_title( $left_revision ) ); ?></span>
+		<span class="alignright"><?php printf( __('Newer: %s'), wp_post_revision_title( $right_revision ) ); ?></span>
 	</th>
 </tr>
 <?php endif;
@@ -180,9 +180,9 @@ foreach ( _wp_post_revision_fields() as $field => $field_title ) :
 	}
 	?>
 
-	<tr id="revision-field-<?=$field;?>">
-		<th scope="row"><?=esc_html( $field_title );?></th>
-		<td><div class="pre"><?=$content;?></div></td>
+	<tr id="revision-field-<?php echo $field; ?>">
+		<th scope="row"><?php echo esc_html( $field_title ); ?></th>
+		<td><div class="pre"><?php echo $content; ?></div></td>
 	</tr>
 
 	<?php
@@ -193,7 +193,7 @@ if ( 'diff' == $action && $identical ) :
 
 	?>
 
-	<tr><td colspan="2"><div class="updated"><p><?php _e( 'These revisions are identical.' );?></p></div></td></tr>
+	<tr><td colspan="2"><div class="updated"><p><?php _e( 'These revisions are identical.' ); ?></p></div></td></tr>
 
 	<?php
 
@@ -205,7 +205,7 @@ endif;
 
 <br class="clear" />
 
-<h3><?=$title;?></h3>
+<h3><?php echo $title; ?></h3>
 
 <?php
 

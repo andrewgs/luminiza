@@ -212,7 +212,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 		if ( 'top' == $which ) {
 ?>
 			<select name="comment_type">
-				<option value=""><?php _e( 'Show all comment types' );?></option>
+				<option value=""><?php _e( 'Show all comment types' ); ?></option>
 <?php
 				$comment_types = apply_filters( 'admin_comment_types_dropdown', array(
 					'comment' => __( 'Comments' ),
@@ -275,25 +275,25 @@ class WP_Comments_List_Table extends WP_List_Table {
 		$this->display_tablenav( 'top' );
 
 ?>
-<table class="<?=implode( ' ', $this->get_table_classes() );?>" cellspacing="0">
+<table class="<?php echo implode( ' ', $this->get_table_classes() ); ?>" cellspacing="0">
 	<thead>
 	<tr>
-		<?php $this->print_column_headers();?>
+		<?php $this->print_column_headers(); ?>
 	</tr>
 	</thead>
 
 	<tfoot>
 	<tr>
-		<?php $this->print_column_headers( false );?>
+		<?php $this->print_column_headers( false ); ?>
 	</tr>
 	</tfoot>
 
 	<tbody id="the-comment-list" class="list:comment">
-		<?php $this->display_rows_or_placeholder();?>
+		<?php $this->display_rows_or_placeholder(); ?>
 	</tbody>
 
 	<tbody id="the-extra-comment-list" class="list:comment" style="display: none;">
-		<?php $this->items = $this->extra_items; $this->display_rows();?>
+		<?php $this->items = $this->extra_items; $this->display_rows(); ?>
 	</tbody>
 </table>
 <?php
@@ -365,12 +365,12 @@ class WP_Comments_List_Table extends WP_List_Table {
 		echo '</div>';
 		comment_text();
 		if ( $user_can ) { ?>
-		<div id="inline-<?=$comment->comment_ID;?>" class="hidden">
-		<textarea class="comment" rows="1" cols="1"><?=esc_textarea( apply_filters( 'comment_edit_pre', $comment->comment_content ) );?></textarea>
-		<div class="author-email"><?=esc_attr( $comment->comment_author_email );?></div>
-		<div class="author"><?=esc_attr( $comment->comment_author );?></div>
-		<div class="author-url"><?=esc_attr( $comment->comment_author_url );?></div>
-		<div class="comment_status"><?=$comment->comment_approved;?></div>
+		<div id="inline-<?php echo $comment->comment_ID; ?>" class="hidden">
+		<textarea class="comment" rows="1" cols="1"><?php echo esc_textarea( apply_filters( 'comment_edit_pre', $comment->comment_content ) ); ?></textarea>
+		<div class="author-email"><?php echo esc_attr( $comment->comment_author_email ); ?></div>
+		<div class="author"><?php echo esc_attr( $comment->comment_author ); ?></div>
+		<div class="author-url"><?php echo esc_attr( $comment->comment_author_url ); ?></div>
+		<div class="comment_status"><?php echo $comment->comment_approved; ?></div>
 		</div>
 		<?php
 		}
@@ -543,9 +543,9 @@ class WP_Post_Comments_List_Table extends WP_Comments_List_Table {
 
 		wp_nonce_field( "fetch-list-" . get_class( $this ), '_ajax_fetch_list_nonce' );
 ?>
-<table class="<?=implode( ' ', $this->get_table_classes() );?>" cellspacing="0" style="display:none;">
-	<tbody id="the-comment-list"<?php if ( $singular ) echo " class='list:$singular'";?>>
-		<?php if ( ! $output_empty ) $this->display_rows_or_placeholder();?>
+<table class="<?php echo implode( ' ', $this->get_table_classes() ); ?>" cellspacing="0" style="display:none;">
+	<tbody id="the-comment-list"<?php if ( $singular ) echo " class='list:$singular'"; ?>>
+		<?php if ( ! $output_empty ) $this->display_rows_or_placeholder(); ?>
 	</tbody>
 </table>
 <?php

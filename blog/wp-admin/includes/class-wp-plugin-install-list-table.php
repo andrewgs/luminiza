@@ -114,16 +114,16 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 		if ( 'top' ==  $which ) { ?>
 			<div class="tablenav top">
 				<div class="alignleft actions">
-					<?php do_action( 'install_plugins_table_header' );?>
+					<?php do_action( 'install_plugins_table_header' ); ?>
 				</div>
-				<?php $this->pagination( $which );?>
-				<img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading list-ajax-loading" alt="" />
+				<?php $this->pagination( $which ); ?>
+				<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading list-ajax-loading" alt="" />
 				<br class="clear" />
 			</div>
 		<?php } else { ?>
 			<div class="tablenav bottom">
-				<?php $this->pagination( $which );?>
-				<img src="<?=esc_url( admin_url( 'images/wpspin_light.gif' ) );?>" class="ajax-loading list-ajax-loading" alt="" />
+				<?php $this->pagination( $which ); ?>
+				<img src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) ); ?>" class="ajax-loading list-ajax-loading" alt="" />
 				<br class="clear" />
 			</div>
 		<?php
@@ -213,13 +213,13 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 			$action_links = apply_filters( 'plugin_install_action_links', $action_links, $plugin );
 		?>
 		<tr>
-			<td class="name column-name"<?=$style['name'];?>><strong><?=$title;?></strong>
-				<div class="action-links"><?php if ( !empty( $action_links ) ) echo implode( ' | ', $action_links );?></div>
+			<td class="name column-name"<?php echo $style['name']; ?>><strong><?php echo $title; ?></strong>
+				<div class="action-links"><?php if ( !empty( $action_links ) ) echo implode( ' | ', $action_links ); ?></div>
 			</td>
-			<td class="vers column-version"<?=$style['version'];?>><?=$version;?></td>
-			<td class="vers column-rating"<?=$style['rating'];?>>
+			<td class="vers column-version"<?php echo $style['version']; ?>><?php echo $version; ?></td>
+			<td class="vers column-rating"<?php echo $style['rating']; ?>>
 				<div class="star-holder" title="<?php printf( _n( '(based on %s rating)', '(based on %s ratings)', $plugin['num_ratings'] ), number_format_i18n( $plugin['num_ratings'] ) ) ?>">
-					<div class="star star-rating" style="width: <?=esc_attr( $plugin['rating'] ) ?>px"></div>
+					<div class="star star-rating" style="width: <?php echo esc_attr( $plugin['rating'] ) ?>px"></div>
 					<?php
 						$color = get_user_option('admin_color');
 						if ( empty($color) || 'fresh' == $color )
@@ -227,14 +227,14 @@ class WP_Plugin_Install_List_Table extends WP_List_Table {
 						else
 							$star_url = admin_url( 'images/star.png?v=20110615' ); // 'Classic' Blue star
 					?>
-					<div class="star star5"><img src="<?=$star_url;?>" alt="<?php _e( '5 stars' ) ?>" /></div>
-					<div class="star star4"><img src="<?=$star_url;?>" alt="<?php _e( '4 stars' ) ?>" /></div>
-					<div class="star star3"><img src="<?=$star_url;?>" alt="<?php _e( '3 stars' ) ?>" /></div>
-					<div class="star star2"><img src="<?=$star_url;?>" alt="<?php _e( '2 stars' ) ?>" /></div>
-					<div class="star star1"><img src="<?=$star_url;?>" alt="<?php _e( '1 star' ) ?>" /></div>
+					<div class="star star5"><img src="<?php echo $star_url; ?>" alt="<?php _e( '5 stars' ) ?>" /></div>
+					<div class="star star4"><img src="<?php echo $star_url; ?>" alt="<?php _e( '4 stars' ) ?>" /></div>
+					<div class="star star3"><img src="<?php echo $star_url; ?>" alt="<?php _e( '3 stars' ) ?>" /></div>
+					<div class="star star2"><img src="<?php echo $star_url; ?>" alt="<?php _e( '2 stars' ) ?>" /></div>
+					<div class="star star1"><img src="<?php echo $star_url; ?>" alt="<?php _e( '1 star' ) ?>" /></div>
 				</div>
 			</td>
-			<td class="desc column-description"<?=$style['description'];?>><?=$description, $author;?></td>
+			<td class="desc column-description"<?php echo $style['description']; ?>><?php echo $description, $author; ?></td>
 		</tr>
 		<?php
 		}

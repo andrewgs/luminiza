@@ -1,4 +1,4 @@
-﻿/**
+/**
  * jGrowl 1.2.6
  *
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
