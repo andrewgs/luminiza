@@ -145,8 +145,8 @@
 							<strong>Район:</strong> <nobr><?= $apt['apnt_region']; ?></nobr><br>
 							<strong>Количество комнат:</strong> <nobr><?= $apt['apnt_count']; ?></nobr><br>
 						  </p>
-						  <p class="price"><img src="<?= base_url(); ?>images/price-label.png"> <?= $apt['apnt_price']; ?> &euro;</p>
-						  <a class="btn primary" href="<?= base_url(); ?>retail/apartment/<?= $apt['apnt_id'] ?>">Подробнее</a>
+						  <p class="price"><img src="<?=base_url();?>images/price-label.png"> <?= $apt['apnt_price']; ?></p>
+						  <a class="btn primary" href="<?=base_url();?>retail/apartment/<?= $apt['apnt_id']; ?>">Подробнее</a>
 						</div>
 					  </div>
 					</li>

@@ -7,12 +7,6 @@ php_value upload_max_filesiza 5M
 RewriteEngine On
 RewriteBase /
 
-# склейка зеркал сайта
-RewriteCond %{HTTP_HOST} ^lum-tenerife.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.lum-tenerife.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www.lum-tenerife.ru$ [NC]
-RewriteRule ^(.*)$ http://lum-tenerife.ru/$1 [R=301,NC,L]
-
 RewriteCond $1 !^(index\.php|images|robots\.txt|public)
 RewriteCond %{REQUEST_URI} !\.(css¦js¦jpg¦gif)$
 RewriteCond %{REQUEST_FILENAME} !-f

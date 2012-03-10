@@ -43,20 +43,23 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('searchback');
 		
 		$apartment = array();
-		$apartment = $this->apartmentmodel->get_limit_records(9, 0, 2, 1);
-		
-		for ( $i=0; $i < count($apartment); $i++ ) {
+		$apartment = $this->apartmentmodel->get_limit_records(6, 0, 0, 1);
+		$rent = $this->apartmentmodel->get_limit_records(3, 0, 1, 1);
+		for($i=0,$j=count($apartment);$i<count($rent);$i++,$j++):
+			$rent[$i]['apnt_price'] = 'Аренда';
+			$apartment[$j] = $rent[$i];
+		endfor;
+		for($i=0;$i<count($apartment);$i++):
 			$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$apartment[$i]['apnt_id']);
 			$apartment[$i]['img_id'] = $image[$i]['img_id'];
 			$apartment[$i]['img_title'] = $image[$i]['img_title'];
-			if ( empty($apartment[$i]['img_title']) ) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
-			if ( is_numeric($apartment[$i]['apnt_price']) ) {
+			if(empty($apartment[$i]['img_title'])) $apartment[$i]['img_title'] = $apartment[$i]['apnt_title'];
+			if(is_numeric($apartment[$i]['apnt_price'])):
 				$apartment[$i]['apnt_price'] = number_format($apartment[$i]['apnt_price'],0,' ','.');
-			}
-		}
-		
+				$apartment[$i]['apnt_price'] .= ' &euro;';
+			endif;
+		endfor;
 		$pagevalue['apartment'] = $apartment;
-		
 		$this->load->view('user_interface/index',$pagevalue);
 	}			//функция выводит информацию на главную страницу;
 	
@@ -331,6 +334,7 @@ class Users_interface extends CI_Controller{
 			'images'		=> array(),
 			'text'			=> '',
 			'ficha'			=> '',
+			'proposals'		=> array(),
 			'msg'			=> $this->session->userdata('msg')
 		);
 		
@@ -425,7 +429,19 @@ class Users_interface extends CI_Controller{
 		$pagevalue['title'] = 'Продажа. ' . preg_replace("/Ref.*?:.*?\d+\s?/i", "", $retail['title']) . ' | Недвижимость на Тенерифе';
 		$pagevalue['description'] = preg_replace("/\s{2,}/", " ", trim(html_entity_decode(strip_tags($retail['extended']), ENT_QUOTES, 'UTF-8')));
 		$pagevalue['description'] = preg_replace('/"/i', "", mb_substr($pagevalue['description'], 0, 500, 'UTF-8'));
-			
+		
+		$propcount = $this->apartmentmodel->proposals_count_records(10,0,1,$apartament['apnt_count']);
+		$propprice = $this->apartmentmodel->proposals_price_records(10,0,1,$apartament['apnt_price']-5000,$apartament['apnt_price']+5000);
+		$prepregion= $this->apartmentmodel->proposals_region_records(10,0,1,$apartament['apnt_region']);
+		$allprop = array_merge($propcount,$propprice,$prepregion);
+		$keys = array_rand($allprop,3);
+		for($i=0;$i<3;$i++):
+			$pagevalue['proposals'][$i] = $allprop[$keys[$i]];
+			$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$pagevalue['proposals'][$i]['apnt_id']);
+			$pagevalue['proposals'][$i]['img_id'] = $image[$i]['img_id'];
+			$pagevalue['proposals'][$i]['img_title'] = $image[$i]['img_title'];
+			if(empty($pagevalue['proposals'][$i]['img_title'])) $pagevalue['proposals'][$i]['img_title'] = $pagevalue['proposals'][$i]['apnt_title'];
+		endfor;
 		$this->load->view('user_interface/retail_extended',$pagevalue);
 	} //функция выводит полную информацию объекта продажи;
 	

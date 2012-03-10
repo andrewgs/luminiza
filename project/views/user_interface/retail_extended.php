@@ -90,51 +90,22 @@
 
 					<h3>Похожие предложения</h3>
 					<ul class="thumbnails">
+					<?php for($i=0;$i<count($proposals);$i++):?>
 						<li class="span3">
 						  <div class="thumbnail">
-							<!--img alt="" src="http://placehold.it/180x120"-->
 							<div class="preview">
-								<a href="http://lum-tenerife.ru/retail/apartment/157">
-									<img src="http://lum-tenerife.ru/viewimage/1570" title="Ref: 011Студия в Los Cristianos" alt="Ref: 011Студия в Los Cristianos">
+								<a href="<?=base_url();?>retail/apartment/<?=$proposals[$i]['apnt_id'];?>">
+									<img alt="<?=$proposals[$i]['img_title'];?>" title="<?=$proposals[$i]['img_title'];?>" src="<?=$baseurl;?>viewimage/<?=$proposals[$i]['img_id'];?>">
 								</a>
 							</div>
 							<div class="caption_">
-							  <h5>Студия в Los Cristianos</h5>
-							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 71.000 €</p>
-							  <a href="http://lum-tenerife.ru/retail/apartment/157" class="btn primary">Подробнее</a>
+							  <h5><?=$proposals[$i]['apnt_title'];?></h5>
+							  <p class="price"><img src="<?=base_url();?>images/price-label.png"> <?=$proposals[$i]['apnt_price'];?> &euro;</p>
+							  <a href="<?=base_url();?>retail/apartment/<?=$proposals[$i]['apnt_id'];?>" class="btn primary">Подробнее</a>
 							</div>
 						  </div>
 						</li>
-						<li class="span3">
-						  <div class="thumbnail">
-							<!--img alt="" src="http://placehold.it/180x120"-->
-							<div class="preview">
-								<a href="http://lum-tenerife.ru/retail/apartment/68">
-									<img src="http://lum-tenerife.ru/viewimage/534" title="Гостинная" alt="Гостинная">
-								</a>
-							</div>
-							<div class="caption_">
-							  <h5>Апартаменты в Las Americas</h5>
-							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 80.000 €</p>
-							  <a href="http://lum-tenerife.ru/retail/apartment/68" class="btn primary">Подробнее</a>
-							</div>
-						  </div>
-						</li>
-						<li class="span3">
-						  <div class="thumbnail">
-							<!--img alt="" src="http://placehold.it/180x120"-->
-							<div class="preview">
-								<a href="http://lum-tenerife.ru/retail/apartment/156">
-									<img src="http://lum-tenerife.ru/viewimage/1562" title="Ref: 010 Студия в Las Americas" alt="Ref: 010 Студия в Las Americas">
-								</a>
-							</div>
-							<div class="caption_">
-							  <h5>Студия в Las Americas</h5>
-							  <p class="price"><img src="http://lum-tenerife.ru/images/price-label.png"> 95.000 €</p>
-							  <a href="http://lum-tenerife.ru/retail/apartment/156" class="btn primary">Подробнее</a>
-							</div>
-						  </div>
-						</li>
+					<?php endfor;?>
 					</ul>
 					<h3>Есть вопросы? Свяжитесь с нами!</h3>
 				<div>
