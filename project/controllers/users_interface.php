@@ -43,8 +43,8 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('searchback');
 		
 		$apartment = array();
-		$apartment = $this->apartmentmodel->get_limit_records(6, 0, 0, 1);
-		$rent = $this->apartmentmodel->get_limit_records(3, 0, 1, 1);
+		$apartment = $this->apartmentmodel->get_limit_retail(6,0,1);
+		$rent = $this->apartmentmodel->get_limit_rent(3,0,1);
 		for($i=0,$j=count($apartment);$i<count($rent);$i++,$j++):
 			$rent[$i]['apnt_price'] = 'Аренда';
 			$apartment[$j] = $rent[$i];
@@ -350,6 +350,11 @@ class Users_interface extends CI_Controller{
 			$pagevalue['searchback'] = $this->session->userdata('searchback');
 		endif;
 		$apartament = $this->apartmentmodel->get_record($apart_id);
+		
+		if($apartament['apnt_flag'] > 0):
+			redirect('rent/apartment/'.$apartament['apnt_id']);
+		endif;
+		
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
 		$retail['extended'] = $apartament['apnt_extended'];
@@ -589,6 +594,11 @@ class Users_interface extends CI_Controller{
 		endif;
 //		$this->session->set_userdata('backpath',$this->uri->uri_string());		
 		$apartament = $this->apartmentmodel->get_record($apart_id);
+		
+		if($apartament['apnt_flag'] > 3):
+			redirect('rent/commercial/extended/'.$apartament['apnt_id']);
+		endif;
+		
 		$retail['id'] = $apartament['apnt_id'];
 		$retail['title'] = $apartament['apnt_title'];
 		$retail['extended'] = $apartament['apnt_extended'];
@@ -845,6 +855,11 @@ class Users_interface extends CI_Controller{
 						}; break;
 			case 'apartment':{
 						$apartament = $this->apartmentmodel->get_record($rent_id);
+
+						if($apartament['apnt_flag'] == 0):
+							redirect('retail/apartment/'.$apartament['apnt_id']);
+						endif;
+						
 						$rent['id'] = $apartament['apnt_id'];
 						$rent['title'] = $apartament['apnt_title'];
 						$rent['extended'] = $apartament['apnt_extended'];
@@ -1138,6 +1153,11 @@ class Users_interface extends CI_Controller{
 		endif;
 //		$this->session->set_userdata('backpath',$this->uri->uri_string());
 		$apartament = $this->apartmentmodel->get_record($rent_id);
+		
+		if($apartament['apnt_flag'] == 3):
+			redirect('retail/commercial/extended/'.$apartament['apnt_id']);
+		endif;
+		
 		$rent['id'] = $apartament['apnt_id'];
 		$rent['title'] = $apartament['apnt_title'];
 		$rent['extended'] = $apartament['apnt_extended'];

@@ -127,12 +127,17 @@
 			-->
 			<div class="grid_8">
 				<ul class="thumbnails">
-					<? foreach ($apartment as $apt) : ?>
+					<?php foreach ($apartment as $apt): ?>
 					<li class="span3">
+					<?php if(!$apt['apnt_flag']):?>
+						<?php $type = 'retail';?>
+					<?php else:?>
+						<?php $type = 'rent';?>
+					<?php endif;?>
 					  <div class="thumbnail">
 						<!--img alt="" src="http://placehold.it/180x120"-->
 						<div class="preview">
-							<a href="<?= base_url(); ?>retail/apartment/<?= $apt['apnt_id'] ?>">
+							<a href="<?=base_url();?><?=$type;?>/apartment/<?=$apt['apnt_id'];?>">
 								<img alt="<?=$apt['img_title'];?>" title="<?=$apt['img_title'];?>" src="<?=$baseurl;?>viewimage/<?=$apt['img_id'];?>">
 							</a>
 						</div>
@@ -146,7 +151,7 @@
 							<strong>Количество комнат:</strong> <nobr><?= $apt['apnt_count']; ?></nobr><br>
 						  </p>
 						  <p class="price"><img src="<?=base_url();?>images/price-label.png"> <?= $apt['apnt_price']; ?></p>
-						  <a class="btn primary" href="<?=base_url();?>retail/apartment/<?= $apt['apnt_id']; ?>">Подробнее</a>
+						  <a class="btn primary" href="<?=base_url();?><?=$type;?>/apartment/<?= $apt['apnt_id']; ?>">Подробнее</a>
 						</div>
 					  </div>
 					</li>

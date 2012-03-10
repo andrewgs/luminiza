@@ -137,6 +137,42 @@ class Apartmentmodel extends CI_Model{
 		return $query->result_array();
 	} 
 	
+	function get_limit_rent($count,$from,$sortby){
+		//flag = [0]- продажа,[1] - аренда,[2] - продажа/аренда
+		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
+		$this->db->limit($count,$from);
+		$this->db->where('apnt_flag',1);
+		$this->db->order_by('apnt_date', 'DESC');
+		if($sortby):
+			if($sortby == 1)
+				$this->db->order_by("apnt_price","ASC");
+			else
+				$this->db->order_by("apnt_price","DESC");
+		else:
+			$this->db->order_by("apnt_price","ASC");
+		endif;
+		$query = $this->db->get('apartment');
+		return $query->result_array();
+	} 
+	
+	function get_limit_retail($count,$from,$sortby){
+		//flag = [0]- продажа,[1] - аренда,[2] - продажа/аренда
+		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
+		$this->db->limit($count,$from);
+		$this->db->where('apnt_flag',0);
+		$this->db->order_by('apnt_date', 'DESC');
+		if($sortby):
+			if($sortby == 1)
+				$this->db->order_by("apnt_price","ASC");
+			else
+				$this->db->order_by("apnt_price","DESC");
+		else:
+			$this->db->order_by("apnt_price","ASC");
+		endif;
+		$query = $this->db->get('apartment');
+		return $query->result_array();
+	} 
+	
 	function proposals_count_records($count,$from,$flag,$room){
 		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
 		if ($flag == 2)
