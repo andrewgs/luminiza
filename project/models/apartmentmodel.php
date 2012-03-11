@@ -173,13 +173,10 @@ class Apartmentmodel extends CI_Model{
 		return $query->result_array();
 	} 
 	
-	function proposals_count_records($count,$from,$flag,$room){
+	function proposals_count_records($count,$from,$room){
+	
 		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
-		if ($flag == 2)
-			$this->db->where('apnt_flag',0);
-		else
-			$this->db->where('apnt_flag',1);
-		$this->db->or_where('apnt_flag',2);
+		$this->db->where('apnt_flag',0);
 		$this->db->or_where('apnt_count',$room);
 		$this->db->order_by('apnt_date', 'DESC');
 		$this->db->limit($count,$from);
@@ -187,14 +184,11 @@ class Apartmentmodel extends CI_Model{
 		return $query->result_array();
 	} 
 	
-	function proposals_price_records($count,$from,$flag,$minprice,$maxprice){
+	function proposals_price_records($count,$from,$minprice,$maxprice){
+		
 		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
 		$this->db->limit($count,$from);
-		if ($flag == 2)
-			$this->db->where('apnt_flag',0);
-		else
-			$this->db->where('apnt_flag',1);
-		$this->db->or_where('apnt_flag',2);
+		$this->db->where('apnt_flag',0);
 		$this->db->or_where('apnt_price >=',$minprice);
 		$this->db->or_where('apnt_price <=',$maxprice);
 		$this->db->order_by('apnt_date', 'DESC');
@@ -202,14 +196,11 @@ class Apartmentmodel extends CI_Model{
 		return $query->result_array();
 	} 
 	
-	function proposals_region_records($count,$from,$flag,$region){
+	function proposals_region_records($count,$from,$region){
+		
 		$this->db->select('apnt_id,apnt_title,apnt_extended,(apnt_price)*1 AS apnt_price,(apnt_newprice)*1 AS apnt_newprice,apnt_price_rent,apnt_object,apnt_location,apnt_region,apnt_count,apnt_flag,apnt_properties,apnt_date,apnt_sold,apnt_recommended,apnt_special');
 		$this->db->limit($count,$from);
-		if ($flag == 2)
-			$this->db->where('apnt_flag',0);
-		else
-			$this->db->where('apnt_flag',1);
-		$this->db->or_where('apnt_flag',2);
+		$this->db->where('apnt_flag',0);
 		$this->db->or_where('apnt_region',$region);
 		$this->db->order_by('apnt_date','DESC');
 		$query = $this->db->get('apartment');

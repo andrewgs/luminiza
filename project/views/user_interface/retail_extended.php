@@ -99,7 +99,7 @@
 								</a>
 							</div>
 							<div class="caption_">
-							  <h5><?=$proposals[$i]['apnt_title'];?></h5>
+							  <h5><?= preg_replace("/Ref.*?:.*?\d+\s?/i", "", $proposals[$i]['apnt_title']); ?></h5>
 							  <p class="price"><img src="<?=base_url();?>images/price-label.png"> <?=$proposals[$i]['apnt_price'];?> &euro;</p>
 							  <a href="<?=base_url();?>retail/apartment/<?=$proposals[$i]['apnt_id'];?>" class="btn primary">Подробнее</a>
 							</div>

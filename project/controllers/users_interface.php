@@ -435,18 +435,28 @@ class Users_interface extends CI_Controller{
 		$pagevalue['description'] = preg_replace("/\s{2,}/", " ", trim(html_entity_decode(strip_tags($retail['extended']), ENT_QUOTES, 'UTF-8')));
 		$pagevalue['description'] = preg_replace('/"/i', "", mb_substr($pagevalue['description'], 0, 500, 'UTF-8'));
 		
-		$propcount = $this->apartmentmodel->proposals_count_records(10,0,1,$apartament['apnt_count']);
-		$propprice = $this->apartmentmodel->proposals_price_records(10,0,1,$apartament['apnt_price']-5000,$apartament['apnt_price']+5000);
-		$prepregion= $this->apartmentmodel->proposals_region_records(10,0,1,$apartament['apnt_region']);
+		$propcount = $this->apartmentmodel->proposals_count_records(30,0,$apartament['apnt_count']);
+		$propprice = $this->apartmentmodel->proposals_price_records(30,0,$apartament['apnt_price']-5000,$apartament['apnt_price']+5000);
+		$prepregion= $this->apartmentmodel->proposals_region_records(30,0,$apartament['apnt_region']);
 		$allprop = array_merge($propcount,$propprice,$prepregion);
-		$keys = array_rand($allprop,3);
-		for($i=0;$i<3;$i++):
-			$pagevalue['proposals'][$i] = $allprop[$keys[$i]];
-			$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$pagevalue['proposals'][$i]['apnt_id']);
-			$pagevalue['proposals'][$i]['img_id'] = $image[$i]['img_id'];
-			$pagevalue['proposals'][$i]['img_title'] = $image[$i]['img_title'];
-			if(empty($pagevalue['proposals'][$i]['img_title'])) $pagevalue['proposals'][$i]['img_title'] = $pagevalue['proposals'][$i]['apnt_title'];
-		endfor;
+		
+		if(count($allprop)):
+			$propkeys = array();
+			for($i=0;$i<count($allprop);$i++):
+				$propkeys[$i] = $allprop[$i]['apnt_id'];
+			endfor;
+			$propkeys = array_unique($propkeys);
+			$keys = array_rand($propkeys,3);
+			for($i=0;$i<3;$i++):
+				$pagevalue['proposals'][$i] = $allprop[$keys[$i]];
+				
+				
+				$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$pagevalue['proposals'][$i]['apnt_id']);
+				$pagevalue['proposals'][$i]['img_id'] = $image[$i]['img_id'];
+				$pagevalue['proposals'][$i]['img_title'] = $image[$i]['img_title'];
+				if(empty($pagevalue['proposals'][$i]['img_title'])) $pagevalue['proposals'][$i]['img_title'] = $pagevalue['proposals'][$i]['apnt_title'];
+			endfor;
+		endif;
 		$this->load->view('user_interface/retail_extended',$pagevalue);
 	} //функция выводит полную информацию объекта продажи;
 	
