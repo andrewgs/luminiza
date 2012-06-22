@@ -10,7 +10,10 @@ $route['about'] 						= "users_interface/about";
 $route['aviabileti'] 					= "users_interface/aviabileti";
 $route['pay']		 					= "users_interface/pay";
 
-$route['input-price']		 					= "users_interface/input_price";
+$route['input-price']		 						= "users_interface/input_price";
+$route['confirmation-of-price'] 					= "users_interface/confirmation_price";
+$route['confirmation-of-price/error'] 				= "users_interface/confirmation_price_error";
+$route['confirmation-of-price/success']				= "users_interface/confirmation_price_success";
 
 $route['transfers/confirmation-of-order'] 			= "users_interface/confirmation_order";
 $route['tour/confirmation-of-order'] 				= "users_interface/confirmation_order";

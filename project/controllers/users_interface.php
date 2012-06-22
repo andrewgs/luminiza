@@ -2263,6 +2263,7 @@ class Users_interface extends CI_Controller{
 			'title' => 'Купить недвижимость Online | Недвижимость в Испании на Тенерифе | Luminiza Property Tur S.L.',
 			'baseurl' 	=> base_url(),
 			'admin' 	=> $this->admin['status'],
+			'msg'		=> $this->session->userdata('msg'),
 			'text' 		=> $this->othertextmodel->get_record(21),
 			'sidebar' 	=> $this->sidebartextmodel->get_record(12)
 		);
@@ -2272,7 +2273,47 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('calc');
 		$this->session->unset_userdata('searchback');	
 		
+		if($this->input->post('submit')):
+			$this->form_validation->set_rules('price','','required|trim');
+			$this->form_validation->set_error_delimiters('<div class="message">','</div>');
+			if(!$this->form_validation->run()):
+				$_POST['submit'] = NULL;
+				$this->session->set_userdata('msg','Проверьте правильность заполеных полей');
+				$this->input_price();
+				return FALSE;
+			else:
+				$_POST['submit'] = NULL;
+				$this->session->set_userdata(array('upprice'=>$_POST['price']));
+				redirect('confirmation-of-price');
+			endif;
+		endif;
+		
 		$this->load->view('user_interface/input-price',$pagevalue);
+	}
+
+	function confirmation_price(){
+		
+		$pagevalue = array(
+			'description' =>'Покупайте недвижимость online, невыходя из дома. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' 	=> 'купить online, тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Купить недвижимость Online | Недвижимость в Испании на Тенерифе | Luminiza Property Tur S.L.',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'sidebar' 	=> array(),
+			'amountval'	=> ''
+		);
+		if(!$this->session->userdata('upprice')):
+			$this->session->set_userdata('msg','Ошибка хранения суммы.<br/>Повторите снова.');
+			redirect('input-price');
+		else:
+			$pagevalue['amountval'] = $this->session->userdata('upprice').'00';
+		endif;
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');	
+		$this->load->view('user_interface/confirmation-price',$pagevalue);
 	}
 
 	function confirmation_order(){
@@ -2460,6 +2501,36 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata(array('torder'=>'','trorder'=>'','trprice'=>'','place'=>'','tprice'=>'','tourid'=>'','tour'=>'','email'=>'','name'=>'','phone'=>'','date'=>'','adults'=>'','children'=>'','infants'=>'','flight'=>'','note'=>''));
 		
 		$this->load->view('user_interface/confirmation-successful',$pagevalue);
+	}
+
+	function confirmation_price_success(){
+		
+		
+		if(isset($_SERVER['HTTP_REFERER'])):
+			if($_SERVER['HTTP_REFERER'] != 'http://tpv.ceca.es:8000/cgi-bin/tpv'):
+				redirect('input-price');
+			endif;
+		endif;
+		$pagevalue = array(
+			'description' =>'',
+			'keywords' 	=> '',
+			'author' 	=> 'RealityGroup',
+			'title' 	=> 'Операция оплаты произведена успешно',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'sidebar' 	=> array(),
+			'backpath'	=> 'input-price',
+			'text'		=> 'Операция оплаты произведена успешно'
+		);
+		
+		$this->session->unset_userdata(array('upprice'=>''));
+		$this->load->view('user_interface/confirmation-price-successful',$pagevalue);
+	}
+
+	function confirmation_price_error(){
+		
+		$this->session->set_userdata('msg','Операция оплаты произведена с ошибкой или отменена');
+		redirect('input-price');
 	}
 }
 ?>
