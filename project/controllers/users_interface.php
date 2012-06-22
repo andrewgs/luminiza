@@ -449,8 +449,6 @@ class Users_interface extends CI_Controller{
 			$keys = array_rand($propkeys,3);
 			for($i=0;$i<3;$i++):
 				$pagevalue['proposals'][$i] = $allprop[$keys[$i]];
-				
-				
 				$image[$i] = $this->imagesmodel->get_type_ones_image('apartment',$pagevalue['proposals'][$i]['apnt_id']);
 				$pagevalue['proposals'][$i]['img_id'] = $image[$i]['img_id'];
 				$pagevalue['proposals'][$i]['img_title'] = $image[$i]['img_title'];
@@ -2254,6 +2252,27 @@ class Users_interface extends CI_Controller{
 		$this->session->unset_userdata('searchback');	
 		
 		$this->load->view('user_interface/pay',$pagevalue);
+	}
+
+	function input_price(){
+		
+		$pagevalue = array(
+			'description' =>'Покупайте недвижимость online, невыходя из дома. Недвижимость на Тенерифе. Продажа и аренда апартаментов, вил и коммерческой недвижимости на Канарских островах. Юридическое сопровождение сделок, оформление ипотеки. Индивидуальные экскурсии и трансферы. Агенство недвижимости Luminiza Property Tur S.L.',
+			'keywords' => 'купить online, тенерифе, канарские острова, аренда тенерифе, недвижимость на тенерифе, лас америкас, ипотека, апартаменты, виллы, тенерифе экскурсии, лоро парк, вулкан тейде, luminiza',
+			'author' => 'RealityGroup',
+			'title' => 'Купить недвижимость Online | Недвижимость в Испании на Тенерифе | Luminiza Property Tur S.L.',
+			'baseurl' 	=> base_url(),
+			'admin' 	=> $this->admin['status'],
+			'text' 		=> $this->othertextmodel->get_record(21),
+			'sidebar' 	=> $this->sidebartextmodel->get_record(12)
+		);
+		$this->session->set_userdata('backpath',$this->uri->uri_string());
+		$this->session->unset_userdata('query');
+		$this->session->unset_userdata('status');
+		$this->session->unset_userdata('calc');
+		$this->session->unset_userdata('searchback');	
+		
+		$this->load->view('user_interface/input-price',$pagevalue);
 	}
 
 	function confirmation_order(){

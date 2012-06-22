@@ -10,6 +10,8 @@ $route['about'] 						= "users_interface/about";
 $route['aviabileti'] 					= "users_interface/aviabileti";
 $route['pay']		 					= "users_interface/pay";
 
+$route['input-price']		 					= "users_interface/input_price";
+
 $route['transfers/confirmation-of-order'] 			= "users_interface/confirmation_order";
 $route['tour/confirmation-of-order'] 				= "users_interface/confirmation_order";
 
